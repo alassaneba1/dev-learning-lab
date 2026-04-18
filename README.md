@@ -4,11 +4,13 @@ A collection of interactive cheatsheets and mini-sites to learn and reference te
 
 ## Available Cheatsheets
 
-| Technology | File                                                       | Topics covered                                                 |
-| ---------- | ---------------------------------------------------------- | -------------------------------------------------------------- |
-| SQL        | [SQL_Cheatsheet_Complet.html](SQL_Cheatsheet_Complet.html) | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes… |
+| Technology | File                                                                         | Topics covered                                                 |
+| ---------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| SQL        | [SQL_Cheatsheet_Complet.html](SQL_Cheatsheet_Complet.html)                   | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes… |
+| JavaScript | [JavaScript_Cheatsheet_Complet.html](JavaScript_Cheatsheet_Complet.html)     | ES6+, closures, async/await, DOM, modules…                     |
+| TypeScript | [TypeScript_Cheatsheet_Complet.html](TypeScript_Cheatsheet_Complet.html)     | Types, interfaces, generics, utility types, decorators…        |
 
-> More coming: JavaScript, TypeScript, Java, CSS, Git, and more.
+> More coming: Java, CSS/Tailwind, Git, and more.
 
 ## How to use
 
@@ -31,8 +33,8 @@ Each cheatsheet is a **single self-contained HTML file**:
 
 ## Roadmap
 
-- [ ] JavaScript cheatsheet
-- [ ] TypeScript cheatsheet
+- [x] JavaScript cheatsheet
+- [x] TypeScript cheatsheet
 - [ ] Java cheatsheet
 - [ ] CSS / Tailwind cheatsheet
 - [ ] Git cheatsheet
