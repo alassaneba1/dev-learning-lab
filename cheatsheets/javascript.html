@@ -76,6 +76,7 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
     <input type="text" id="search" placeholder="Rechercher (Ctrl+K)" autocomplete="off">
     <span class="search-count" id="searchCount"></span>
   </div>
+  <button class="btn-menu" id="btnMenu" aria-label="Sections">☰</button>
   <button class="btn-theme" id="themeToggle" title="Thème">🌙</button>
 </header>
 
@@ -1160,6 +1161,40 @@ document.querySelectorAll('.section-title,.subsection-title').forEach(el=>{
   const a=document.createElement('a');a.href='#'+section.id;a.className='anchor-link';a.textContent='#';a.title='Copier le lien';
   el.appendChild(a);
 });
+</script>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<style>
+.btn-menu{display:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:all .2s}
+.btn-menu:hover{border-color:var(--accent);color:var(--accent)}
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.drawer-overlay.open{display:block}
+@media(max-width:900px){
+  .btn-menu{display:flex}
+  .sidebar{display:block!important;position:fixed;top:0;left:-290px;width:270px;height:100vh;z-index:160;background:var(--bg);border-right:1px solid var(--border);padding:20px 16px;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px rgba(0,0,0,.4)}
+  .sidebar.open{left:0}
+  .main{padding:24px 16px 80px}
+}
+@media(max-width:540px){
+  .search-box{display:none}
+  .btn-menu{margin-left:auto}
+  .header-tag{display:none}
+}
+@media(max-width:380px){
+  .header-title{font-size:.95rem}
+  .btn-back,.btn-menu,.btn-theme{width:32px;height:32px;font-size:.9rem}
+}
+</style>
+<script>
+(function(){
+  const btnMenu=document.getElementById('btnMenu');
+  const overlay=document.getElementById('drawerOverlay');
+  const sidebar=document.getElementById('sidebar');
+  if(!btnMenu||!sidebar)return;
+  const close=()=>{sidebar.classList.remove('open');overlay.classList.remove('open')};
+  btnMenu.addEventListener('click',()=>{const o=sidebar.classList.toggle('open');overlay.classList.toggle('open',o)});
+  overlay.addEventListener('click',close);
+  sidebar.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',close));
+})();
 </script>
 </body>
 </html>
