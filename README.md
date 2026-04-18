@@ -6,9 +6,9 @@ A collection of interactive cheatsheets and mini-sites to learn and reference te
 
 | Technology | File                                                                         | Topics covered                                                 |
 | ---------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| SQL        | [SQL_Cheatsheet_Complet.html](SQL_Cheatsheet_Complet.html)                   | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes… |
-| JavaScript | [JavaScript_Cheatsheet_Complet.html](JavaScript_Cheatsheet_Complet.html)     | ES6+, closures, async/await, DOM, modules…                     |
-| TypeScript | [TypeScript_Cheatsheet_Complet.html](TypeScript_Cheatsheet_Complet.html)     | Types, interfaces, generics, utility types, decorators…        |
+| SQL        | [cheatsheets/sql.html](cheatsheets/sql.html)               | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes… |
+| JavaScript | [cheatsheets/javascript.html](cheatsheets/javascript.html) | ES6+, closures, async/await, DOM, modules…                     |
+| TypeScript | [cheatsheets/typescript.html](cheatsheets/typescript.html) | Types, interfaces, generics, utility types, decorators…        |
 
 > More coming: Java, CSS/Tailwind, Git, and more.
 
