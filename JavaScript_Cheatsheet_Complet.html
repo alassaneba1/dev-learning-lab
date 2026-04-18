@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript — Cheatsheet Complet ES2024+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f1a;--bg2:#131729;--bg3:#1a1f36;--bg-code:#0d1117;--bg-code-line:#161b28;--surface:#1e2340;--border:#2a3050;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#f59e0b;--accent2:#fb923c;--accent3:#34d399;--accent4:#fbbf24;--accent5:#f472b6;--keyword:#c084fc;--func:#67e8f9;--str:#86efac;--num:#fcd34d;--cmt:#6b7280;--op:#f9a8d4;--glow:rgba(245,158,11,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);--radius:12px;--mark-bg:rgba(250,204,21,0.25);--mark-text:#fde047;--scrollbar-track:#131729;--scrollbar-thumb:#2a3050}
+[data-theme="light"]{--bg:#f8fafc;--bg2:#f1f5f9;--bg3:#e2e8f0;--bg-code:#fefefe;--bg-code-line:#f6f8fa;--surface:#fff;--border:#d1d5db;--text:#1e293b;--text2:#475569;--text3:#94a3b8;--accent:#d97706;--accent2:#ea580c;--accent3:#059669;--accent4:#ca8a04;--accent5:#db2777;--keyword:#7c3aed;--func:#0891b2;--str:#16a34a;--num:#ca8a04;--cmt:#9ca3af;--op:#be185d;--glow:rgba(217,119,6,0.04);--shadow:0 4px 24px rgba(0,0,0,0.06);--mark-bg:rgba(250,204,21,0.35);--mark-text:#92400e;--scrollbar-track:#f1f5f9;--scrollbar-thumb:#cbd5e1}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;font-size:16px}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .35s,color .35s}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--scrollbar-track)}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:4px}
+::selection{background:var(--accent);color:#fff}
+mark{background:var(--mark-bg);color:var(--mark-text);border-radius:2px;padding:0 2px}
+.header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:12px 24px;display:flex;align-items:center;gap:16px;transition:background .35s,border-color .35s}
+.header-title{font-weight:800;font-size:1.25rem;letter-spacing:-.5px;white-space:nowrap;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-tag{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent3);border:1px solid var(--accent3);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.search-box{flex:1;max-width:420px;position:relative;margin-left:auto}
+.search-box input{width:100%;padding:8px 14px 8px 38px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,158,11,.15)}
+.search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
+.search-count{font-size:.75rem;color:var(--text3);position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none}
+.btn-theme{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .2s;flex-shrink:0}
+.btn-theme:hover{border-color:var(--accent);color:var(--accent)}
+.layout{display:flex;max-width:1400px;margin:0 auto}
+.sidebar{width:270px;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto;padding:20px 16px;border-right:1px solid var(--border);flex-shrink:0;transition:border-color .35s}
+.sidebar::-webkit-scrollbar{width:4px}
+.nav-group-title{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin:18px 0 6px}.nav-group-title:first-child{margin-top:0}
+.nav-link{display:block;font-size:.82rem;color:var(--text2);text-decoration:none;padding:5px 10px;border-radius:6px;transition:all .15s;line-height:1.4}
+.nav-link:hover{background:var(--glow);color:var(--accent)}.nav-link.active{background:var(--glow);color:var(--accent);font-weight:600}
+.main{flex:1;min-width:0;padding:32px 40px 80px}
+.section{margin-bottom:48px;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.section-num{font-size:.7rem;font-weight:800;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.5px}
+.subsection-title{font-size:1rem;font-weight:600;color:var(--accent2);margin:24px 0 10px;display:flex;align-items:center;gap:8px}
+.subsection-title::before{content:"▸";color:var(--accent2);font-size:.9rem}
+p.desc{color:var(--text2);font-size:.9rem;margin-bottom:12px;font-weight:300}
+.note{font-size:.82rem;color:var(--accent4);font-style:italic;margin:8px 0;padding-left:12px;border-left:3px solid var(--accent4)}
+.code-block{position:relative;background:var(--bg-code);border:1px solid var(--border);border-radius:var(--radius);margin:10px 0 16px;overflow:hidden;transition:border-color .35s,background .35s}
+.code-block:hover{border-color:var(--accent)}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.btn-copy{background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;padding:2px 10px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:.7rem;transition:all .2s}
+.btn-copy:hover{border-color:var(--accent);color:var(--accent)}.btn-copy.copied{border-color:var(--accent3);color:var(--accent3)}
+.code-block pre{padding:14px 18px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7;tab-size:2}
+.code-block code{font-family:inherit}
+.kw{color:var(--keyword);font-weight:600}.fn{color:var(--func)}.str{color:var(--str)}.num{color:var(--num)}.cmt{color:var(--cmt);font-style:italic}.op{color:var(--op)}.sym{color:var(--text3)}
+.table-wrap{overflow-x:auto;margin:10px 0 16px;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead th{background:var(--surface);color:var(--accent);font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;position:sticky;top:0}
+tbody td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text)}
+tbody tr:nth-child(even){background:var(--glow)}tbody tr:hover{background:rgba(245,158,11,.06)}
+td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-serif}
+.back-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(245,158,11,.4);opacity:0;transform:translateY(20px);transition:all .3s;z-index:50}
+.back-top.visible{opacity:1;transform:translateY(0)}.back-top:hover{transform:scale(1.1)}
+@media(max-width:900px){.sidebar{display:none}.main{padding:24px 16px 60px}.header{padding:10px 14px;gap:10px}.header-title{font-size:1rem}.header-tag{display:none}}
+@media(max-width:500px){.search-box{max-width:200px}}
+@media print{.header,.sidebar,.back-top,.btn-copy,.code-header{display:none!important}.layout{display:block}.main{padding:0}.code-block{break-inside:avoid;border:1px solid #ccc}body{background:#fff;color:#000;font-size:10pt}}
+</style>
+</head>
+<body>
+
+<header class="header" id="top">
+  <span class="header-title">JavaScript Cheatsheet</span>
+  <span class="header-tag">ES2024+</span>
+  <div class="search-box">
+    <span class="icon">🔍</span>
+    <input type="text" id="search" placeholder="Rechercher (Ctrl+K)" autocomplete="off">
+    <span class="search-count" id="searchCount"></span>
+  </div>
+  <button class="btn-theme" id="themeToggle" title="Thème">🌙</button>
+</header>
+
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="nav-group-title">Bases</div>
+  <a class="nav-link" href="#s1">1. Variables & Types</a>
+  <a class="nav-link" href="#s2">2. Opérateurs</a>
+  <a class="nav-link" href="#s3">3. Structures de contrôle</a>
+  <a class="nav-link" href="#s4">4. Fonctions</a>
+  <a class="nav-link" href="#s5">5. Strings</a>
+  <a class="nav-link" href="#s6">6. Numbers & Math</a>
+
+  <div class="nav-group-title">Collections</div>
+  <a class="nav-link" href="#s7">7. Arrays</a>
+  <a class="nav-link" href="#s8">8. Objets</a>
+  <a class="nav-link" href="#s9">9. Map, Set, WeakMap, WeakSet</a>
+  <a class="nav-link" href="#s10">10. Destructuring & Spread</a>
+
+  <div class="nav-group-title">Avancé</div>
+  <a class="nav-link" href="#s11">11. Classes & OOP</a>
+  <a class="nav-link" href="#s12">12. Promises & Async/Await</a>
+  <a class="nav-link" href="#s13">13. Modules (ESM)</a>
+  <a class="nav-link" href="#s14">14. Iterators & Generators</a>
+  <a class="nav-link" href="#s15">15. Proxy & Reflect</a>
+  <a class="nav-link" href="#s16">16. Symbols</a>
+
+  <div class="nav-group-title">API & Patterns</div>
+  <a class="nav-link" href="#s17">17. Regex</a>
+  <a class="nav-link" href="#s18">18. Date & Intl</a>
+  <a class="nav-link" href="#s19">19. JSON</a>
+  <a class="nav-link" href="#s20">20. Error Handling</a>
+  <a class="nav-link" href="#s21">21. DOM</a>
+  <a class="nav-link" href="#s22">22. Events</a>
+  <a class="nav-link" href="#s23">23. Fetch & HTTP</a>
+  <a class="nav-link" href="#s24">24. Storage & Web APIs</a>
+  <a class="nav-link" href="#s25">25. ES2022–2024 Nouveautés</a>
+  <a class="nav-link" href="#s26">26. Bonnes pratiques</a>
+</nav>
+
+<main class="main" id="content">
+
+<!-- ══════════ 1 ══════════ -->
+<div class="section" id="s1">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">1</span><h2 class="section-title">Variables & Types</h2></div>
+
+<h3 class="subsection-title">Déclaration</h3>
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">const</span> PI = <span class="num">3.14</span>;        <span class="cmt">// immuable (binding, pas valeur)</span>
+<span class="kw">let</span> count = <span class="num">0</span>;           <span class="cmt">// réassignable, block-scoped</span>
+<span class="kw">var</span> legacy = <span class="str">"éviter"</span>;    <span class="cmt">// function-scoped, hoisted → ne plus utiliser</span>
+
+<span class="cmt">// const pour tout par défaut, let si réassignation nécessaire</span></code></pre></div>
+
+<h3 class="subsection-title">Types primitifs (7) + Object</h3>
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">typeof</span> <span class="str">"hello"</span>       <span class="cmt">// "string"</span>
+<span class="kw">typeof</span> <span class="num">42</span>             <span class="cmt">// "number"    (64-bit float, pas d'int)</span>
+<span class="kw">typeof</span> <span class="num">42n</span>            <span class="cmt">// "bigint"    (précision arbitraire)</span>
+<span class="kw">typeof</span> <span class="kw">true</span>           <span class="cmt">// "boolean"</span>
+<span class="kw">typeof</span> <span class="kw">undefined</span>      <span class="cmt">// "undefined"</span>
+<span class="kw">typeof</span> <span class="kw">null</span>           <span class="cmt">// "object"    ⚠️ bug historique</span>
+<span class="kw">typeof</span> <span class="fn">Symbol</span>()       <span class="cmt">// "symbol"</span>
+<span class="kw">typeof</span> {}             <span class="cmt">// "object"</span>
+<span class="kw">typeof</span> []             <span class="cmt">// "object"    → utiliser Array.isArray()</span>
+<span class="kw">typeof</span> <span class="kw">function</span>(){}  <span class="cmt">// "function"</span></code></pre></div>
+
+<h3 class="subsection-title">Conversions & Vérifications</h3>
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Vers nombre</span>
+<span class="fn">Number</span>(<span class="str">"42"</span>)          <span class="cmt">// 42</span>
+<span class="fn">parseInt</span>(<span class="str">"42px"</span>, <span class="num">10</span>)  <span class="cmt">// 42</span>
+<span class="fn">parseFloat</span>(<span class="str">"3.14"</span>)    <span class="cmt">// 3.14</span>
++<span class="str">"42"</span>                  <span class="cmt">// 42 (unary +)</span>
+
+<span class="cmt">// Vers string</span>
+<span class="fn">String</span>(<span class="num">42</span>)            <span class="cmt">// "42"</span>
+(<span class="num">42</span>).<span class="fn">toString</span>(<span class="num">16</span>)     <span class="cmt">// "2a" (base 16)</span>
+
+<span class="cmt">// Vers booléen — valeurs falsy :</span>
+<span class="cmt">// false, 0, -0, 0n, "", null, undefined, NaN</span>
+<span class="fn">Boolean</span>(<span class="str">""</span>)           <span class="cmt">// false</span>
+!!<span class="str">"hello"</span>             <span class="cmt">// true</span>
+
+<span class="cmt">// Vérifications</span>
+<span class="fn">Number.isFinite</span>(x)    <span class="fn">Number.isNaN</span>(x)    <span class="fn">Number.isInteger</span>(x)
+<span class="fn">Array.isArray</span>([])     <span class="cmt">// true</span>
+x <span class="kw">instanceof</span> Date     <span class="cmt">// true si x est une Date</span></code></pre></div>
+</div>
+
+<!-- ══════════ 2 ══════════ -->
+<div class="section" id="s2">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">2</span><h2 class="section-title">Opérateurs</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Comparaison</span>
+===  !==            <span class="cmt">// strict (type + valeur) → TOUJOURS utiliser</span>
+==   !=             <span class="cmt">// loose (coercion) → éviter</span>
+
+<span class="cmt">// Logiques</span>
+&&   ||   !         <span class="cmt">// ET, OU, NON</span>
+a ?? b              <span class="cmt">// Nullish coalescing : b si a est null/undefined (pas 0/"")</span>
+a ??= b             <span class="cmt">// Assign si null/undefined</span>
+a ||= b             <span class="cmt">// Assign si falsy</span>
+a &&= b             <span class="cmt">// Assign si truthy</span>
+
+<span class="cmt">// Optional chaining</span>
+obj?.prop            <span class="cmt">// undefined si obj est null/undefined</span>
+obj?.[expr]          <span class="cmt">// accès dynamique</span>
+obj?.method()        <span class="cmt">// appel conditionnel</span>
+arr?.[<span class="num">0</span>]             <span class="cmt">// accès tableau</span>
+
+<span class="cmt">// Arithmétique</span>
++  -  *  /  %       <span class="cmt">// classiques</span>
+**                   <span class="cmt">// exponentiation : 2 ** 3 === 8</span>
+
+<span class="cmt">// Bitwise</span>
+&amp;  |  ^  ~  &lt;&lt;  &gt;&gt;  &gt;&gt;&gt;
+
+<span class="cmt">// Ternaire</span>
+<span class="kw">const</span> msg = age &gt;= <span class="num">18</span> ? <span class="str">"majeur"</span> : <span class="str">"mineur"</span>;
+
+<span class="cmt">// Virgule, void, typeof, in, instanceof, delete</span>
+<span class="str">"name"</span> <span class="kw">in</span> obj        <span class="cmt">// true si propriété existe</span>
+<span class="kw">delete</span> obj.prop       <span class="cmt">// supprime une propriété</span></code></pre></div>
+</div>
+
+<!-- ══════════ 3 ══════════ -->
+<div class="section" id="s3">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">3</span><h2 class="section-title">Structures de contrôle</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// if / else if / else</span>
+<span class="kw">if</span> (x &gt; <span class="num">0</span>) { ... }
+<span class="kw">else if</span> (x === <span class="num">0</span>) { ... }
+<span class="kw">else</span> { ... }
+
+<span class="cmt">// switch</span>
+<span class="kw">switch</span> (action) {
+  <span class="kw">case</span> <span class="str">"start"</span>: run(); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="str">"stop"</span>:  halt(); <span class="kw">break</span>;
+  <span class="kw">default</span>: idle();
+}
+
+<span class="cmt">// Boucles</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; n; i++) { ... }
+
+<span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> iterable) { ... }  <span class="cmt">// tableaux, strings, Map, Set</span>
+<span class="kw">for</span> (<span class="kw">const</span> key <span class="kw">in</span> obj) { ... }        <span class="cmt">// clés d'objet (+ proto) — éviter</span>
+
+<span class="kw">while</span> (cond) { ... }
+<span class="kw">do</span> { ... } <span class="kw">while</span> (cond);
+
+<span class="cmt">// Contrôle de boucle</span>
+<span class="kw">break</span>       <span class="cmt">// sort de la boucle</span>
+<span class="kw">continue</span>    <span class="cmt">// itération suivante</span>
+<span class="kw">break</span> label <span class="cmt">// sort d'une boucle nommée</span>
+
+<span class="cmt">// for...of avec index</span>
+<span class="kw">for</span> (<span class="kw">const</span> [i, val] <span class="kw">of</span> arr.<span class="fn">entries</span>()) { ... }</code></pre></div>
+</div>
+
+<!-- ══════════ 4 ══════════ -->
+<div class="section" id="s4">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">4</span><h2 class="section-title">Fonctions</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Déclaration (hoisted)</span>
+<span class="kw">function</span> <span class="fn">add</span>(a, b) { <span class="kw">return</span> a + b; }
+
+<span class="cmt">// Expression</span>
+<span class="kw">const</span> <span class="fn">add</span> = <span class="kw">function</span>(a, b) { <span class="kw">return</span> a + b; };
+
+<span class="cmt">// Arrow function (pas de this propre, pas de arguments)</span>
+<span class="kw">const</span> <span class="fn">add</span> = (a, b) =&gt; a + b;              <span class="cmt">// return implicite</span>
+<span class="kw">const</span> <span class="fn">greet</span> = name =&gt; <span class="str">`Hello ${</span>name<span class="str">}`</span>;    <span class="cmt">// 1 param : pas de ()</span>
+<span class="kw">const</span> <span class="fn">getObj</span> = () =&gt; ({ key: <span class="str">"val"</span> });     <span class="cmt">// retourner un objet : ({})</span>
+
+<span class="cmt">// Paramètres par défaut</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name = <span class="str">"World"</span>) { ... }
+
+<span class="cmt">// Rest parameters</span>
+<span class="kw">function</span> <span class="fn">sum</span>(...nums) { <span class="kw">return</span> nums.<span class="fn">reduce</span>((a,b) =&gt; a+b, <span class="num">0</span>); }
+
+<span class="cmt">// IIFE (Immediately Invoked)</span>
+(<span class="kw">function</span>() { ... })();
+(() =&gt; { ... })();
+
+<span class="cmt">// Closures</span>
+<span class="kw">function</span> <span class="fn">counter</span>() {
+  <span class="kw">let</span> n = <span class="num">0</span>;
+  <span class="kw">return</span> { inc: () =&gt; ++n, get: () =&gt; n };
+}
+
+<span class="cmt">// Currying</span>
+<span class="kw">const</span> <span class="fn">multiply</span> = a =&gt; b =&gt; a * b;
+<span class="kw">const</span> double = <span class="fn">multiply</span>(<span class="num">2</span>);  <span class="cmt">// double(5) === 10</span>
+
+<span class="cmt">// Arguments object (pas dans arrow functions)</span>
+<span class="kw">function</span> <span class="fn">legacy</span>() { <span class="kw">return</span> <span class="kw">arguments</span>.length; }</code></pre></div>
+</div>
+
+<!-- ══════════ 5 ══════════ -->
+<div class="section" id="s5">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#67e8f9)">5</span><h2 class="section-title">Strings</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Template literals</span>
+<span class="kw">const</span> msg = <span class="str">`Hello ${</span>name<span class="str">}, tu as ${</span>age<span class="str">} ans`</span>;
+<span class="kw">const</span> multi = <span class="str">`ligne 1
+ligne 2`</span>;
+
+<span class="cmt">// Tagged templates</span>
+<span class="kw">function</span> <span class="fn">html</span>(strings, ...vals) { <span class="cmt">/* custom processing */</span> }
+<span class="fn">html</span><span class="str">`&lt;p&gt;${</span>name<span class="str">}&lt;/p&gt;`</span>;
+
+<span class="cmt">// Méthodes courantes</span>
+s.<span class="fn">length</span>                      <span class="cmt">// longueur</span>
+s.<span class="fn">at</span>(<span class="num">-1</span>)                      <span class="cmt">// dernier char (ES2022)</span>
+s.<span class="fn">includes</span>(<span class="str">"abc"</span>)             <span class="cmt">// true/false</span>
+s.<span class="fn">startsWith</span>(<span class="str">"He"</span>)            <span class="cmt">// true/false</span>
+s.<span class="fn">endsWith</span>(<span class="str">".js"</span>)              <span class="cmt">// true/false</span>
+s.<span class="fn">indexOf</span>(<span class="str">"abc"</span>)              <span class="cmt">// index ou -1</span>
+s.<span class="fn">slice</span>(<span class="num">1</span>, <span class="num">5</span>)                 <span class="cmt">// extraction (négatifs ok)</span>
+s.<span class="fn">substring</span>(<span class="num">1</span>, <span class="num">5</span>)             <span class="cmt">// comme slice mais pas de négatifs</span>
+s.<span class="fn">toUpperCase</span>()  s.<span class="fn">toLowerCase</span>()
+s.<span class="fn">trim</span>()  s.<span class="fn">trimStart</span>()  s.<span class="fn">trimEnd</span>()
+s.<span class="fn">padStart</span>(<span class="num">5</span>, <span class="str">"0"</span>)            <span class="cmt">// "00042"</span>
+s.<span class="fn">padEnd</span>(<span class="num">10</span>, <span class="str">"."</span>)             <span class="cmt">// "hello....."</span>
+s.<span class="fn">repeat</span>(<span class="num">3</span>)                   <span class="cmt">// "abcabcabc"</span>
+s.<span class="fn">replace</span>(<span class="str">"a"</span>, <span class="str">"b"</span>)          <span class="cmt">// premier seulement</span>
+s.<span class="fn">replaceAll</span>(<span class="str">"a"</span>, <span class="str">"b"</span>)       <span class="cmt">// tous</span>
+s.<span class="fn">split</span>(<span class="str">","</span>)                   <span class="cmt">// → array</span>
+s.<span class="fn">match</span>(/regex/)              <span class="cmt">// → array ou null</span>
+s.<span class="fn">matchAll</span>(/regex/g)          <span class="cmt">// → iterator</span>
+s.<span class="fn">search</span>(/regex/)             <span class="cmt">// → index ou -1</span>
+s.<span class="fn">normalize</span>(<span class="str">"NFC"</span>)            <span class="cmt">// normalisation Unicode</span>
+s.<span class="fn">codePointAt</span>(<span class="num">0</span>)              <span class="cmt">// code Unicode</span>
+<span class="fn">String.fromCodePoint</span>(<span class="num">128512</span>)  <span class="cmt">// emoji à partir du code</span>
+
+<span class="cmt">// Chaîne immutable — chaque méthode retourne une NOUVELLE chaîne</span></code></pre></div>
+</div>
+
+<!-- ══════════ 6 ══════════ -->
+<div class="section" id="s6">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#dc2626,#f87171)">6</span><h2 class="section-title">Numbers & Math</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Littéraux</span>
+<span class="num">255</span>    <span class="num">0xFF</span>    <span class="num">0o377</span>    <span class="num">0b11111111</span>    <span class="cmt">// décimal, hex, octal, binaire</span>
+<span class="num">1_000_000</span>                                  <span class="cmt">// séparateur numérique (ES2021)</span>
+<span class="num">42n</span>                                        <span class="cmt">// BigInt</span>
+
+<span class="cmt">// Constantes</span>
+<span class="fn">Number.MAX_SAFE_INTEGER</span>   <span class="cmt">// 2^53 - 1</span>
+<span class="fn">Number.MIN_SAFE_INTEGER</span>   <span class="fn">Number.EPSILON</span>
+<span class="fn">Infinity</span>   -<span class="fn">Infinity</span>   <span class="fn">NaN</span>
+
+<span class="cmt">// Vérifications</span>
+<span class="fn">Number.isNaN</span>(x)           <span class="cmt">// ≠ isNaN() global (coercion)</span>
+<span class="fn">Number.isFinite</span>(x)
+<span class="fn">Number.isInteger</span>(x)
+<span class="fn">Number.isSafeInteger</span>(x)
+
+<span class="cmt">// Formatage</span>
+(<span class="num">3.14159</span>).<span class="fn">toFixed</span>(<span class="num">2</span>)      <span class="cmt">// "3.14"</span>
+(<span class="num">1234.5</span>).<span class="fn">toLocaleString</span>(<span class="str">"fr-FR"</span>)  <span class="cmt">// "1 234,5"</span>
+(<span class="num">255</span>).<span class="fn">toString</span>(<span class="num">16</span>)        <span class="cmt">// "ff"</span>
+
+<span class="cmt">// Math</span>
+<span class="fn">Math.round</span>(x)  <span class="fn">Math.ceil</span>(x)  <span class="fn">Math.floor</span>(x)  <span class="fn">Math.trunc</span>(x)
+<span class="fn">Math.abs</span>(x)    <span class="fn">Math.sign</span>(x)  <span class="fn">Math.sqrt</span>(x)   <span class="fn">Math.cbrt</span>(x)
+<span class="fn">Math.pow</span>(x,n)  <span class="fn">Math.log</span>(x)   <span class="fn">Math.log2</span>(x)   <span class="fn">Math.log10</span>(x)
+<span class="fn">Math.min</span>(...arr)  <span class="fn">Math.max</span>(...arr)
+<span class="fn">Math.random</span>()              <span class="cmt">// [0, 1)</span>
+<span class="fn">Math.floor</span>(<span class="fn">Math.random</span>() * (max - min + <span class="num">1</span>)) + min  <span class="cmt">// entier [min, max]</span>
+<span class="fn">Math.PI</span>  <span class="fn">Math.E</span>
+<span class="fn">Math.hypot</span>(a, b)           <span class="cmt">// √(a² + b²)</span>
+<span class="fn">Math.clz32</span>(x)              <span class="cmt">// leading zeros 32-bit</span></code></pre></div>
+</div>
+
+<!-- ══════════ 7 ══════════ -->
+<div class="section" id="s7">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#2563eb,#60a5fa)">7</span><h2 class="section-title">Arrays</h2></div>
+
+<h3 class="subsection-title">Création</h3>
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">const</span> a = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="kw">const</span> b = <span class="fn">Array.from</span>({ length: <span class="num">5</span> }, (_, i) =&gt; i);  <span class="cmt">// [0,1,2,3,4]</span>
+<span class="kw">const</span> c = <span class="fn">Array.from</span>(<span class="str">"hello"</span>);                      <span class="cmt">// ["h","e","l","l","o"]</span>
+<span class="kw">const</span> d = <span class="fn">Array</span>(<span class="num">5</span>).<span class="fn">fill</span>(<span class="num">0</span>);                          <span class="cmt">// [0,0,0,0,0]</span>
+<span class="kw">const</span> e = <span class="fn">Array.of</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>);                        <span class="cmt">// [1,2,3]</span></code></pre></div>
+
+<h3 class="subsection-title">Méthodes qui MODIFIENT le tableau (mutating)</h3>
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code>arr.<span class="fn">push</span>(...items)       <span class="cmt">// ajoute à la fin → retourne length</span>
+arr.<span class="fn">pop</span>()                <span class="cmt">// retire le dernier → retourne l'élément</span>
+arr.<span class="fn">unshift</span>(...items)    <span class="cmt">// ajoute au début</span>
+arr.<span class="fn">shift</span>()              <span class="cmt">// retire le premier</span>
+arr.<span class="fn">splice</span>(i, del, ...add) <span class="cmt">// supprime/insère à l'index i</span>
+arr.<span class="fn">sort</span>((a,b) =&gt; a-b)   <span class="cmt">// tri en place (⚠️ alphabétique par défaut)</span>
+arr.<span class="fn">reverse</span>()            <span class="cmt">// inverse en place</span>
+arr.<span class="fn">fill</span>(val, start, end) <span class="cmt">// remplit</span>
+arr.<span class="fn">copyWithin</span>(t, s, e)  <span class="cmt">// copie interne</span></code></pre></div>
+
+<h3 class="subsection-title">Méthodes qui RETOURNENT un nouveau tableau (non-mutating)</h3>
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code>arr.<span class="fn">map</span>(x =&gt; x * <span class="num">2</span>)          <span class="cmt">// transforme chaque élément</span>
+arr.<span class="fn">filter</span>(x =&gt; x &gt; <span class="num">0</span>)        <span class="cmt">// garde les éléments truthy</span>
+arr.<span class="fn">reduce</span>((acc, x) =&gt; acc + x, <span class="num">0</span>)  <span class="cmt">// accumule</span>
+arr.<span class="fn">reduceRight</span>(...)           <span class="cmt">// de droite à gauche</span>
+arr.<span class="fn">flat</span>(<span class="num">2</span>)                    <span class="cmt">// aplatit 2 niveaux</span>
+arr.<span class="fn">flatMap</span>(x =&gt; [x, x*<span class="num">2</span>])    <span class="cmt">// map + flat(1)</span>
+arr.<span class="fn">slice</span>(start, end)          <span class="cmt">// extraction</span>
+arr.<span class="fn">concat</span>(other)              <span class="cmt">// fusion</span>
+[...a, ...b]                    <span class="cmt">// fusion (spread)</span>
+
+<span class="cmt">// ES2023 — versions non-mutating de sort/reverse/splice</span>
+arr.<span class="fn">toSorted</span>((a,b) =&gt; a-b)    <span class="cmt">// sort sans muter</span>
+arr.<span class="fn">toReversed</span>()               <span class="cmt">// reverse sans muter</span>
+arr.<span class="fn">toSpliced</span>(i, del, ...add)  <span class="cmt">// splice sans muter</span>
+arr.<span class="fn">with</span>(index, value)         <span class="cmt">// remplace un index sans muter</span></code></pre></div>
+
+<h3 class="subsection-title">Recherche & Test</h3>
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code>arr.<span class="fn">find</span>(x =&gt; x &gt; <span class="num">5</span>)          <span class="cmt">// 1er élément correspondant</span>
+arr.<span class="fn">findIndex</span>(x =&gt; x &gt; <span class="num">5</span>)     <span class="cmt">// index du 1er correspondant</span>
+arr.<span class="fn">findLast</span>(x =&gt; x &gt; <span class="num">5</span>)      <span class="cmt">// dernier correspondant (ES2023)</span>
+arr.<span class="fn">findLastIndex</span>(...)         <span class="cmt">// index du dernier (ES2023)</span>
+arr.<span class="fn">includes</span>(val)              <span class="cmt">// true/false</span>
+arr.<span class="fn">indexOf</span>(val)               <span class="cmt">// index ou -1</span>
+arr.<span class="fn">every</span>(x =&gt; x &gt; <span class="num">0</span>)         <span class="cmt">// tous vérifient ?</span>
+arr.<span class="fn">some</span>(x =&gt; x &gt; <span class="num">0</span>)          <span class="cmt">// au moins un ?</span>
+
+<span class="cmt">// Itération</span>
+arr.<span class="fn">forEach</span>((val, i, arr) =&gt; { ... })
+arr.<span class="fn">entries</span>()  arr.<span class="fn">keys</span>()  arr.<span class="fn">values</span>()
+arr.<span class="fn">at</span>(<span class="num">-1</span>)                      <span class="cmt">// dernier élément (ES2022)</span>
+
+<span class="cmt">// Conversion</span>
+arr.<span class="fn">join</span>(<span class="str">", "</span>)                 <span class="cmt">// → string</span>
+<span class="fn">Array.isArray</span>(arr)             <span class="cmt">// true</span>
+<span class="fn">structuredClone</span>(arr)           <span class="cmt">// deep clone</span></code></pre></div>
+</div>
+
+<!-- ══════════ 8 ══════════ -->
+<div class="section" id="s8">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ea580c,#fb923c)">8</span><h2 class="section-title">Objets</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Création</span>
+<span class="kw">const</span> obj = { name: <span class="str">"Alice"</span>, age: <span class="num">30</span> };
+<span class="kw">const</span> obj2 = <span class="fn">Object.create</span>(proto);
+
+<span class="cmt">// Shorthand</span>
+<span class="kw">const</span> name = <span class="str">"Alice"</span>;
+<span class="kw">const</span> obj = { name, <span class="fn">greet</span>() { <span class="kw">return</span> <span class="str">`Hi ${</span><span class="kw">this</span>.name<span class="str">}`</span>; } };
+
+<span class="cmt">// Computed property names</span>
+<span class="kw">const</span> key = <span class="str">"color"</span>;
+<span class="kw">const</span> obj = { [key]: <span class="str">"blue"</span>, [<span class="str">`get_${</span>key<span class="str">}`</span>]() { <span class="kw">return</span> <span class="kw">this</span>[key]; } };
+
+<span class="cmt">// Accès</span>
+obj.name       obj[<span class="str">"name"</span>]       obj?.nested?.prop
+
+<span class="cmt">// Méthodes statiques</span>
+<span class="fn">Object.keys</span>(obj)              <span class="cmt">// ["name", "age"]</span>
+<span class="fn">Object.values</span>(obj)            <span class="cmt">// ["Alice", 30]</span>
+<span class="fn">Object.entries</span>(obj)           <span class="cmt">// [["name","Alice"], ["age",30]]</span>
+<span class="fn">Object.fromEntries</span>(entries)   <span class="cmt">// inverse de entries</span>
+<span class="fn">Object.assign</span>(target, ...sources) <span class="cmt">// shallow merge (mute target)</span>
+{ ...obj1, ...obj2 }          <span class="cmt">// shallow merge (immutable)</span>
+<span class="fn">structuredClone</span>(obj)          <span class="cmt">// deep clone</span>
+
+<span class="cmt">// Figer un objet</span>
+<span class="fn">Object.freeze</span>(obj)            <span class="cmt">// lecture seule (shallow)</span>
+<span class="fn">Object.seal</span>(obj)              <span class="cmt">// pas d'ajout/suppression, modif ok</span>
+<span class="fn">Object.isFrozen</span>(obj)          <span class="fn">Object.isSealed</span>(obj)
+
+<span class="cmt">// Property descriptors</span>
+<span class="fn">Object.defineProperty</span>(obj, <span class="str">"prop"</span>, {
+  value: <span class="num">42</span>, writable: <span class="kw">false</span>, enumerable: <span class="kw">true</span>, configurable: <span class="kw">false</span>
+});
+<span class="fn">Object.getOwnPropertyDescriptor</span>(obj, <span class="str">"prop"</span>)
+
+<span class="cmt">// Vérifications</span>
+<span class="str">"name"</span> <span class="kw">in</span> obj                <span class="cmt">// true (inclut prototype)</span>
+obj.<span class="fn">hasOwnProperty</span>(<span class="str">"name"</span>)   <span class="cmt">// true (propre seulement)</span>
+<span class="fn">Object.hasOwn</span>(obj, <span class="str">"name"</span>)   <span class="cmt">// ES2022 — préférer</span>
+
+<span class="cmt">// Prototype</span>
+<span class="fn">Object.getPrototypeOf</span>(obj)
+<span class="fn">Object.setPrototypeOf</span>(obj, proto)
+obj <span class="kw">instanceof</span> Constructor</code></pre></div>
+</div>
+
+<!-- ══════════ 9 ══════════ -->
+<div class="section" id="s9">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c2d12,#c2410c)">9</span><h2 class="section-title">Map, Set, WeakMap, WeakSet</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Map (clé → valeur, clés de tout type) ──</span>
+<span class="kw">const</span> map = <span class="kw">new</span> <span class="fn">Map</span>([  [<span class="str">"a"</span>, <span class="num">1</span>], [<span class="str">"b"</span>, <span class="num">2</span>]  ]);
+map.<span class="fn">set</span>(key, val)     map.<span class="fn">get</span>(key)     map.<span class="fn">has</span>(key)
+map.<span class="fn">delete</span>(key)       map.<span class="fn">clear</span>()      map.<span class="fn">size</span>
+map.<span class="fn">forEach</span>((val, key) =&gt; { ... })
+<span class="kw">for</span> (<span class="kw">const</span> [k, v] <span class="kw">of</span> map) { ... }
+map.<span class="fn">keys</span>()   map.<span class="fn">values</span>()   map.<span class="fn">entries</span>()
+
+<span class="cmt">// Map vs Object : clés non-string, ordre d'insertion garanti,</span>
+<span class="cmt">// .size, itérable, pas de pollution prototype</span>
+
+<span class="cmt">// ── Set (valeurs uniques) ──</span>
+<span class="kw">const</span> set = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">2</span>]);  <span class="cmt">// {1, 2, 3}</span>
+set.<span class="fn">add</span>(val)   set.<span class="fn">has</span>(val)   set.<span class="fn">delete</span>(val)   set.<span class="fn">clear</span>()   set.<span class="fn">size</span>
+[...<span class="kw">new</span> <span class="fn">Set</span>(arr)]               <span class="cmt">// dédupliquer un array</span>
+
+<span class="cmt">// ES2025 — Set methods</span>
+setA.<span class="fn">union</span>(setB)                <span class="cmt">// A ∪ B</span>
+setA.<span class="fn">intersection</span>(setB)         <span class="cmt">// A ∩ B</span>
+setA.<span class="fn">difference</span>(setB)           <span class="cmt">// A \ B</span>
+setA.<span class="fn">symmetricDifference</span>(setB)  <span class="cmt">// (A \ B) ∪ (B \ A)</span>
+setA.<span class="fn">isSubsetOf</span>(setB)           <span class="cmt">// A ⊆ B</span>
+setA.<span class="fn">isSupersetOf</span>(setB)         <span class="cmt">// A ⊇ B</span>
+setA.<span class="fn">isDisjointFrom</span>(setB)       <span class="cmt">// A ∩ B = ∅</span>
+
+<span class="cmt">// ── WeakMap / WeakSet ──</span>
+<span class="cmt">// Clés = objets uniquement, garbage-collectées si plus de référence</span>
+<span class="cmt">// Pas itérable, pas de .size, pas de .clear()</span>
+<span class="kw">const</span> wm = <span class="kw">new</span> <span class="fn">WeakMap</span>();  wm.<span class="fn">set</span>(obj, data);
+<span class="kw">const</span> ws = <span class="kw">new</span> <span class="fn">WeakSet</span>();  ws.<span class="fn">add</span>(obj);</code></pre></div>
+</div>
+
+<!-- ══════════ 10 ══════════ -->
+<div class="section" id="s10">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#4f46e5,#818cf8)">10</span><h2 class="section-title">Destructuring & Spread</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Array destructuring ──</span>
+<span class="kw">const</span> [a, b, c] = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="kw">const</span> [first, , third] = arr;          <span class="cmt">// skip 2e</span>
+<span class="kw">const</span> [head, ...rest] = arr;           <span class="cmt">// rest = reste du tableau</span>
+<span class="kw">const</span> [x = <span class="num">0</span>, y = <span class="num">0</span>] = [];             <span class="cmt">// valeurs par défaut</span>
+
+<span class="cmt">// Swap</span>
+[a, b] = [b, a];
+
+<span class="cmt">// ── Object destructuring ──</span>
+<span class="kw">const</span> { name, age } = user;
+<span class="kw">const</span> { name: userName, age: userAge } = user;  <span class="cmt">// renommer</span>
+<span class="kw">const</span> { a = <span class="num">1</span>, b = <span class="num">2</span> } = obj;                   <span class="cmt">// défaut</span>
+<span class="kw">const</span> { nested: { deep } } = obj;                <span class="cmt">// imbriqué</span>
+<span class="kw">const</span> { x, ...others } = obj;                    <span class="cmt">// rest</span>
+
+<span class="cmt">// Dans les paramètres de fonction</span>
+<span class="kw">function</span> <span class="fn">greet</span>({ name, age = <span class="num">18</span> }) { ... }
+<span class="fn">greet</span>({ name: <span class="str">"Alice"</span> });
+
+<span class="cmt">// ── Spread ──</span>
+<span class="kw">const</span> arr2 = [...arr1, <span class="num">4</span>, <span class="num">5</span>];          <span class="cmt">// arrays</span>
+<span class="kw">const</span> obj2 = { ...obj1, extra: <span class="kw">true</span> }; <span class="cmt">// objects (shallow)</span>
+<span class="fn">Math.max</span>(...numbers);                  <span class="cmt">// dans un appel</span></code></pre></div>
+</div>
+
+<!-- ══════════ 11 ══════════ -->
+<div class="section" id="s11">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">11</span><h2 class="section-title">Classes & OOP</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">class</span> <span class="fn">Animal</span> {
+  <span class="cmt">// Champs (ES2022)</span>
+  name;
+  #sound;                        <span class="cmt">// champ privé</span>
+  <span class="kw">static</span> count = <span class="num">0</span>;             <span class="cmt">// champ statique</span>
+  <span class="kw">static</span> #instances = [];        <span class="cmt">// statique privé</span>
+
+  <span class="fn">constructor</span>(name, sound) {
+    <span class="kw">this</span>.name = name;
+    <span class="kw">this</span>.#sound = sound;
+    <span class="fn">Animal</span>.count++;
+    <span class="fn">Animal</span>.#instances.<span class="fn">push</span>(<span class="kw">this</span>);
+  }
+
+  <span class="cmt">// Méthode</span>
+  <span class="fn">speak</span>() { <span class="kw">return</span> <span class="str">`${</span><span class="kw">this</span>.name<span class="str">} dit ${</span><span class="kw">this</span>.#sound<span class="str">}`</span>; }
+
+  <span class="cmt">// Getter / Setter</span>
+  <span class="kw">get</span> <span class="fn">info</span>() { <span class="kw">return</span> <span class="str">`${</span><span class="kw">this</span>.name<span class="str">}`</span>; }
+  <span class="kw">set</span> <span class="fn">info</span>(val) { <span class="kw">this</span>.name = val; }
+
+  <span class="cmt">// Méthode statique</span>
+  <span class="kw">static</span> <span class="fn">getCount</span>() { <span class="kw">return</span> <span class="fn">Animal</span>.count; }
+
+  <span class="cmt">// Static initialization block (ES2022)</span>
+  <span class="kw">static</span> { <span class="fn">console.log</span>(<span class="str">"Animal class loaded"</span>); }
+}
+
+<span class="cmt">// Héritage</span>
+<span class="kw">class</span> <span class="fn">Dog</span> <span class="kw">extends</span> <span class="fn">Animal</span> {
+  breed;
+  <span class="fn">constructor</span>(name, breed) {
+    <span class="kw">super</span>(name, <span class="str">"Woof"</span>);         <span class="cmt">// appel parent OBLIGATOIRE avant this</span>
+    <span class="kw">this</span>.breed = breed;
+  }
+  <span class="fn">speak</span>() { <span class="kw">return</span> <span class="kw">super</span>.<span class="fn">speak</span>() + <span class="str">" !"</span>; }  <span class="cmt">// override</span>
+}
+
+<span class="cmt">// Vérification</span>
+dog <span class="kw">instanceof</span> Dog      <span class="cmt">// true</span>
+dog <span class="kw">instanceof</span> Animal   <span class="cmt">// true</span>
+
+<span class="cmt">// Mixins (pas de multiple inheritance en JS)</span>
+<span class="kw">const</span> <span class="fn">Serializable</span> = (Base) =&gt; <span class="kw">class extends</span> Base {
+  <span class="fn">toJSON</span>() { <span class="kw">return</span> <span class="fn">JSON.stringify</span>(<span class="kw">this</span>); }
+};</code></pre></div>
+</div>
+
+<!-- ══════════ 12 ══════════ -->
+<div class="section" id="s12">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#d97706,#fbbf24)">12</span><h2 class="section-title">Promises & Async/Await</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Créer une Promise ──</span>
+<span class="kw">const</span> p = <span class="kw">new</span> <span class="fn">Promise</span>((resolve, reject) =&gt; {
+  <span class="fn">setTimeout</span>(() =&gt; <span class="fn">resolve</span>(<span class="str">"done"</span>), <span class="num">1000</span>);
+});
+
+<span class="cmt">// ── Chaîner ──</span>
+p.<span class="fn">then</span>(val =&gt; <span class="fn">transform</span>(val))
+ .<span class="fn">then</span>(val =&gt; <span class="fn">save</span>(val))
+ .<span class="fn">catch</span>(err =&gt; <span class="fn">console.error</span>(err))
+ .<span class="fn">finally</span>(() =&gt; <span class="fn">cleanup</span>());
+
+<span class="cmt">// ── Combinateurs ──</span>
+<span class="fn">Promise.all</span>([p1, p2, p3])        <span class="cmt">// toutes ok → array résultats, 1 fail → reject</span>
+<span class="fn">Promise.allSettled</span>([p1, p2])     <span class="cmt">// attend toutes, jamais reject</span>
+<span class="fn">Promise.race</span>([p1, p2])           <span class="cmt">// 1ère terminée (resolve ou reject)</span>
+<span class="fn">Promise.any</span>([p1, p2])            <span class="cmt">// 1ère résolue (ignore rejets sauf si tous)</span>
+<span class="fn">Promise.resolve</span>(val)             <span class="cmt">// crée une promise résolue</span>
+<span class="fn">Promise.reject</span>(err)              <span class="cmt">// crée une promise rejetée</span>
+<span class="fn">Promise.withResolvers</span>()          <span class="cmt">// ES2024 : { promise, resolve, reject }</span>
+
+<span class="cmt">// ── Async/Await ──</span>
+<span class="kw">async function</span> <span class="fn">fetchData</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(url);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    <span class="kw">return</span> data;
+  } <span class="kw">catch</span> (err) {
+    <span class="fn">console.error</span>(err);
+  }
+}
+
+<span class="cmt">// Parallèle avec await</span>
+<span class="kw">const</span> [users, posts] = <span class="kw">await</span> <span class="fn">Promise.all</span>([
+  <span class="fn">fetchUsers</span>(), <span class="fn">fetchPosts</span>()
+]);
+
+<span class="cmt">// Top-level await (ESM only)</span>
+<span class="kw">const</span> config = <span class="kw">await</span> <span class="fn">loadConfig</span>();
+
+<span class="cmt">// for await...of (async iteration)</span>
+<span class="kw">for await</span> (<span class="kw">const</span> chunk <span class="kw">of</span> readableStream) { ... }</code></pre></div>
+</div>
+
+<!-- ══════════ 13 ══════════ -->
+<div class="section" id="s13">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#be185d,#ec4899)">13</span><h2 class="section-title">Modules (ESM)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Export ──</span>
+<span class="kw">export const</span> PI = <span class="num">3.14</span>;
+<span class="kw">export function</span> <span class="fn">add</span>(a, b) { <span class="kw">return</span> a + b; }
+<span class="kw">export class</span> <span class="fn">User</span> { ... }
+<span class="kw">export default class</span> <span class="fn">App</span> { ... }        <span class="cmt">// 1 par module max</span>
+<span class="kw">export</span> { helper <span class="kw">as</span> utils };              <span class="cmt">// renommer</span>
+
+<span class="cmt">// ── Import ──</span>
+<span class="kw">import</span> App <span class="kw">from</span> <span class="str">'./app.js'</span>;              <span class="cmt">// default</span>
+<span class="kw">import</span> { add, PI } <span class="kw">from</span> <span class="str">'./math.js'</span>;    <span class="cmt">// named</span>
+<span class="kw">import</span> { add <span class="kw">as</span> sum } <span class="kw">from</span> <span class="str">'./math.js'</span>; <span class="cmt">// renommer</span>
+<span class="kw">import</span> * <span class="kw">as</span> math <span class="kw">from</span> <span class="str">'./math.js'</span>;     <span class="cmt">// namespace</span>
+<span class="kw">import</span> <span class="str">'./styles.css'</span>;                   <span class="cmt">// side-effect</span>
+
+<span class="cmt">// ── Dynamic import ──</span>
+<span class="kw">const</span> module = <span class="kw">await</span> <span class="fn">import</span>(<span class="str">'./heavy.js'</span>);  <span class="cmt">// lazy loading</span>
+<span class="kw">const</span> { default: App, helper } = <span class="kw">await</span> <span class="fn">import</span>(<span class="str">'./app.js'</span>);
+
+<span class="cmt">// ── Re-export ──</span>
+<span class="kw">export</span> { add } <span class="kw">from</span> <span class="str">'./math.js'</span>;
+<span class="kw">export</span> * <span class="kw">from</span> <span class="str">'./utils.js'</span>;
+<span class="kw">export</span> { <span class="kw">default</span> } <span class="kw">from</span> <span class="str">'./app.js'</span>;
+
+<span class="cmt">// import.meta</span>
+<span class="fn">import.meta</span>.url                            <span class="cmt">// URL du module courant</span></code></pre></div>
+</div>
+
+<!-- ══════════ 14 ══════════ -->
+<div class="section" id="s14">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#475569,#94a3b8)">14</span><h2 class="section-title">Iterators & Generators</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Iterable protocol ──</span>
+<span class="kw">const</span> iterable = {
+  [<span class="fn">Symbol.iterator</span>]() {
+    <span class="kw">let</span> i = <span class="num">0</span>;
+    <span class="kw">return</span> { <span class="fn">next</span>() { <span class="kw">return</span> i &lt; <span class="num">3</span> ? { value: i++, done: <span class="kw">false</span> } : { done: <span class="kw">true</span> }; } };
+  }
+};
+<span class="kw">for</span> (<span class="kw">const</span> v <span class="kw">of</span> iterable) { ... }
+
+<span class="cmt">// ── Generator ──</span>
+<span class="kw">function*</span> <span class="fn">range</span>(start, end) {
+  <span class="kw">for</span> (<span class="kw">let</span> i = start; i &lt; end; i++) <span class="kw">yield</span> i;
+}
+<span class="kw">const</span> nums = [...<span class="fn">range</span>(<span class="num">0</span>, <span class="num">5</span>)];  <span class="cmt">// [0,1,2,3,4]</span>
+
+<span class="cmt">// yield* : délégation</span>
+<span class="kw">function*</span> <span class="fn">concat</span>(a, b) { <span class="kw">yield*</span> a; <span class="kw">yield*</span> b; }
+
+<span class="cmt">// ── Async Generator ──</span>
+<span class="kw">async function*</span> <span class="fn">fetchPages</span>(url) {
+  <span class="kw">let</span> page = <span class="num">1</span>;
+  <span class="kw">while</span> (<span class="kw">true</span>) {
+    <span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`${</span>url<span class="str">}?page=${</span>page++<span class="str">}`</span>).<span class="fn">then</span>(r =&gt; r.<span class="fn">json</span>());
+    <span class="kw">if</span> (!data.length) <span class="kw">return</span>;
+    <span class="kw">yield</span> data;
+  }
+}
+<span class="kw">for await</span> (<span class="kw">const</span> page <span class="kw">of</span> <span class="fn">fetchPages</span>(url)) { ... }
+
+<span class="cmt">// Iterator helpers (ES2025)</span>
+iterator.<span class="fn">map</span>(fn)  .<span class="fn">filter</span>(fn)  .<span class="fn">take</span>(n)  .<span class="fn">drop</span>(n)  .<span class="fn">toArray</span>()</code></pre></div>
+</div>
+
+<!-- ══════════ 15 ══════════ -->
+<div class="section" id="s15">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#22d3ee)">15</span><h2 class="section-title">Proxy & Reflect</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">const</span> handler = {
+  <span class="fn">get</span>(target, prop, receiver) {
+    <span class="fn">console.log</span>(<span class="str">`Accès: ${</span>prop<span class="str">}`</span>);
+    <span class="kw">return</span> <span class="fn">Reflect.get</span>(target, prop, receiver);
+  },
+  <span class="fn">set</span>(target, prop, value, receiver) {
+    <span class="kw">if</span> (prop === <span class="str">"age"</span> &amp;&amp; value &lt; <span class="num">0</span>) <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">Error</span>(<span class="str">"Invalid"</span>);
+    <span class="kw">return</span> <span class="fn">Reflect.set</span>(target, prop, value, receiver);
+  },
+  <span class="fn">has</span>(target, prop) { ... },
+  <span class="fn">deleteProperty</span>(target, prop) { ... },
+  <span class="fn">apply</span>(target, thisArg, args) { ... },   <span class="cmt">// pour les fonctions</span>
+  <span class="fn">construct</span>(target, args) { ... },         <span class="cmt">// pour new</span>
+};
+
+<span class="kw">const</span> proxy = <span class="kw">new</span> <span class="fn">Proxy</span>(target, handler);
+<span class="kw">const</span> revocable = <span class="fn">Proxy.revocable</span>(target, handler);
+revocable.<span class="fn">revoke</span>();  <span class="cmt">// désactive le proxy</span></code></pre></div>
+</div>
+
+<!-- ══════════ 16 ══════════ -->
+<div class="section" id="s16">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#9333ea,#c084fc)">16</span><h2 class="section-title">Symbols</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">const</span> sym = <span class="fn">Symbol</span>(<span class="str">"description"</span>);        <span class="cmt">// unique à chaque appel</span>
+<span class="kw">const</span> globalSym = <span class="fn">Symbol.for</span>(<span class="str">"shared"</span>);  <span class="cmt">// registre global</span>
+<span class="fn">Symbol.keyFor</span>(globalSym);                <span class="cmt">// "shared"</span>
+
+<span class="cmt">// Well-known symbols</span>
+<span class="fn">Symbol.iterator</span>      <span class="cmt">// rend un objet itérable</span>
+<span class="fn">Symbol.asyncIterator</span> <span class="cmt">// async itérable</span>
+<span class="fn">Symbol.hasInstance</span>   <span class="cmt">// personnalise instanceof</span>
+<span class="fn">Symbol.toPrimitive</span>   <span class="cmt">// conversion vers primitif</span>
+<span class="fn">Symbol.toStringTag</span>   <span class="cmt">// personnalise Object.prototype.toString</span>
+<span class="fn">Symbol.species</span>       <span class="cmt">// constructeur pour méthodes dérivées</span></code></pre></div>
+</div>
+
+<!-- ══════════ 17 ══════════ -->
+<div class="section" id="s17">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#dc2626,#f87171)">17</span><h2 class="section-title">Regex</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Création</span>
+<span class="kw">const</span> re = /pattern/flags;
+<span class="kw">const</span> re = <span class="kw">new</span> <span class="fn">RegExp</span>(<span class="str">"pattern"</span>, <span class="str">"flags"</span>);
+
+<span class="cmt">// Flags</span>
+g   <span class="cmt">// global</span>          i   <span class="cmt">// insensible casse</span>
+m   <span class="cmt">// multiline</span>       s   <span class="cmt">// dotAll (. matche \n)</span>
+u   <span class="cmt">// unicode</span>         v   <span class="cmt">// unicodeSets (ES2024)</span>
+d   <span class="cmt">// hasIndices</span>      y   <span class="cmt">// sticky</span>
+
+<span class="cmt">// Méthodes</span>
+re.<span class="fn">test</span>(str)              <span class="cmt">// → boolean</span>
+re.<span class="fn">exec</span>(str)              <span class="cmt">// → match array ou null</span>
+str.<span class="fn">match</span>(re)             <span class="cmt">// → array (sans g) ou tous les matchs (avec g)</span>
+str.<span class="fn">matchAll</span>(re)          <span class="cmt">// → iterator de match arrays (avec g)</span>
+str.<span class="fn">replace</span>(re, rep)      <span class="cmt">// remplacement</span>
+str.<span class="fn">replaceAll</span>(re, rep)   <span class="cmt">// tous (re doit avoir flag g)</span>
+str.<span class="fn">search</span>(re)            <span class="cmt">// → index ou -1</span>
+str.<span class="fn">split</span>(re)             <span class="cmt">// → array</span>
+
+<span class="cmt">// Groupes nommés</span>
+<span class="kw">const</span> re = /(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})/;
+<span class="kw">const</span> { groups: { year, month } } = re.<span class="fn">exec</span>(<span class="str">"2024-06"</span>);
+
+<span class="cmt">// Lookbehind / Lookahead</span>
+/(?&lt;=@)\w+/    <span class="cmt">// lookbehind positif</span>
+/(?&lt;!@)\w+/    <span class="cmt">// lookbehind négatif</span>
+/\w+(?=@)/     <span class="cmt">// lookahead positif</span>
+/\w+(?!@)/     <span class="cmt">// lookahead négatif</span>
+
+<span class="cmt">// Classes courantes</span>
+\d  \D   <span class="cmt">// chiffre / non-chiffre</span>
+\w  \W   <span class="cmt">// mot [a-zA-Z0-9_] / non-mot</span>
+\s  \S   <span class="cmt">// espace / non-espace</span>
+\b  \B   <span class="cmt">// word boundary / non-boundary</span>
+.        <span class="cmt">// tout sauf \n (sauf flag s)</span>
+^  $     <span class="cmt">// début / fin</span></code></pre></div>
+</div>
+
+<!-- ══════════ 18 ══════════ -->
+<div class="section" id="s18">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#16a34a,#4ade80)">18</span><h2 class="section-title">Date & Intl</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Date ──</span>
+<span class="kw">const</span> now = <span class="kw">new</span> <span class="fn">Date</span>();
+<span class="kw">new</span> <span class="fn">Date</span>(<span class="str">"2024-06-15"</span>)      <span class="kw">new</span> <span class="fn">Date</span>(<span class="num">2024</span>, <span class="num">5</span>, <span class="num">15</span>)  <span class="cmt">// mois 0-indexé !</span>
+<span class="fn">Date.now</span>()                   <span class="cmt">// timestamp ms</span>
+
+now.<span class="fn">getFullYear</span>()  .<span class="fn">getMonth</span>()  .<span class="fn">getDate</span>()  .<span class="fn">getDay</span>()
+now.<span class="fn">getHours</span>()    .<span class="fn">getMinutes</span>()  .<span class="fn">getSeconds</span>()  .<span class="fn">getMilliseconds</span>()
+now.<span class="fn">getTime</span>()     <span class="cmt">// timestamp ms</span>
+now.<span class="fn">toISOString</span>() <span class="cmt">// "2024-06-15T12:00:00.000Z"</span>
+now.<span class="fn">toLocaleDateString</span>(<span class="str">"fr-FR"</span>)  <span class="cmt">// "15/06/2024"</span>
+
+<span class="cmt">// ── Intl (internationalisation) ──</span>
+<span class="kw">new</span> <span class="fn">Intl.DateTimeFormat</span>(<span class="str">"fr-FR"</span>, {
+  weekday: <span class="str">"long"</span>, year: <span class="str">"numeric"</span>, month: <span class="str">"long"</span>, day: <span class="str">"numeric"</span>
+}).<span class="fn">format</span>(date);
+
+<span class="kw">new</span> <span class="fn">Intl.NumberFormat</span>(<span class="str">"fr-FR"</span>, {
+  style: <span class="str">"currency"</span>, currency: <span class="str">"EUR"</span>
+}).<span class="fn">format</span>(<span class="num">1234.56</span>);  <span class="cmt">// "1 234,56 €"</span>
+
+<span class="kw">new</span> <span class="fn">Intl.RelativeTimeFormat</span>(<span class="str">"fr"</span>).<span class="fn">format</span>(-<span class="num">3</span>, <span class="str">"day"</span>);  <span class="cmt">// "il y a 3 jours"</span>
+<span class="kw">new</span> <span class="fn">Intl.PluralRules</span>(<span class="str">"fr"</span>).<span class="fn">select</span>(<span class="num">1</span>);   <span class="cmt">// "one"</span>
+<span class="kw">new</span> <span class="fn">Intl.ListFormat</span>(<span class="str">"fr"</span>).<span class="fn">format</span>([<span class="str">"a"</span>,<span class="str">"b"</span>,<span class="str">"c"</span>]);  <span class="cmt">// "a, b et c"</span>
+<span class="kw">new</span> <span class="fn">Intl.Collator</span>(<span class="str">"fr"</span>).<span class="fn">compare</span>(a, b);  <span class="cmt">// tri locale-aware</span>
+<span class="kw">new</span> <span class="fn">Intl.Segmenter</span>(<span class="str">"fr"</span>, { granularity: <span class="str">"word"</span> })  <span class="cmt">// découpage mot</span></code></pre></div>
+</div>
+
+<!-- ══════════ 19 ══════════ -->
+<div class="section" id="s19">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">19</span><h2 class="section-title">JSON</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">JSON.stringify</span>(obj)                      <span class="cmt">// → string JSON</span>
+<span class="fn">JSON.stringify</span>(obj, <span class="kw">null</span>, <span class="num">2</span>)             <span class="cmt">// → pretty print</span>
+<span class="fn">JSON.stringify</span>(obj, [<span class="str">"name"</span>, <span class="str">"age"</span>])     <span class="cmt">// → seulement ces clés</span>
+<span class="fn">JSON.stringify</span>(obj, (key, val) =&gt; {      <span class="cmt">// replacer function</span>
+  <span class="kw">if</span> (key === <span class="str">"password"</span>) <span class="kw">return</span> <span class="kw">undefined</span>;
+  <span class="kw">return</span> val;
+});
+
+<span class="fn">JSON.parse</span>(str)                           <span class="cmt">// → objet JS</span>
+<span class="fn">JSON.parse</span>(str, (key, val) =&gt; {           <span class="cmt">// reviver function</span>
+  <span class="kw">if</span> (key === <span class="str">"date"</span>) <span class="kw">return</span> <span class="kw">new</span> <span class="fn">Date</span>(val);
+  <span class="kw">return</span> val;
+});
+
+<span class="cmt">// Méthode toJSON (custom serialization)</span>
+<span class="kw">class</span> <span class="fn">User</span> {
+  <span class="fn">toJSON</span>() { <span class="kw">return</span> { name: <span class="kw">this</span>.name }; }
+}
+
+<span class="cmt">// structuredClone — deep clone (gère Date, Map, Set, ArrayBuffer, etc.)</span>
+<span class="kw">const</span> copy = <span class="fn">structuredClone</span>(obj);
+
+<span class="cmt">// JSON.parse(JSON.stringify(obj)) — deep clone basique</span>
+<span class="cmt">// ⚠️ perd functions, undefined, Date→string, Map/Set→{}</span></code></pre></div>
+</div>
+
+<!-- ══════════ 20 ══════════ -->
+<div class="section" id="s20">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ea580c,#fb923c)">20</span><h2 class="section-title">Error Handling</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// try / catch / finally</span>
+<span class="kw">try</span> {
+  riskyOperation();
+} <span class="kw">catch</span> (err) {
+  <span class="fn">console.error</span>(err.message, err.stack);
+} <span class="kw">finally</span> {
+  cleanup();  <span class="cmt">// toujours exécuté</span>
+}
+
+<span class="cmt">// Types d'erreur natifs</span>
+<span class="kw">new</span> <span class="fn">Error</span>(<span class="str">"msg"</span>)           <span class="kw">new</span> <span class="fn">TypeError</span>(<span class="str">"msg"</span>)
+<span class="kw">new</span> <span class="fn">RangeError</span>(<span class="str">"msg"</span>)      <span class="kw">new</span> <span class="fn">ReferenceError</span>(<span class="str">"msg"</span>)
+<span class="kw">new</span> <span class="fn">SyntaxError</span>(<span class="str">"msg"</span>)     <span class="kw">new</span> <span class="fn">URIError</span>(<span class="str">"msg"</span>)
+<span class="kw">new</span> <span class="fn">AggregateError</span>([err1, err2])
+
+<span class="cmt">// Custom error</span>
+<span class="kw">class</span> <span class="fn">AppError</span> <span class="kw">extends</span> <span class="fn">Error</span> {
+  <span class="fn">constructor</span>(message, code) {
+    <span class="kw">super</span>(message);
+    <span class="kw">this</span>.name = <span class="str">"AppError"</span>;
+    <span class="kw">this</span>.code = code;
+  }
+}
+
+<span class="cmt">// Error cause (ES2022)</span>
+<span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"Failed"</span>, { cause: originalError });
+
+<span class="cmt">// Catch sans binding</span>
+<span class="kw">try</span> { ... } <span class="kw">catch</span> { <span class="cmt">/* pas de variable err */</span> }</code></pre></div>
+</div>
+
+<!-- ══════════ 21 ══════════ -->
+<div class="section" id="s21">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#4f46e5,#818cf8)">21</span><h2 class="section-title">DOM</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Sélection ──</span>
+document.<span class="fn">querySelector</span>(<span class="str">".class"</span>)          <span class="cmt">// 1er match</span>
+document.<span class="fn">querySelectorAll</span>(<span class="str">"div.card"</span>)      <span class="cmt">// NodeList (forEach ok)</span>
+document.<span class="fn">getElementById</span>(<span class="str">"id"</span>)
+document.<span class="fn">getElementsByClassName</span>(<span class="str">"cls"</span>)     <span class="cmt">// HTMLCollection (live)</span>
+
+<span class="cmt">// ── Créer / Modifier ──</span>
+<span class="kw">const</span> el = document.<span class="fn">createElement</span>(<span class="str">"div"</span>);
+el.<span class="fn">textContent</span> = <span class="str">"Hello"</span>;              <span class="cmt">// texte sûr</span>
+el.<span class="fn">innerHTML</span> = <span class="str">"&lt;b&gt;Bold&lt;/b&gt;"</span>;          <span class="cmt">// ⚠️ XSS si contenu non fiable</span>
+el.id = <span class="str">"myDiv"</span>;
+el.<span class="fn">classList</span>.<span class="fn">add</span>(<span class="str">"active"</span>);
+el.<span class="fn">classList</span>.<span class="fn">remove</span>(<span class="str">"hidden"</span>);
+el.<span class="fn">classList</span>.<span class="fn">toggle</span>(<span class="str">"open"</span>);
+el.<span class="fn">classList</span>.<span class="fn">contains</span>(<span class="str">"active"</span>);
+el.<span class="fn">setAttribute</span>(<span class="str">"data-id"</span>, <span class="str">"42"</span>);
+el.<span class="fn">getAttribute</span>(<span class="str">"data-id"</span>);
+el.dataset.id;                          <span class="cmt">// accès data-id</span>
+el.style.color = <span class="str">"red"</span>;
+el.style.cssText = <span class="str">"color:red; font-size:16px;"</span>;
+
+<span class="cmt">// ── Insérer / Supprimer ──</span>
+parent.<span class="fn">appendChild</span>(el);
+parent.<span class="fn">append</span>(el, text, el2);           <span class="cmt">// multiple, strings ok</span>
+parent.<span class="fn">prepend</span>(el);
+el.<span class="fn">before</span>(sibling);   el.<span class="fn">after</span>(sibling);
+el.<span class="fn">replaceWith</span>(newEl);
+el.<span class="fn">remove</span>();
+parent.<span class="fn">insertAdjacentHTML</span>(<span class="str">"beforeend"</span>, html);
+
+<span class="cmt">// ── Traversal ──</span>
+el.<span class="fn">parentElement</span>      el.<span class="fn">children</span>
+el.<span class="fn">firstElementChild</span>  el.<span class="fn">lastElementChild</span>
+el.<span class="fn">nextElementSibling</span> el.<span class="fn">previousElementSibling</span>
+el.<span class="fn">closest</span>(<span class="str">".parent"</span>) <span class="cmt">// ancêtre le plus proche</span>
+el.<span class="fn">matches</span>(<span class="str">".class"</span>)  <span class="cmt">// teste un sélecteur</span>
+
+<span class="cmt">// ── Dimensions ──</span>
+el.<span class="fn">getBoundingClientRect</span>()  <span class="cmt">// { top, left, width, height, ... }</span>
+el.<span class="fn">offsetWidth</span>  el.<span class="fn">offsetHeight</span>
+el.<span class="fn">scrollTop</span>   el.<span class="fn">scrollLeft</span>
+<span class="fn">window.innerWidth</span>  <span class="fn">window.innerHeight</span></code></pre></div>
+</div>
+
+<!-- ══════════ 22 ══════════ -->
+<div class="section" id="s22">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#b91c1c,#ef4444)">22</span><h2 class="section-title">Events</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Ajouter / Retirer</span>
+el.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handler);
+el.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handler, { once: <span class="kw">true</span>, passive: <span class="kw">true</span>, capture: <span class="kw">true</span> });
+el.<span class="fn">removeEventListener</span>(<span class="str">"click"</span>, handler);
+
+<span class="cmt">// Event object</span>
+<span class="kw">function</span> <span class="fn">handler</span>(e) {
+  e.<span class="fn">preventDefault</span>();      <span class="cmt">// empêche l'action par défaut</span>
+  e.<span class="fn">stopPropagation</span>();     <span class="cmt">// arrête la propagation</span>
+  e.target                 <span class="cmt">// élément cliqué</span>
+  e.currentTarget          <span class="cmt">// élément sur lequel le listener est attaché</span>
+  e.type                   <span class="cmt">// "click"</span>
+}
+
+<span class="cmt">// Event delegation</span>
+document.<span class="fn">querySelector</span>(<span class="str">".list"</span>).<span class="fn">addEventListener</span>(<span class="str">"click"</span>, (e) =&gt; {
+  <span class="kw">const</span> item = e.target.<span class="fn">closest</span>(<span class="str">".item"</span>);
+  <span class="kw">if</span> (!item) <span class="kw">return</span>;
+  <span class="cmt">// traiter item</span>
+});
+
+<span class="cmt">// Custom events</span>
+<span class="kw">const</span> event = <span class="kw">new</span> <span class="fn">CustomEvent</span>(<span class="str">"myevent"</span>, { detail: { id: <span class="num">42</span> }, bubbles: <span class="kw">true</span> });
+el.<span class="fn">dispatchEvent</span>(event);
+
+<span class="cmt">// AbortController (annuler des listeners)</span>
+<span class="kw">const</span> ctrl = <span class="kw">new</span> <span class="fn">AbortController</span>();
+el.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handler, { signal: ctrl.signal });
+ctrl.<span class="fn">abort</span>();  <span class="cmt">// retire tous les listeners attachés avec ce signal</span>
+
+<span class="cmt">// Événements courants</span>
+<span class="cmt">// click, dblclick, mousedown/up, mouseover/out, mouseenter/leave</span>
+<span class="cmt">// keydown, keyup, keypress (deprecated)</span>
+<span class="cmt">// input, change, submit, focus, blur</span>
+<span class="cmt">// scroll, resize, DOMContentLoaded, load</span>
+<span class="cmt">// touchstart, touchmove, touchend</span>
+<span class="cmt">// dragstart, drag, drop</span></code></pre></div>
+</div>
+
+<!-- ══════════ 23 ══════════ -->
+<div class="section" id="s23">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">23</span><h2 class="section-title">Fetch & HTTP</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── GET ──</span>
+<span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"https://api.example.com/data"</span>);
+<span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`HTTP ${</span>res.status<span class="str">}`</span>);
+<span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+
+<span class="cmt">// ── POST ──</span>
+<span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(url, {
+  method: <span class="str">"POST"</span>,
+  headers: { <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span> },
+  body: <span class="fn">JSON.stringify</span>({ name: <span class="str">"Alice"</span> }),
+});
+
+<span class="cmt">// ── Upload fichier ──</span>
+<span class="kw">const</span> form = <span class="kw">new</span> <span class="fn">FormData</span>();
+form.<span class="fn">append</span>(<span class="str">"file"</span>, fileInput.files[<span class="num">0</span>]);
+<span class="kw">await</span> <span class="fn">fetch</span>(url, { method: <span class="str">"POST"</span>, body: form });
+
+<span class="cmt">// ── Annuler une requête ──</span>
+<span class="kw">const</span> ctrl = <span class="kw">new</span> <span class="fn">AbortController</span>();
+<span class="fn">setTimeout</span>(() =&gt; ctrl.<span class="fn">abort</span>(), <span class="num">5000</span>);  <span class="cmt">// timeout 5s</span>
+<span class="kw">await</span> <span class="fn">fetch</span>(url, { signal: ctrl.signal });
+
+<span class="cmt">// ── Response methods ──</span>
+res.<span class="fn">json</span>()   res.<span class="fn">text</span>()   res.<span class="fn">blob</span>()   res.<span class="fn">arrayBuffer</span>()
+res.<span class="fn">formData</span>()   res.<span class="fn">clone</span>()
+res.ok   res.status   res.statusText   res.headers
+
+<span class="cmt">// ── Streaming ──</span>
+<span class="kw">const</span> reader = res.body.<span class="fn">getReader</span>();
+<span class="kw">while</span> (<span class="kw">true</span>) {
+  <span class="kw">const</span> { done, value } = <span class="kw">await</span> reader.<span class="fn">read</span>();
+  <span class="kw">if</span> (done) <span class="kw">break</span>;
+  <span class="fn">processChunk</span>(value);
+}</code></pre></div>
+</div>
+
+<!-- ══════════ 24 ══════════ -->
+<div class="section" id="s24">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#d97706,#fbbf24)">24</span><h2 class="section-title">Storage & Web APIs</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── localStorage / sessionStorage ──</span>
+localStorage.<span class="fn">setItem</span>(<span class="str">"key"</span>, <span class="fn">JSON.stringify</span>(val));
+<span class="kw">const</span> val = <span class="fn">JSON.parse</span>(localStorage.<span class="fn">getItem</span>(<span class="str">"key"</span>));
+localStorage.<span class="fn">removeItem</span>(<span class="str">"key"</span>);   localStorage.<span class="fn">clear</span>();
+
+<span class="cmt">// ── URL API ──</span>
+<span class="kw">const</span> url = <span class="kw">new</span> <span class="fn">URL</span>(<span class="str">"https://example.com/path?q=hello"</span>);
+url.hostname  url.pathname  url.searchParams.<span class="fn">get</span>(<span class="str">"q"</span>)
+url.searchParams.<span class="fn">set</span>(<span class="str">"page"</span>, <span class="str">"2"</span>);
+
+<span class="cmt">// ── Timer ──</span>
+<span class="kw">const</span> id = <span class="fn">setTimeout</span>(fn, ms);   <span class="fn">clearTimeout</span>(id);
+<span class="kw">const</span> id = <span class="fn">setInterval</span>(fn, ms);  <span class="fn">clearInterval</span>(id);
+<span class="fn">requestAnimationFrame</span>(fn);       <span class="cmt">// animation 60fps</span>
+<span class="fn">queueMicrotask</span>(fn);              <span class="cmt">// microtask queue</span>
+
+<span class="cmt">// ── Clipboard ──</span>
+<span class="kw">await</span> navigator.clipboard.<span class="fn">writeText</span>(<span class="str">"Hello"</span>);
+<span class="kw">const</span> text = <span class="kw">await</span> navigator.clipboard.<span class="fn">readText</span>();
+
+<span class="cmt">// ── IntersectionObserver (lazy load, infinite scroll) ──</span>
+<span class="kw">const</span> obs = <span class="kw">new</span> <span class="fn">IntersectionObserver</span>((entries) =&gt; {
+  entries.<span class="fn">forEach</span>(e =&gt; { <span class="kw">if</span> (e.isIntersecting) <span class="fn">loadImage</span>(e.target); });
+}, { threshold: <span class="num">0.1</span> });
+obs.<span class="fn">observe</span>(el);
+
+<span class="cmt">// ── MutationObserver ──</span>
+<span class="kw">const</span> mo = <span class="kw">new</span> <span class="fn">MutationObserver</span>(mutations =&gt; { ... });
+mo.<span class="fn">observe</span>(el, { childList: <span class="kw">true</span>, subtree: <span class="kw">true</span> });
+
+<span class="cmt">// ── ResizeObserver ──</span>
+<span class="kw">new</span> <span class="fn">ResizeObserver</span>(entries =&gt; { ... }).<span class="fn">observe</span>(el);
+
+<span class="cmt">// ── Web Workers ──</span>
+<span class="kw">const</span> worker = <span class="kw">new</span> <span class="fn">Worker</span>(<span class="str">"worker.js"</span>);
+worker.<span class="fn">postMessage</span>(data);
+worker.<span class="fn">onmessage</span> = (e) =&gt; <span class="fn">console.log</span>(e.data);</code></pre></div>
+</div>
+
+<!-- ══════════ 25 ══════════ -->
+<div class="section" id="s25">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#be185d,#ec4899)">25</span><h2 class="section-title">ES2022 – ES2024 Nouveautés</h2></div>
+
+<div class="code-block"><div class="code-header"><span>ES2022</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Top-level await</span>
+<span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">fetch</span>(url);
+
+<span class="cmt">// Class fields, private, static blocks</span>
+<span class="kw">class</span> C { #x; <span class="kw">static</span> { <span class="cmt">/* init */</span> } }
+
+<span class="cmt">// .at() — accès négatif</span>
+[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>].<span class="fn">at</span>(-<span class="num">1</span>)  <span class="cmt">// 3</span>
+
+<span class="cmt">// Object.hasOwn()</span>
+<span class="fn">Object.hasOwn</span>(obj, <span class="str">"key"</span>)
+
+<span class="cmt">// Error cause</span>
+<span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"msg"</span>, { cause: err });
+
+<span class="cmt">// RegExp match indices (flag d)</span>
+/(?&lt;name&gt;\w+)/d.<span class="fn">exec</span>(str).indices</code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>ES2023</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Array non-mutating methods</span>
+arr.<span class="fn">toSorted</span>()   arr.<span class="fn">toReversed</span>()   arr.<span class="fn">toSpliced</span>(i,n)   arr.<span class="fn">with</span>(i, val)
+
+<span class="cmt">// findLast / findLastIndex</span>
+arr.<span class="fn">findLast</span>(x =&gt; x &gt; <span class="num">0</span>)
+arr.<span class="fn">findLastIndex</span>(x =&gt; x &gt; <span class="num">0</span>)
+
+<span class="cmt">// Hashbang support</span>
+<span class="cmt">#!/usr/bin/env node</span></code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>ES2024</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Promise.withResolvers()</span>
+<span class="kw">const</span> { promise, resolve, reject } = <span class="fn">Promise.withResolvers</span>();
+
+<span class="cmt">// Object.groupBy / Map.groupBy</span>
+<span class="fn">Object.groupBy</span>(items, item =&gt; item.category);
+<span class="fn">Map.groupBy</span>(items, item =&gt; item.category);
+
+<span class="cmt">// RegExp v flag (unicodeSets)</span>
+/[\p{Script=Greek}&amp;&amp;\p{Letter}]/v
+
+<span class="cmt">// ArrayBuffer.prototype.resize / transfer</span>
+<span class="kw">const</span> buf = <span class="kw">new</span> <span class="fn">ArrayBuffer</span>(<span class="num">8</span>, { maxByteLength: <span class="num">16</span> });
+buf.<span class="fn">resize</span>(<span class="num">12</span>);
+
+<span class="cmt">// Atomics.waitAsync()</span>
+<span class="fn">Atomics.waitAsync</span>(int32Array, <span class="num">0</span>, <span class="num">0</span>)</code></pre></div>
+</div>
+
+<!-- ══════════ 26 ══════════ -->
+<div class="section" id="s26">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#475569,#94a3b8)">26</span><h2 class="section-title">Bonnes pratiques</h2></div>
+
+<div class="code-block"><div class="code-header"><span>Conseils</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ✅ const par défaut, let si nécessaire, jamais var</span>
+<span class="cmt">// ✅ === au lieu de ==</span>
+<span class="cmt">// ✅ Arrow functions pour les callbacks</span>
+<span class="cmt">// ✅ Template literals au lieu de concaténation</span>
+<span class="cmt">// ✅ Destructuring pour extraire les données</span>
+<span class="cmt">// ✅ Optional chaining (?.) et nullish coalescing (??)</span>
+<span class="cmt">// ✅ for...of au lieu de for classique quand possible</span>
+<span class="cmt">// ✅ Array methods (map, filter, reduce) au lieu de boucles manuelles</span>
+<span class="cmt">// ✅ async/await au lieu de .then() chains</span>
+<span class="cmt">// ✅ Modules ESM (import/export)</span>
+<span class="cmt">// ✅ structuredClone() pour deep clone</span>
+<span class="cmt">// ✅ AbortController pour annuler fetch/listeners</span>
+<span class="cmt">// ✅ Méthodes non-mutating (toSorted, toReversed, with)</span>
+<span class="cmt">// ✅ Object.groupBy au lieu de reduce pour grouper</span>
+<span class="cmt">// ✅ Error cause pour chaîner les erreurs</span>
+
+<span class="cmt">// ❌ eval() — jamais</span>
+<span class="cmt">// ❌ with — obsolète</span>
+<span class="cmt">// ❌ arguments — utiliser ...rest</span>
+<span class="cmt">// ❌ var — utiliser const/let</span>
+<span class="cmt">// ❌ for...in sur arrays — utiliser for...of</span>
+<span class="cmt">// ❌ innerHTML avec données utilisateur — XSS</span>
+<span class="cmt">// ❌ == et != — coercion implicite</span>
+<span class="cmt">// ❌ new Array(n) — utiliser Array.from ou Array(n).fill()</span></code></pre></div>
+</div>
+
+<p style="text-align:center;color:var(--text3);font-size:.85rem;margin-top:40px;padding:20px 0;border-top:1px solid var(--border)">JavaScript Cheatsheet Complet — ES2024+ — 2026</p>
+</main>
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0})">↑</button>
+
+<script>
+const toggle=document.getElementById('themeToggle'),html=document.documentElement;let dark=true;toggle.addEventListener('click',()=>{dark=!dark;html.setAttribute('data-theme',dark?'':'light');toggle.textContent=dark?'🌙':'☀️'});
+function copyCode(btn){const pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.textContent).then(()=>{btn.textContent='✓ Copié';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copier';btn.classList.remove('copied')},1500)})}
+const backTop=document.getElementById('backTop');window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400)});
+const sections=document.querySelectorAll('.section'),navLinks=document.querySelectorAll('.nav-link');
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(l=>l.classList.remove('active'));const link=document.querySelector(`.nav-link[href="#${entry.target.id}"]`);if(link)link.classList.add('active')}})},{rootMargin:'-80px 0px -70% 0px',threshold:0});
+sections.forEach(s=>observer.observe(s));
+const searchInput=document.getElementById('search'),searchCount=document.getElementById('searchCount'),content=document.getElementById('content');
+function clearHighlights(){content.querySelectorAll('mark.search-hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize()})}
+function highlightText(node,term){let count=0;if(node.nodeType===3){const idx=node.textContent.toLowerCase().indexOf(term);if(idx>=0){const span=document.createElement('mark');span.className='search-hl';const after=node.splitText(idx);after.splitText(term.length);span.textContent=after.textContent;after.parentNode.replaceChild(span,after);return 1}}else if(node.nodeType===1&&!['SCRIPT','STYLE','MARK'].includes(node.tagName)){for(const child of Array.from(node.childNodes))count+=highlightText(child,term)}return count}
+let searchTimeout;searchInput.addEventListener('input',()=>{clearTimeout(searchTimeout);searchTimeout=setTimeout(()=>{clearHighlights();const term=searchInput.value.trim().toLowerCase();if(term.length<2){searchCount.textContent='';sections.forEach(s=>s.style.display='');return}let total=0;sections.forEach(s=>{const match=s.textContent.toLowerCase().includes(term);s.style.display=match?'':'none';if(match)total+=highlightText(s,term)});searchCount.textContent=total>0?`${total} résultat${total>1?'s':''}`:'Aucun';const first=content.querySelector('mark.search-hl');if(first)first.scrollIntoView({behavior:'smooth',block:'center'})},200)});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();searchInput.focus();searchInput.select()}if(e.key==='Escape'){searchInput.value='';searchInput.dispatchEvent(new Event('input'));searchInput.blur()}});
+</script>
+</body>
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TypeScript — Cheatsheet Complet 5.x</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f1a;--bg2:#131729;--bg3:#1a1f36;--bg-code:#0d1117;--surface:#1e2340;--border:#2a3050;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3178c6;--accent2:#60a5fa;--accent3:#34d399;--accent4:#fbbf24;--accent5:#f472b6;--keyword:#c084fc;--func:#67e8f9;--str:#86efac;--num:#fcd34d;--cmt:#6b7280;--op:#f9a8d4;--type:#60a5fa;--glow:rgba(49,120,198,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);--radius:12px;--mark-bg:rgba(250,204,21,0.25);--mark-text:#fde047;--scrollbar-track:#131729;--scrollbar-thumb:#2a3050}
+[data-theme="light"]{--bg:#f8fafc;--bg2:#f1f5f9;--bg3:#e2e8f0;--bg-code:#fefefe;--surface:#fff;--border:#d1d5db;--text:#1e293b;--text2:#475569;--text3:#94a3b8;--accent:#2563eb;--accent2:#3b82f6;--accent3:#059669;--accent4:#ca8a04;--accent5:#db2777;--keyword:#7c3aed;--func:#0891b2;--str:#16a34a;--num:#ca8a04;--cmt:#9ca3af;--op:#be185d;--type:#2563eb;--glow:rgba(37,99,235,0.04);--shadow:0 4px 24px rgba(0,0,0,0.06);--mark-bg:rgba(250,204,21,0.35);--mark-text:#92400e;--scrollbar-track:#f1f5f9;--scrollbar-thumb:#cbd5e1}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;font-size:16px}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .35s,color .35s}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--scrollbar-track)}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:4px}
+::selection{background:var(--accent);color:#fff}
+mark{background:var(--mark-bg);color:var(--mark-text);border-radius:2px;padding:0 2px}
+.header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:12px 24px;display:flex;align-items:center;gap:16px;transition:background .35s,border-color .35s}
+.header-title{font-weight:800;font-size:1.25rem;letter-spacing:-.5px;white-space:nowrap;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-tag{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent3);border:1px solid var(--accent3);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.search-box{flex:1;max-width:420px;position:relative;margin-left:auto}
+.search-box input{width:100%;padding:8px 14px 8px 38px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(49,120,198,.15)}
+.search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
+.search-count{font-size:.75rem;color:var(--text3);position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none}
+.btn-theme{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .2s;flex-shrink:0}
+.btn-theme:hover{border-color:var(--accent);color:var(--accent)}
+.layout{display:flex;max-width:1400px;margin:0 auto}
+.sidebar{width:270px;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto;padding:20px 16px;border-right:1px solid var(--border);flex-shrink:0;transition:border-color .35s}
+.sidebar::-webkit-scrollbar{width:4px}
+.nav-group-title{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin:18px 0 6px}.nav-group-title:first-child{margin-top:0}
+.nav-link{display:block;font-size:.82rem;color:var(--text2);text-decoration:none;padding:5px 10px;border-radius:6px;transition:all .15s;line-height:1.4}
+.nav-link:hover{background:var(--glow);color:var(--accent)}.nav-link.active{background:var(--glow);color:var(--accent);font-weight:600}
+.main{flex:1;min-width:0;padding:32px 40px 80px}
+.section{margin-bottom:48px;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.section-num{font-size:.7rem;font-weight:800;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.5px}
+.subsection-title{font-size:1rem;font-weight:600;color:var(--accent2);margin:24px 0 10px;display:flex;align-items:center;gap:8px}
+.subsection-title::before{content:"▸";color:var(--accent2);font-size:.9rem}
+.code-block{position:relative;background:var(--bg-code);border:1px solid var(--border);border-radius:var(--radius);margin:10px 0 16px;overflow:hidden;transition:border-color .35s,background .35s}
+.code-block:hover{border-color:var(--accent)}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.btn-copy{background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;padding:2px 10px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:.7rem;transition:all .2s}
+.btn-copy:hover{border-color:var(--accent);color:var(--accent)}.btn-copy.copied{border-color:var(--accent3);color:var(--accent3)}
+.code-block pre{padding:14px 18px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7;tab-size:2}
+.code-block code{font-family:inherit}
+.kw{color:var(--keyword);font-weight:600}.fn{color:var(--func)}.str{color:var(--str)}.num{color:var(--num)}.cmt{color:var(--cmt);font-style:italic}.op{color:var(--op)}.tp{color:var(--type);font-weight:600}
+.table-wrap{overflow-x:auto;margin:10px 0 16px;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead th{background:var(--surface);color:var(--accent);font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
+tbody td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text)}
+tbody tr:nth-child(even){background:var(--glow)}tbody tr:hover{background:rgba(49,120,198,.06)}
+td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-serif}
+.back-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(49,120,198,.4);opacity:0;transform:translateY(20px);transition:all .3s;z-index:50}
+.back-top.visible{opacity:1;transform:translateY(0)}.back-top:hover{transform:scale(1.1)}
+@media(max-width:900px){.sidebar{display:none}.main{padding:24px 16px 60px}.header{padding:10px 14px;gap:10px}.header-title{font-size:1rem}.header-tag{display:none}}
+@media print{.header,.sidebar,.back-top,.btn-copy,.code-header{display:none!important}.layout{display:block}.main{padding:0}.code-block{break-inside:avoid;border:1px solid #ccc}body{background:#fff;color:#000;font-size:10pt}}
+</style>
+</head>
+<body>
+
+<header class="header" id="top">
+  <span class="header-title">TypeScript Cheatsheet</span>
+  <span class="header-tag">TS 5.x</span>
+  <div class="search-box"><span class="icon">🔍</span><input type="text" id="search" placeholder="Rechercher (Ctrl+K)" autocomplete="off"><span class="search-count" id="searchCount"></span></div>
+  <button class="btn-theme" id="themeToggle" title="Thème">🌙</button>
+</header>
+
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="nav-group-title">Types de base</div>
+  <a class="nav-link" href="#s1">1. Types primitifs & Annotations</a>
+  <a class="nav-link" href="#s2">2. Interfaces</a>
+  <a class="nav-link" href="#s3">3. Types & Alias</a>
+  <a class="nav-link" href="#s4">4. Union, Intersection, Literal</a>
+  <a class="nav-link" href="#s5">5. Enums</a>
+
+  <div class="nav-group-title">Fonctions & Classes</div>
+  <a class="nav-link" href="#s6">6. Fonctions typées</a>
+  <a class="nav-link" href="#s7">7. Classes</a>
+  <a class="nav-link" href="#s8">8. Generics</a>
+
+  <div class="nav-group-title">Types avancés</div>
+  <a class="nav-link" href="#s9">9. Type Guards & Narrowing</a>
+  <a class="nav-link" href="#s10">10. Mapped Types</a>
+  <a class="nav-link" href="#s11">11. Conditional Types</a>
+  <a class="nav-link" href="#s12">12. Template Literal Types</a>
+  <a class="nav-link" href="#s13">13. Utility Types</a>
+  <a class="nav-link" href="#s14">14. Infer & Advanced Patterns</a>
+
+  <div class="nav-group-title">Modules & Config</div>
+  <a class="nav-link" href="#s15">15. Modules & Namespaces</a>
+  <a class="nav-link" href="#s16">16. Decorators</a>
+  <a class="nav-link" href="#s17">17. Declaration Files (.d.ts)</a>
+  <a class="nav-link" href="#s18">18. tsconfig.json</a>
+  <a class="nav-link" href="#s19">19. TS 5.x Nouveautés</a>
+  <a class="nav-link" href="#s20">20. Bonnes pratiques</a>
+</nav>
+
+<main class="main" id="content">
+
+<!-- ══════════ 1 ══════════ -->
+<div class="section" id="s1">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#3178c6,#60a5fa)">1</span><h2 class="section-title">Types primitifs & Annotations</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Primitifs</span>
+<span class="kw">let</span> nom: <span class="tp">string</span> = <span class="str">"Alice"</span>;
+<span class="kw">let</span> age: <span class="tp">number</span> = <span class="num">30</span>;            <span class="cmt">// int et float = number</span>
+<span class="kw">let</span> big: <span class="tp">bigint</span> = <span class="num">100n</span>;
+<span class="kw">let</span> ok: <span class="tp">boolean</span> = <span class="kw">true</span>;
+<span class="kw">let</span> sym: <span class="tp">symbol</span> = <span class="fn">Symbol</span>(<span class="str">"id"</span>);
+<span class="kw">let</span> nul: <span class="tp">null</span> = <span class="kw">null</span>;
+<span class="kw">let</span> und: <span class="tp">undefined</span> = <span class="kw">undefined</span>;
+
+<span class="cmt">// Spéciaux</span>
+<span class="kw">let</span> anything: <span class="tp">any</span> = <span class="str">"no check"</span>;    <span class="cmt">// désactive le type-checking — éviter</span>
+<span class="kw">let</span> unknown_val: <span class="tp">unknown</span> = <span class="num">42</span>;    <span class="cmt">// type-safe any — préférer</span>
+<span class="kw">function</span> <span class="fn">fail</span>(): <span class="tp">never</span> { <span class="kw">throw new</span> <span class="fn">Error</span>(); }  <span class="cmt">// jamais de retour</span>
+<span class="kw">function</span> <span class="fn">log</span>(): <span class="tp">void</span> { <span class="fn">console.log</span>(<span class="str">"hi"</span>); }  <span class="cmt">// pas de valeur retour</span>
+
+<span class="cmt">// Arrays</span>
+<span class="kw">let</span> nums: <span class="tp">number[]</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="kw">let</span> strs: <span class="tp">Array&lt;string&gt;</span> = [<span class="str">"a"</span>, <span class="str">"b"</span>];      <span class="cmt">// forme générique</span>
+<span class="kw">let</span> matrix: <span class="tp">number[][]</span> = [[<span class="num">1</span>,<span class="num">2</span>],[<span class="num">3</span>,<span class="num">4</span>]];
+
+<span class="cmt">// Tuples</span>
+<span class="kw">let</span> pair: <span class="tp">[string, number]</span> = [<span class="str">"Alice"</span>, <span class="num">30</span>];
+<span class="kw">let</span> named: <span class="tp">[name: string, age: number]</span> = [<span class="str">"Bob"</span>, <span class="num">25</span>];  <span class="cmt">// labeled</span>
+<span class="kw">let</span> rest: <span class="tp">[string, ...number[]]</span> = [<span class="str">"sum"</span>, <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];   <span class="cmt">// variadic</span>
+<span class="kw">const</span> tuple = [<span class="str">"a"</span>, <span class="num">1</span>] <span class="kw">as const</span>;   <span class="cmt">// readonly ["a", 1]</span>
+
+<span class="cmt">// Type inference — TS infère quand c'est évident</span>
+<span class="kw">const</span> x = <span class="num">42</span>;       <span class="cmt">// type: 42 (literal type)</span>
+<span class="kw">let</span> y = <span class="num">42</span>;         <span class="cmt">// type: number (widening)</span></code></pre></div>
+</div>
+
+<!-- ══════════ 2 ══════════ -->
+<div class="section" id="s2">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">2</span><h2 class="section-title">Interfaces</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">interface</span> <span class="tp">User</span> {
+  <span class="kw">readonly</span> id: <span class="tp">number</span>;         <span class="cmt">// lecture seule</span>
+  name: <span class="tp">string</span>;
+  email?: <span class="tp">string</span>;              <span class="cmt">// optionnel</span>
+  age: <span class="tp">number</span>;
+}
+
+<span class="cmt">// Index signatures</span>
+<span class="kw">interface</span> <span class="tp">Dict</span> {
+  [key: <span class="tp">string</span>]: <span class="tp">number</span>;       <span class="cmt">// clés string, valeurs number</span>
+}
+
+<span class="cmt">// Callable / Constructable</span>
+<span class="kw">interface</span> <span class="tp">Fn</span> {
+  (x: <span class="tp">number</span>): <span class="tp">string</span>;          <span class="cmt">// call signature</span>
+}
+<span class="kw">interface</span> <span class="tp">Ctor</span> {
+  <span class="kw">new</span> (name: <span class="tp">string</span>): <span class="tp">User</span>;     <span class="cmt">// construct signature</span>
+}
+
+<span class="cmt">// Héritage (extends — multiple ok)</span>
+<span class="kw">interface</span> <span class="tp">Admin</span> <span class="kw">extends</span> <span class="tp">User</span> {
+  role: <span class="str">"admin"</span> | <span class="str">"superadmin"</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">Timestamped</span> {
+  createdAt: <span class="tp">Date</span>;
+  updatedAt: <span class="tp">Date</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">AdminTimestamped</span> <span class="kw">extends</span> <span class="tp">Admin</span>, <span class="tp">Timestamped</span> {}
+
+<span class="cmt">// Declaration merging (interface seulement, pas type)</span>
+<span class="kw">interface</span> <span class="tp">User</span> { phone?: <span class="tp">string</span>; }  <span class="cmt">// s'ajoute à User existant</span>
+
+<span class="cmt">// Generic interface</span>
+<span class="kw">interface</span> <span class="tp">ApiResponse&lt;T&gt;</span> {
+  data: <span class="tp">T</span>;
+  status: <span class="tp">number</span>;
+  message: <span class="tp">string</span>;
+}</code></pre></div>
+</div>
+
+<!-- ══════════ 3 ══════════ -->
+<div class="section" id="s3">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">3</span><h2 class="section-title">Types & Alias</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Type alias</span>
+<span class="kw">type</span> <span class="tp">ID</span> = <span class="tp">string</span> | <span class="tp">number</span>;
+<span class="kw">type</span> <span class="tp">Point</span> = { x: <span class="tp">number</span>; y: <span class="tp">number</span> };
+<span class="kw">type</span> <span class="tp">Callback</span> = (data: <span class="tp">string</span>) =&gt; <span class="tp">void</span>;
+
+<span class="cmt">// Interface vs Type — quand utiliser quoi ?</span>
+<span class="cmt">// Interface : objets, classes (extends, implements, merging)</span>
+<span class="cmt">// Type      : unions, intersections, tuples, mapped types, primitifs</span>
+
+<span class="cmt">// Object type</span>
+<span class="kw">type</span> <span class="tp">Config</span> = {
+  <span class="kw">readonly</span> host: <span class="tp">string</span>;
+  port?: <span class="tp">number</span>;
+  [key: <span class="tp">string</span>]: <span class="tp">unknown</span>;
+};
+
+<span class="cmt">// Record shorthand</span>
+<span class="kw">type</span> <span class="tp">Scores</span> = <span class="tp">Record&lt;string, number&gt;</span>;  <span class="cmt">// { [key: string]: number }</span></code></pre></div>
+</div>
+
+<!-- ══════════ 4 ══════════ -->
+<div class="section" id="s4">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#d97706,#fbbf24)">4</span><h2 class="section-title">Union, Intersection, Literal Types</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Union : A OU B ──</span>
+<span class="kw">type</span> <span class="tp">Result</span> = <span class="tp">string</span> | <span class="tp">number</span> | <span class="tp">null</span>;
+<span class="kw">type</span> <span class="tp">Status</span> = <span class="str">"idle"</span> | <span class="str">"loading"</span> | <span class="str">"success"</span> | <span class="str">"error"</span>;
+
+<span class="cmt">// Discriminated union (pattern très courant)</span>
+<span class="kw">type</span> <span class="tp">Shape</span> =
+  | { kind: <span class="str">"circle"</span>; radius: <span class="tp">number</span> }
+  | { kind: <span class="str">"rect"</span>; width: <span class="tp">number</span>; height: <span class="tp">number</span> }
+  | { kind: <span class="str">"triangle"</span>; base: <span class="tp">number</span>; height: <span class="tp">number</span> };
+
+<span class="kw">function</span> <span class="fn">area</span>(s: <span class="tp">Shape</span>): <span class="tp">number</span> {
+  <span class="kw">switch</span> (s.kind) {
+    <span class="kw">case</span> <span class="str">"circle"</span>:   <span class="kw">return</span> Math.PI * s.radius ** <span class="num">2</span>;
+    <span class="kw">case</span> <span class="str">"rect"</span>:     <span class="kw">return</span> s.width * s.height;
+    <span class="kw">case</span> <span class="str">"triangle"</span>: <span class="kw">return</span> s.base * s.height / <span class="num">2</span>;
+    <span class="kw">default</span>:        <span class="kw">const</span> _exhaustive: <span class="tp">never</span> = s; <span class="kw">return</span> _exhaustive;
+  }
+}
+
+<span class="cmt">// ── Intersection : A ET B ──</span>
+<span class="kw">type</span> <span class="tp">WithTimestamps</span> = { createdAt: <span class="tp">Date</span>; updatedAt: <span class="tp">Date</span> };
+<span class="kw">type</span> <span class="tp">UserWithTimestamps</span> = <span class="tp">User</span> &amp; <span class="tp">WithTimestamps</span>;
+
+<span class="cmt">// ── Literal types ──</span>
+<span class="kw">type</span> <span class="tp">Direction</span> = <span class="str">"up"</span> | <span class="str">"down"</span> | <span class="str">"left"</span> | <span class="str">"right"</span>;
+<span class="kw">type</span> <span class="tp">Bit</span> = <span class="num">0</span> | <span class="num">1</span>;
+<span class="kw">type</span> <span class="tp">Bool</span> = <span class="kw">true</span> | <span class="kw">false</span>;
+
+<span class="cmt">// as const — assertion de constante</span>
+<span class="kw">const</span> COLORS = [<span class="str">"red"</span>, <span class="str">"green"</span>, <span class="str">"blue"</span>] <span class="kw">as const</span>;
+<span class="kw">type</span> <span class="tp">Color</span> = (<span class="kw">typeof</span> COLORS)[<span class="tp">number</span>];  <span class="cmt">// "red" | "green" | "blue"</span>
+
+<span class="cmt">// satisfies (TS 5.0) — valide le type sans le widener</span>
+<span class="kw">const</span> config = {
+  port: <span class="num">3000</span>,
+  host: <span class="str">"localhost"</span>,
+} <span class="kw">satisfies</span> <span class="tp">Record&lt;string, string | number&gt;</span>;
+<span class="cmt">// config.port est inféré comme 3000 (literal), pas string | number</span></code></pre></div>
+</div>
+
+<!-- ══════════ 5 ══════════ -->
+<div class="section" id="s5">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#dc2626,#f87171)">5</span><h2 class="section-title">Enums</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Numeric enum (auto-incrémenté)</span>
+<span class="kw">enum</span> <span class="tp">Direction</span> { Up, Down, Left, Right }  <span class="cmt">// 0, 1, 2, 3</span>
+<span class="kw">enum</span> <span class="tp">Status</span> { Active = <span class="num">1</span>, Inactive = <span class="num">2</span> }
+
+<span class="cmt">// String enum (préférer)</span>
+<span class="kw">enum</span> <span class="tp">Role</span> {
+  Admin = <span class="str">"ADMIN"</span>,
+  User  = <span class="str">"USER"</span>,
+  Guest = <span class="str">"GUEST"</span>,
+}
+<span class="kw">const</span> r: <span class="tp">Role</span> = Role.Admin;
+
+<span class="cmt">// const enum — inliné à la compilation (pas d'objet runtime)</span>
+<span class="kw">const enum</span> <span class="tp">Color</span> { Red, Green, Blue }
+
+<span class="cmt">// Alternative moderne : union de littéraux (souvent préféré)</span>
+<span class="kw">type</span> <span class="tp">Role</span> = <span class="str">"admin"</span> | <span class="str">"user"</span> | <span class="str">"guest"</span>;
+
+<span class="cmt">// Reverse mapping (numeric enum seulement)</span>
+<span class="tp">Direction</span>[<span class="num">0</span>]  <span class="cmt">// "Up"</span>
+<span class="tp">Direction</span>.Up  <span class="cmt">// 0</span></code></pre></div>
+</div>
+
+<!-- ══════════ 6 ══════════ -->
+<div class="section" id="s6">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">6</span><h2 class="section-title">Fonctions typées</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Paramètres et retour</span>
+<span class="kw">function</span> <span class="fn">add</span>(a: <span class="tp">number</span>, b: <span class="tp">number</span>): <span class="tp">number</span> { <span class="kw">return</span> a + b; }
+
+<span class="cmt">// Arrow avec type</span>
+<span class="kw">const</span> <span class="fn">add</span>: (a: <span class="tp">number</span>, b: <span class="tp">number</span>) =&gt; <span class="tp">number</span> = (a, b) =&gt; a + b;
+
+<span class="cmt">// Optionnels et défauts</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name: <span class="tp">string</span>, prefix?: <span class="tp">string</span>): <span class="tp">string</span> { ... }
+<span class="kw">function</span> <span class="fn">greet</span>(name: <span class="tp">string</span>, prefix = <span class="str">"Hello"</span>): <span class="tp">string</span> { ... }
+
+<span class="cmt">// Rest params</span>
+<span class="kw">function</span> <span class="fn">sum</span>(...nums: <span class="tp">number[]</span>): <span class="tp">number</span> { ... }
+
+<span class="cmt">// Function type alias</span>
+<span class="kw">type</span> <span class="tp">Handler</span> = (event: <span class="tp">Event</span>) =&gt; <span class="tp">void</span>;
+<span class="kw">type</span> <span class="tp">AsyncFn&lt;T&gt;</span> = () =&gt; <span class="tp">Promise&lt;T&gt;</span>;
+
+<span class="cmt">// Overloads</span>
+<span class="kw">function</span> <span class="fn">parse</span>(input: <span class="tp">string</span>): <span class="tp">number</span>;
+<span class="kw">function</span> <span class="fn">parse</span>(input: <span class="tp">number</span>): <span class="tp">string</span>;
+<span class="kw">function</span> <span class="fn">parse</span>(input: <span class="tp">string</span> | <span class="tp">number</span>): <span class="tp">string</span> | <span class="tp">number</span> {
+  <span class="kw">return typeof</span> input === <span class="str">"string"</span> ? <span class="fn">Number</span>(input) : <span class="fn">String</span>(input);
+}
+
+<span class="cmt">// this parameter (premier param, effacé à la compilation)</span>
+<span class="kw">function</span> <span class="fn">onClick</span>(<span class="kw">this</span>: <span class="tp">HTMLButtonElement</span>, e: <span class="tp">Event</span>) {
+  <span class="kw">this</span>.disabled = <span class="kw">true</span>;
+}
+
+<span class="cmt">// Assertion functions</span>
+<span class="kw">function</span> <span class="fn">assertDefined</span>&lt;T&gt;(val: <span class="tp">T</span>): <span class="kw">asserts</span> val <span class="kw">is</span> <span class="tp">NonNullable&lt;T&gt;</span> {
+  <span class="kw">if</span> (val == <span class="kw">null</span>) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"Expected defined"</span>);
+}
+
+<span class="cmt">// Generic function</span>
+<span class="kw">function</span> <span class="fn">first</span>&lt;T&gt;(arr: <span class="tp">T[]</span>): <span class="tp">T</span> | <span class="tp">undefined</span> { <span class="kw">return</span> arr[<span class="num">0</span>]; }</code></pre></div>
+</div>
+
+<!-- ══════════ 7 ══════════ -->
+<div class="section" id="s7">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#67e8f9)">7</span><h2 class="section-title">Classes</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">class</span> <span class="fn">User</span> {
+  <span class="cmt">// Modificateurs d'accès</span>
+  <span class="kw">public</span> name: <span class="tp">string</span>;          <span class="cmt">// défaut, accessible partout</span>
+  <span class="kw">private</span> _email: <span class="tp">string</span>;       <span class="cmt">// accessible seulement dans cette classe</span>
+  <span class="kw">protected</span> role: <span class="tp">string</span>;       <span class="cmt">// accessible dans cette classe + sous-classes</span>
+  <span class="kw">readonly</span> id: <span class="tp">number</span>;          <span class="cmt">// lecture seule après construction</span>
+
+  <span class="cmt">// Parameter properties (raccourci)</span>
+  <span class="fn">constructor</span>(
+    <span class="kw">public</span> name: <span class="tp">string</span>,
+    <span class="kw">private</span> _email: <span class="tp">string</span>,
+    <span class="kw">readonly</span> id: <span class="tp">number</span>,
+  ) {}
+
+  <span class="cmt">// Getter / Setter</span>
+  <span class="kw">get</span> <span class="fn">email</span>(): <span class="tp">string</span> { <span class="kw">return</span> <span class="kw">this</span>._email; }
+  <span class="kw">set</span> <span class="fn">email</span>(val: <span class="tp">string</span>) {
+    <span class="kw">if</span> (!val.<span class="fn">includes</span>(<span class="str">"@"</span>)) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"Invalid"</span>);
+    <span class="kw">this</span>._email = val;
+  }
+
+  <span class="cmt">// Méthode statique</span>
+  <span class="kw">static</span> <span class="fn">create</span>(name: <span class="tp">string</span>): <span class="tp">User</span> { ... }
+}
+
+<span class="cmt">// Implements — une classe satisfait une interface</span>
+<span class="kw">interface</span> <span class="tp">Serializable</span> { <span class="fn">toJSON</span>(): <span class="tp">string</span>; }
+<span class="kw">class</span> <span class="fn">Model</span> <span class="kw">implements</span> <span class="tp">Serializable</span> {
+  <span class="fn">toJSON</span>() { <span class="kw">return</span> <span class="fn">JSON.stringify</span>(<span class="kw">this</span>); }
+}
+
+<span class="cmt">// Abstract class</span>
+<span class="kw">abstract class</span> <span class="fn">Shape</span> {
+  <span class="kw">abstract</span> <span class="fn">area</span>(): <span class="tp">number</span>;     <span class="cmt">// doit être implémenté</span>
+  <span class="fn">describe</span>() { <span class="kw">return</span> <span class="str">`Area: ${</span><span class="kw">this</span>.<span class="fn">area</span>()<span class="str">}`</span>; }
+}
+
+<span class="kw">class</span> <span class="fn">Circle</span> <span class="kw">extends</span> <span class="fn">Shape</span> {
+  <span class="fn">constructor</span>(<span class="kw">private</span> r: <span class="tp">number</span>) { <span class="kw">super</span>(); }
+  <span class="fn">area</span>() { <span class="kw">return</span> Math.PI * <span class="kw">this</span>.r ** <span class="num">2</span>; }
+}</code></pre></div>
+</div>
+
+<!-- ══════════ 8 ══════════ -->
+<div class="section" id="s8">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ea580c,#fb923c)">8</span><h2 class="section-title">Generics</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Fonction générique ──</span>
+<span class="kw">function</span> <span class="fn">identity</span>&lt;T&gt;(val: <span class="tp">T</span>): <span class="tp">T</span> { <span class="kw">return</span> val; }
+<span class="fn">identity</span>&lt;<span class="tp">string</span>&gt;(<span class="str">"hello"</span>);  <span class="cmt">// explicite</span>
+<span class="fn">identity</span>(<span class="num">42</span>);               <span class="cmt">// inféré → T = number</span>
+
+<span class="cmt">// ── Contraintes (extends) ──</span>
+<span class="kw">function</span> <span class="fn">getLength</span>&lt;T <span class="kw">extends</span> { length: <span class="tp">number</span> }&gt;(x: <span class="tp">T</span>): <span class="tp">number</span> {
+  <span class="kw">return</span> x.length;
+}
+
+<span class="cmt">// ── Plusieurs paramètres ──</span>
+<span class="kw">function</span> <span class="fn">merge</span>&lt;A, B&gt;(a: <span class="tp">A</span>, b: <span class="tp">B</span>): <span class="tp">A</span> &amp; <span class="tp">B</span> {
+  <span class="kw">return</span> { ...a, ...b };
+}
+
+<span class="cmt">// ── Generic avec keyof ──</span>
+<span class="kw">function</span> <span class="fn">getProperty</span>&lt;T, K <span class="kw">extends keyof</span> <span class="tp">T</span>&gt;(obj: <span class="tp">T</span>, key: <span class="tp">K</span>): <span class="tp">T[K]</span> {
+  <span class="kw">return</span> obj[key];
+}
+
+<span class="cmt">// ── Interface générique ──</span>
+<span class="kw">interface</span> <span class="tp">Repository&lt;T&gt;</span> {
+  <span class="fn">findById</span>(id: <span class="tp">string</span>): <span class="tp">Promise&lt;T | null&gt;</span>;
+  <span class="fn">save</span>(entity: <span class="tp">T</span>): <span class="tp">Promise&lt;T&gt;</span>;
+  <span class="fn">delete</span>(id: <span class="tp">string</span>): <span class="tp">Promise&lt;void&gt;</span>;
+}
+
+<span class="cmt">// ── Classe générique ──</span>
+<span class="kw">class</span> <span class="fn">Stack</span>&lt;T&gt; {
+  <span class="kw">private</span> items: <span class="tp">T[]</span> = [];
+  <span class="fn">push</span>(item: <span class="tp">T</span>) { <span class="kw">this</span>.items.<span class="fn">push</span>(item); }
+  <span class="fn">pop</span>(): <span class="tp">T</span> | <span class="tp">undefined</span> { <span class="kw">return</span> <span class="kw">this</span>.items.<span class="fn">pop</span>(); }
+}
+
+<span class="cmt">// ── Default type parameter ──</span>
+<span class="kw">type</span> <span class="tp">ApiRes&lt;T = unknown&gt;</span> = { data: <span class="tp">T</span>; status: <span class="tp">number</span> };</code></pre></div>
+</div>
+
+<!-- ══════════ 9 ══════════ -->
+<div class="section" id="s9">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#4f46e5,#818cf8)">9</span><h2 class="section-title">Type Guards & Narrowing</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// typeof</span>
+<span class="kw">if</span> (<span class="kw">typeof</span> x === <span class="str">"string"</span>) { x.<span class="fn">toUpperCase</span>(); }
+
+<span class="cmt">// instanceof</span>
+<span class="kw">if</span> (err <span class="kw">instanceof</span> <span class="fn">TypeError</span>) { err.message; }
+
+<span class="cmt">// in operator</span>
+<span class="kw">if</span> (<span class="str">"email"</span> <span class="kw">in</span> user) { user.email; }
+
+<span class="cmt">// Discriminated union (switch sur le discriminant)</span>
+<span class="kw">switch</span> (shape.kind) { ... }
+
+<span class="cmt">// Truthiness</span>
+<span class="kw">if</span> (user.name) { <span class="cmt">/* string (pas undefined, pas "") */</span> }
+
+<span class="cmt">// Custom type guard (type predicate)</span>
+<span class="kw">function</span> <span class="fn">isString</span>(val: <span class="tp">unknown</span>): val <span class="kw">is</span> <span class="tp">string</span> {
+  <span class="kw">return typeof</span> val === <span class="str">"string"</span>;
+}
+
+<span class="cmt">// Assertion function</span>
+<span class="kw">function</span> <span class="fn">assertNonNull</span>&lt;T&gt;(val: <span class="tp">T</span>): <span class="kw">asserts</span> val <span class="kw">is</span> <span class="tp">NonNullable&lt;T&gt;</span> {
+  <span class="kw">if</span> (val == <span class="kw">null</span>) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"Null!"</span>);
+}
+
+<span class="cmt">// Non-null assertion (!) — à éviter si possible</span>
+<span class="kw">const</span> el = document.<span class="fn">getElementById</span>(<span class="str">"app"</span>)!;  <span class="cmt">// ! = "trust me, not null"</span>
+
+<span class="cmt">// as (type assertion) — éviter aussi</span>
+<span class="kw">const</span> input = el <span class="kw">as</span> <span class="tp">HTMLInputElement</span>;
+
+<span class="cmt">// Exhaustive check</span>
+<span class="kw">function</span> <span class="fn">assertNever</span>(x: <span class="tp">never</span>): <span class="tp">never</span> {
+  <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`Unexpected: ${</span>x<span class="str">}`</span>);
+}</code></pre></div>
+</div>
+
+<!-- ══════════ 10 ══════════ -->
+<div class="section" id="s10">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#16a34a,#4ade80)">10</span><h2 class="section-title">Mapped Types</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Syntaxe : { [K in Keys]: Type }</span>
+
+<span class="cmt">// Tout optionnel</span>
+<span class="kw">type</span> <span class="tp">MyPartial&lt;T&gt;</span> = { [K <span class="kw">in keyof</span> <span class="tp">T</span>]?: <span class="tp">T[K]</span> };
+
+<span class="cmt">// Tout readonly</span>
+<span class="kw">type</span> <span class="tp">MyReadonly&lt;T&gt;</span> = { <span class="kw">readonly</span> [K <span class="kw">in keyof</span> <span class="tp">T</span>]: <span class="tp">T[K]</span> };
+
+<span class="cmt">// Modifier les modificateurs (+ / -)</span>
+<span class="kw">type</span> <span class="tp">Mutable&lt;T&gt;</span> = { -<span class="kw">readonly</span> [K <span class="kw">in keyof</span> <span class="tp">T</span>]: <span class="tp">T[K]</span> };
+<span class="kw">type</span> <span class="tp">Required&lt;T&gt;</span> = { [K <span class="kw">in keyof</span> <span class="tp">T</span>]-?: <span class="tp">T[K]</span> };
+
+<span class="cmt">// Renommer les clés (as)</span>
+<span class="kw">type</span> <span class="tp">Getters&lt;T&gt;</span> = {
+  [K <span class="kw">in keyof</span> <span class="tp">T</span> <span class="kw">as</span> <span class="str">`get${Capitalize&lt;string &amp; K&gt;}`</span>]: () =&gt; <span class="tp">T[K]</span>
+};
+<span class="cmt">// { getName: () => string; getAge: () => number; }</span>
+
+<span class="cmt">// Filtrer les clés</span>
+<span class="kw">type</span> <span class="tp">OnlyStrings&lt;T&gt;</span> = {
+  [K <span class="kw">in keyof</span> <span class="tp">T</span> <span class="kw">as</span> <span class="tp">T[K]</span> <span class="kw">extends</span> <span class="tp">string</span> ? K : <span class="tp">never</span>]: <span class="tp">T[K]</span>
+};
+
+<span class="cmt">// keyof</span>
+<span class="kw">type</span> <span class="tp">UserKeys</span> = <span class="kw">keyof</span> <span class="tp">User</span>;  <span class="cmt">// "name" | "email" | "age"</span>
+
+<span class="cmt">// Indexed access</span>
+<span class="kw">type</span> <span class="tp">NameType</span> = <span class="tp">User</span>[<span class="str">"name"</span>];  <span class="cmt">// string</span>
+<span class="kw">type</span> <span class="tp">AllValues</span> = <span class="tp">User</span>[<span class="kw">keyof</span> <span class="tp">User</span>];  <span class="cmt">// string | number</span></code></pre></div>
+</div>
+
+<!-- ══════════ 11 ══════════ -->
+<div class="section" id="s11">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#b91c1c,#ef4444)">11</span><h2 class="section-title">Conditional Types</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Syntaxe : T extends U ? X : Y</span>
+
+<span class="kw">type</span> <span class="tp">IsString&lt;T&gt;</span> = T <span class="kw">extends</span> <span class="tp">string</span> ? <span class="kw">true</span> : <span class="kw">false</span>;
+<span class="tp">IsString&lt;string&gt;</span>  <span class="cmt">// true</span>
+<span class="tp">IsString&lt;number&gt;</span>  <span class="cmt">// false</span>
+
+<span class="cmt">// Distribution sur les unions</span>
+<span class="kw">type</span> <span class="tp">ToArray&lt;T&gt;</span> = T <span class="kw">extends</span> <span class="tp">any</span> ? <span class="tp">T[]</span> : <span class="tp">never</span>;
+<span class="tp">ToArray&lt;string | number&gt;</span>  <span class="cmt">// string[] | number[]</span>
+
+<span class="cmt">// Empêcher la distribution</span>
+<span class="kw">type</span> <span class="tp">ToArray&lt;T&gt;</span> = [T] <span class="kw">extends</span> [<span class="tp">any</span>] ? <span class="tp">T[]</span> : <span class="tp">never</span>;
+<span class="tp">ToArray&lt;string | number&gt;</span>  <span class="cmt">// (string | number)[]</span>
+
+<span class="cmt">// infer — extraire un type dans un conditionnel</span>
+<span class="kw">type</span> <span class="tp">ReturnType&lt;T&gt;</span> = T <span class="kw">extends</span> (...args: <span class="tp">any[]</span>) =&gt; <span class="kw">infer</span> <span class="tp">R</span> ? <span class="tp">R</span> : <span class="tp">never</span>;
+
+<span class="kw">type</span> <span class="tp">Flatten&lt;T&gt;</span> = T <span class="kw">extends</span> (<span class="kw">infer</span> <span class="tp">U</span>)[] ? <span class="tp">U</span> : <span class="tp">T</span>;
+<span class="tp">Flatten&lt;string[]&gt;</span>   <span class="cmt">// string</span>
+<span class="tp">Flatten&lt;number&gt;</span>     <span class="cmt">// number</span>
+
+<span class="cmt">// Unwrap Promise</span>
+<span class="kw">type</span> <span class="tp">Awaited&lt;T&gt;</span> = T <span class="kw">extends</span> <span class="tp">Promise&lt;</span><span class="kw">infer</span> <span class="tp">U&gt;</span> ? <span class="tp">Awaited&lt;U&gt;</span> : <span class="tp">T</span>;</code></pre></div>
+</div>
+
+<!-- ══════════ 12 ══════════ -->
+<div class="section" id="s12">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c2d12,#c2410c)">12</span><h2 class="section-title">Template Literal Types</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">type</span> <span class="tp">EventName</span> = <span class="str">`on${Capitalize&lt;"click" | "focus" | "blur"&gt;}`</span>;
+<span class="cmt">// "onClick" | "onFocus" | "onBlur"</span>
+
+<span class="kw">type</span> <span class="tp">HTTPMethod</span> = <span class="str">"GET"</span> | <span class="str">"POST"</span> | <span class="str">"PUT"</span> | <span class="str">"DELETE"</span>;
+<span class="kw">type</span> <span class="tp">Endpoint</span> = <span class="str">`/${string}`</span>;
+<span class="kw">type</span> <span class="tp">Route</span> = <span class="str">`${HTTPMethod} ${Endpoint}`</span>;
+
+<span class="cmt">// Intrinsic string types</span>
+<span class="tp">Uppercase&lt;"hello"&gt;</span>      <span class="cmt">// "HELLO"</span>
+<span class="tp">Lowercase&lt;"HELLO"&gt;</span>      <span class="cmt">// "hello"</span>
+<span class="tp">Capitalize&lt;"hello"&gt;</span>     <span class="cmt">// "Hello"</span>
+<span class="tp">Uncapitalize&lt;"Hello"&gt;</span>   <span class="cmt">// "hello"</span>
+
+<span class="cmt">// Pattern matching avec infer</span>
+<span class="kw">type</span> <span class="tp">ExtractParams&lt;T&gt;</span> = T <span class="kw">extends</span> <span class="str">`${string}:${</span><span class="kw">infer</span> <span class="tp">Param</span><span class="str">}/${</span><span class="kw">infer</span> <span class="tp">Rest</span><span class="str">}`</span>
+  ? <span class="tp">Param</span> | <span class="tp">ExtractParams&lt;Rest&gt;</span>
+  : T <span class="kw">extends</span> <span class="str">`${string}:${</span><span class="kw">infer</span> <span class="tp">Param</span><span class="str">}`</span>
+  ? <span class="tp">Param</span>
+  : <span class="tp">never</span>;
+
+<span class="tp">ExtractParams&lt;"/users/:id/posts/:postId"&gt;</span>  <span class="cmt">// "id" | "postId"</span></code></pre></div>
+</div>
+
+<!-- ══════════ 13 ══════════ -->
+<div class="section" id="s13">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#3178c6,#60a5fa)">13</span><h2 class="section-title">Utility Types (built-in)</h2></div>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Type</th><th>Description</th><th>Exemple</th></tr></thead>
+  <tbody>
+    <tr><td>Partial&lt;T&gt;</td><td>Toutes les props optionnelles</td><td>Partial&lt;User&gt;</td></tr>
+    <tr><td>Required&lt;T&gt;</td><td>Toutes les props obligatoires</td><td>Required&lt;Config&gt;</td></tr>
+    <tr><td>Readonly&lt;T&gt;</td><td>Toutes les props en lecture seule</td><td>Readonly&lt;State&gt;</td></tr>
+    <tr><td>Record&lt;K, V&gt;</td><td>Objet avec clés K, valeurs V</td><td>Record&lt;string, number&gt;</td></tr>
+    <tr><td>Pick&lt;T, K&gt;</td><td>Garde seulement les clés K</td><td>Pick&lt;User, "name" | "email"&gt;</td></tr>
+    <tr><td>Omit&lt;T, K&gt;</td><td>Exclut les clés K</td><td>Omit&lt;User, "password"&gt;</td></tr>
+    <tr><td>Exclude&lt;T, U&gt;</td><td>Retire U de l'union T</td><td>Exclude&lt;"a"|"b"|"c", "a"&gt; → "b"|"c"</td></tr>
+    <tr><td>Extract&lt;T, U&gt;</td><td>Garde seulement U de T</td><td>Extract&lt;string|number, string&gt; → string</td></tr>
+    <tr><td>NonNullable&lt;T&gt;</td><td>Retire null et undefined</td><td>NonNullable&lt;string|null&gt; → string</td></tr>
+    <tr><td>ReturnType&lt;T&gt;</td><td>Type de retour d'une fonction</td><td>ReturnType&lt;typeof fn&gt;</td></tr>
+    <tr><td>Parameters&lt;T&gt;</td><td>Tuple des paramètres</td><td>Parameters&lt;typeof fn&gt;</td></tr>
+    <tr><td>ConstructorParameters&lt;T&gt;</td><td>Params du constructeur</td><td>ConstructorParameters&lt;typeof Date&gt;</td></tr>
+    <tr><td>InstanceType&lt;T&gt;</td><td>Type d'instance d'une classe</td><td>InstanceType&lt;typeof User&gt;</td></tr>
+    <tr><td>Awaited&lt;T&gt;</td><td>Unwrap Promise récursivement</td><td>Awaited&lt;Promise&lt;string&gt;&gt; → string</td></tr>
+    <tr><td>NoInfer&lt;T&gt;</td><td>Empêche l'inférence (TS 5.4)</td><td>NoInfer&lt;T&gt;</td></tr>
+  </tbody>
+</table></div>
+</div>
+
+<!-- ══════════ 14 ══════════ -->
+<div class="section" id="s14">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#9333ea,#c084fc)">14</span><h2 class="section-title">Infer & Advanced Patterns</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// Deep Partial</span>
+<span class="kw">type</span> <span class="tp">DeepPartial&lt;T&gt;</span> = {
+  [K <span class="kw">in keyof</span> <span class="tp">T</span>]?: T[K] <span class="kw">extends</span> <span class="tp">object</span> ? <span class="tp">DeepPartial&lt;T[K]&gt;</span> : <span class="tp">T[K]</span>
+};
+
+<span class="cmt">// Deep Readonly</span>
+<span class="kw">type</span> <span class="tp">DeepReadonly&lt;T&gt;</span> = {
+  <span class="kw">readonly</span> [K <span class="kw">in keyof</span> <span class="tp">T</span>]: T[K] <span class="kw">extends</span> <span class="tp">object</span> ? <span class="tp">DeepReadonly&lt;T[K]&gt;</span> : <span class="tp">T[K]</span>
+};
+
+<span class="cmt">// Branded types (type nominal)</span>
+<span class="kw">type</span> <span class="tp">Brand&lt;T, B&gt;</span> = T &amp; { __brand: <span class="tp">B</span> };
+<span class="kw">type</span> <span class="tp">UserId</span> = <span class="tp">Brand&lt;string, "UserId"&gt;</span>;
+<span class="kw">type</span> <span class="tp">OrderId</span> = <span class="tp">Brand&lt;string, "OrderId"&gt;</span>;
+<span class="cmt">// UserId et OrderId ne sont pas interchangeables</span>
+
+<span class="cmt">// Builder pattern typé</span>
+<span class="kw">type</span> <span class="tp">Builder&lt;T, Built = {}&gt;</span> = {
+  <span class="fn">set</span>&lt;K <span class="kw">extends keyof</span> <span class="tp">T</span>&gt;(key: <span class="tp">K</span>, val: <span class="tp">T[K]</span>): <span class="tp">Builder&lt;T, Built &amp; Record&lt;K, T[K]&gt;&gt;</span>;
+  <span class="fn">build</span>(): <span class="tp">Built</span>;
+};
+
+<span class="cmt">// Extract function argument types at position</span>
+<span class="kw">type</span> <span class="tp">FirstArg&lt;T&gt;</span> = T <span class="kw">extends</span> (first: <span class="kw">infer</span> <span class="tp">A</span>, ...rest: <span class="tp">any[]</span>) =&gt; <span class="tp">any</span> ? <span class="tp">A</span> : <span class="tp">never</span>;
+
+<span class="cmt">// Variadic tuples</span>
+<span class="kw">type</span> <span class="tp">Concat&lt;A extends any[], B extends any[]&gt;</span> = [...<span class="tp">A</span>, ...<span class="tp">B</span>];
+<span class="tp">Concat&lt;[1, 2], [3, 4]&gt;</span>  <span class="cmt">// [1, 2, 3, 4]</span></code></pre></div>
+</div>
+
+<!-- ══════════ 15 ══════════ -->
+<div class="section" id="s15">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">15</span><h2 class="section-title">Modules & Namespaces</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── ESM (standard, préférer) ──</span>
+<span class="kw">export interface</span> <span class="tp">User</span> { name: <span class="tp">string</span>; }
+<span class="kw">export type</span> <span class="tp">ID</span> = <span class="tp">string</span>;
+<span class="kw">export</span> <span class="kw">const</span> PI = <span class="num">3.14</span>;
+
+<span class="cmt">// Import de type uniquement (tree-shakeable)</span>
+<span class="kw">import type</span> { <span class="tp">User</span>, <span class="tp">ID</span> } <span class="kw">from</span> <span class="str">"./models"</span>;
+<span class="kw">import</span> { <span class="kw">type</span> <span class="tp">User</span>, createUser } <span class="kw">from</span> <span class="str">"./models"</span>; <span class="cmt">// inline type import</span>
+
+<span class="cmt">// ── Namespaces (legacy, éviter dans les nouveaux projets) ──</span>
+<span class="kw">namespace</span> <span class="fn">Validation</span> {
+  <span class="kw">export interface</span> <span class="tp">Validator</span> { <span class="fn">validate</span>(s: <span class="tp">string</span>): <span class="tp">boolean</span>; }
+}
+
+<span class="cmt">// ── Module augmentation ──</span>
+<span class="kw">declare module</span> <span class="str">"express"</span> {
+  <span class="kw">interface</span> <span class="tp">Request</span> {
+    user?: <span class="tp">User</span>;
+  }
+}
+
+<span class="cmt">// ── Global augmentation ──</span>
+<span class="kw">declare global</span> {
+  <span class="kw">interface</span> <span class="tp">Window</span> { analytics: <span class="tp">Analytics</span>; }
+}</code></pre></div>
+</div>
+
+<!-- ══════════ 16 ══════════ -->
+<div class="section" id="s16">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#d97706,#fbbf24)">16</span><h2 class="section-title">Decorators (TS 5.0+)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Stage 3 Decorators (TS 5.0+, standard TC39) ──</span>
+<span class="kw">function</span> <span class="fn">log</span>(target: <span class="tp">any</span>, context: <span class="tp">ClassMethodDecoratorContext</span>) {
+  <span class="kw">const</span> name = <span class="fn">String</span>(context.name);
+  <span class="kw">return function</span>(this: <span class="tp">any</span>, ...args: <span class="tp">any[]</span>) {
+    <span class="fn">console.log</span>(<span class="str">`Calling ${</span>name<span class="str">}`</span>);
+    <span class="kw">return</span> target.<span class="fn">call</span>(<span class="kw">this</span>, ...args);
+  };
+}
+
+<span class="kw">class</span> <span class="fn">Service</span> {
+  @<span class="fn">log</span>
+  <span class="fn">getData</span>() { <span class="kw">return</span> <span class="str">"data"</span>; }
+}
+
+<span class="cmt">// Class decorator</span>
+<span class="kw">function</span> <span class="fn">sealed</span>(target: <span class="tp">Function</span>, _ctx: <span class="tp">ClassDecoratorContext</span>) {
+  <span class="fn">Object.seal</span>(target);
+  <span class="fn">Object.seal</span>(target.prototype);
+}
+
+@<span class="fn">sealed</span>
+<span class="kw">class</span> <span class="fn">MyClass</span> { ... }
+
+<span class="cmt">// Cible des decorators : classes, methods, accessors, fields, auto-accessors</span></code></pre></div>
+</div>
+
+<!-- ══════════ 17 ══════════ -->
+<div class="section" id="s17">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#be185d,#ec4899)">17</span><h2 class="section-title">Declaration Files (.d.ts)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── Fichier .d.ts — types pour des libs JS sans types ──</span>
+
+<span class="cmt">// Déclarer un module</span>
+<span class="kw">declare module</span> <span class="str">"my-lib"</span> {
+  <span class="kw">export function</span> <span class="fn">doStuff</span>(x: <span class="tp">string</span>): <span class="tp">number</span>;
+  <span class="kw">export interface</span> <span class="tp">Config</span> { debug: <span class="tp">boolean</span>; }
+  <span class="kw">export default class</span> <span class="fn">Client</span> {
+    <span class="fn">constructor</span>(config: <span class="tp">Config</span>);
+  }
+}
+
+<span class="cmt">// Wildcard module (CSS, images, etc.)</span>
+<span class="kw">declare module</span> <span class="str">"*.css"</span> {
+  <span class="kw">const</span> content: <span class="tp">Record&lt;string, string&gt;</span>;
+  <span class="kw">export default</span> content;
+}
+<span class="kw">declare module</span> <span class="str">"*.png"</span> {
+  <span class="kw">const</span> src: <span class="tp">string</span>;
+  <span class="kw">export default</span> src;
+}
+
+<span class="cmt">// Variables globales</span>
+<span class="kw">declare const</span> __VERSION__: <span class="tp">string</span>;
+<span class="kw">declare function</span> <span class="fn">gtag</span>(...args: <span class="tp">any[]</span>): <span class="tp">void</span>;
+
+<span class="cmt">// @types/xxx — types DefinitelyTyped (npm)</span>
+<span class="cmt">// npm install @types/node @types/react</span></code></pre></div>
+</div>
+
+<!-- ══════════ 18 ══════════ -->
+<div class="section" id="s18">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#475569,#94a3b8)">18</span><h2 class="section-title">tsconfig.json</h2></div>
+
+<div class="code-block"><div class="code-header"><span>JSON</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code>{
+  <span class="str">"compilerOptions"</span>: {
+    <span class="cmt">// ── Target & Module ──</span>
+    <span class="str">"target"</span>: <span class="str">"ES2022"</span>,           <span class="cmt">// version JS de sortie</span>
+    <span class="str">"module"</span>: <span class="str">"NodeNext"</span>,         <span class="cmt">// système de modules</span>
+    <span class="str">"moduleResolution"</span>: <span class="str">"NodeNext"</span>,
+    <span class="str">"lib"</span>: [<span class="str">"ES2023"</span>, <span class="str">"DOM"</span>, <span class="str">"DOM.Iterable"</span>],
+
+    <span class="cmt">// ── Strict (tout activer)</span>
+    <span class="str">"strict"</span>: <span class="kw">true</span>,               <span class="cmt">// active toutes les vérifs strictes</span>
+    <span class="str">"noUncheckedIndexedAccess"</span>: <span class="kw">true</span>,
+    <span class="str">"noImplicitOverride"</span>: <span class="kw">true</span>,
+    <span class="str">"exactOptionalPropertyTypes"</span>: <span class="kw">true</span>,
+
+    <span class="cmt">// ── Output ──</span>
+    <span class="str">"outDir"</span>: <span class="str">"./dist"</span>,
+    <span class="str">"rootDir"</span>: <span class="str">"./src"</span>,
+    <span class="str">"declaration"</span>: <span class="kw">true</span>,          <span class="cmt">// génère .d.ts</span>
+    <span class="str">"sourceMap"</span>: <span class="kw">true</span>,
+    <span class="str">"declarationMap"</span>: <span class="kw">true</span>,
+
+    <span class="cmt">// ── Interop ──</span>
+    <span class="str">"esModuleInterop"</span>: <span class="kw">true</span>,
+    <span class="str">"allowSyntheticDefaultImports"</span>: <span class="kw">true</span>,
+    <span class="str">"resolveJsonModule"</span>: <span class="kw">true</span>,
+    <span class="str">"isolatedModules"</span>: <span class="kw">true</span>,      <span class="cmt">// requis pour Vite/esbuild</span>
+    <span class="str">"verbatimModuleSyntax"</span>: <span class="kw">true</span>,  <span class="cmt">// TS 5.0+</span>
+
+    <span class="cmt">// ── Paths ──</span>
+    <span class="str">"baseUrl"</span>: <span class="str">"."</span>,
+    <span class="str">"paths"</span>: { <span class="str">"@/*"</span>: [<span class="str">"src/*"</span>] },
+
+    <span class="str">"skipLibCheck"</span>: <span class="kw">true</span>
+  },
+  <span class="str">"include"</span>: [<span class="str">"src/**/*"</span>],
+  <span class="str">"exclude"</span>: [<span class="str">"node_modules"</span>, <span class="str">"dist"</span>]
+}</code></pre></div>
+</div>
+
+<!-- ══════════ 19 ══════════ -->
+<div class="section" id="s19">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#dc2626,#f87171)">19</span><h2 class="section-title">TS 5.x Nouveautés</h2></div>
+
+<div class="code-block"><div class="code-header"><span>TS 5.0 – 5.5</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ── TS 5.0 ──</span>
+<span class="cmt">// • Decorators (TC39 stage 3)</span>
+<span class="cmt">// • const type parameters</span>
+<span class="kw">function</span> <span class="fn">asConst</span>&lt;<span class="kw">const</span> T&gt;(val: <span class="tp">T</span>): <span class="tp">T</span> { <span class="kw">return</span> val; }
+<span class="fn">asConst</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]);  <span class="cmt">// readonly [1, 2, 3] au lieu de number[]</span>
+
+<span class="cmt">// • satisfies operator</span>
+<span class="kw">const</span> cfg = { port: <span class="num">3000</span> } <span class="kw">satisfies</span> <span class="tp">Record&lt;string, number&gt;</span>;
+
+<span class="cmt">// ── TS 5.1 ──</span>
+<span class="cmt">// • Easier implicit returns for undefined</span>
+<span class="cmt">// • Unrelated types for getters/setters</span>
+
+<span class="cmt">// ── TS 5.2 ──</span>
+<span class="cmt">// • using (Explicit Resource Management)</span>
+{
+  <span class="kw">using</span> file = <span class="fn">openFile</span>(<span class="str">"data.txt"</span>);
+  <span class="cmt">// file[Symbol.dispose]() appelé automatiquement à la sortie du bloc</span>
+}
+<span class="cmt">// • Decorator metadata</span>
+
+<span class="cmt">// ── TS 5.3 ──</span>
+<span class="cmt">// • Import attributes</span>
+<span class="kw">import</span> data <span class="kw">from</span> <span class="str">"./data.json"</span> <span class="kw">with</span> { type: <span class="str">"json"</span> };
+
+<span class="cmt">// ── TS 5.4 ──</span>
+<span class="cmt">// • NoInfer&lt;T&gt; — empêche l'inférence sur un paramètre</span>
+<span class="kw">function</span> <span class="fn">createStore</span>&lt;T&gt;(initial: <span class="tp">T</span>, allowed: <span class="tp">NoInfer&lt;T&gt;[]</span>) { ... }
+
+<span class="cmt">// • Narrowing amélioré dans les closures</span>
+
+<span class="cmt">// ── TS 5.5 ──</span>
+<span class="cmt">// • Inferred type predicates</span>
+<span class="cmt">// • Regular expression syntax checking</span>
+<span class="cmt">// • Isolated declarations</span></code></pre></div>
+</div>
+
+<!-- ══════════ 20 ══════════ -->
+<div class="section" id="s20">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#2563eb,#3b82f6)">20</span><h2 class="section-title">Bonnes pratiques</h2></div>
+
+<div class="code-block"><div class="code-header"><span>Conseils</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">// ✅ Activer "strict": true dans tsconfig</span>
+<span class="cmt">// ✅ Préférer unknown à any</span>
+<span class="cmt">// ✅ Utiliser les discriminated unions pour le state</span>
+<span class="cmt">// ✅ Préférer interface pour les objets, type pour les unions/intersections</span>
+<span class="cmt">// ✅ Utiliser as const pour les constantes littérales</span>
+<span class="cmt">// ✅ satisfies pour valider sans widener</span>
+<span class="cmt">// ✅ import type pour les imports de type uniquement</span>
+<span class="cmt">// ✅ Type guards custom pour le narrowing complexe</span>
+<span class="cmt">// ✅ Exhaustive checks avec never dans les switch</span>
+<span class="cmt">// ✅ Readonly&lt;T&gt; pour les données immutables</span>
+<span class="cmt">// ✅ Branded types pour les IDs (UserId vs OrderId)</span>
+<span class="cmt">// ✅ Zod / Valibot pour la validation runtime + inférence de type</span>
+
+<span class="cmt">// ❌ any partout — désactive tout le bénéfice de TS</span>
+<span class="cmt">// ❌ as Type (assertions) quand un type guard est possible</span>
+<span class="cmt">// ❌ Non-null assertion (!) sans être sûr</span>
+<span class="cmt">// ❌ @ts-ignore sans commentaire explicatif</span>
+<span class="cmt">// ❌ Enums numériques — préférer string enums ou unions</span>
+<span class="cmt">// ❌ Namespaces dans les projets modernes — utiliser ESM</span>
+<span class="cmt">// ❌ Oublier noUncheckedIndexedAccess (arrays, records)</span>
+<span class="cmt">// ❌ Types trop complexes qui nuisent à la lisibilité</span></code></pre></div>
+</div>
+
+<p style="text-align:center;color:var(--text3);font-size:.85rem;margin-top:40px;padding:20px 0;border-top:1px solid var(--border)">TypeScript Cheatsheet Complet — TS 5.x — 2026</p>
+</main>
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0})">↑</button>
+
+<script>
+const toggle=document.getElementById('themeToggle'),html=document.documentElement;let dark=true;toggle.addEventListener('click',()=>{dark=!dark;html.setAttribute('data-theme',dark?'':'light');toggle.textContent=dark?'🌙':'☀️'});
+function copyCode(btn){const pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.textContent).then(()=>{btn.textContent='✓ Copié';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copier';btn.classList.remove('copied')},1500)})}
+const backTop=document.getElementById('backTop');window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400)});
+const sections=document.querySelectorAll('.section'),navLinks=document.querySelectorAll('.nav-link');
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(l=>l.classList.remove('active'));const link=document.querySelector(`.nav-link[href="#${entry.target.id}"]`);if(link)link.classList.add('active')}})},{rootMargin:'-80px 0px -70% 0px',threshold:0});
+sections.forEach(s=>observer.observe(s));
+const searchInput=document.getElementById('search'),searchCount=document.getElementById('searchCount'),content=document.getElementById('content');
+function clearHighlights(){content.querySelectorAll('mark.search-hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize()})}
+function highlightText(node,term){let count=0;if(node.nodeType===3){const idx=node.textContent.toLowerCase().indexOf(term);if(idx>=0){const span=document.createElement('mark');span.className='search-hl';const after=node.splitText(idx);after.splitText(term.length);span.textContent=after.textContent;after.parentNode.replaceChild(span,after);return 1}}else if(node.nodeType===1&&!['SCRIPT','STYLE','MARK'].includes(node.tagName)){for(const child of Array.from(node.childNodes))count+=highlightText(child,term)}return count}
+let searchTimeout;searchInput.addEventListener('input',()=>{clearTimeout(searchTimeout);searchTimeout=setTimeout(()=>{clearHighlights();const term=searchInput.value.trim().toLowerCase();if(term.length<2){searchCount.textContent='';sections.forEach(s=>s.style.display='');return}let total=0;sections.forEach(s=>{const match=s.textContent.toLowerCase().includes(term);s.style.display=match?'':'none';if(match)total+=highlightText(s,term)});searchCount.textContent=total>0?`${total} résultat${total>1?'s':''}`:'Aucun';const first=content.querySelector('mark.search-hl');if(first)first.scrollIntoView({behavior:'smooth',block:'center'})},200)});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();searchInput.focus();searchInput.select()}if(e.key==='Escape'){searchInput.value='';searchInput.dispatchEvent(new Event('input'));searchInput.blur()}});
+</script>
+</body>
+</html>
