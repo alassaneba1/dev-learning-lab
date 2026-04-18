@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SQL — Cheatsheet Complet</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c0f1a'/><text x='3' y='23' font-family='monospace' font-weight='900' font-size='17' fill='%2360a5fa'>DL</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -207,6 +208,15 @@ mark {
 }
 
 .btn-theme:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-back {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--bg2); color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-size: 1rem; flex-shrink: 0;
+  transition: all 0.2s;
+}
+.btn-back:hover { border-color: var(--accent); color: var(--accent); background: var(--bg3); }
 
 /* ══════════════════════════════════════════
    LAYOUT
@@ -504,6 +514,7 @@ td:first-child { font-weight: 600; color: var(--accent2); font-family: 'Outfit',
 
 <!-- ════════════════ HEADER ════════════════ -->
 <header class="header" id="top">
+  <a href="../index.html" class="btn-back" title="Accueil" aria-label="Retour à l'accueil">←</a>
   <span class="header-title">SQL Cheatsheet</span>
   <span class="header-tag">Exhaustif</span>
   <div class="search-box">
