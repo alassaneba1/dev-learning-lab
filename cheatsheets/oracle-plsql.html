@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle PL/SQL — Cheatsheet Complet</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c0f1a'/><text x='3' y='23' font-family='monospace' font-weight='900' font-size='17' fill='%2360a5fa'>DL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f1a;--bg2:#131729;--bg3:#1a1f36;--bg-code:#0d1117;--surface:#1e2340;--border:#2a3050;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#e11d48;--accent2:#fb7185;--accent3:#34d399;--accent4:#fbbf24;--accent5:#f472b6;--keyword:#c084fc;--func:#67e8f9;--str:#86efac;--num:#fcd34d;--cmt:#6b7280;--op:#f9a8d4;--type:#fb7185;--glow:rgba(225,29,72,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);--radius:12px;--mark-bg:rgba(250,204,21,0.25);--mark-text:#fde047;--scrollbar-track:#131729;--scrollbar-thumb:#2a3050}
+[data-theme="light"]{--bg:#f8fafc;--bg2:#f1f5f9;--bg3:#e2e8f0;--bg-code:#fefefe;--surface:#fff;--border:#d1d5db;--text:#1e293b;--text2:#475569;--text3:#94a3b8;--accent:#be123c;--accent2:#e11d48;--accent3:#059669;--accent4:#ca8a04;--accent5:#db2777;--keyword:#7c3aed;--func:#0891b2;--str:#16a34a;--num:#ca8a04;--cmt:#9ca3af;--op:#be185d;--type:#be123c;--glow:rgba(190,18,60,0.04);--shadow:0 4px 24px rgba(0,0,0,0.06);--mark-bg:rgba(250,204,21,0.35);--mark-text:#92400e;--scrollbar-track:#f1f5f9;--scrollbar-thumb:#cbd5e1}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;font-size:16px}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .35s,color .35s}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--scrollbar-track)}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:4px}
+::selection{background:var(--accent);color:#fff}
+mark{background:var(--mark-bg);color:var(--mark-text);border-radius:2px;padding:0 2px}
+.header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:12px 24px;display:flex;align-items:center;gap:16px;transition:background .35s,border-color .35s}
+.header-title{font-weight:800;font-size:1.25rem;letter-spacing:-.5px;white-space:nowrap;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-tag{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent3);border:1px solid var(--accent3);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.search-box{flex:1;max-width:420px;position:relative;margin-left:auto}
+.search-box input{width:100%;padding:8px 14px 8px 38px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(225,29,72,.15)}
+.search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
+.search-count{font-size:.75rem;color:var(--text3);position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none}
+.btn-theme{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .2s;flex-shrink:0}
+.btn-theme:hover{border-color:var(--accent);color:var(--accent)}
+.layout{display:flex;max-width:1400px;margin:0 auto}
+.sidebar{width:270px;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto;padding:20px 16px;border-right:1px solid var(--border);flex-shrink:0;transition:border-color .35s}
+.sidebar::-webkit-scrollbar{width:4px}
+.nav-group-title{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin:18px 0 6px}.nav-group-title:first-child{margin-top:0}
+.nav-link{display:block;font-size:.82rem;color:var(--text2);text-decoration:none;padding:5px 10px;border-radius:6px;transition:all .15s;line-height:1.4}
+.nav-link:hover{background:var(--glow);color:var(--accent)}.nav-link.active{background:var(--glow);color:var(--accent);font-weight:600}
+.main{flex:1;min-width:0;padding:32px 40px 80px}
+.section{margin-bottom:48px;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.section-num{font-size:.7rem;font-weight:800;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.5px}
+.subsection-title{font-size:1rem;font-weight:600;color:var(--accent2);margin:24px 0 10px;display:flex;align-items:center;gap:8px}
+.subsection-title::before{content:"▸";color:var(--accent2);font-size:.9rem}
+p.desc{color:var(--text2);font-size:.9rem;margin-bottom:12px;font-weight:300}
+.code-block{position:relative;background:var(--bg-code);border:1px solid var(--border);border-radius:var(--radius);margin:10px 0 16px;overflow:hidden;transition:border-color .35s,background .35s}
+.code-block:hover{border-color:var(--accent)}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.btn-copy{background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;padding:2px 10px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:.7rem;transition:all .2s}
+.btn-copy:hover{border-color:var(--accent);color:var(--accent)}.btn-copy.copied{border-color:var(--accent3);color:var(--accent3)}
+.code-block pre{padding:14px 18px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7;tab-size:2}
+.code-block code{font-family:inherit}
+.kw{color:var(--keyword);font-weight:600}.fn{color:var(--func)}.str{color:var(--str)}.num{color:var(--num)}.cmt{color:var(--cmt);font-style:italic}.op{color:var(--op)}.tp{color:var(--type);font-weight:600}
+.table-wrap{overflow-x:auto;margin:10px 0 16px;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead th{background:var(--surface);color:var(--accent);font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;position:sticky;top:0}
+tbody td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text)}
+tbody tr:nth-child(even){background:var(--glow)}tbody tr:hover{background:rgba(225,29,72,.06)}
+td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-serif}
+.back-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(225,29,72,.4);opacity:0;transform:translateY(20px);transition:all .3s;z-index:50}
+.back-top.visible{opacity:1;transform:translateY(0)}.back-top:hover{transform:scale(1.1)}
+.btn-back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;flex-shrink:0;transition:all .2s}
+.btn-back:hover{border-color:var(--accent);color:var(--accent);background:var(--bg3)}
+@media(max-width:900px){.sidebar{display:none}.main{padding:24px 16px 60px}.header{padding:10px 14px;gap:10px}.header-title{font-size:1rem}.header-tag{display:none}}
+@media print{.header,.sidebar,.back-top,.btn-copy,.code-header{display:none!important}.layout{display:block}.main{padding:0}.code-block{break-inside:avoid;border:1px solid #ccc}body{background:#fff;color:#000;font-size:10pt}}
+</style>
+</head>
+<body>
+
+<header class="header" id="top">
+  <a href="../index.html" class="btn-back" title="Accueil">←</a>
+  <span class="header-title">Oracle PL/SQL</span>
+  <span class="header-tag">Oracle 21c / 23ai</span>
+  <div class="search-box"><span class="icon">🔍</span><input type="text" id="search" placeholder="Rechercher (Ctrl+K)" autocomplete="off"><span class="search-count" id="searchCount"></span></div>
+  <button class="btn-menu" id="btnMenu" title="Navigation">☰</button>
+  <button class="btn-theme" id="themeToggle" title="Thème">🌙</button>
+</header>
+
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="nav-group-title">Fondamentaux</div>
+  <a class="nav-link" href="#s1">1. Structure d'un bloc PL/SQL</a>
+  <a class="nav-link" href="#s2">2. Variables & Types de données</a>
+  <a class="nav-link" href="#s3">3. Structures de contrôle</a>
+  <a class="nav-link" href="#s4">4. Curseurs</a>
+  <a class="nav-link" href="#s5">5. Exceptions</a>
+
+  <div class="nav-group-title">Sous-programmes</div>
+  <a class="nav-link" href="#s6">6. Procédures</a>
+  <a class="nav-link" href="#s7">7. Fonctions</a>
+  <a class="nav-link" href="#s8">8. Packages</a>
+
+  <div class="nav-group-title">Avancé</div>
+  <a class="nav-link" href="#s9">9. Triggers</a>
+  <a class="nav-link" href="#s10">10. Collections (TABLE, VARRAY, Associative)</a>
+  <a class="nav-link" href="#s11">11. Records & %TYPE / %ROWTYPE</a>
+  <a class="nav-link" href="#s12">12. SQL dynamique (EXECUTE IMMEDIATE)</a>
+  <a class="nav-link" href="#s13">13. Bulk Operations (FORALL, BULK COLLECT)</a>
+  <a class="nav-link" href="#s14">14. REF CURSOR & SYS_REFCURSOR</a>
+  <a class="nav-link" href="#s15">15. Transactions & Verrous</a>
+
+  <div class="nav-group-title">Utilitaires & Moderne</div>
+  <a class="nav-link" href="#s16">16. DBMS_OUTPUT & Debugging</a>
+  <a class="nav-link" href="#s17">17. UTL_FILE, UTL_HTTP, UTL_MAIL</a>
+  <a class="nav-link" href="#s18">18. Objets (Types Objet)</a>
+  <a class="nav-link" href="#s19">19. Oracle 21c / 23ai Nouveautés</a>
+  <a class="nav-link" href="#s20">20. Bonnes pratiques & Performance</a>
+</nav>
+
+<main class="main" id="content">
+
+<!-- ══════════ 1 ══════════ -->
+<div class="section" id="s1">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#e11d48,#fb7185)">1</span><h2 class="section-title">Structure d'un bloc PL/SQL</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- Bloc anonyme</span>
+<span class="kw">DECLARE</span>
+  <span class="cmt">-- déclarations (variables, curseurs, exceptions)</span>
+  v_name <span class="tp">VARCHAR2</span>(<span class="num">100</span>) := <span class="str">'Alice'</span>;
+<span class="kw">BEGIN</span>
+  <span class="cmt">-- instructions exécutables</span>
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(<span class="str">'Hello '</span> || v_name);
+
+  <span class="cmt">-- sous-bloc imbriqué</span>
+  <span class="kw">DECLARE</span>
+    v_inner <span class="tp">NUMBER</span> := <span class="num">42</span>;
+  <span class="kw">BEGIN</span>
+    <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_inner);
+  <span class="kw">END</span>;
+
+<span class="kw">EXCEPTION</span>
+  <span class="cmt">-- gestion des erreurs</span>
+  <span class="kw">WHEN OTHERS THEN</span>
+    <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(<span class="str">'Erreur: '</span> || <span class="fn">SQLERRM</span>);
+<span class="kw">END</span>;
+/
+
+<span class="cmt">-- Le / final exécute le bloc dans SQL*Plus / SQLcl / SQL Developer</span>
+<span class="cmt">-- DECLARE est optionnel si pas de variables</span>
+<span class="cmt">-- EXCEPTION est optionnel</span>
+<span class="cmt">-- BEGIN ... END; est obligatoire</span></code></pre></div>
+</div>
+
+<!-- ══════════ 2 ══════════ -->
+<div class="section" id="s2">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">2</span><h2 class="section-title">Variables & Types de données</h2></div>
+
+<h3 class="subsection-title">Types scalaires</h3>
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- Numériques</span>
+v_int      <span class="tp">NUMBER</span>             := <span class="num">42</span>;
+v_dec      <span class="tp">NUMBER</span>(<span class="num">10</span>,<span class="num">2</span>)       := <span class="num">3.14</span>;
+v_pls      <span class="tp">PLS_INTEGER</span>        := <span class="num">100</span>;        <span class="cmt">-- plus rapide que NUMBER</span>
+v_bin      <span class="tp">BINARY_INTEGER</span>     := <span class="num">200</span>;
+v_float    <span class="tp">BINARY_DOUBLE</span>      := <span class="num">1.5</span>;
+v_simple   <span class="tp">SIMPLE_INTEGER</span>     := <span class="num">0</span>;          <span class="cmt">-- NOT NULL, pas de check overflow</span>
+
+<span class="cmt">-- Chaînes</span>
+v_str      <span class="tp">VARCHAR2</span>(<span class="num">4000</span>)    := <span class="str">'Hello'</span>;    <span class="cmt">-- max 32767 en PL/SQL</span>
+v_char     <span class="tp">CHAR</span>(<span class="num">10</span>)          := <span class="str">'ABC'</span>;      <span class="cmt">-- padding espaces</span>
+v_clob     <span class="tp">CLOB</span>              := <span class="str">'Texte long...'</span>;
+v_nchar    <span class="tp">NVARCHAR2</span>(<span class="num">100</span>)    := <span class="str">N'Unicode'</span>;
+v_raw      <span class="tp">RAW</span>(<span class="num">200</span>);
+
+<span class="cmt">-- Date / Heure</span>
+v_date     <span class="tp">DATE</span>              := <span class="fn">SYSDATE</span>;
+v_ts       <span class="tp">TIMESTAMP</span>         := <span class="fn">SYSTIMESTAMP</span>;
+v_tstz     <span class="tp">TIMESTAMP WITH TIME ZONE</span>;
+v_interval <span class="tp">INTERVAL DAY TO SECOND</span>;
+
+<span class="cmt">-- Booléen (PL/SQL uniquement, pas en SQL)</span>
+v_bool     <span class="tp">BOOLEAN</span>           := <span class="kw">TRUE</span>;       <span class="cmt">-- TRUE, FALSE, NULL</span>
+
+<span class="cmt">-- LOB</span>
+v_blob     <span class="tp">BLOB</span>;
+v_bfile    <span class="tp">BFILE</span>;</code></pre></div>
+
+<h3 class="subsection-title">Constantes, NOT NULL, Ancrage</h3>
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- Constante</span>
+c_pi <span class="kw">CONSTANT</span> <span class="tp">NUMBER</span> := <span class="num">3.14159</span>;
+
+<span class="cmt">-- NOT NULL</span>
+v_count <span class="tp">PLS_INTEGER</span> <span class="kw">NOT NULL</span> := <span class="num">0</span>;
+
+<span class="cmt">-- %TYPE — ancrage au type d'une colonne ou variable</span>
+v_name employees.last_name<span class="tp">%TYPE</span>;
+
+<span class="cmt">-- %ROWTYPE — ancrage à la structure d'une table/curseur</span>
+v_emp employees<span class="tp">%ROWTYPE</span>;
+v_emp.last_name := <span class="str">'Diallo'</span>;
+
+<span class="cmt">-- Sous-types utilisateur</span>
+<span class="kw">SUBTYPE</span> <span class="tp">t_name</span> <span class="kw">IS</span> <span class="tp">VARCHAR2</span>(<span class="num">100</span>);
+v_first <span class="tp">t_name</span>;</code></pre></div>
+
+<h3 class="subsection-title">Conversions</h3>
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">TO_NUMBER</span>(<span class="str">'42'</span>)                        <span class="cmt">-- string → number</span>
+<span class="fn">TO_CHAR</span>(<span class="fn">SYSDATE</span>, <span class="str">'DD/MM/YYYY HH24:MI'</span>) <span class="cmt">-- date → string</span>
+<span class="fn">TO_DATE</span>(<span class="str">'15/06/2024'</span>, <span class="str">'DD/MM/YYYY'</span>)   <span class="cmt">-- string → date</span>
+<span class="fn">TO_TIMESTAMP</span>(<span class="str">'2024-06-15 14:30:00'</span>, <span class="str">'YYYY-MM-DD HH24:MI:SS'</span>)
+<span class="fn">CAST</span>(v_number <span class="kw">AS</span> <span class="tp">VARCHAR2</span>(<span class="num">20</span>))
+<span class="fn">TO_CHAR</span>(<span class="num">1234.5</span>, <span class="str">'FM9,999.00'</span>)          <span class="cmt">-- "1,234.50"</span></code></pre></div>
+</div>
+
+<!-- ══════════ 3 ══════════ -->
+<div class="section" id="s3">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">3</span><h2 class="section-title">Structures de contrôle</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ── IF / ELSIF / ELSE ──</span>
+<span class="kw">IF</span> v_score &gt;= <span class="num">90</span> <span class="kw">THEN</span>
+  v_grade := <span class="str">'A'</span>;
+<span class="kw">ELSIF</span> v_score &gt;= <span class="num">80</span> <span class="kw">THEN</span>
+  v_grade := <span class="str">'B'</span>;
+<span class="kw">ELSE</span>
+  v_grade := <span class="str">'C'</span>;
+<span class="kw">END IF</span>;
+
+<span class="cmt">-- ── CASE expression ──</span>
+v_label := <span class="kw">CASE</span> v_status
+  <span class="kw">WHEN</span> <span class="str">'A'</span> <span class="kw">THEN</span> <span class="str">'Actif'</span>
+  <span class="kw">WHEN</span> <span class="str">'I'</span> <span class="kw">THEN</span> <span class="str">'Inactif'</span>
+  <span class="kw">ELSE</span> <span class="str">'Inconnu'</span>
+<span class="kw">END</span>;
+
+<span class="cmt">-- CASE statement (searched)</span>
+<span class="kw">CASE</span>
+  <span class="kw">WHEN</span> v_sal &gt; <span class="num">10000</span> <span class="kw">THEN</span> do_high();
+  <span class="kw">WHEN</span> v_sal &gt; <span class="num">5000</span>  <span class="kw">THEN</span> do_mid();
+  <span class="kw">ELSE</span> do_low();
+<span class="kw">END CASE</span>;
+
+<span class="cmt">-- ── Boucle simple (infinie sans EXIT) ──</span>
+<span class="kw">LOOP</span>
+  <span class="kw">EXIT WHEN</span> v_i &gt; <span class="num">10</span>;
+  v_i := v_i + <span class="num">1</span>;
+<span class="kw">END LOOP</span>;
+
+<span class="cmt">-- ── WHILE ──</span>
+<span class="kw">WHILE</span> v_i &lt;= <span class="num">10</span> <span class="kw">LOOP</span>
+  v_i := v_i + <span class="num">1</span>;
+<span class="kw">END LOOP</span>;
+
+<span class="cmt">-- ── FOR (numérique) ──</span>
+<span class="kw">FOR</span> i <span class="kw">IN</span> <span class="num">1</span>..<span class="num">10</span> <span class="kw">LOOP</span>
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(i);
+<span class="kw">END LOOP</span>;
+
+<span class="cmt">-- FOR inversé</span>
+<span class="kw">FOR</span> i <span class="kw">IN REVERSE</span> <span class="num">1</span>..<span class="num">10</span> <span class="kw">LOOP</span> ... <span class="kw">END LOOP</span>;
+
+<span class="cmt">-- ── FOR curseur implicite ──</span>
+<span class="kw">FOR</span> rec <span class="kw">IN</span> (<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> dept_id = <span class="num">10</span>) <span class="kw">LOOP</span>
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(rec.last_name);
+<span class="kw">END LOOP</span>;
+
+<span class="cmt">-- CONTINUE / EXIT</span>
+<span class="kw">CONTINUE</span>;                <span class="cmt">-- itération suivante</span>
+<span class="kw">CONTINUE WHEN</span> cond;      <span class="cmt">-- continue conditionnel</span>
+<span class="kw">EXIT</span>;                    <span class="cmt">-- sort de la boucle</span>
+<span class="kw">EXIT WHEN</span> cond;          <span class="cmt">-- exit conditionnel</span>
+
+<span class="cmt">-- GOTO (à éviter)</span>
+<span class="kw">GOTO</span> end_block;
+&lt;&lt;end_block&gt;&gt;
+<span class="kw">NULL</span>;                    <span class="cmt">-- instruction vide (placeholder)</span></code></pre></div>
+</div>
+
+<!-- ══════════ 4 ══════════ -->
+<div class="section" id="s4">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#d97706,#fbbf24)">4</span><h2 class="section-title">Curseurs</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ Curseur implicite (SQL dans PL/SQL) ══</span>
+<span class="kw">SELECT</span> last_name <span class="kw">INTO</span> v_name <span class="kw">FROM</span> employees <span class="kw">WHERE</span> employee_id = <span class="num">100</span>;
+<span class="cmt">-- Lève NO_DATA_FOUND si 0 lignes, TOO_MANY_ROWS si &gt; 1</span>
+
+<span class="cmt">-- Attributs du curseur implicite</span>
+<span class="fn">SQL%FOUND</span>      <span class="cmt">-- TRUE si le dernier DML a affecté ≥ 1 ligne</span>
+<span class="fn">SQL%NOTFOUND</span>   <span class="cmt">-- TRUE si 0 lignes</span>
+<span class="fn">SQL%ROWCOUNT</span>   <span class="cmt">-- nombre de lignes affectées</span>
+<span class="fn">SQL%ISOPEN</span>     <span class="cmt">-- toujours FALSE pour implicite</span>
+
+<span class="cmt">-- ══ Curseur explicite ══</span>
+<span class="kw">DECLARE</span>
+  <span class="kw">CURSOR</span> c_emp <span class="kw">IS</span>
+    <span class="kw">SELECT</span> employee_id, last_name, salary
+    <span class="kw">FROM</span> employees
+    <span class="kw">WHERE</span> department_id = <span class="num">10</span>;
+  r_emp c_emp<span class="tp">%ROWTYPE</span>;
+<span class="kw">BEGIN</span>
+  <span class="kw">OPEN</span> c_emp;
+  <span class="kw">LOOP</span>
+    <span class="kw">FETCH</span> c_emp <span class="kw">INTO</span> r_emp;
+    <span class="kw">EXIT WHEN</span> c_emp<span class="fn">%NOTFOUND</span>;
+    <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(r_emp.last_name || <span class="str">' : '</span> || r_emp.salary);
+  <span class="kw">END LOOP</span>;
+  <span class="kw">CLOSE</span> c_emp;
+<span class="kw">END</span>;
+
+<span class="cmt">-- ══ Curseur FOR (plus simple — open/fetch/close automatique) ══</span>
+<span class="kw">FOR</span> rec <span class="kw">IN</span> c_emp <span class="kw">LOOP</span>
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(rec.last_name);
+<span class="kw">END LOOP</span>;
+
+<span class="cmt">-- ══ Curseur paramétré ══</span>
+<span class="kw">CURSOR</span> c_dept(p_dept_id <span class="tp">NUMBER</span>) <span class="kw">IS</span>
+  <span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> department_id = p_dept_id;
+
+<span class="kw">FOR</span> rec <span class="kw">IN</span> c_dept(<span class="num">20</span>) <span class="kw">LOOP</span> ... <span class="kw">END LOOP</span>;
+
+<span class="cmt">-- ══ Curseur avec FOR UPDATE (verrou) ══</span>
+<span class="kw">CURSOR</span> c_lock <span class="kw">IS</span>
+  <span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">WHERE</span> dept_id = <span class="num">10</span> <span class="kw">FOR UPDATE OF</span> salary;
+
+<span class="kw">UPDATE</span> employees <span class="kw">SET</span> salary = salary * <span class="num">1.1</span> <span class="kw">WHERE CURRENT OF</span> c_lock;</code></pre></div>
+</div>
+
+<!-- ══════════ 5 ══════════ -->
+<div class="section" id="s5">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#dc2626,#f87171)">5</span><h2 class="section-title">Exceptions</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ── Exceptions prédéfinies ──</span>
+<span class="kw">EXCEPTION</span>
+  <span class="kw">WHEN</span> <span class="fn">NO_DATA_FOUND</span>      <span class="kw">THEN</span> ...  <span class="cmt">-- SELECT INTO 0 lignes</span>
+  <span class="kw">WHEN</span> <span class="fn">TOO_MANY_ROWS</span>      <span class="kw">THEN</span> ...  <span class="cmt">-- SELECT INTO &gt; 1 ligne</span>
+  <span class="kw">WHEN</span> <span class="fn">ZERO_DIVIDE</span>        <span class="kw">THEN</span> ...  <span class="cmt">-- division par zéro</span>
+  <span class="kw">WHEN</span> <span class="fn">VALUE_ERROR</span>        <span class="kw">THEN</span> ...  <span class="cmt">-- conversion/taille incorrecte</span>
+  <span class="kw">WHEN</span> <span class="fn">DUP_VAL_ON_INDEX</span>   <span class="kw">THEN</span> ...  <span class="cmt">-- violation UNIQUE</span>
+  <span class="kw">WHEN</span> <span class="fn">INVALID_CURSOR</span>     <span class="kw">THEN</span> ...  <span class="cmt">-- opération sur curseur fermé</span>
+  <span class="kw">WHEN</span> <span class="fn">CURSOR_ALREADY_OPEN</span> <span class="kw">THEN</span> ...
+  <span class="kw">WHEN</span> <span class="fn">LOGIN_DENIED</span>       <span class="kw">THEN</span> ...
+  <span class="kw">WHEN</span> <span class="fn">PROGRAM_ERROR</span>      <span class="kw">THEN</span> ...
+  <span class="kw">WHEN OTHERS</span>             <span class="kw">THEN</span> ...  <span class="cmt">-- catch-all (toujours en dernier)</span>
+
+<span class="cmt">-- Fonctions d'erreur</span>
+<span class="fn">SQLCODE</span>    <span class="cmt">-- code numérique de l'erreur</span>
+<span class="fn">SQLERRM</span>    <span class="cmt">-- message d'erreur</span>
+<span class="fn">DBMS_UTILITY.FORMAT_ERROR_BACKTRACE</span>  <span class="cmt">-- pile d'appels</span>
+<span class="fn">DBMS_UTILITY.FORMAT_ERROR_STACK</span>      <span class="cmt">-- pile d'erreurs</span>
+
+<span class="cmt">-- ── Exception utilisateur ──</span>
+<span class="kw">DECLARE</span>
+  e_salary_too_high <span class="kw">EXCEPTION</span>;
+<span class="kw">BEGIN</span>
+  <span class="kw">IF</span> v_sal &gt; <span class="num">50000</span> <span class="kw">THEN</span>
+    <span class="kw">RAISE</span> e_salary_too_high;
+  <span class="kw">END IF</span>;
+<span class="kw">EXCEPTION</span>
+  <span class="kw">WHEN</span> e_salary_too_high <span class="kw">THEN</span>
+    <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(<span class="str">'Salaire trop élevé'</span>);
+<span class="kw">END</span>;
+
+<span class="cmt">-- ── RAISE_APPLICATION_ERROR (erreur personnalisée avec code) ──</span>
+<span class="fn">RAISE_APPLICATION_ERROR</span>(-<span class="num">20001</span>, <span class="str">'Message custom'</span>);
+<span class="cmt">-- Codes utilisateur : -20000 à -20999</span>
+
+<span class="cmt">-- ── PRAGMA EXCEPTION_INIT — associer un code Oracle à une exception ──</span>
+<span class="kw">DECLARE</span>
+  e_deadlock <span class="kw">EXCEPTION</span>;
+  <span class="kw">PRAGMA EXCEPTION_INIT</span>(e_deadlock, -<span class="num">60</span>);
+<span class="kw">BEGIN</span>
+  ...
+<span class="kw">EXCEPTION</span>
+  <span class="kw">WHEN</span> e_deadlock <span class="kw">THEN</span> ...
+<span class="kw">END</span>;</code></pre></div>
+</div>
+
+<!-- ══════════ 6 ══════════ -->
+<div class="section" id="s6">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">6</span><h2 class="section-title">Procédures</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">CREATE OR REPLACE PROCEDURE</span> <span class="fn">augmenter_salaire</span> (
+  p_emp_id  <span class="kw">IN</span>     <span class="tp">NUMBER</span>,
+  p_pct     <span class="kw">IN</span>     <span class="tp">NUMBER</span> <span class="kw">DEFAULT</span> <span class="num">10</span>,
+  p_new_sal    <span class="kw">OUT</span>  <span class="tp">NUMBER</span>
+)
+<span class="kw">IS</span>
+  v_old_sal <span class="tp">NUMBER</span>;
+<span class="kw">BEGIN</span>
+  <span class="kw">SELECT</span> salary <span class="kw">INTO</span> v_old_sal
+  <span class="kw">FROM</span> employees <span class="kw">WHERE</span> employee_id = p_emp_id;
+
+  p_new_sal := v_old_sal * (<span class="num">1</span> + p_pct / <span class="num">100</span>);
+
+  <span class="kw">UPDATE</span> employees <span class="kw">SET</span> salary = p_new_sal
+  <span class="kw">WHERE</span> employee_id = p_emp_id;
+
+  <span class="kw">COMMIT</span>;
+<span class="kw">EXCEPTION</span>
+  <span class="kw">WHEN</span> <span class="fn">NO_DATA_FOUND</span> <span class="kw">THEN</span>
+    <span class="fn">RAISE_APPLICATION_ERROR</span>(-<span class="num">20010</span>, <span class="str">'Employé non trouvé'</span>);
+<span class="kw">END</span> <span class="fn">augmenter_salaire</span>;
+/
+
+<span class="cmt">-- Modes de paramètres :</span>
+<span class="cmt">-- IN      : lecture seule (défaut)</span>
+<span class="cmt">-- OUT     : écriture seule (retourne une valeur)</span>
+<span class="cmt">-- IN OUT  : lecture + écriture</span>
+
+<span class="cmt">-- Appel</span>
+<span class="kw">DECLARE</span> v_sal <span class="tp">NUMBER</span>;
+<span class="kw">BEGIN</span>
+  <span class="fn">augmenter_salaire</span>(p_emp_id =&gt; <span class="num">100</span>, p_pct =&gt; <span class="num">15</span>, p_new_sal =&gt; v_sal);
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(<span class="str">'Nouveau salaire: '</span> || v_sal);
+<span class="kw">END</span>;
+
+<span class="cmt">-- Supprimer</span>
+<span class="kw">DROP PROCEDURE</span> augmenter_salaire;</code></pre></div>
+</div>
+
+<!-- ══════════ 7 ══════════ -->
+<div class="section" id="s7">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#67e8f9)">7</span><h2 class="section-title">Fonctions</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="kw">CREATE OR REPLACE FUNCTION</span> <span class="fn">calculer_age</span> (
+  p_birth_date <span class="kw">IN</span> <span class="tp">DATE</span>
+)
+<span class="kw">RETURN</span> <span class="tp">NUMBER</span>
+<span class="kw">DETERMINISTIC</span>                <span class="cmt">-- même entrée = même sortie (optimisable)</span>
+<span class="kw">IS</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">RETURN</span> <span class="fn">TRUNC</span>(<span class="fn">MONTHS_BETWEEN</span>(<span class="fn">SYSDATE</span>, p_birth_date) / <span class="num">12</span>);
+<span class="kw">END</span> <span class="fn">calculer_age</span>;
+/
+
+<span class="cmt">-- Utilisation dans SQL</span>
+<span class="kw">SELECT</span> last_name, <span class="fn">calculer_age</span>(hire_date) <span class="kw">AS</span> anciennete
+<span class="kw">FROM</span> employees;
+
+<span class="cmt">-- Utilisation en PL/SQL</span>
+v_age := <span class="fn">calculer_age</span>(<span class="fn">DATE</span> <span class="str">'1990-05-15'</span>);
+
+<span class="cmt">-- Fonction pipelined (retourne des lignes au fur et à mesure)</span>
+<span class="kw">CREATE OR REPLACE FUNCTION</span> <span class="fn">get_names</span>
+<span class="kw">RETURN</span> <span class="tp">SYS.ODCIVARCHAR2LIST</span> <span class="kw">PIPELINED</span>
+<span class="kw">IS</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">FOR</span> rec <span class="kw">IN</span> (<span class="kw">SELECT</span> last_name <span class="kw">FROM</span> employees) <span class="kw">LOOP</span>
+    <span class="kw">PIPE ROW</span>(rec.last_name);
+  <span class="kw">END LOOP</span>;
+  <span class="kw">RETURN</span>;
+<span class="kw">END</span>;
+
+<span class="kw">SELECT</span> * <span class="kw">FROM TABLE</span>(<span class="fn">get_names</span>());
+
+<span class="cmt">-- Clauses utiles</span>
+<span class="cmt">-- DETERMINISTIC    : résultat cacheable</span>
+<span class="cmt">-- RESULT_CACHE     : cache Oracle interne</span>
+<span class="cmt">-- PARALLEL_ENABLE  : exécution parallèle</span></code></pre></div>
+</div>
+
+<!-- ══════════ 8 ══════════ -->
+<div class="section" id="s8">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ea580c,#fb923c)">8</span><h2 class="section-title">Packages</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ Spécification (interface publique) ══</span>
+<span class="kw">CREATE OR REPLACE PACKAGE</span> <span class="fn">pkg_employee</span> <span class="kw">IS</span>
+  <span class="cmt">-- Constantes publiques</span>
+  c_max_salary <span class="kw">CONSTANT</span> <span class="tp">NUMBER</span> := <span class="num">100000</span>;
+
+  <span class="cmt">-- Types publics</span>
+  <span class="kw">TYPE</span> <span class="tp">t_emp_tab</span> <span class="kw">IS TABLE OF</span> employees<span class="tp">%ROWTYPE</span>;
+
+  <span class="cmt">-- Procédures / Fonctions publiques</span>
+  <span class="kw">PROCEDURE</span> <span class="fn">hire</span>(p_name <span class="tp">VARCHAR2</span>, p_sal <span class="tp">NUMBER</span>);
+  <span class="kw">FUNCTION</span>  <span class="fn">get_salary</span>(p_id <span class="tp">NUMBER</span>) <span class="kw">RETURN</span> <span class="tp">NUMBER</span>;
+  <span class="kw">PROCEDURE</span> <span class="fn">fire</span>(p_id <span class="tp">NUMBER</span>);
+<span class="kw">END</span> <span class="fn">pkg_employee</span>;
+/
+
+<span class="cmt">-- ══ Body (implémentation) ══</span>
+<span class="kw">CREATE OR REPLACE PACKAGE BODY</span> <span class="fn">pkg_employee</span> <span class="kw">IS</span>
+
+  <span class="cmt">-- Variable privée (pas dans la spec)</span>
+  g_hire_count <span class="tp">PLS_INTEGER</span> := <span class="num">0</span>;
+
+  <span class="cmt">-- Fonction privée</span>
+  <span class="kw">FUNCTION</span> <span class="fn">validate_salary</span>(p_sal <span class="tp">NUMBER</span>) <span class="kw">RETURN BOOLEAN</span> <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">RETURN</span> p_sal <span class="kw">BETWEEN</span> <span class="num">0</span> <span class="kw">AND</span> c_max_salary;
+  <span class="kw">END</span>;
+
+  <span class="kw">PROCEDURE</span> <span class="fn">hire</span>(p_name <span class="tp">VARCHAR2</span>, p_sal <span class="tp">NUMBER</span>) <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">IF NOT</span> <span class="fn">validate_salary</span>(p_sal) <span class="kw">THEN</span>
+      <span class="fn">RAISE_APPLICATION_ERROR</span>(-<span class="num">20001</span>, <span class="str">'Salaire invalide'</span>);
+    <span class="kw">END IF</span>;
+    <span class="kw">INSERT INTO</span> employees(last_name, salary) <span class="kw">VALUES</span>(p_name, p_sal);
+    g_hire_count := g_hire_count + <span class="num">1</span>;
+  <span class="kw">END</span>;
+
+  <span class="kw">FUNCTION</span> <span class="fn">get_salary</span>(p_id <span class="tp">NUMBER</span>) <span class="kw">RETURN</span> <span class="tp">NUMBER</span> <span class="kw">IS</span>
+    v_sal <span class="tp">NUMBER</span>;
+  <span class="kw">BEGIN</span>
+    <span class="kw">SELECT</span> salary <span class="kw">INTO</span> v_sal <span class="kw">FROM</span> employees <span class="kw">WHERE</span> employee_id = p_id;
+    <span class="kw">RETURN</span> v_sal;
+  <span class="kw">END</span>;
+
+  <span class="kw">PROCEDURE</span> <span class="fn">fire</span>(p_id <span class="tp">NUMBER</span>) <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">DELETE FROM</span> employees <span class="kw">WHERE</span> employee_id = p_id;
+  <span class="kw">END</span>;
+
+<span class="kw">END</span> <span class="fn">pkg_employee</span>;
+/
+
+<span class="cmt">-- Appel</span>
+<span class="fn">pkg_employee.hire</span>(<span class="str">'Diallo'</span>, <span class="num">45000</span>);
+v_sal := <span class="fn">pkg_employee.get_salary</span>(<span class="num">100</span>);
+
+<span class="cmt">-- Variables package = état de session (persistent pendant la session)</span></code></pre></div>
+</div>
+
+<!-- ══════════ 9 ══════════ -->
+<div class="section" id="s9">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#4f46e5,#818cf8)">9</span><h2 class="section-title">Triggers</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ DML Trigger (ligne) ══</span>
+<span class="kw">CREATE OR REPLACE TRIGGER</span> <span class="fn">trg_emp_audit</span>
+<span class="kw">BEFORE INSERT OR UPDATE OR DELETE ON</span> employees
+<span class="kw">FOR EACH ROW</span>
+<span class="kw">DECLARE</span>
+  v_action <span class="tp">VARCHAR2</span>(<span class="num">10</span>);
+<span class="kw">BEGIN</span>
+  <span class="kw">CASE</span>
+    <span class="kw">WHEN INSERTING THEN</span> v_action := <span class="str">'INSERT'</span>;
+    <span class="kw">WHEN UPDATING THEN</span> v_action := <span class="str">'UPDATE'</span>;
+    <span class="kw">WHEN DELETING THEN</span> v_action := <span class="str">'DELETE'</span>;
+  <span class="kw">END CASE</span>;
+
+  <span class="kw">INSERT INTO</span> audit_log(table_name, action, old_val, new_val, change_date)
+  <span class="kw">VALUES</span>(<span class="str">'EMPLOYEES'</span>, v_action,
+         :OLD.salary,    <span class="cmt">-- valeur AVANT modification (NULL pour INSERT)</span>
+         :NEW.salary,    <span class="cmt">-- valeur APRÈS modification (NULL pour DELETE)</span>
+         <span class="fn">SYSTIMESTAMP</span>);
+<span class="kw">END</span>;
+/
+
+<span class="cmt">-- Prédicats conditionnels dans le trigger :</span>
+<span class="cmt">-- INSERTING, UPDATING, DELETING → BOOLEAN</span>
+<span class="cmt">-- UPDATING('column_name')       → TRUE si cette colonne est modifiée</span>
+
+<span class="cmt">-- ══ DML Trigger (statement level — pas FOR EACH ROW) ══</span>
+<span class="kw">CREATE OR REPLACE TRIGGER</span> <span class="fn">trg_no_weekend</span>
+<span class="kw">BEFORE INSERT ON</span> orders
+<span class="kw">BEGIN</span>
+  <span class="kw">IF</span> <span class="fn">TO_CHAR</span>(<span class="fn">SYSDATE</span>, <span class="str">'DY'</span>) <span class="kw">IN</span> (<span class="str">'SAT'</span>, <span class="str">'SUN'</span>) <span class="kw">THEN</span>
+    <span class="fn">RAISE_APPLICATION_ERROR</span>(-<span class="num">20002</span>, <span class="str">'Pas d''insertion le weekend'</span>);
+  <span class="kw">END IF</span>;
+<span class="kw">END</span>;
+/
+
+<span class="cmt">-- ══ Compound Trigger (Oracle 11g+) ══</span>
+<span class="kw">CREATE OR REPLACE TRIGGER</span> <span class="fn">trg_compound</span>
+<span class="kw">FOR INSERT ON</span> employees
+<span class="kw">COMPOUND TRIGGER</span>
+
+  <span class="kw">TYPE</span> <span class="tp">t_ids</span> <span class="kw">IS TABLE OF</span> <span class="tp">NUMBER</span>;
+  v_ids <span class="tp">t_ids</span> := <span class="tp">t_ids</span>();
+
+  <span class="kw">BEFORE EACH ROW IS</span>
+  <span class="kw">BEGIN</span>
+    :NEW.created_at := <span class="fn">SYSTIMESTAMP</span>;
+  <span class="kw">END BEFORE EACH ROW</span>;
+
+  <span class="kw">AFTER EACH ROW IS</span>
+  <span class="kw">BEGIN</span>
+    v_ids.<span class="fn">EXTEND</span>;
+    v_ids(v_ids.<span class="fn">LAST</span>) := :NEW.employee_id;
+  <span class="kw">END AFTER EACH ROW</span>;
+
+  <span class="kw">AFTER STATEMENT IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">FORALL</span> i <span class="kw">IN</span> v_ids.<span class="fn">FIRST</span>..v_ids.<span class="fn">LAST</span>
+      <span class="kw">INSERT INTO</span> emp_log <span class="kw">VALUES</span>(v_ids(i), <span class="fn">SYSDATE</span>);
+  <span class="kw">END AFTER STATEMENT</span>;
+
+<span class="kw">END</span> <span class="fn">trg_compound</span>;
+/
+
+<span class="cmt">-- ══ DDL Trigger ══</span>
+<span class="kw">CREATE OR REPLACE TRIGGER</span> <span class="fn">trg_ddl_log</span>
+<span class="kw">AFTER DDL ON SCHEMA</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">INSERT INTO</span> ddl_log <span class="kw">VALUES</span>(
+    <span class="fn">ORA_DICT_OBJ_NAME</span>, <span class="fn">ORA_SYSEVENT</span>, <span class="fn">SYSTIMESTAMP</span>, <span class="fn">USER</span>);
+<span class="kw">END</span>;
+/
+
+<span class="cmt">-- ══ INSTEAD OF Trigger (sur une vue) ══</span>
+<span class="kw">CREATE OR REPLACE TRIGGER</span> <span class="fn">trg_view_insert</span>
+<span class="kw">INSTEAD OF INSERT ON</span> emp_dept_view
+<span class="kw">FOR EACH ROW</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">INSERT INTO</span> employees(last_name) <span class="kw">VALUES</span>(:NEW.last_name);
+<span class="kw">END</span>;
+/
+
+<span class="cmt">-- Désactiver / Réactiver</span>
+<span class="kw">ALTER TRIGGER</span> trg_emp_audit <span class="kw">DISABLE</span>;
+<span class="kw">ALTER TRIGGER</span> trg_emp_audit <span class="kw">ENABLE</span>;
+<span class="kw">ALTER TABLE</span> employees <span class="kw">DISABLE ALL TRIGGERS</span>;</code></pre></div>
+</div>
+
+<!-- ══════════ 10 ══════════ -->
+<div class="section" id="s10">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#16a34a,#4ade80)">10</span><h2 class="section-title">Collections (TABLE, VARRAY, Associative)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ Associative Array (INDEX BY) — PL/SQL only ══</span>
+<span class="kw">DECLARE</span>
+  <span class="kw">TYPE</span> <span class="tp">t_scores</span> <span class="kw">IS TABLE OF</span> <span class="tp">NUMBER</span> <span class="kw">INDEX BY</span> <span class="tp">VARCHAR2</span>(<span class="num">50</span>);
+  v_scores <span class="tp">t_scores</span>;
+<span class="kw">BEGIN</span>
+  v_scores(<span class="str">'Alice'</span>) := <span class="num">95</span>;
+  v_scores(<span class="str">'Bob'</span>)   := <span class="num">87</span>;
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_scores(<span class="str">'Alice'</span>));  <span class="cmt">-- 95</span>
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_scores.<span class="fn">COUNT</span>);     <span class="cmt">-- 2</span>
+<span class="kw">END</span>;
+
+<span class="cmt">-- ══ Nested Table ══</span>
+<span class="kw">TYPE</span> <span class="tp">t_names</span> <span class="kw">IS TABLE OF</span> <span class="tp">VARCHAR2</span>(<span class="num">100</span>);
+v_names <span class="tp">t_names</span> := <span class="tp">t_names</span>(<span class="str">'Alice'</span>, <span class="str">'Bob'</span>, <span class="str">'Charlie'</span>);
+v_names.<span class="fn">EXTEND</span>;  v_names(v_names.<span class="fn">LAST</span>) := <span class="str">'Diana'</span>;
+v_names.<span class="fn">DELETE</span>(<span class="num">2</span>);  <span class="cmt">-- supprime l'index 2 (crée un "trou")</span>
+
+<span class="cmt">-- ══ VARRAY (taille fixe max) ══</span>
+<span class="kw">TYPE</span> <span class="tp">t_colors</span> <span class="kw">IS VARRAY</span>(<span class="num">5</span>) <span class="kw">OF</span> <span class="tp">VARCHAR2</span>(<span class="num">20</span>);
+v_colors <span class="tp">t_colors</span> := <span class="tp">t_colors</span>(<span class="str">'Red'</span>, <span class="str">'Green'</span>, <span class="str">'Blue'</span>);
+
+<span class="cmt">-- ══ Méthodes de collection ══</span>
+col.<span class="fn">COUNT</span>          <span class="cmt">-- nombre d'éléments</span>
+col.<span class="fn">FIRST</span>          <span class="cmt">-- premier index</span>
+col.<span class="fn">LAST</span>           <span class="cmt">-- dernier index</span>
+col.<span class="fn">NEXT</span>(i)        <span class="cmt">-- index suivant après i</span>
+col.<span class="fn">PRIOR</span>(i)       <span class="cmt">-- index précédent avant i</span>
+col.<span class="fn">EXISTS</span>(i)      <span class="cmt">-- TRUE si l'index i existe</span>
+col.<span class="fn">EXTEND</span>         <span class="cmt">-- ajoute 1 élément null</span>
+col.<span class="fn">EXTEND</span>(n)      <span class="cmt">-- ajoute n éléments</span>
+col.<span class="fn">TRIM</span>           <span class="cmt">-- supprime le dernier</span>
+col.<span class="fn">TRIM</span>(n)        <span class="cmt">-- supprime les n derniers</span>
+col.<span class="fn">DELETE</span>         <span class="cmt">-- supprime tout</span>
+col.<span class="fn">DELETE</span>(i)      <span class="cmt">-- supprime l'index i</span>
+col.<span class="fn">DELETE</span>(i, j)   <span class="cmt">-- supprime de i à j</span>
+col.<span class="fn">LIMIT</span>          <span class="cmt">-- taille max (VARRAY seulement)</span>
+
+<span class="cmt">-- ══ Type collection pour SQL (CREATE TYPE) ══</span>
+<span class="kw">CREATE TYPE</span> <span class="tp">t_number_tab</span> <span class="kw">IS TABLE OF NUMBER</span>;
+/
+<span class="kw">SELECT</span> * <span class="kw">FROM TABLE</span>(<span class="tp">t_number_tab</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>));</code></pre></div>
+</div>
+
+<!-- ══════════ 11 ══════════ -->
+<div class="section" id="s11">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#9333ea,#c084fc)">11</span><h2 class="section-title">Records & %TYPE / %ROWTYPE</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ Record utilisateur ══</span>
+<span class="kw">DECLARE</span>
+  <span class="kw">TYPE</span> <span class="tp">t_address</span> <span class="kw">IS RECORD</span> (
+    street  <span class="tp">VARCHAR2</span>(<span class="num">200</span>),
+    city    <span class="tp">VARCHAR2</span>(<span class="num">100</span>),
+    zipcode <span class="tp">VARCHAR2</span>(<span class="num">10</span>)
+  );
+  v_addr <span class="tp">t_address</span>;
+<span class="kw">BEGIN</span>
+  v_addr.street  := <span class="str">'12 rue de Paris'</span>;
+  v_addr.city    := <span class="str">'Saint-Denis'</span>;
+  v_addr.zipcode := <span class="str">'93200'</span>;
+<span class="kw">END</span>;
+
+<span class="cmt">-- ══ %ROWTYPE — hérite de la structure d'une table ══</span>
+<span class="kw">DECLARE</span>
+  v_emp employees<span class="tp">%ROWTYPE</span>;
+<span class="kw">BEGIN</span>
+  <span class="kw">SELECT</span> * <span class="kw">INTO</span> v_emp <span class="kw">FROM</span> employees <span class="kw">WHERE</span> employee_id = <span class="num">100</span>;
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_emp.last_name || <span class="str">' - '</span> || v_emp.salary);
+<span class="kw">END</span>;
+
+<span class="cmt">-- ══ %TYPE — hérite du type d'une colonne ══</span>
+v_name employees.last_name<span class="tp">%TYPE</span>;
+v_sal  employees.salary<span class="tp">%TYPE</span>;
+
+<span class="cmt">-- ══ Table de records ══</span>
+<span class="kw">TYPE</span> <span class="tp">t_emp_tab</span> <span class="kw">IS TABLE OF</span> employees<span class="tp">%ROWTYPE</span> <span class="kw">INDEX BY</span> <span class="tp">PLS_INTEGER</span>;
+v_emps <span class="tp">t_emp_tab</span>;
+
+<span class="cmt">-- Insérer un record entier dans une table</span>
+<span class="kw">INSERT INTO</span> employees <span class="kw">VALUES</span> v_emp;</code></pre></div>
+</div>
+
+<!-- ══════════ 12 ══════════ -->
+<div class="section" id="s12">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#b91c1c,#ef4444)">12</span><h2 class="section-title">SQL dynamique (EXECUTE IMMEDIATE)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ NDS (Native Dynamic SQL) ══</span>
+
+<span class="cmt">-- DDL dynamique</span>
+<span class="kw">EXECUTE IMMEDIATE</span> <span class="str">'CREATE TABLE tmp_test (id NUMBER, name VARCHAR2(50))'</span>;
+<span class="kw">EXECUTE IMMEDIATE</span> <span class="str">'DROP TABLE tmp_test'</span>;
+
+<span class="cmt">-- DML avec bind variables (USING)</span>
+<span class="kw">EXECUTE IMMEDIATE</span>
+  <span class="str">'UPDATE employees SET salary = salary * :pct WHERE dept_id = :dept'</span>
+  <span class="kw">USING</span> <span class="num">1.1</span>, <span class="num">10</span>;
+
+<span class="cmt">-- SELECT INTO</span>
+<span class="kw">EXECUTE IMMEDIATE</span>
+  <span class="str">'SELECT last_name FROM employees WHERE employee_id = :id'</span>
+  <span class="kw">INTO</span> v_name
+  <span class="kw">USING</span> <span class="num">100</span>;
+
+<span class="cmt">-- Retour OUT</span>
+<span class="kw">EXECUTE IMMEDIATE</span>
+  <span class="str">'BEGIN :result := my_func(:x); END;'</span>
+  <span class="kw">USING OUT</span> v_result, <span class="kw">IN</span> <span class="num">42</span>;
+
+<span class="cmt">-- ══ DBMS_SQL (ancien, plus flexible pour SQL très dynamique) ══</span>
+<span class="kw">DECLARE</span>
+  v_cursor <span class="tp">INTEGER</span>;
+  v_rows   <span class="tp">INTEGER</span>;
+<span class="kw">BEGIN</span>
+  v_cursor := <span class="fn">DBMS_SQL.OPEN_CURSOR</span>;
+  <span class="fn">DBMS_SQL.PARSE</span>(v_cursor, <span class="str">'DELETE FROM tmp WHERE id = :id'</span>, <span class="fn">DBMS_SQL.NATIVE</span>);
+  <span class="fn">DBMS_SQL.BIND_VARIABLE</span>(v_cursor, <span class="str">':id'</span>, <span class="num">42</span>);
+  v_rows := <span class="fn">DBMS_SQL.EXECUTE</span>(v_cursor);
+  <span class="fn">DBMS_SQL.CLOSE_CURSOR</span>(v_cursor);
+<span class="kw">END</span>;
+
+<span class="cmt">-- ⚠️ Toujours utiliser des bind variables pour éviter l'injection SQL</span>
+<span class="cmt">-- ❌ 'WHERE id = ' || v_id       → injection possible</span>
+<span class="cmt">-- ✅ 'WHERE id = :id' USING v_id → sûr</span></code></pre></div>
+</div>
+
+<!-- ══════════ 13 ══════════ -->
+<div class="section" id="s13">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">13</span><h2 class="section-title">Bulk Operations (FORALL, BULK COLLECT)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ BULK COLLECT — récupérer plusieurs lignes d'un coup ══</span>
+<span class="kw">DECLARE</span>
+  <span class="kw">TYPE</span> <span class="tp">t_names</span> <span class="kw">IS TABLE OF</span> employees.last_name<span class="tp">%TYPE</span>;
+  v_names <span class="tp">t_names</span>;
+<span class="kw">BEGIN</span>
+  <span class="kw">SELECT</span> last_name <span class="kw">BULK COLLECT INTO</span> v_names
+  <span class="kw">FROM</span> employees
+  <span class="kw">WHERE</span> department_id = <span class="num">10</span>;
+
+  <span class="kw">FOR</span> i <span class="kw">IN</span> v_names.<span class="fn">FIRST</span>..v_names.<span class="fn">LAST</span> <span class="kw">LOOP</span>
+    <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_names(i));
+  <span class="kw">END LOOP</span>;
+<span class="kw">END</span>;
+
+<span class="cmt">-- BULK COLLECT avec LIMIT (gros volumes)</span>
+<span class="kw">DECLARE</span>
+  <span class="kw">CURSOR</span> c_emp <span class="kw">IS SELECT</span> * <span class="kw">FROM</span> employees;
+  <span class="kw">TYPE</span> <span class="tp">t_emp_tab</span> <span class="kw">IS TABLE OF</span> employees<span class="tp">%ROWTYPE</span>;
+  v_emps <span class="tp">t_emp_tab</span>;
+<span class="kw">BEGIN</span>
+  <span class="kw">OPEN</span> c_emp;
+  <span class="kw">LOOP</span>
+    <span class="kw">FETCH</span> c_emp <span class="kw">BULK COLLECT INTO</span> v_emps <span class="kw">LIMIT</span> <span class="num">1000</span>;
+    <span class="kw">EXIT WHEN</span> v_emps.<span class="fn">COUNT</span> = <span class="num">0</span>;
+
+    <span class="cmt">-- Traiter le batch</span>
+    <span class="kw">FORALL</span> i <span class="kw">IN</span> v_emps.<span class="fn">FIRST</span>..v_emps.<span class="fn">LAST</span>
+      <span class="kw">INSERT INTO</span> emp_archive <span class="kw">VALUES</span> v_emps(i);
+
+    <span class="kw">COMMIT</span>;
+  <span class="kw">END LOOP</span>;
+  <span class="kw">CLOSE</span> c_emp;
+<span class="kw">END</span>;
+
+<span class="cmt">-- ══ FORALL — DML en masse (1 context switch au lieu de N) ══</span>
+<span class="kw">FORALL</span> i <span class="kw">IN</span> v_ids.<span class="fn">FIRST</span>..v_ids.<span class="fn">LAST</span>
+  <span class="kw">DELETE FROM</span> employees <span class="kw">WHERE</span> employee_id = v_ids(i);
+
+<span class="cmt">-- FORALL avec SAVE EXCEPTIONS (continue malgré les erreurs)</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">FORALL</span> i <span class="kw">IN</span> v_data.<span class="fn">FIRST</span>..v_data.<span class="fn">LAST</span> <span class="kw">SAVE EXCEPTIONS</span>
+    <span class="kw">INSERT INTO</span> target <span class="kw">VALUES</span> v_data(i);
+<span class="kw">EXCEPTION</span>
+  <span class="kw">WHEN OTHERS THEN</span>
+    <span class="kw">FOR</span> j <span class="kw">IN</span> <span class="num">1</span>..<span class="fn">SQL%BULK_EXCEPTIONS.COUNT</span> <span class="kw">LOOP</span>
+      <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(
+        <span class="str">'Index: '</span> || <span class="fn">SQL%BULK_EXCEPTIONS</span>(j).ERROR_INDEX ||
+        <span class="str">' Code: '</span> || <span class="fn">SQL%BULK_EXCEPTIONS</span>(j).ERROR_CODE);
+    <span class="kw">END LOOP</span>;
+<span class="kw">END</span>;
+
+<span class="cmt">-- INDICES OF / VALUES OF pour collections sparse</span>
+<span class="kw">FORALL</span> i <span class="kw">IN INDICES OF</span> v_sparse_coll
+  <span class="kw">UPDATE</span> ...</code></pre></div>
+</div>
+
+<!-- ══════════ 14 ══════════ -->
+<div class="section" id="s14">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c2d12,#c2410c)">14</span><h2 class="section-title">REF CURSOR & SYS_REFCURSOR</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ SYS_REFCURSOR (weak ref cursor prédéfini) ══</span>
+<span class="kw">CREATE OR REPLACE PROCEDURE</span> <span class="fn">get_employees</span> (
+  p_dept_id <span class="kw">IN</span>  <span class="tp">NUMBER</span>,
+  p_cursor  <span class="kw">OUT</span> <span class="tp">SYS_REFCURSOR</span>
+)
+<span class="kw">IS</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">OPEN</span> p_cursor <span class="kw">FOR</span>
+    <span class="kw">SELECT</span> employee_id, last_name, salary
+    <span class="kw">FROM</span> employees
+    <span class="kw">WHERE</span> department_id = p_dept_id;
+<span class="kw">END</span>;
+/
+
+<span class="cmt">-- Appel</span>
+<span class="kw">DECLARE</span>
+  v_cur <span class="tp">SYS_REFCURSOR</span>;
+  v_id  <span class="tp">NUMBER</span>;  v_name <span class="tp">VARCHAR2</span>(<span class="num">100</span>);  v_sal <span class="tp">NUMBER</span>;
+<span class="kw">BEGIN</span>
+  <span class="fn">get_employees</span>(<span class="num">10</span>, v_cur);
+  <span class="kw">LOOP</span>
+    <span class="kw">FETCH</span> v_cur <span class="kw">INTO</span> v_id, v_name, v_sal;
+    <span class="kw">EXIT WHEN</span> v_cur<span class="fn">%NOTFOUND</span>;
+    <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_name || <span class="str">' : '</span> || v_sal);
+  <span class="kw">END LOOP</span>;
+  <span class="kw">CLOSE</span> v_cur;
+<span class="kw">END</span>;
+
+<span class="cmt">-- ══ Strong REF CURSOR (typé) ══</span>
+<span class="kw">TYPE</span> <span class="tp">t_emp_cursor</span> <span class="kw">IS REF CURSOR RETURN</span> employees<span class="tp">%ROWTYPE</span>;
+
+<span class="cmt">-- ══ REF CURSOR pour SQL dynamique ══</span>
+<span class="kw">OPEN</span> v_cur <span class="kw">FOR</span> <span class="str">'SELECT * FROM '</span> || v_table_name;</code></pre></div>
+</div>
+
+<!-- ══════════ 15 ══════════ -->
+<div class="section" id="s15">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#be185d,#ec4899)">15</span><h2 class="section-title">Transactions & Verrous</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ── Contrôle de transaction ──</span>
+<span class="kw">COMMIT</span>;                          <span class="cmt">-- valide toutes les modifications</span>
+<span class="kw">ROLLBACK</span>;                        <span class="cmt">-- annule tout depuis le dernier COMMIT</span>
+<span class="kw">SAVEPOINT</span> sp1;                   <span class="cmt">-- point de sauvegarde</span>
+<span class="kw">ROLLBACK TO SAVEPOINT</span> sp1;       <span class="cmt">-- annule jusqu'au savepoint</span>
+
+<span class="cmt">-- ── Transaction autonome ──</span>
+<span class="kw">CREATE OR REPLACE PROCEDURE</span> <span class="fn">log_error</span>(p_msg <span class="tp">VARCHAR2</span>) <span class="kw">IS</span>
+  <span class="kw">PRAGMA AUTONOMOUS_TRANSACTION</span>;   <span class="cmt">-- transaction indépendante</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">INSERT INTO</span> error_log <span class="kw">VALUES</span>(p_msg, <span class="fn">SYSTIMESTAMP</span>);
+  <span class="kw">COMMIT</span>;                          <span class="cmt">-- commit indépendant du parent</span>
+<span class="kw">END</span>;
+
+<span class="cmt">-- ── Verrous ──</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> employee_id = <span class="num">100</span>
+<span class="kw">FOR UPDATE</span>;                      <span class="cmt">-- verrouille la ligne</span>
+
+<span class="kw">FOR UPDATE OF</span> salary;            <span class="cmt">-- verrouille la colonne</span>
+<span class="kw">FOR UPDATE NOWAIT</span>;               <span class="cmt">-- erreur immédiate si verrouillé</span>
+<span class="kw">FOR UPDATE WAIT</span> <span class="num">5</span>;               <span class="cmt">-- attend 5 secondes</span>
+<span class="kw">FOR UPDATE SKIP LOCKED</span>;          <span class="cmt">-- ignore les lignes verrouillées</span>
+
+<span class="cmt">-- ── Isolation ──</span>
+<span class="kw">SET TRANSACTION ISOLATION LEVEL READ COMMITTED</span>;   <span class="cmt">-- défaut Oracle</span>
+<span class="kw">SET TRANSACTION ISOLATION LEVEL SERIALIZABLE</span>;
+<span class="kw">SET TRANSACTION READ ONLY</span>;</code></pre></div>
+</div>
+
+<!-- ══════════ 16 ══════════ -->
+<div class="section" id="s16">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#475569,#94a3b8)">16</span><h2 class="section-title">DBMS_OUTPUT & Debugging</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- Activer la sortie (SQL*Plus / SQLcl)</span>
+<span class="kw">SET SERVEROUTPUT ON SIZE UNLIMITED</span>
+
+<span class="cmt">-- Afficher</span>
+<span class="fn">DBMS_OUTPUT.PUT_LINE</span>(<span class="str">'Message'</span>);
+<span class="fn">DBMS_OUTPUT.PUT</span>(<span class="str">'Sans retour à la ligne'</span>);
+<span class="fn">DBMS_OUTPUT.NEW_LINE</span>;
+
+<span class="cmt">-- ── DBMS_APPLICATION_INFO (monitoring dans v$session) ──</span>
+<span class="fn">DBMS_APPLICATION_INFO.SET_MODULE</span>(<span class="str">'Mon App'</span>, <span class="str">'Chargement'</span>);
+<span class="fn">DBMS_APPLICATION_INFO.SET_ACTION</span>(<span class="str">'Étape 1'</span>);
+<span class="fn">DBMS_APPLICATION_INFO.SET_CLIENT_INFO</span>(<span class="str">'user=alice'</span>);
+
+<span class="cmt">-- ── Timing ──</span>
+v_start := <span class="fn">DBMS_UTILITY.GET_TIME</span>;    <span class="cmt">-- centièmes de seconde</span>
+<span class="cmt">-- ... traitement ...</span>
+v_elapsed := (<span class="fn">DBMS_UTILITY.GET_TIME</span> - v_start) / <span class="num">100</span>;  <span class="cmt">-- secondes</span>
+
+<span class="cmt">-- ── Warnings de compilation ──</span>
+<span class="kw">ALTER SESSION SET PLSQL_WARNINGS</span> = <span class="str">'ENABLE:ALL'</span>;
+<span class="kw">SHOW ERRORS</span>;                         <span class="cmt">-- après CREATE avec erreurs</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> user_errors <span class="kw">WHERE</span> name = <span class="str">'MY_PROC'</span>;</code></pre></div>
+</div>
+
+<!-- ══════════ 17 ══════════ -->
+<div class="section" id="s17">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#2563eb,#3b82f6)">17</span><h2 class="section-title">UTL_FILE, UTL_HTTP, UTL_MAIL</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ UTL_FILE — lecture/écriture de fichiers serveur ══</span>
+<span class="cmt">-- Nécessite un DIRECTORY Oracle : CREATE DIRECTORY my_dir AS '/tmp';</span>
+<span class="kw">DECLARE</span>
+  v_file <span class="fn">UTL_FILE.FILE_TYPE</span>;
+<span class="kw">BEGIN</span>
+  v_file := <span class="fn">UTL_FILE.FOPEN</span>(<span class="str">'MY_DIR'</span>, <span class="str">'output.csv'</span>, <span class="str">'W'</span>);  <span class="cmt">-- W=write, R=read, A=append</span>
+  <span class="fn">UTL_FILE.PUT_LINE</span>(v_file, <span class="str">'id,name,salary'</span>);
+  <span class="kw">FOR</span> rec <span class="kw">IN</span> (<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees) <span class="kw">LOOP</span>
+    <span class="fn">UTL_FILE.PUT_LINE</span>(v_file,
+      rec.employee_id || <span class="str">','</span> || rec.last_name || <span class="str">','</span> || rec.salary);
+  <span class="kw">END LOOP</span>;
+  <span class="fn">UTL_FILE.FCLOSE</span>(v_file);
+<span class="kw">EXCEPTION</span>
+  <span class="kw">WHEN OTHERS THEN</span>
+    <span class="kw">IF</span> <span class="fn">UTL_FILE.IS_OPEN</span>(v_file) <span class="kw">THEN</span> <span class="fn">UTL_FILE.FCLOSE</span>(v_file); <span class="kw">END IF</span>;
+    <span class="kw">RAISE</span>;
+<span class="kw">END</span>;
+
+<span class="cmt">-- Lecture</span>
+v_file := <span class="fn">UTL_FILE.FOPEN</span>(<span class="str">'MY_DIR'</span>, <span class="str">'input.txt'</span>, <span class="str">'R'</span>);
+<span class="kw">LOOP</span>
+  <span class="kw">BEGIN</span>
+    <span class="fn">UTL_FILE.GET_LINE</span>(v_file, v_line);
+    <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_line);
+  <span class="kw">EXCEPTION</span>
+    <span class="kw">WHEN</span> <span class="fn">NO_DATA_FOUND</span> <span class="kw">THEN EXIT</span>;
+  <span class="kw">END</span>;
+<span class="kw">END LOOP</span>;
+<span class="fn">UTL_FILE.FCLOSE</span>(v_file);
+
+<span class="cmt">-- ══ UTL_HTTP — requêtes HTTP depuis PL/SQL ══</span>
+<span class="kw">DECLARE</span>
+  v_resp <span class="fn">UTL_HTTP.RESP</span>;
+  v_body <span class="tp">VARCHAR2</span>(<span class="num">4000</span>);
+<span class="kw">BEGIN</span>
+  v_resp := <span class="fn">UTL_HTTP.BEGIN_REQUEST</span>(<span class="str">'https://api.example.com/data'</span>);
+  v_resp := <span class="fn">UTL_HTTP.GET_RESPONSE</span>(v_resp);
+  <span class="fn">UTL_HTTP.READ_TEXT</span>(v_resp, v_body);
+  <span class="fn">UTL_HTTP.END_RESPONSE</span>(v_resp);
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_body);
+<span class="kw">END</span>;
+
+<span class="cmt">-- ══ DBMS_SCHEDULER — jobs planifiés ══</span>
+<span class="kw">BEGIN</span>
+  <span class="fn">DBMS_SCHEDULER.CREATE_JOB</span>(
+    job_name   =&gt; <span class="str">'JOB_CLEANUP'</span>,
+    job_type   =&gt; <span class="str">'PLSQL_BLOCK'</span>,
+    job_action =&gt; <span class="str">'BEGIN cleanup_proc; END;'</span>,
+    start_date =&gt; <span class="fn">SYSTIMESTAMP</span>,
+    repeat_interval =&gt; <span class="str">'FREQ=DAILY; BYHOUR=2'</span>,
+    enabled    =&gt; <span class="kw">TRUE</span>
+  );
+<span class="kw">END</span>;</code></pre></div>
+</div>
+
+<!-- ══════════ 18 ══════════ -->
+<div class="section" id="s18">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#d97706,#fbbf24)">18</span><h2 class="section-title">Objets (Types Objet)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>PL/SQL</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ══ Type objet (OOP en PL/SQL) ══</span>
+<span class="kw">CREATE OR REPLACE TYPE</span> <span class="tp">t_person</span> <span class="kw">AS OBJECT</span> (
+  name  <span class="tp">VARCHAR2</span>(<span class="num">100</span>),
+  age   <span class="tp">NUMBER</span>,
+
+  <span class="kw">MEMBER FUNCTION</span> <span class="fn">greet</span> <span class="kw">RETURN</span> <span class="tp">VARCHAR2</span>,
+  <span class="kw">MEMBER PROCEDURE</span> <span class="fn">birthday</span>,
+  <span class="kw">ORDER MEMBER FUNCTION</span> <span class="fn">compare</span>(p <span class="tp">t_person</span>) <span class="kw">RETURN</span> <span class="tp">INTEGER</span>
+);
+/
+
+<span class="kw">CREATE OR REPLACE TYPE BODY</span> <span class="tp">t_person</span> <span class="kw">AS</span>
+  <span class="kw">MEMBER FUNCTION</span> <span class="fn">greet</span> <span class="kw">RETURN</span> <span class="tp">VARCHAR2</span> <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">RETURN</span> <span class="str">'Hello, I am '</span> || <span class="kw">SELF</span>.name || <span class="str">', age '</span> || <span class="kw">SELF</span>.age;
+  <span class="kw">END</span>;
+
+  <span class="kw">MEMBER PROCEDURE</span> <span class="fn">birthday</span> <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">SELF</span>.age := <span class="kw">SELF</span>.age + <span class="num">1</span>;
+  <span class="kw">END</span>;
+
+  <span class="kw">ORDER MEMBER FUNCTION</span> <span class="fn">compare</span>(p <span class="tp">t_person</span>) <span class="kw">RETURN</span> <span class="tp">INTEGER</span> <span class="kw">IS</span>
+  <span class="kw">BEGIN</span>
+    <span class="kw">RETURN CASE WHEN</span> <span class="kw">SELF</span>.age &lt; p.age <span class="kw">THEN</span> -<span class="num">1</span>
+                <span class="kw">WHEN</span> <span class="kw">SELF</span>.age &gt; p.age <span class="kw">THEN</span> <span class="num">1</span> <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>;
+  <span class="kw">END</span>;
+<span class="kw">END</span>;
+/
+
+<span class="cmt">-- Héritage (UNDER)</span>
+<span class="kw">CREATE TYPE</span> <span class="tp">t_employee</span> <span class="kw">UNDER</span> <span class="tp">t_person</span> (
+  salary <span class="tp">NUMBER</span>,
+  <span class="kw">OVERRIDING MEMBER FUNCTION</span> <span class="fn">greet</span> <span class="kw">RETURN</span> <span class="tp">VARCHAR2</span>
+) <span class="kw">NOT FINAL</span>;
+/
+
+<span class="cmt">-- Utilisation</span>
+<span class="kw">DECLARE</span>
+  v_p <span class="tp">t_person</span> := <span class="tp">t_person</span>(<span class="str">'Alice'</span>, <span class="num">30</span>);
+<span class="kw">BEGIN</span>
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(v_p.<span class="fn">greet</span>());
+  v_p.<span class="fn">birthday</span>();
+<span class="kw">END</span>;</code></pre></div>
+</div>
+
+<!-- ══════════ 19 ══════════ -->
+<div class="section" id="s19">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#e11d48,#fb7185)">19</span><h2 class="section-title">Oracle 21c / 23ai Nouveautés PL/SQL</h2></div>
+
+<div class="code-block"><div class="code-header"><span>Oracle 21c</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ── Expressions régulières améliorées ──</span>
+
+<span class="cmt">-- ── JSON natif ──</span>
+<span class="kw">DECLARE</span>
+  v_json <span class="tp">JSON</span> := <span class="fn">JSON</span>(<span class="str">'{"name":"Alice","age":30}'</span>);
+<span class="kw">BEGIN</span>
+  <span class="fn">DBMS_OUTPUT.PUT_LINE</span>(<span class="fn">JSON_VALUE</span>(v_json, <span class="str">'$.name'</span>));
+<span class="kw">END</span>;
+
+<span class="cmt">-- ── PL/SQL qualifiées expressions ──</span>
+v_names := <span class="tp">t_names</span>(<span class="str">'Alice'</span>, <span class="str">'Bob'</span>);  <span class="cmt">-- déjà possible avant, mais étendu</span></code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>Oracle 23ai</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ── BOOLEAN en SQL (enfin !) ──</span>
+<span class="kw">CREATE TABLE</span> features (
+  name    <span class="tp">VARCHAR2</span>(<span class="num">100</span>),
+  enabled <span class="tp">BOOLEAN</span> <span class="kw">DEFAULT</span> <span class="kw">FALSE</span>
+);
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> features <span class="kw">WHERE</span> enabled = <span class="kw">TRUE</span>;
+
+<span class="cmt">-- ── IF [NOT] EXISTS pour DDL ──</span>
+<span class="kw">CREATE TABLE IF NOT EXISTS</span> my_table (id <span class="tp">NUMBER</span>);
+<span class="kw">DROP TABLE IF EXISTS</span> my_table;
+
+<span class="cmt">-- ── Table value constructor ──</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> (<span class="kw">VALUES</span>
+  (<span class="num">1</span>, <span class="str">'Alice'</span>),
+  (<span class="num">2</span>, <span class="str">'Bob'</span>)
+) <span class="kw">AS</span> t(id, name);
+
+<span class="cmt">-- ── Direct joins for UPDATE / DELETE ──</span>
+<span class="kw">UPDATE</span> employees e <span class="kw">SET</span> e.salary = e.salary * <span class="num">1.1</span>
+<span class="kw">FROM</span> departments d
+<span class="kw">WHERE</span> e.dept_id = d.dept_id <span class="kw">AND</span> d.name = <span class="str">'IT'</span>;
+
+<span class="cmt">-- ── SQL Domains (contraintes réutilisables) ──</span>
+<span class="kw">CREATE DOMAIN</span> email_domain <span class="kw">AS</span> <span class="tp">VARCHAR2</span>(<span class="num">255</span>)
+  <span class="kw">CHECK</span> (<span class="fn">REGEXP_LIKE</span>(<span class="kw">VALUE</span>, <span class="str">'^[^@]+@[^@]+\.[^@]+$'</span>));
+
+<span class="cmt">-- ── Schema-level IF / CASE / Loop (PL/SQL-like en SQL) ──</span>
+
+<span class="cmt">-- ── GROUP BY column alias ──</span>
+<span class="kw">SELECT</span> <span class="fn">EXTRACT</span>(<span class="kw">YEAR FROM</span> hire_date) <span class="kw">AS</span> yr, <span class="fn">COUNT</span>(*)
+<span class="kw">FROM</span> employees <span class="kw">GROUP BY</span> yr;
+
+<span class="cmt">-- ── Annotations (métadonnées sur les objets) ──</span>
+<span class="kw">CREATE TABLE</span> orders (
+  id <span class="tp">NUMBER</span> <span class="kw">ANNOTATIONS</span>(<span class="str">'description'</span>, <span class="str">'Primary key of orders'</span>)
+);
+
+<span class="cmt">-- ── SELECT ... RETURNING pour INSERT/UPDATE/DELETE ──</span>
+<span class="kw">INSERT INTO</span> employees(name,salary) <span class="kw">VALUES</span>(<span class="str">'Eve'</span>,<span class="num">50000</span>)
+<span class="kw">RETURNING</span> employee_id <span class="kw">INTO</span> v_id;</code></pre></div>
+</div>
+
+<!-- ══════════ 20 ══════════ -->
+<div class="section" id="s20">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#3178c6,#60a5fa)">20</span><h2 class="section-title">Bonnes pratiques & Performance</h2></div>
+
+<div class="code-block"><div class="code-header"><span>Conseils</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">-- ✅ BULK COLLECT + FORALL pour les traitements en masse</span>
+<span class="cmt">-- ✅ LIMIT sur BULK COLLECT pour contrôler la mémoire</span>
+<span class="cmt">-- ✅ PLS_INTEGER au lieu de NUMBER pour les compteurs</span>
+<span class="cmt">-- ✅ %TYPE et %ROWTYPE pour l'ancrage (maintenance)</span>
+<span class="cmt">-- ✅ Bind variables (USING) dans le SQL dynamique</span>
+<span class="cmt">-- ✅ SAVE EXCEPTIONS avec FORALL pour la gestion d'erreurs en masse</span>
+<span class="cmt">-- ✅ PRAGMA AUTONOMOUS_TRANSACTION pour le logging indépendant</span>
+<span class="cmt">-- ✅ Packages pour organiser le code (encapsulation)</span>
+<span class="cmt">-- ✅ Nommer les conventions : v_ (var), p_ (param), c_ (const), g_ (global)</span>
+<span class="cmt">-- ✅ RESULT_CACHE sur les fonctions déterministes fréquentes</span>
+<span class="cmt">-- ✅ Compound triggers pour éviter le mutating table</span>
+<span class="cmt">-- ✅ DBMS_APPLICATION_INFO pour le monitoring</span>
+<span class="cmt">-- ✅ Curseurs FOR (auto open/fetch/close)</span>
+<span class="cmt">-- ✅ Exception handlers spécifiques avant WHEN OTHERS</span>
+
+<span class="cmt">-- ❌ COMMIT dans les boucles (1 COMMIT par batch, pas par ligne)</span>
+<span class="cmt">-- ❌ SELECT * quand quelques colonnes suffisent</span>
+<span class="cmt">-- ❌ Concaténation dans le SQL dynamique (injection SQL !)</span>
+<span class="cmt">-- ❌ WHEN OTHERS THEN NULL (avaler les erreurs silencieusement)</span>
+<span class="cmt">-- ❌ Curseur explicite quand FOR...IN suffit</span>
+<span class="cmt">-- ❌ NUMBER pour les compteurs simples (utiliser PLS_INTEGER)</span>
+<span class="cmt">-- ❌ Logique métier dans les triggers (difficile à maintenir)</span>
+<span class="cmt">-- ❌ GOTO (code spaghetti)</span>
+<span class="cmt">-- ❌ Variables globales de package sans nécessité</span>
+<span class="cmt">-- ❌ Ignorer DBMS_UTILITY.FORMAT_ERROR_BACKTRACE dans WHEN OTHERS</span></code></pre></div>
+</div>
+
+<p style="text-align:center;color:var(--text3);font-size:.85rem;margin-top:40px;padding:20px 0;border-top:1px solid var(--border)">Oracle PL/SQL Cheatsheet Complet — 2026</p>
+</main>
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0})">↑</button>
+
+<script>
+const toggle=document.getElementById('themeToggle'),html=document.documentElement;let dark=true;toggle.addEventListener('click',()=>{dark=!dark;html.setAttribute('data-theme',dark?'':'light');toggle.textContent=dark?'🌙':'☀️'});
+function copyCode(btn){const pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.textContent).then(()=>{btn.textContent='✓ Copié';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copier';btn.classList.remove('copied')},1500)})}
+const backTop=document.getElementById('backTop');window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400)});
+const sections=document.querySelectorAll('.section'),navLinks=document.querySelectorAll('.nav-link');
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(l=>l.classList.remove('active'));const link=document.querySelector(`.nav-link[href="#${entry.target.id}"]`);if(link)link.classList.add('active')}})},{rootMargin:'-80px 0px -70% 0px',threshold:0});
+sections.forEach(s=>observer.observe(s));
+const searchInput=document.getElementById('search'),searchCount=document.getElementById('searchCount'),content=document.getElementById('content');
+function clearHighlights(){content.querySelectorAll('mark.search-hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize()})}
+function highlightText(node,term){let count=0;if(node.nodeType===3){const idx=node.textContent.toLowerCase().indexOf(term);if(idx>=0){const span=document.createElement('mark');span.className='search-hl';const after=node.splitText(idx);after.splitText(term.length);span.textContent=after.textContent;after.parentNode.replaceChild(span,after);return 1}}else if(node.nodeType===1&&!['SCRIPT','STYLE','MARK'].includes(node.tagName)){for(const child of Array.from(node.childNodes))count+=highlightText(child,term)}return count}
+let searchTimeout;searchInput.addEventListener('input',()=>{clearTimeout(searchTimeout);searchTimeout=setTimeout(()=>{clearHighlights();const term=searchInput.value.trim().toLowerCase();if(term.length<2){searchCount.textContent='';sections.forEach(s=>s.style.display='');return}let total=0;sections.forEach(s=>{const match=s.textContent.toLowerCase().includes(term);s.style.display=match?'':'none';if(match)total+=highlightText(s,term)});searchCount.textContent=total>0?`${total} résultat${total>1?'s':''}`:'Aucun';const first=content.querySelector('mark.search-hl');if(first)first.scrollIntoView({behavior:'smooth',block:'center'})},200)});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();searchInput.focus();searchInput.select()}if(e.key==='Escape'){searchInput.value='';searchInput.dispatchEvent(new Event('input'));searchInput.blur()}});
+</script>
+
+<div id="readingProgress"></div>
+<style>
+#readingProgress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .1s linear;pointer-events:none}
+.anchor-link{opacity:0;margin-left:8px;color:var(--text3);text-decoration:none;font-size:.8em;font-weight:400;transition:opacity .15s;vertical-align:middle}
+.section-title:hover .anchor-link,.subsection-title:hover .anchor-link{opacity:1}
+</style>
+<script>
+const prog=document.getElementById('readingProgress');
+window.addEventListener('scroll',()=>{const s=document.documentElement;prog.style.width=((s.scrollTop||document.body.scrollTop)/(s.scrollHeight-s.clientHeight)*100)+'%'},{passive:true});
+document.querySelectorAll('.section-title,.subsection-title').forEach(el=>{
+  const section=el.closest('[id]');if(!section)return;
+  const a=document.createElement('a');a.href='#'+section.id;a.className='anchor-link';a.textContent='#';a.title='Copier le lien';
+  el.appendChild(a);
+});
+</script>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<style>
+.btn-menu{display:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:all .2s}
+.btn-menu:hover{border-color:var(--accent);color:var(--accent)}
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.drawer-overlay.open{display:block}
+@media(max-width:900px){
+  .btn-menu{display:flex}
+  .sidebar{display:block!important;position:fixed;top:0;left:-290px;width:270px;height:100vh;z-index:160;background:var(--bg);border-right:1px solid var(--border);padding:20px 16px;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px rgba(0,0,0,.4)}
+  .sidebar.open{left:0}
+  .main{padding:24px 16px 80px}
+}
+@media(max-width:540px){
+  .search-box{display:none}
+  .btn-menu{margin-left:auto}
+  .header-tag{display:none}
+}
+@media(max-width:380px){
+  .header-title{font-size:.95rem}
+  .btn-back,.btn-menu,.btn-theme{width:32px;height:32px;font-size:.9rem}
+}
+</style>
+<script>
+(function(){
+  const btnMenu=document.getElementById('btnMenu');
+  const overlay=document.getElementById('drawerOverlay');
+  const sidebar=document.getElementById('sidebar');
+  if(!btnMenu||!sidebar)return;
+  const close=()=>{sidebar.classList.remove('open');overlay.classList.remove('open')};
+  btnMenu.addEventListener('click',()=>{const o=sidebar.classList.toggle('open');overlay.classList.toggle('open',o)});
+  overlay.addEventListener('click',close);
+  sidebar.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',close));
+})();
+</script>
+</body>
+</html>

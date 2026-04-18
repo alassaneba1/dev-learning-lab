@@ -18,8 +18,9 @@
 | --- | ----------------------------------------- | ------------------------------------------------------------- |
 | 🗄️  | [SQL](cheatsheets/sql.html)               | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes |
 | 🟨  | [JavaScript](cheatsheets/javascript.html) | ES6+, closures, async/await, DOM, modules, patterns           |
-| 🔷  | [TypeScript](cheatsheets/typescript.html) | Types, interfaces, generics, utility types, decorators        |
-| ☕  | Java                                      | _(coming soon)_                                               |
+| 🔷  | [TypeScript](cheatsheets/typescript.html)   | Types, interfaces, generics, utility types, decorators        |
+| 🔴  | [Oracle PL/SQL](cheatsheets/oracle-plsql.html) | Blocks, cursors, exceptions, packages, triggers, Oracle 23ai  |
+| ☕  | Java                                        | _(coming soon)_                                               |
 | 🎨  | CSS / Tailwind                            | _(coming soon)_                                               |
 | 🌿  | Git                                       | _(coming soon)_                                               |
 
