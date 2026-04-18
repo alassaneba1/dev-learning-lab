@@ -241,6 +241,7 @@ a.card:hover {
   flex-shrink: 0;
   background: var(--card-icon-bg, rgba(96,165,250,0.12));
 }
+.card-icon img { width: 26px; height: 26px; object-fit: contain; }
 .card-name { font-size: 1.1rem; font-weight: 700; }
 .card-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.5; }
 .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
@@ -314,7 +315,7 @@ footer a:hover { text-decoration: underline; }
 
     <a href="cheatsheets/sql.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
       <div class="card-header">
-        <div class="card-icon">🗄️</div>
+        <div class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 6v4c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 10v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 14v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/></svg></div>
         <span class="card-name">SQL</span>
       </div>
       <div class="card-desc">SELECT, JOIN, GROUP BY, sous-requêtes, fonctions fenêtre, index et bien plus.</div>
@@ -328,7 +329,7 @@ footer a:hover { text-decoration: underline; }
 
     <a href="cheatsheets/javascript.html" class="card" style="--card-accent:#fbbf24; --card-icon-bg:rgba(251,191,36,0.12);">
       <div class="card-header">
-        <div class="card-icon">🟨</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
         <span class="card-name">JavaScript</span>
       </div>
       <div class="card-desc">ES6+, closures, async/await, DOM, modules et patterns courants.</div>
@@ -341,7 +342,7 @@ footer a:hover { text-decoration: underline; }
 
     <a href="cheatsheets/typescript.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
       <div class="card-header">
-        <div class="card-icon">🔷</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
         <span class="card-name">TypeScript</span>
       </div>
       <div class="card-desc">Types, interfaces, generics, utility types, décorateurs et config.</div>
@@ -359,7 +360,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(244,114,182,0.12);">
       <div class="card-header">
-        <div class="card-icon">☕</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java"></div>
         <span class="card-name">Java</span>
         <span class="badge-soon">Soon</span>
       </div>
@@ -373,7 +374,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(56,189,248,0.12);">
       <div class="card-header">
-        <div class="card-icon">🎨</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS"></div>
         <span class="card-name">CSS / Tailwind</span>
         <span class="badge-soon">Soon</span>
       </div>
@@ -387,7 +388,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(251,146,60,0.12);">
       <div class="card-header">
-        <div class="card-icon">🌿</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git"></div>
         <span class="card-name">Git</span>
         <span class="badge-soon">Soon</span>
       </div>
@@ -401,7 +402,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
       <div class="card-header">
-        <div class="card-icon">🐍</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python"></div>
         <span class="card-name">Python</span>
         <span class="badge-soon">Soon</span>
       </div>
@@ -415,7 +416,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(96,165,250,0.12);">
       <div class="card-header">
-        <div class="card-icon">⚛️</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"></div>
         <span class="card-name">React</span>
         <span class="badge-soon">Soon</span>
       </div>
@@ -429,7 +430,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(56,189,248,0.12);">
       <div class="card-header">
-        <div class="card-icon">🐳</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"></div>
         <span class="card-name">Docker</span>
         <span class="badge-soon">Soon</span>
       </div>
@@ -443,7 +444,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(251,191,36,0.12);">
       <div class="card-header">
-        <div class="card-icon">🐧</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux"></div>
         <span class="card-name">Linux / Bash</span>
         <span class="badge-soon">Soon</span>
       </div>
@@ -457,7 +458,7 @@ footer a:hover { text-decoration: underline; }
 
     <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
       <div class="card-header">
-        <div class="card-icon">🟢</div>
+        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
         <span class="card-name">Node.js</span>
         <span class="badge-soon">Soon</span>
       </div>
