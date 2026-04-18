@@ -1,49 +1,45 @@
 # Dev Learning Lab
 
-A collection of interactive cheatsheets and mini-sites to learn and reference technologies — built as standalone HTML files, no install needed.
+> Interactive cheatsheets for essential dev technologies — standalone HTML files, no install, no build step.
 
-## Available Cheatsheets
+## Live
 
-| Technology | File                                                                         | Topics covered                                                 |
-| ---------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| SQL        | [cheatsheets/sql.html](cheatsheets/sql.html)               | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes… |
-| JavaScript | [cheatsheets/javascript.html](cheatsheets/javascript.html) | ES6+, closures, async/await, DOM, modules…                     |
-| TypeScript | [cheatsheets/typescript.html](cheatsheets/typescript.html) | Types, interfaces, generics, utility types, decorators…        |
+**[alassaneba1.github.io/dev-learning-lab](https://alassaneba1.github.io/dev-learning-lab)** *(GitHub Pages)*
 
-> More coming: Java, CSS/Tailwind, Git, and more.
+---
 
-## How to use
+## Cheatsheets
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/your-username/dev-learning-lab.git
-   ```
-2. Open any `.html` file directly in your browser — no server required.
+| | Technology | Topics |
+|---|---|---|
+| 🗄️ | [SQL](cheatsheets/sql.html) | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes |
+| 🟨 | [JavaScript](cheatsheets/javascript.html) | ES6+, closures, async/await, DOM, modules, patterns |
+| 🔷 | [TypeScript](cheatsheets/typescript.html) | Types, interfaces, generics, utility types, decorators |
+| ☕ | Java | *(coming soon)* |
+| 🎨 | CSS / Tailwind | *(coming soon)* |
+| 🌿 | Git | *(coming soon)* |
 
-Or browse online via GitHub Pages (if enabled).
+---
 
-## Structure
+## Use locally
 
-Each cheatsheet is a **single self-contained HTML file**:
+```bash
+git clone https://github.com/alassaneba1/dev-learning-lab.git
+cd dev-learning-lab
+# Open index.html in your browser — no server needed
+```
 
-- Dark theme with syntax highlighting
-- Searchable sections
-- Copy-paste ready code examples
-- French / English content
+---
 
-## Roadmap
+## Features
 
-- [x] JavaScript cheatsheet
-- [x] TypeScript cheatsheet
-- [ ] Java cheatsheet
-- [ ] CSS / Tailwind cheatsheet
-- [ ] Git cheatsheet
-- [ ] GitHub Pages deploy
+- Dark / light theme with persistent toggle
+- Search across all sections
+- Syntax-highlighted, copy-ready code examples
+- Self-contained HTML — works offline
 
-## Contributing
-
-Feel free to open an issue or a PR if you spot a mistake or want to add a section.
+---
 
 ## License
 
-MIT
+MIT © [Alassane BA](https://github.com/alassaneba1)
