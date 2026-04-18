@@ -829,5 +829,21 @@ function highlightText(node,term){let count=0;if(node.nodeType===3){const idx=no
 let searchTimeout;searchInput.addEventListener('input',()=>{clearTimeout(searchTimeout);searchTimeout=setTimeout(()=>{clearHighlights();const term=searchInput.value.trim().toLowerCase();if(term.length<2){searchCount.textContent='';sections.forEach(s=>s.style.display='');return}let total=0;sections.forEach(s=>{const match=s.textContent.toLowerCase().includes(term);s.style.display=match?'':'none';if(match)total+=highlightText(s,term)});searchCount.textContent=total>0?`${total} résultat${total>1?'s':''}`:'Aucun';const first=content.querySelector('mark.search-hl');if(first)first.scrollIntoView({behavior:'smooth',block:'center'})},200)});
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();searchInput.focus();searchInput.select()}if(e.key==='Escape'){searchInput.value='';searchInput.dispatchEvent(new Event('input'));searchInput.blur()}});
 </script>
+
+<div id="readingProgress"></div>
+<style>
+#readingProgress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .1s linear;pointer-events:none}
+.anchor-link{opacity:0;margin-left:8px;color:var(--text3);text-decoration:none;font-size:.8em;font-weight:400;transition:opacity .15s;vertical-align:middle}
+.section-title:hover .anchor-link,.subsection-title:hover .anchor-link{opacity:1}
+</style>
+<script>
+const prog=document.getElementById('readingProgress');
+window.addEventListener('scroll',()=>{const s=document.documentElement;prog.style.width=((s.scrollTop||document.body.scrollTop)/(s.scrollHeight-s.clientHeight)*100)+'%'},{passive:true});
+document.querySelectorAll('.section-title,.subsection-title').forEach(el=>{
+  const section=el.closest('[id]');if(!section)return;
+  const a=document.createElement('a');a.href='#'+section.id;a.className='anchor-link';a.textContent='#';a.title='Copier le lien';
+  el.appendChild(a);
+});
+</script>
 </body>
 </html>

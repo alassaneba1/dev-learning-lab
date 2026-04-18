@@ -1686,5 +1686,21 @@ document.addEventListener('keydown', e => {
   }
 });
 </script>
+
+<div id="readingProgress"></div>
+<style>
+#readingProgress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .1s linear;pointer-events:none}
+.anchor-link{opacity:0;margin-left:8px;color:var(--text3);text-decoration:none;font-size:.8em;font-weight:400;transition:opacity .15s;vertical-align:middle}
+.section-title:hover .anchor-link,.subsection-title:hover .anchor-link{opacity:1}
+</style>
+<script>
+const prog=document.getElementById('readingProgress');
+window.addEventListener('scroll',()=>{const s=document.documentElement;prog.style.width=((s.scrollTop||document.body.scrollTop)/(s.scrollHeight-s.clientHeight)*100)+'%'},{passive:true});
+document.querySelectorAll('.section-title,.subsection-title').forEach(el=>{
+  const section=el.closest('[id]');if(!section)return;
+  const a=document.createElement('a');a.href='#'+section.id;a.className='anchor-link';a.textContent='#';a.title='Copier le lien';
+  el.appendChild(a);
+});
+</script>
 </body>
 </html>
