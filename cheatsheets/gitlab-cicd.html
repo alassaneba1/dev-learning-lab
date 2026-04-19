@@ -35,7 +35,7 @@ mark{background:var(--mark-bg);color:var(--mark-text);border-radius:2px;padding:
 .nav-link{display:block;font-size:.82rem;color:var(--text2);text-decoration:none;padding:5px 10px;border-radius:6px;transition:all .15s;line-height:1.4}
 .nav-link:hover{background:var(--glow);color:var(--accent)}.nav-link.active{background:var(--glow);color:var(--accent);font-weight:600}
 .main{flex:1;min-width:0;padding:32px 40px 80px}
-.section{margin-bottom:48px;animation:fadeUp .4s ease both}
+.section{margin-bottom:56px;animation:fadeUp .4s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
 .section-num{font-size:.7rem;font-weight:800;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
@@ -53,12 +53,49 @@ mark{background:var(--mark-bg);color:var(--mark-text);border-radius:2px;padding:
 .table-wrap{overflow-x:auto;margin:10px 0 16px;border-radius:var(--radius);border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse;font-size:.82rem}
 thead th{background:var(--surface);color:var(--accent);font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
-tbody td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text)}
+tbody td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-size:.82rem;color:var(--text)}
 tbody tr:nth-child(even){background:var(--glow)}tbody tr:hover{background:rgba(252,109,38,.06)}
-td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-serif}
+td:first-child{font-weight:600;color:var(--accent2);font-family:'JetBrains Mono',monospace;font-size:.78rem}
 .back-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(252,109,38,.4);opacity:0;transform:translateY(20px);transition:all .3s;z-index:50}
 .back-top.visible{opacity:1;transform:translateY(0)}.back-top:hover{transform:scale(1.1)}
-@media(max-width:900px){.sidebar{display:none}.main{padding:24px 16px 60px}.header{padding:10px 14px;gap:10px}.header-title{font-size:1rem}.header-tag{display:none}}
+/* Diagram styles */
+.diagram-wrap{margin:16px 0 24px;overflow-x:auto}
+.diagram-svg{display:block;width:100%;max-width:760px;margin:0 auto;font-family:'Outfit',sans-serif}
+/* Info boxes */
+.info-box{border-radius:10px;padding:14px 18px;margin:12px 0 18px;border-left:4px solid;font-size:.88rem;line-height:1.6}
+.info-box.tip{background:rgba(52,211,153,.07);border-color:var(--accent3);color:var(--text)}
+.info-box.warn{background:rgba(251,191,36,.07);border-color:var(--accent4);color:var(--text)}
+.info-box.info{background:rgba(103,232,249,.07);border-color:var(--func);color:var(--text)}
+.info-box.danger{background:rgba(244,114,182,.07);border-color:var(--accent5);color:var(--text)}
+.info-box strong{color:var(--accent2)}
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:0;margin:16px 0 20px;counter-reset:step}
+.step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);counter-increment:step}
+.step:last-child{border-bottom:none}
+.step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;margin-top:2px}
+.step-body{flex:1}
+.step-title{font-weight:700;font-size:.95rem;margin-bottom:4px;color:var(--text)}
+.step-desc{font-size:.85rem;color:var(--text2);line-height:1.5}
+/* Glossary */
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:12px 0}
+.gloss-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.gloss-term{font-weight:700;font-size:.88rem;color:var(--accent);font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+.gloss-def{font-size:.82rem;color:var(--text2);line-height:1.5}
+/* Troubleshoot */
+.trouble-item{border:1px solid var(--border);border-radius:10px;margin:12px 0;overflow:hidden}
+.trouble-header{background:var(--bg3);padding:12px 16px;font-weight:700;font-size:.9rem;color:var(--accent5);display:flex;align-items:center;gap:8px}
+.trouble-body{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.trouble-cause{font-size:.82rem}
+.trouble-cause strong{color:var(--accent4);display:block;margin-bottom:4px;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
+.trouble-fix strong{color:var(--accent3);display:block;margin-bottom:4px;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
+.trouble-fix{font-size:.82rem}
+/* Real example highlight */
+.example-pipeline{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin:14px 0}
+.pipeline-stages{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.ps-stage{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.ps-arrow{color:var(--text3);font-size:.8rem}
+@media(max-width:900px){.sidebar{display:none}.main{padding:24px 16px 60px}.header{padding:10px 14px;gap:10px}.header-title{font-size:1rem}.header-tag{display:none}.trouble-body{grid-template-columns:1fr}}
+@media(max-width:540px){.search-box{display:none}.btn-menu{margin-left:auto}.header-tag{display:none}.gloss-grid{grid-template-columns:1fr}}
 @media print{.header,.sidebar,.back-top,.btn-copy,.code-header{display:none!important}.layout{display:block}.main{padding:0}.code-block{break-inside:avoid;border:1px solid #ccc}body{background:#fff;color:#000;font-size:10pt}}
 </style>
 </head>
@@ -75,6 +112,10 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
 
 <div class="layout">
 <nav class="sidebar" id="sidebar">
+  <div class="nav-group-title">Introduction</div>
+  <a class="nav-link" href="#s0">★ Qu'est-ce que CI/CD ?</a>
+  <a class="nav-link" href="#s-quick">⚡ Démarrage rapide (5 min)</a>
+
   <div class="nav-group-title">Fondamentaux</div>
   <a class="nav-link" href="#s1">1. Structure .gitlab-ci.yml</a>
   <a class="nav-link" href="#s2">2. Stages & Jobs</a>
@@ -99,77 +140,369 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
   <a class="nav-link" href="#s13">13. Pipelines parent/enfant</a>
   <a class="nav-link" href="#s14">14. Security scans (SAST…)</a>
   <a class="nav-link" href="#s15">15. Bonnes pratiques</a>
+
+  <div class="nav-group-title">Aller plus loin</div>
+  <a class="nav-link" href="#s16">16. Exemple complet Node.js</a>
+  <a class="nav-link" href="#s17">17. Troubleshooting</a>
+  <a class="nav-link" href="#s18">18. Glossaire</a>
 </nav>
 
 <main class="main" id="content">
+
+<!-- ══════════ INTRO ══════════ -->
+<div class="section" id="s0">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500);font-size:1rem">★</span><h2 class="section-title">Qu'est-ce que CI/CD ?</h2></div>
+
+<p style="color:var(--text2);margin-bottom:16px;font-size:.95rem;line-height:1.7">
+  <strong style="color:var(--text)">CI (Intégration Continue)</strong> automatise la vérification du code à chaque push : compilation, tests, linting.
+  <strong style="color:var(--text)">CD (Livraison/Déploiement Continu)</strong> automatise ensuite la mise en production.
+  GitLab CI/CD lit le fichier <code style="color:var(--accent);background:var(--bg3);padding:1px 5px;border-radius:4px">.gitlab-ci.yml</code> à la racine de votre repo et exécute automatiquement un <em>pipeline</em>.
+</p>
+
+<!-- SVG: CI/CD Flow diagram -->
+<div class="diagram-wrap">
+<svg class="diagram-svg" viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flux CI/CD de bout en bout">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#64748b"/></marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#34d399"/></marker>
+  </defs>
+  <!-- background -->
+  <rect width="760" height="190" rx="12" style="fill:var(--bg3);stroke:var(--border);stroke-width:1"/>
+  <!-- title -->
+  <text x="380" y="22" text-anchor="middle" style="fill:var(--text3);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;font-family:Outfit,sans-serif">Flux CI/CD complet</text>
+
+  <!-- Dev box -->
+  <rect x="14" y="65" width="90" height="60" rx="8" style="fill:rgba(252,109,38,0.1);stroke:#fc6d26;stroke-width:1.5"/>
+  <text x="59" y="90" text-anchor="middle" style="font-size:22px">💻</text>
+  <text x="59" y="110" text-anchor="middle" style="fill:#fc6d26;font-size:11px;font-weight:700;font-family:Outfit,sans-serif">Developer</text>
+  <text x="59" y="124" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">écrit du code</text>
+
+  <!-- Arrow 1 -->
+  <line x1="106" y1="95" x2="136" y2="95" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr)"/>
+  <text x="121" y="88" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">git push</text>
+
+  <!-- GitLab box -->
+  <rect x="138" y="65" width="90" height="60" rx="8" style="fill:rgba(252,109,38,0.1);stroke:#fc6d26;stroke-width:1.5"/>
+  <text x="183" y="90" text-anchor="middle" style="font-size:22px">🦊</text>
+  <text x="183" y="110" text-anchor="middle" style="fill:#fc6d26;font-size:11px;font-weight:700;font-family:Outfit,sans-serif">GitLab</text>
+  <text x="183" y="124" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">lit .gitlab-ci.yml</text>
+
+  <!-- Arrow 2 -->
+  <line x1="230" y1="95" x2="258" y2="95" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr)"/>
+  <text x="244" y="88" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">déclenche</text>
+
+  <!-- Pipeline outer box -->
+  <rect x="261" y="32" width="482" height="126" rx="10" style="fill:rgba(26,31,54,0.8);stroke:var(--border);stroke-width:1.5"/>
+  <text x="502" y="50" text-anchor="middle" style="fill:var(--text3);font-size:10px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">PIPELINE</text>
+
+  <!-- Stage BUILD -->
+  <rect x="275" y="58" width="130" height="88" rx="7" style="fill:rgba(252,109,38,0.06);stroke:rgba(252,109,38,0.35);stroke-width:1"/>
+  <text x="340" y="74" text-anchor="middle" style="fill:#fc6d26;font-size:9px;font-weight:700;letter-spacing:1px;font-family:Outfit,sans-serif">BUILD</text>
+  <rect x="285" y="80" width="110" height="20" rx="4" style="fill:rgba(252,109,38,0.12);stroke:rgba(252,109,38,0.3);stroke-width:0.5"/>
+  <text x="340" y="94" text-anchor="middle" style="fill:#ffa500;font-size:9px;font-family:'JetBrains Mono',monospace">install</text>
+  <rect x="285" y="104" width="110" height="20" rx="4" style="fill:rgba(252,109,38,0.12);stroke:rgba(252,109,38,0.3);stroke-width:0.5"/>
+  <text x="340" y="118" text-anchor="middle" style="fill:#ffa500;font-size:9px;font-family:'JetBrains Mono',monospace">build-app</text>
+  <rect x="285" y="128" width="110" height="12" rx="3" style="fill:rgba(52,211,153,0.15)"/>
+  <text x="340" y="137" text-anchor="middle" style="fill:#34d399;font-size:8px;font-family:Outfit,sans-serif">✓ succès</text>
+
+  <!-- Arrow stages -->
+  <line x1="407" y1="102" x2="428" y2="102" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr)"/>
+
+  <!-- Stage TEST -->
+  <rect x="430" y="58" width="130" height="88" rx="7" style="fill:rgba(124,58,237,0.06);stroke:rgba(124,58,237,0.35);stroke-width:1"/>
+  <text x="495" y="74" text-anchor="middle" style="fill:#a78bfa;font-size:9px;font-weight:700;letter-spacing:1px;font-family:Outfit,sans-serif">TEST</text>
+  <rect x="440" y="80" width="110" height="20" rx="4" style="fill:rgba(124,58,237,0.12);stroke:rgba(124,58,237,0.3);stroke-width:0.5"/>
+  <text x="495" y="94" text-anchor="middle" style="fill:#c084fc;font-size:9px;font-family:'JetBrains Mono',monospace">unit-tests</text>
+  <rect x="440" y="104" width="110" height="20" rx="4" style="fill:rgba(124,58,237,0.12);stroke:rgba(124,58,237,0.3);stroke-width:0.5"/>
+  <text x="495" y="118" text-anchor="middle" style="fill:#c084fc;font-size:9px;font-family:'JetBrains Mono',monospace">lint</text>
+  <rect x="440" y="128" width="110" height="12" rx="3" style="fill:rgba(52,211,153,0.15)"/>
+  <text x="495" y="137" text-anchor="middle" style="fill:#34d399;font-size:8px;font-family:Outfit,sans-serif">✓ succès</text>
+
+  <!-- Arrow stages -->
+  <line x1="562" y1="102" x2="583" y2="102" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr)"/>
+
+  <!-- Stage DEPLOY -->
+  <rect x="585" y="58" width="145" height="88" rx="7" style="fill:rgba(5,150,105,0.06);stroke:rgba(5,150,105,0.35);stroke-width:1"/>
+  <text x="657" y="74" text-anchor="middle" style="fill:#34d399;font-size:9px;font-weight:700;letter-spacing:1px;font-family:Outfit,sans-serif">DEPLOY</text>
+  <rect x="595" y="80" width="125" height="20" rx="4" style="fill:rgba(5,150,105,0.12);stroke:rgba(5,150,105,0.3);stroke-width:0.5"/>
+  <text x="657" y="94" text-anchor="middle" style="fill:#34d399;font-size:9px;font-family:'JetBrains Mono',monospace">deploy-staging</text>
+  <rect x="595" y="104" width="125" height="20" rx="4" style="fill:rgba(5,150,105,0.12);stroke:rgba(5,150,105,0.3);stroke-width:0.5"/>
+  <text x="657" y="118" text-anchor="middle" style="fill:#34d399;font-size:9px;font-family:'JetBrains Mono',monospace">deploy-prod 🖱</text>
+  <rect x="595" y="128" width="125" height="12" rx="3" style="fill:rgba(251,191,36,0.15)"/>
+  <text x="657" y="137" text-anchor="middle" style="fill:#fbbf24;font-size:8px;font-family:Outfit,sans-serif">⏸ attente manuelle</text>
+
+  <!-- Feedback arrow bottom -->
+  <path d="M 657 158 Q 657 172 380 172 Q 103 172 59 158" style="fill:none;stroke:#34d399;stroke-width:1;stroke-dasharray:4,3" marker-end="url(#arr-g)"/>
+  <text x="380" y="183" text-anchor="middle" style="fill:#34d399;font-size:9px;font-family:Outfit,sans-serif">feedback immédiat si ❌ échec</text>
+</svg>
+</div>
+
+<div class="table-wrap"><table>
+<thead><tr><th>Terme</th><th>Signification</th><th>Exemple concret</th></tr></thead>
+<tbody>
+<tr><td>CI — Intégration Continue</td><td>Vérifier automatiquement chaque commit</td><td>Tests lancés à chaque push</td></tr>
+<tr><td>CD — Livraison Continue</td><td>Code toujours prêt à être déployé</td><td>Build versionné disponible après chaque merge</td></tr>
+<tr><td>CD — Déploiement Continu</td><td>Déploiement automatique en production</td><td>Chaque merge sur main → prod mise à jour</td></tr>
+<tr><td>Pipeline</td><td>Ensemble des stages et jobs déclenchés</td><td>build → test → deploy</td></tr>
+<tr><td>Stage</td><td>Groupe de jobs qui s'exécutent en parallèle</td><td>Tous les jobs de "test" tournent en même temps</td></tr>
+<tr><td>Job</td><td>Unité d'exécution avec un script</td><td>unit-tests, lint, docker-build</td></tr>
+<tr><td>Runner</td><td>Machine qui exécute les jobs</td><td>Serveur Linux avec gitlab-runner installé</td></tr>
+<tr><td>Artifact</td><td>Fichier produit par un job, partagé dans le pipeline</td><td>dist/, rapport de tests</td></tr>
+</tbody>
+</table></div>
+
+<div class="info-box tip">
+  <strong>💡 Prérequis</strong> — Vous avez juste besoin d'un repo GitLab et d'un Runner disponible (GitLab.com fournit des runners gratuits). Aucune installation locale requise.
+</div>
+</div>
+
+<!-- ══════════ QUICK START ══════════ -->
+<div class="section" id="s-quick">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500);font-size:1rem">⚡</span><h2 class="section-title">Démarrage rapide — Premier pipeline en 5 min</h2></div>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Créer le fichier à la racine du repo</div>
+      <div class="step-desc">Dans votre projet GitLab, créez <code style="color:var(--accent)">.gitlab-ci.yml</code> à la racine (même niveau que README.md).</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Coller ce pipeline minimal</div>
+    </div>
+  </div>
+</div>
+
+<div class="code-block"><div class="code-header"><span>.gitlab-ci.yml — Le plus simple possible</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Ce pipeline a 1 stage et 1 job</span>
+<span class="tp">stages</span>:
+  - hello
+
+<span class="fn">dire-bonjour</span>:
+  <span class="fn">stage</span>: hello
+  <span class="fn">script</span>:
+    - echo <span class="str">"Bonjour depuis GitLab CI !"</span>
+    - echo <span class="str">"Je tourne sur un runner"</span></code></pre></div>
+
+<div class="steps" style="margin-top:8px">
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Pusher et observer</div>
+      <div class="step-desc">Après le push → GitLab déclenche le pipeline. Allez dans <strong>CI/CD → Pipelines</strong> dans la barre latérale gauche de votre projet. Vous verrez le pipeline apparaître en quelques secondes.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Pipeline réaliste — Node.js</div>
+      <div class="step-desc">Voici un vrai pipeline de 3 stages pour une app Node.js :</div>
+    </div>
+  </div>
+</div>
+
+<div class="code-block"><div class="code-header"><span>.gitlab-ci.yml — Pipeline Node.js réel</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">stages</span>:
+  - install
+  - test
+  - build
+
+<span class="tp">default</span>:
+  <span class="fn">image</span>: node:<span class="num">20</span>-alpine      <span class="cmt"># image Docker utilisée par tous les jobs</span>
+  <span class="fn">cache</span>:
+    <span class="fn">key</span>: <span class="str">"$CI_COMMIT_REF_SLUG"</span>
+    <span class="fn">paths</span>: [node_modules/]   <span class="cmt"># mise en cache pour accélérer</span>
+
+<span class="fn">installer-deps</span>:
+  <span class="fn">stage</span>: install
+  <span class="fn">script</span>:
+    - npm ci                   <span class="cmt"># install propre depuis package-lock.json</span>
+
+<span class="fn">lancer-tests</span>:
+  <span class="fn">stage</span>: test
+  <span class="fn">script</span>:
+    - npm test
+  <span class="fn">artifacts</span>:
+    <span class="fn">paths</span>: [coverage/]        <span class="cmt"># conserve le rapport de couverture</span>
+    <span class="fn">expire_in</span>: <span class="str">1 week</span>
+
+<span class="fn">compiler-app</span>:
+  <span class="fn">stage</span>: build
+  <span class="fn">script</span>:
+    - npm run build
+  <span class="fn">artifacts</span>:
+    <span class="fn">paths</span>: [dist/]            <span class="cmt"># fichiers compilés disponibles pour téléchargement</span></code></pre></div>
+
+<div class="steps" style="margin-top:8px">
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <div class="step-title">Valider votre YAML avant de pusher</div>
+      <div class="step-desc">Dans GitLab → votre projet → <strong>CI/CD → Pipelines → CI Lint</strong> (bouton en haut à droite). Collez votre YAML, cliquez "Validate". GitLab vous dit immédiatement s'il y a des erreurs de syntaxe.</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-box warn">
+  <strong>⚠️ Indentation YAML</strong> — Le YAML est sensible à l'indentation. Utilisez toujours des <strong>espaces</strong> (jamais des tabulations). 2 espaces par niveau est la convention GitLab CI.
+</div>
+
+<div class="info-box info">
+  <strong>🔍 Où voir les logs</strong> — CI/CD → Pipelines → cliquez sur le pipeline → cliquez sur un job. Vous verrez la sortie complète du script en temps réel.
+</div>
+</div>
 
 <!-- ══════════ 1 ══════════ -->
 <div class="section" id="s1">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500)">1</span><h2 class="section-title">Structure .gitlab-ci.yml</h2></div>
 
-<p style="color:var(--text2);margin-bottom:14px">Fichier YAML placé à la racine du repo. GitLab le lit à chaque push.</p>
+<p style="color:var(--text2);margin-bottom:14px">Fichier YAML placé <strong style="color:var(--text)">à la racine du repo</strong>. GitLab le lit à chaque push, MR, tag ou déclenchement manuel.</p>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Ordre d'exécution global des stages</span>
+<div class="code-block"><div class="code-header"><span>YAML — Structure complète annotée</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># ── 1. ORDRE DES STAGES ───────────────────────────────────────</span>
 <span class="tp">stages</span>:
-  - build
+  - build        <span class="cmt"># les jobs de ce stage tournent avant "test"</span>
   - test
   - deploy
 
-<span class="cmt"># Variables globales (disponibles dans tous les jobs)</span>
+<span class="cmt"># ── 2. VARIABLES GLOBALES ────────────────────────────────────</span>
 <span class="tp">variables</span>:
   <span class="fn">APP_NAME</span>: <span class="str">"my-app"</span>
   <span class="fn">DOCKER_IMAGE</span>: <span class="str">"$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"</span>
 
-<span class="cmt"># Image Docker par défaut pour tous les jobs</span>
+<span class="cmt"># ── 3. DEFAULTS (appliqués à tous les jobs) ──────────────────</span>
 <span class="tp">default</span>:
-  <span class="fn">image</span>: <span class="str">node:20-alpine</span>
+  <span class="fn">image</span>: node:<span class="num">20</span>-alpine
   <span class="fn">before_script</span>:
     - npm ci --cache .npm
+  <span class="fn">retry</span>: <span class="num">2</span>              <span class="cmt"># retry automatique en cas d'échec runner</span>
+  <span class="fn">timeout</span>: <span class="str">10 minutes</span>
 
-<span class="cmt"># Un job minimal</span>
+<span class="cmt"># ── 4. WORKFLOW — contrôle quand un pipeline est créé ────────</span>
+<span class="tp">workflow</span>:
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</span>
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_TAG</span>
+    - <span class="fn">when</span>: never
+
+<span class="cmt"># ── 5. UN JOB ────────────────────────────────────────────────</span>
 <span class="fn">build-app</span>:
-  <span class="fn">stage</span>: build
-  <span class="fn">script</span>:
+  <span class="fn">stage</span>: build        <span class="cmt"># dans quel stage s'exécute ce job</span>
+  <span class="fn">image</span>: node:<span class="num">20</span>      <span class="cmt"># surcharge l'image default</span>
+  <span class="fn">script</span>:             <span class="cmt"># commandes exécutées dans le conteneur</span>
     - npm run build
-  <span class="fn">artifacts</span>:
-    <span class="fn">paths</span>:
-      - dist/</code></pre></div>
+  <span class="fn">artifacts</span>:          <span class="cmt"># fichiers à conserver</span>
+    <span class="fn">paths</span>: [dist/]</code></pre></div>
 
-<div class="subsection-title">Variables prédéfinies clés</div>
+<div class="subsection-title">Variables prédéfinies clés (toujours disponibles)</div>
 <div class="table-wrap"><table>
-<thead><tr><th>Variable</th><th>Valeur</th></tr></thead>
+<thead><tr><th>Variable</th><th>Exemple de valeur</th><th>Usage</th></tr></thead>
 <tbody>
-<tr><td>CI_COMMIT_SHA</td><td>Hash complet du commit</td></tr>
-<tr><td>CI_COMMIT_SHORT_SHA</td><td>8 premiers caractères du hash</td></tr>
-<tr><td>CI_COMMIT_BRANCH</td><td>Nom de la branche</td></tr>
-<tr><td>CI_COMMIT_TAG</td><td>Tag git (si pipeline déclenché par tag)</td></tr>
-<tr><td>CI_PIPELINE_ID</td><td>ID unique du pipeline</td></tr>
-<tr><td>CI_JOB_NAME</td><td>Nom du job en cours</td></tr>
-<tr><td>CI_REGISTRY</td><td>URL du registry Docker GitLab</td></tr>
-<tr><td>CI_REGISTRY_IMAGE</td><td>Image de base du projet</td></tr>
-<tr><td>CI_REGISTRY_USER / PASSWORD</td><td>Credentials registry CI</td></tr>
-<tr><td>CI_PROJECT_DIR</td><td>Répertoire de travail du runner</td></tr>
-<tr><td>CI_ENVIRONMENT_NAME</td><td>Nom de l'environnement déployé</td></tr>
+<tr><td>CI_COMMIT_SHA</td><td>a1b2c3d4e5f6...</td><td>Hash complet du commit</td></tr>
+<tr><td>CI_COMMIT_SHORT_SHA</td><td>a1b2c3d4</td><td>Tag d'image Docker, nommage de build</td></tr>
+<tr><td>CI_COMMIT_BRANCH</td><td>main, feature/login</td><td>Conditionner selon la branche</td></tr>
+<tr><td>CI_COMMIT_TAG</td><td>v1.2.3</td><td>Non défini si ce n'est pas un tag</td></tr>
+<tr><td>CI_COMMIT_MESSAGE</td><td>"Fix bug #42"</td><td>Message du commit</td></tr>
+<tr><td>CI_PIPELINE_ID</td><td>12345</td><td>Identifiant unique du pipeline</td></tr>
+<tr><td>CI_PIPELINE_SOURCE</td><td>push, merge_request_event, schedule</td><td>Origine du pipeline</td></tr>
+<tr><td>CI_JOB_NAME</td><td>build-app</td><td>Nom du job en cours</td></tr>
+<tr><td>CI_PROJECT_DIR</td><td>/builds/group/project</td><td>Répertoire de travail</td></tr>
+<tr><td>CI_PROJECT_NAME</td><td>my-app</td><td>Nom du projet GitLab</td></tr>
+<tr><td>CI_PROJECT_PATH</td><td>my-group/my-app</td><td>Chemin complet namespace/projet</td></tr>
+<tr><td>CI_REGISTRY</td><td>registry.gitlab.com</td><td>URL du registry Docker GitLab</td></tr>
+<tr><td>CI_REGISTRY_IMAGE</td><td>registry.gitlab.com/group/project</td><td>Image de base du projet</td></tr>
+<tr><td>CI_REGISTRY_USER / PASSWORD</td><td>(auto-générés)</td><td>Login registry CI</td></tr>
+<tr><td>CI_ENVIRONMENT_NAME</td><td>staging, production</td><td>Nom de l'environnement actif</td></tr>
+<tr><td>CI_DEFAULT_BRANCH</td><td>main</td><td>Branche principale du projet</td></tr>
+<tr><td>GITLAB_USER_EMAIL</td><td>dev@example.com</td><td>Email de l'auteur du push</td></tr>
 </tbody>
 </table></div>
+
+<div class="info-box tip">
+  <strong>📋 Toutes les variables</strong> — La liste complète est disponible dans votre job lui-même : ajoutez <code>- export</code> dans le script pour les voir toutes.
+</div>
 </div>
 
 <!-- ══════════ 2 ══════════ -->
 <div class="section" id="s2">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">2</span><h2 class="section-title">Stages & Jobs</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">stages</span>:
-  - build
-  - test
-  - release
-  - deploy
+<p style="color:var(--text2);margin-bottom:16px">Les <strong style="color:var(--text)">stages</strong> définissent l'ordre d'exécution. Tous les jobs d'un même stage tournent <strong style="color:var(--text)">en parallèle</strong>. Le stage suivant ne démarre que si tous les jobs du stage précédent réussissent.</p>
 
-<span class="cmt"># Job complet avec toutes les options courantes</span>
-<span class="fn">unit-tests</span>:
+<!-- SVG: Stages & Jobs structure -->
+<div class="diagram-wrap">
+<svg class="diagram-svg" viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Structure stages et jobs">
+  <defs>
+    <marker id="arr2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#64748b"/></marker>
+  </defs>
+  <rect width="720" height="200" rx="12" style="fill:var(--bg3);stroke:var(--border);stroke-width:1"/>
+  <text x="360" y="20" text-anchor="middle" style="fill:var(--text3);font-size:10px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">LES JOBS D'UN MÊME STAGE TOURNENT EN PARALLÈLE</text>
+
+  <!-- Stage 1 BUILD -->
+  <rect x="20" y="30" width="150" height="155" rx="8" style="fill:rgba(252,109,38,0.05);stroke:rgba(252,109,38,0.4);stroke-width:1.5"/>
+  <text x="95" y="50" text-anchor="middle" style="fill:#fc6d26;font-size:10px;font-weight:700;letter-spacing:1.5px;font-family:Outfit,sans-serif">BUILD</text>
+  <rect x="32" y="58" width="126" height="34" rx="6" style="fill:rgba(252,109,38,0.12);stroke:rgba(252,109,38,0.3);stroke-width:1"/>
+  <text x="95" y="73" text-anchor="middle" style="fill:#ffa500;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">install-deps</text>
+  <text x="95" y="86" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">npm ci</text>
+  <rect x="32" y="100" width="126" height="34" rx="6" style="fill:rgba(252,109,38,0.12);stroke:rgba(252,109,38,0.3);stroke-width:1"/>
+  <text x="95" y="115" text-anchor="middle" style="fill:#ffa500;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">build-frontend</text>
+  <text x="95" y="128" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">npm run build</text>
+  <rect x="32" y="142" width="126" height="34" rx="6" style="fill:rgba(252,109,38,0.12);stroke:rgba(252,109,38,0.3);stroke-width:1"/>
+  <text x="95" y="157" text-anchor="middle" style="fill:#ffa500;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">build-backend</text>
+  <text x="95" y="170" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">gradle build</text>
+
+  <!-- Arrow -->
+  <line x1="172" y1="107" x2="198" y2="107" style="stroke:#64748b;stroke-width:2" marker-end="url(#arr2)"/>
+  <text x="185" y="100" text-anchor="middle" style="fill:#34d399;font-size:8px;font-family:Outfit,sans-serif">✓ tous OK</text>
+
+  <!-- Stage 2 TEST -->
+  <rect x="200" y="30" width="150" height="155" rx="8" style="fill:rgba(124,58,237,0.05);stroke:rgba(124,58,237,0.4);stroke-width:1.5"/>
+  <text x="275" y="50" text-anchor="middle" style="fill:#a78bfa;font-size:10px;font-weight:700;letter-spacing:1.5px;font-family:Outfit,sans-serif">TEST</text>
+  <rect x="212" y="58" width="126" height="34" rx="6" style="fill:rgba(124,58,237,0.12);stroke:rgba(124,58,237,0.3);stroke-width:1"/>
+  <text x="275" y="73" text-anchor="middle" style="fill:#c084fc;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">unit-tests</text>
+  <text x="275" y="86" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">npm test</text>
+  <rect x="212" y="100" width="126" height="34" rx="6" style="fill:rgba(124,58,237,0.12);stroke:rgba(124,58,237,0.3);stroke-width:1"/>
+  <text x="275" y="115" text-anchor="middle" style="fill:#c084fc;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">lint</text>
+  <text x="275" y="128" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">eslint src/</text>
+  <rect x="212" y="142" width="126" height="34" rx="6" style="fill:rgba(124,58,237,0.12);stroke:rgba(124,58,237,0.3);stroke-width:1"/>
+  <text x="275" y="157" text-anchor="middle" style="fill:#c084fc;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">security-scan</text>
+  <text x="275" y="170" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">npm audit</text>
+
+  <!-- Arrow -->
+  <line x1="352" y1="107" x2="378" y2="107" style="stroke:#64748b;stroke-width:2" marker-end="url(#arr2)"/>
+  <text x="365" y="100" text-anchor="middle" style="fill:#34d399;font-size:8px;font-family:Outfit,sans-serif">✓ tous OK</text>
+
+  <!-- Stage 3 DEPLOY -->
+  <rect x="380" y="30" width="150" height="155" rx="8" style="fill:rgba(5,150,105,0.05);stroke:rgba(5,150,105,0.4);stroke-width:1.5"/>
+  <text x="455" y="50" text-anchor="middle" style="fill:#34d399;font-size:10px;font-weight:700;letter-spacing:1.5px;font-family:Outfit,sans-serif">DEPLOY</text>
+  <rect x="392" y="58" width="126" height="34" rx="6" style="fill:rgba(5,150,105,0.12);stroke:rgba(5,150,105,0.3);stroke-width:1"/>
+  <text x="455" y="73" text-anchor="middle" style="fill:#34d399;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">deploy-staging</text>
+  <text x="455" y="86" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">automatique</text>
+  <rect x="392" y="100" width="126" height="34" rx="6" style="fill:rgba(5,150,105,0.12);stroke:rgba(5,150,105,0.3);stroke-width:1"/>
+  <text x="455" y="115" text-anchor="middle" style="fill:#34d399;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace">deploy-prod</text>
+  <text x="455" y="128" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">when: manual 🖱</text>
+
+  <!-- Legend -->
+  <rect x="560" y="50" width="145" height="120" rx="8" style="fill:var(--bg2);stroke:var(--border);stroke-width:1"/>
+  <text x="632" y="68" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">LÉGENDE</text>
+  <rect x="572" y="78" width="14" height="14" rx="3" style="fill:rgba(252,109,38,0.2);stroke:#fc6d26;stroke-width:1"/>
+  <text x="594" y="89" style="fill:var(--text2);font-size:9px;font-family:Outfit,sans-serif">Stage build</text>
+  <rect x="572" y="100" width="14" height="14" rx="3" style="fill:rgba(124,58,237,0.2);stroke:#a78bfa;stroke-width:1"/>
+  <text x="594" y="111" style="fill:var(--text2);font-size:9px;font-family:Outfit,sans-serif">Stage test</text>
+  <rect x="572" y="122" width="14" height="14" rx="3" style="fill:rgba(5,150,105,0.2);stroke:#34d399;stroke-width:1"/>
+  <text x="594" y="133" style="fill:var(--text2);font-size:9px;font-family:Outfit,sans-serif">Stage deploy</text>
+  <line x1="572" y1="148" x2="596" y2="148" style="stroke:#64748b;stroke-width:2" marker-end="url(#arr2)"/>
+  <text x="604" y="152" style="fill:var(--text2);font-size:9px;font-family:Outfit,sans-serif">séquence</text>
+</svg>
+</div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Job avec toutes les options</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">unit-tests</span>:
   <span class="fn">stage</span>: test
-  <span class="fn">image</span>: node:20-alpine       <span class="cmt"># surcharge l'image default</span>
+  <span class="fn">image</span>: node:<span class="num">20</span>-alpine       <span class="cmt"># surcharge l'image default</span>
   <span class="fn">tags</span>:                        <span class="cmt"># cibler un runner spécifique</span>
     - docker
+    - linux
   <span class="fn">allow_failure</span>: <span class="kw">false</span>         <span class="cmt"># true = job rouge mais pipeline continue</span>
   <span class="fn">timeout</span>: <span class="str">10 minutes</span>
   <span class="fn">retry</span>:
@@ -179,11 +512,11 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
       - stuck_or_timeout_failure
   <span class="fn">before_script</span>:
     - npm ci
-  <span class="fn">script</span>:
+  <span class="fn">script</span>:                      <span class="cmt"># ← OBLIGATOIRE</span>
     - npm test -- --coverage
-  <span class="fn">after_script</span>:
+  <span class="fn">after_script</span>:               <span class="cmt"># toujours exécuté, même si script échoue</span>
     - echo "Tests terminés"
-  <span class="fn">coverage</span>: <span class="str">'/Lines\s*:\s*(\d+\.?\d*)%/'</span>  <span class="cmt"># regex extraction coverage</span>
+  <span class="fn">coverage</span>: <span class="str">'/Lines\s*:\s*(\d+\.?\d*)%/'</span>  <span class="cmt"># regex extraction % coverage</span>
 
 <span class="cmt"># Job déclenché manuellement</span>
 <span class="fn">deploy-prod</span>:
@@ -195,14 +528,14 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
 
 <div class="subsection-title">Valeurs de `when`</div>
 <div class="table-wrap"><table>
-<thead><tr><th>Valeur</th><th>Comportement</th></tr></thead>
+<thead><tr><th>Valeur</th><th>Comportement</th><th>Cas d'usage</th></tr></thead>
 <tbody>
-<tr><td>on_success</td><td>Défaut — s'exécute si tous les jobs précédents réussissent</td></tr>
-<tr><td>on_failure</td><td>S'exécute uniquement si un job précédent échoue</td></tr>
-<tr><td>always</td><td>S'exécute quoi qu'il arrive (utile pour nettoyage)</td></tr>
-<tr><td>manual</td><td>Nécessite un clic humain dans l'UI GitLab</td></tr>
-<tr><td>delayed</td><td>Attend un délai configuré via start_in</td></tr>
-<tr><td>never</td><td>Ne s'exécute jamais (utile avec rules pour désactiver)</td></tr>
+<tr><td>on_success</td><td>Défaut — s'exécute si tous les jobs précédents réussissent</td><td>Job normal</td></tr>
+<tr><td>on_failure</td><td>S'exécute uniquement si un job précédent échoue</td><td>Notification d'erreur, rollback</td></tr>
+<tr><td>always</td><td>S'exécute quoi qu'il arrive</td><td>Nettoyage de ressources</td></tr>
+<tr><td>manual</td><td>Nécessite un clic humain dans l'UI GitLab</td><td>Deploy en production</td></tr>
+<tr><td>delayed</td><td>Attend un délai configuré via start_in</td><td>Canary deploy progressif</td></tr>
+<tr><td>never</td><td>Ne s'exécute jamais (utile avec rules)</td><td>Désactiver un job selon condition</td></tr>
 </tbody>
 </table></div>
 </div>
@@ -211,41 +544,57 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
 <div class="section" id="s3">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">3</span><h2 class="section-title">Variables</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Variables globales</span>
+<p style="color:var(--text2);margin-bottom:14px">Les variables sont des <strong style="color:var(--text)">paires clé=valeur</strong> disponibles dans les scripts via <code style="color:var(--accent)">$NOM_VARIABLE</code>. On les définit dans le YAML ou dans l'interface GitLab pour les secrets.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML — Variables : définition et usage</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Variables globales (tous les jobs)</span>
 <span class="tp">variables</span>:
   <span class="fn">ENV</span>: <span class="str">"production"</span>
   <span class="fn">PORT</span>: <span class="str">"3000"</span>                 <span class="cmt"># toujours une string en YAML</span>
-  <span class="fn">URL</span>: <span class="str">"https://$CI_PROJECT_NAME.example.com"</span>  <span class="cmt"># interpolation</span>
+  <span class="fn">URL</span>: <span class="str">"https://$CI_PROJECT_NAME.example.com"</span>  <span class="cmt"># interpolation OK</span>
 
 <span class="cmt"># Variable locale à un job (surcharge la globale)</span>
 <span class="fn">my-job</span>:
   <span class="fn">variables</span>:
     <span class="fn">ENV</span>: <span class="str">"staging"</span>
-    <span class="fn">GIT_STRATEGY</span>: <span class="str">none</span>      <span class="cmt"># fetch | clone | none</span>
-    <span class="fn">GIT_DEPTH</span>: <span class="str">"10"</span>          <span class="cmt"># shallow clone pour accélérer</span>
+    <span class="fn">GIT_STRATEGY</span>: <span class="str">none</span>      <span class="cmt"># fetch | clone | none — "none" = pas de checkout</span>
+    <span class="fn">GIT_DEPTH</span>: <span class="str">"10"</span>          <span class="cmt"># shallow clone, accélère le checkout</span>
   <span class="fn">script</span>:
     - echo $ENV              <span class="cmt"># → staging</span>
-    - echo ${ENV:-default}   <span class="cmt"># valeur par défaut bash</span>
+    - echo ${ENV:-default}   <span class="cmt"># valeur par défaut bash si vide</span>
+    - echo ${APP_NAME:?Variable obligatoire}  <span class="cmt"># erreur si non définie</span>
 
-<span class="cmt"># Secrets — à définir dans GitLab UI (Settings > CI/CD > Variables)</span>
-<span class="cmt"># Type "Masked" = caché dans les logs</span>
-<span class="cmt"># Type "Protected" = uniquement sur branches protégées</span>
+<span class="cmt"># Secrets — définis dans GitLab UI (Settings › CI/CD › Variables)</span>
+<span class="cmt"># ⚠ Ne jamais mettre de mot de passe dans le YAML !</span>
 <span class="fn">deploy</span>:
   <span class="fn">script</span>:
-    - echo $DB_PASSWORD      <span class="cmt"># variable masquée définie dans l'UI</span>
-    - curl -H "Token: $API_KEY" https://api.example.com</code></pre></div>
+    - echo $DB_PASSWORD      <span class="cmt"># variable masquée définie dans l'UI → *** dans les logs</span>
+    - curl -H <span class="str">"Token: $API_KEY"</span> https://api.example.com</code></pre></div>
+
+<div class="subsection-title">Variables CI/CD dans l'UI GitLab</div>
+<div class="info-box info">
+  <strong>📍 Où les créer</strong> : Votre projet GitLab → <strong>Settings → CI/CD → Variables → Add variable</strong>
+</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Option</th><th>Effet</th><th>Quand l'utiliser</th></tr></thead>
+<tbody>
+<tr><td>Masked</td><td>Valeur remplacée par *** dans les logs</td><td>Mots de passe, tokens API</td></tr>
+<tr><td>Protected</td><td>Disponible uniquement sur branches/tags protégés</td><td>Credentials de production</td></tr>
+<tr><td>Expand variable references</td><td>Interpole $OTHER_VAR dans la valeur</td><td>Variables composées</td></tr>
+<tr><td>File</td><td>Crée un fichier temporaire avec le contenu</td><td>Clés SSH, certificates .pem</td></tr>
+</tbody>
+</table></div>
 
 <div class="subsection-title">Priorité des variables (haute → basse)</div>
 <div class="table-wrap"><table>
-<thead><tr><th>Source</th><th>Scope</th></tr></thead>
+<thead><tr><th>#</th><th>Source</th><th>Scope</th></tr></thead>
 <tbody>
-<tr><td>Trigger variables</td><td>Variables passées au déclenchement via API</td></tr>
-<tr><td>Variables UI projet (protected)</td><td>Branches/tags protégés uniquement</td></tr>
-<tr><td>Variables UI projet</td><td>Tous les pipelines du projet</td></tr>
-<tr><td>Variables UI groupe</td><td>Tous les projets du groupe</td></tr>
-<tr><td>Variables .gitlab-ci.yml (job)</td><td>Job courant</td></tr>
-<tr><td>Variables .gitlab-ci.yml (global)</td><td>Tous les jobs</td></tr>
-<tr><td>Variables prédéfinies CI</td><td>CI_*, GITLAB_*, etc.</td></tr>
+<tr><td>1</td><td>Trigger variables (API)</td><td>Variables passées au déclenchement</td></tr>
+<tr><td>2</td><td>Variables UI projet (protected)</td><td>Branches/tags protégés uniquement</td></tr>
+<tr><td>3</td><td>Variables UI projet</td><td>Tous les pipelines du projet</td></tr>
+<tr><td>4</td><td>Variables UI groupe</td><td>Tous les projets du groupe</td></tr>
+<tr><td>5</td><td>Variables .gitlab-ci.yml (job)</td><td>Job courant seulement</td></tr>
+<tr><td>6</td><td>Variables .gitlab-ci.yml (global)</td><td>Tous les jobs du fichier</td></tr>
+<tr><td>7</td><td>Variables prédéfinies CI</td><td>CI_*, GITLAB_*, etc.</td></tr>
 </tbody>
 </table></div>
 </div>
@@ -254,9 +603,13 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
 <div class="section" id="s4">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#67e8f9)">4</span><h2 class="section-title">Rules & conditions</h2></div>
 
-<p style="color:var(--text2);margin-bottom:14px"><code>rules</code> remplace <code>only/except</code> (déprécié). Plus flexible et lisible.</p>
+<p style="color:var(--text2);margin-bottom:14px"><code style="color:var(--accent)">rules</code> remplace <code style="color:var(--accent)">only/except</code> (déprécié). Il permet de conditionner finement <strong style="color:var(--text)">quand un job s'exécute</strong>, avec quel comportement (<code>when</code>) et quelles variables.</p>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">deploy-staging</span>:
+<div class="info-box info">
+  <strong>🔄 Comment rules fonctionne</strong> — GitLab évalue chaque règle <strong>dans l'ordre</strong>. Dès qu'une règle correspond, elle s'applique et les suivantes sont ignorées. Si aucune règle ne correspond, le job est exclu du pipeline.
+</div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Rules : cas d'usage courants</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">deploy-staging</span>:
   <span class="fn">script</span>: ./deploy.sh staging
   <span class="fn">rules</span>:
     <span class="cmt"># Si branche develop → exécute automatiquement</span>
@@ -265,52 +618,153 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
     <span class="cmt"># Si MR vers main → exécute manuellement</span>
     - <span class="fn">if</span>: <span class="str">'$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'</span>
       <span class="fn">when</span>: manual
-    <span class="cmt"># Si fichier modifié</span>
+    <span class="cmt"># Si un fichier spécifique a été modifié</span>
     - <span class="fn">changes</span>:
         - src/**/*
         - package.json
-    <span class="cmt"># Sinon, ne pas exécuter</span>
+    <span class="cmt"># Fallback : ne jamais exécuter autrement</span>
     - <span class="fn">when</span>: never
 
 <span class="fn">release</span>:
   <span class="fn">script</span>: ./release.sh
   <span class="fn">rules</span>:
-    <span class="cmt"># Uniquement sur les tags semver</span>
+    <span class="cmt"># Uniquement sur les tags semver (ex: v1.2.3)</span>
     - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'</span>
 
-<span class="cmt"># Variables injectées selon la règle</span>
+<span class="cmt"># Injecter des variables différentes selon la règle</span>
 <span class="fn">build</span>:
   <span class="fn">script</span>: npm run build
   <span class="fn">rules</span>:
     - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_BRANCH == "main"'</span>
       <span class="fn">variables</span>:
         <span class="fn">BUILD_ENV</span>: <span class="str">production</span>
+        <span class="fn">MINIFY</span>: <span class="str">"true"</span>
     - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_BRANCH'</span>
       <span class="fn">variables</span>:
-        <span class="fn">BUILD_ENV</span>: <span class="str">staging</span></code></pre></div>
+        <span class="fn">BUILD_ENV</span>: <span class="str">staging</span>
+        <span class="fn">MINIFY</span>: <span class="str">"false"</span>
 
-<div class="subsection-title">Conditions `if` courantes</div>
+<span class="cmt"># Combiner if ET changes (les deux doivent être vrais)</span>
+<span class="fn">test-api</span>:
+  <span class="fn">script</span>: npm run test:api
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">'$CI_PIPELINE_SOURCE == "merge_request_event"'</span>
+      <span class="fn">changes</span>:
+        - api/**/*
+        - tests/api/**/*</code></pre></div>
+
+<div class="subsection-title">Conditions `if` les plus utiles</div>
 <div class="table-wrap"><table>
 <thead><tr><th>Condition</th><th>Cas d'usage</th></tr></thead>
 <tbody>
 <tr><td>$CI_COMMIT_BRANCH == "main"</td><td>Uniquement sur main</td></tr>
 <tr><td>$CI_COMMIT_BRANCH =~ /^feature/</td><td>Toutes les branches feature/*</td></tr>
-<tr><td>$CI_COMMIT_TAG</td><td>Si un tag est poussé</td></tr>
+<tr><td>$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH</td><td>Tout sauf la branche principale</td></tr>
+<tr><td>$CI_COMMIT_TAG</td><td>Si un tag est poussé (non nul)</td></tr>
+<tr><td>$CI_COMMIT_TAG =~ /^v\d+/</td><td>Tags de type v1.x.x</td></tr>
 <tr><td>$CI_PIPELINE_SOURCE == "merge_request_event"</td><td>Pipeline MR uniquement</td></tr>
-<tr><td>$CI_PIPELINE_SOURCE == "schedule"</td><td>Pipeline planifié (cron)</td></tr>
-<tr><td>$CI_PIPELINE_SOURCE == "web"</td><td>Déclenché depuis l'UI</td></tr>
+<tr><td>$CI_PIPELINE_SOURCE == "schedule"</td><td>Pipeline planifié (cron GitLab)</td></tr>
+<tr><td>$CI_PIPELINE_SOURCE == "web"</td><td>Déclenché manuellement depuis l'UI</td></tr>
+<tr><td>$CI_PIPELINE_SOURCE == "api"</td><td>Déclenché via l'API GitLab</td></tr>
 <tr><td>$MY_VAR == null</td><td>Variable non définie</td></tr>
+<tr><td>$MY_VAR != null</td><td>Variable définie (quelle que soit la valeur)</td></tr>
+<tr><td>$MY_VAR == "true" &amp;&amp; $ENV == "prod"</td><td>Combinaison avec ET logique</td></tr>
 </tbody>
 </table></div>
+
+<div class="info-box warn">
+  <strong>⚠️ Guillemets dans les conditions</strong> — Les conditions <code>if</code> doivent être entre guillemets simples : <code>if: '$VAR == "valeur"'</code>. Les guillemets internes utilisent des doubles guillemets.
+</div>
 </div>
 
 <!-- ══════════ 5 ══════════ -->
 <div class="section" id="s5">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">5</span><h2 class="section-title">Needs & DAG</h2></div>
 
-<p style="color:var(--text2);margin-bottom:14px"><code>needs</code> permet un pipeline en graphe orienté acyclique (DAG) — les jobs ne se bloquent plus par stage.</p>
+<p style="color:var(--text2);margin-bottom:14px"><code style="color:var(--accent)">needs</code> transforme votre pipeline en <strong style="color:var(--text)">graphe orienté acyclique (DAG)</strong>. Un job peut démarrer dès que ses dépendances directes sont terminées, sans attendre tous les jobs du stage précédent.</p>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">stages</span>:
+<!-- SVG: DAG vs Sequential -->
+<div class="diagram-wrap">
+<svg class="diagram-svg" viewBox="0 0 740 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline séquentiel vs DAG avec needs">
+  <defs>
+    <marker id="arr3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#64748b"/></marker>
+    <marker id="arr3g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#34d399"/></marker>
+  </defs>
+  <rect width="740" height="230" rx="12" style="fill:var(--bg3);stroke:var(--border);stroke-width:1"/>
+
+  <!-- LEFT SIDE: Sequential -->
+  <text x="185" y="20" text-anchor="middle" style="fill:var(--accent5);font-size:11px;font-weight:700;font-family:Outfit,sans-serif">SANS needs: — Séquentiel</text>
+  <text x="185" y="34" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">chaque stage attend le précédent</text>
+
+  <!-- Timeline left -->
+  <line x1="20" y1="220" x2="360" y2="220" style="stroke:var(--border);stroke-width:1"/>
+  <text x="20" y="228" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">t=0</text>
+  <text x="340" y="228" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">t=12min</text>
+
+  <!-- Build stage (0-4min) -->
+  <rect x="20" y="50" width="100" height="24" rx="4" style="fill:rgba(252,109,38,0.2);stroke:#fc6d26;stroke-width:1"/>
+  <text x="70" y="66" text-anchor="middle" style="fill:#ffa500;font-size:9px;font-family:'JetBrains Mono',monospace">build-A (4min)</text>
+  <rect x="20" y="80" width="100" height="24" rx="4" style="fill:rgba(252,109,38,0.2);stroke:#fc6d26;stroke-width:1"/>
+  <text x="70" y="96" text-anchor="middle" style="fill:#ffa500;font-size:9px;font-family:'JetBrains Mono',monospace">build-B (4min)</text>
+  <text x="70" y="116" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">stage: build</text>
+
+  <!-- Test stage (4-8min) -->
+  <rect x="130" y="50" width="100" height="24" rx="4" style="fill:rgba(124,58,237,0.2);stroke:#a78bfa;stroke-width:1"/>
+  <text x="180" y="66" text-anchor="middle" style="fill:#c084fc;font-size:9px;font-family:'JetBrains Mono',monospace">test-A (4min)</text>
+  <rect x="130" y="80" width="100" height="24" rx="4" style="fill:rgba(124,58,237,0.2);stroke:#a78bfa;stroke-width:1"/>
+  <text x="180" y="96" text-anchor="middle" style="fill:#c084fc;font-size:9px;font-family:'JetBrains Mono',monospace">test-B (4min)</text>
+  <text x="180" y="116" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">stage: test</text>
+
+  <!-- Deploy (8-12min) -->
+  <rect x="240" y="65" width="100" height="24" rx="4" style="fill:rgba(5,150,105,0.2);stroke:#34d399;stroke-width:1"/>
+  <text x="290" y="81" text-anchor="middle" style="fill:#34d399;font-size:9px;font-family:'JetBrains Mono',monospace">deploy (4min)</text>
+  <text x="290" y="101" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">stage: deploy</text>
+
+  <rect x="20" y="130" width="320" height="20" rx="3" style="fill:rgba(244,114,182,0.1);stroke:rgba(244,114,182,0.3);stroke-width:1"/>
+  <text x="180" y="144" text-anchor="middle" style="fill:#f472b6;font-size:9px;font-weight:600;font-family:Outfit,sans-serif">⏱ Durée totale : ~12 minutes</text>
+
+  <!-- DIVIDER -->
+  <line x1="370" y1="10" x1="370" y1="220" x2="370" y2="220" style="stroke:var(--border);stroke-width:1;stroke-dasharray:4,4"/>
+  <line x1="370" y1="10" x2="370" y2="225" style="stroke:var(--border);stroke-width:1;stroke-dasharray:4,4"/>
+
+  <!-- RIGHT SIDE: DAG -->
+  <text x="555" y="20" text-anchor="middle" style="fill:#34d399;font-size:11px;font-weight:700;font-family:Outfit,sans-serif">AVEC needs: — DAG</text>
+  <text x="555" y="34" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">chaque job démarre dès que ses dépendances sont OK</text>
+
+  <!-- build-A (0-4min) -->
+  <rect x="385" y="50" width="110" height="24" rx="4" style="fill:rgba(252,109,38,0.2);stroke:#fc6d26;stroke-width:1"/>
+  <text x="440" y="66" text-anchor="middle" style="fill:#ffa500;font-size:9px;font-family:'JetBrains Mono',monospace">build-A (4min)</text>
+  <!-- build-B (0-2min) -->
+  <rect x="385" y="80" width="70" height="24" rx="4" style="fill:rgba(252,109,38,0.2);stroke:#fc6d26;stroke-width:1"/>
+  <text x="420" y="96" text-anchor="middle" style="fill:#ffa500;font-size:9px;font-family:'JetBrains Mono',monospace">build-B (2m)</text>
+
+  <!-- test-A starts at t=4 (after build-A) -->
+  <rect x="505" y="50" width="110" height="24" rx="4" style="fill:rgba(124,58,237,0.2);stroke:#a78bfa;stroke-width:1"/>
+  <text x="560" y="66" text-anchor="middle" style="fill:#c084fc;font-size:9px;font-family:'JetBrains Mono',monospace">test-A (4min)</text>
+  <line x1="497" y1="62" x2="503" y2="62" style="stroke:#a78bfa;stroke-width:1.5" marker-end="url(#arr3)"/>
+
+  <!-- test-B starts at t=2 (after build-B) -->
+  <rect x="465" y="80" width="80" height="24" rx="4" style="fill:rgba(124,58,237,0.2);stroke:#a78bfa;stroke-width:1"/>
+  <text x="505" y="96" text-anchor="middle" style="fill:#c084fc;font-size:9px;font-family:'JetBrains Mono',monospace">test-B (2m)</text>
+  <line x1="457" y1="92" x2="463" y2="92" style="stroke:#a78bfa;stroke-width:1.5" marker-end="url(#arr3)"/>
+
+  <!-- deploy starts at t=8 (after test-A) -->
+  <rect x="625" y="65" width="95" height="24" rx="4" style="fill:rgba(5,150,105,0.2);stroke:#34d399;stroke-width:1"/>
+  <text x="672" y="81" text-anchor="middle" style="fill:#34d399;font-size:9px;font-family:'JetBrains Mono',monospace">deploy (2m)</text>
+  <line x1="617" y1="77" x2="623" y2="77" style="stroke:#34d399;stroke-width:1.5" marker-end="url(#arr3g)"/>
+
+  <!-- needs annotations -->
+  <text x="440" y="120" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">needs: aucun</text>
+  <text x="560" y="120" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">needs: [build-A]</text>
+  <text x="505" y="120" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">needs: [build-B]</text>
+  <text x="672" y="101" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">needs: [test-A, test-B]</text>
+
+  <rect x="385" y="130" width="335" height="20" rx="3" style="fill:rgba(52,211,153,0.1);stroke:rgba(52,211,153,0.3);stroke-width:1"/>
+  <text x="552" y="144" text-anchor="middle" style="fill:#34d399;font-size:9px;font-weight:600;font-family:Outfit,sans-serif">⚡ Durée totale : ~10 minutes — gain : 2 min</text>
+</svg>
+</div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Needs & DAG</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">stages</span>:
   - build
   - test
   - deploy
@@ -331,31 +785,101 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
       <span class="fn">artifacts</span>: <span class="kw">true</span>       <span class="cmt"># télécharge les artifacts du job parent</span>
   <span class="fn">script</span>: npm run test:frontend
 
-<span class="cmt"># Ne attend que build-backend</span>
 <span class="fn">test-backend</span>:
   <span class="fn">stage</span>: test
-  <span class="fn">needs</span>: [build-backend]
+  <span class="fn">needs</span>: [build-backend]   <span class="cmt"># syntaxe courte</span>
   <span class="fn">script</span>: npm run test:backend
 
-<span class="cmt"># Attend les deux jobs de test</span>
+<span class="cmt"># Attend les deux tests</span>
 <span class="fn">deploy-staging</span>:
   <span class="fn">stage</span>: deploy
   <span class="fn">needs</span>: [test-frontend, test-backend]
   <span class="fn">script</span>: ./deploy.sh
 
-<span class="cmt"># needs: [] = démarre immédiatement (ignore les stages)</span>
+<span class="cmt"># needs: [] = démarre immédiatement (ignore les stages précédents)</span>
 <span class="fn">notify-start</span>:
   <span class="fn">stage</span>: test
   <span class="fn">needs</span>: []
-  <span class="fn">script</span>: curl -X POST $SLACK_WEBHOOK -d '{"text":"Pipeline démarré"}'</code></pre></div>
+  <span class="fn">script</span>: curl -X POST $SLACK_WEBHOOK -d <span class="str">'{"text":"Pipeline démarré"}'</span></code></pre></div>
 </div>
 
 <!-- ══════════ 6 ══════════ -->
 <div class="section" id="s6">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)">6</span><h2 class="section-title">Artifacts & Cache</h2></div>
 
+<p style="color:var(--text2);margin-bottom:14px">Deux mécanismes pour partager des fichiers, souvent confondus. Comprendre la différence est essentiel.</p>
+
+<!-- SVG: Artifacts vs Cache -->
+<div class="diagram-wrap">
+<svg class="diagram-svg" viewBox="0 0 740 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Différence entre artifacts et cache">
+  <defs>
+    <marker id="arr4o" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#fbbf24"/></marker>
+    <marker id="arr4g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#67e8f9"/></marker>
+  </defs>
+  <rect width="740" height="210" rx="12" style="fill:var(--bg3);stroke:var(--border);stroke-width:1"/>
+
+  <!-- LEFT: Artifacts -->
+  <text x="185" y="22" text-anchor="middle" style="fill:#fbbf24;font-size:11px;font-weight:700;font-family:Outfit,sans-serif">ARTIFACTS — entre jobs du MÊME pipeline</text>
+
+  <!-- Pipeline 1 box -->
+  <rect x="15" y="32" width="345" height="100" rx="8" style="fill:rgba(26,31,54,0.8);stroke:var(--border);stroke-width:1"/>
+  <text x="187" y="48" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">PIPELINE #1</text>
+
+  <rect x="25" y="54" width="90" height="28" rx="5" style="fill:rgba(252,109,38,0.15);stroke:#fc6d26;stroke-width:1"/>
+  <text x="70" y="72" text-anchor="middle" style="fill:#ffa500;font-size:9px;font-family:'JetBrains Mono',monospace">build</text>
+  <text x="70" y="84" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">→ dist/ 📦</text>
+
+  <line x1="117" y1="68" x2="148" y2="68" style="stroke:#fbbf24;stroke-width:2" marker-end="url(#arr4o)"/>
+  <text x="132" y="62" text-anchor="middle" style="fill:#fbbf24;font-size:8px;font-family:Outfit,sans-serif">garanti</text>
+
+  <rect x="150" y="54" width="90" height="28" rx="5" style="fill:rgba(124,58,237,0.15);stroke:#a78bfa;stroke-width:1"/>
+  <text x="195" y="72" text-anchor="middle" style="fill:#c084fc;font-size:9px;font-family:'JetBrains Mono',monospace">test</text>
+  <text x="195" y="84" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">lit dist/ ✅</text>
+
+  <line x1="242" y1="68" x2="272" y2="68" style="stroke:#fbbf24;stroke-width:2" marker-end="url(#arr4o)"/>
+
+  <rect x="274" y="54" width="76" height="28" rx="5" style="fill:rgba(5,150,105,0.15);stroke:#34d399;stroke-width:1"/>
+  <text x="312" y="72" text-anchor="middle" style="fill:#34d399;font-size:9px;font-family:'JetBrains Mono',monospace">deploy</text>
+  <text x="312" y="84" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">lit dist/ ✅</text>
+
+  <text x="187" y="118" text-anchor="middle" style="fill:#fbbf24;font-size:9px;font-family:Outfit,sans-serif">📦 Artifacts uploadés sur GitLab, téléchargeables dans l'UI</text>
+
+  <rect x="15" y="142" width="345" height="28" rx="6" style="fill:rgba(251,191,36,0.08);stroke:rgba(251,191,36,0.3);stroke-width:1"/>
+  <text x="187" y="160" text-anchor="middle" style="fill:#fbbf24;font-size:9px;font-family:Outfit,sans-serif">✅ Garanti disponible • ❌ Pas persisté entre pipelines</text>
+
+  <!-- RIGHT: Cache -->
+  <text x="555" y="22" text-anchor="middle" style="fill:#67e8f9;font-size:11px;font-weight:700;font-family:Outfit,sans-serif">CACHE — entre pipelines DIFFÉRENTS</text>
+
+  <!-- Pipeline 1 right -->
+  <rect x="385" y="32" width="160" height="68" rx="8" style="fill:rgba(26,31,54,0.8);stroke:var(--border);stroke-width:1"/>
+  <text x="465" y="48" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">PIPELINE #1</text>
+  <rect x="395" y="54" width="140" height="38" rx="5" style="fill:rgba(8,145,178,0.15);stroke:#67e8f9;stroke-width:1"/>
+  <text x="465" y="69" text-anchor="middle" style="fill:#67e8f9;font-size:9px;font-family:'JetBrains Mono',monospace">npm ci</text>
+  <text x="465" y="83" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">→ node_modules/ → cache 📤</text>
+
+  <!-- Arrow down to cache store -->
+  <line x1="465" y1="102" x2="465" y2="118" style="stroke:#67e8f9;stroke-width:2" marker-end="url(#arr4g)"/>
+
+  <!-- Cache store -->
+  <rect x="415" y="120" width="100" height="28" rx="6" style="fill:rgba(8,145,178,0.2);stroke:#67e8f9;stroke-width:1.5"/>
+  <text x="465" y="135" text-anchor="middle" style="fill:#67e8f9;font-size:9px;font-weight:600;font-family:Outfit,sans-serif">🗄 Cache Store</text>
+  <text x="465" y="146" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">sur le runner</text>
+
+  <!-- Arrow up to pipeline 2 -->
+  <line x1="555" y1="134" x2="575" y2="134" style="stroke:#67e8f9;stroke-width:2" marker-end="url(#arr4g)"/>
+
+  <!-- Pipeline 2 right -->
+  <rect x="577" y="110" width="148" height="42" rx="8" style="fill:rgba(26,31,54,0.8);stroke:var(--border);stroke-width:1"/>
+  <text x="651" y="126" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">PIPELINE #2</text>
+  <text x="651" y="143" text-anchor="middle" style="fill:#67e8f9;font-size:9px;font-family:'JetBrains Mono',monospace">npm ci 📥 (rapide!)</text>
+
+  <rect x="385" y="160" width="340" height="28" rx="6" style="fill:rgba(103,232,249,0.06);stroke:rgba(103,232,249,0.25);stroke-width:1"/>
+  <text x="555" y="178" text-anchor="middle" style="fill:#67e8f9;font-size:9px;font-family:Outfit,sans-serif">⚡ Accélère les pipelines • ⚠️ Best-effort (peut être absent)</text>
+</svg>
+</div>
+
 <div class="subsection-title">Artifacts — partager des fichiers entre jobs</div>
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">build</span>:
+<div class="code-block"><div class="code-header"><span>YAML — Artifacts</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">build</span>:
   <span class="fn">script</span>: npm run build
   <span class="fn">artifacts</span>:
     <span class="fn">paths</span>:
@@ -369,132 +893,317 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-se
         <span class="fn">coverage_format</span>: cobertura
         <span class="fn">path</span>: coverage/cobertura.xml
     <span class="fn">expire_in</span>: <span class="str">1 week</span>            <span class="cmt"># 30 mins | 1 day | 1 week | never</span>
-    <span class="fn">when</span>: always                  <span class="cmt"># conserver même si le job échoue</span></code></pre></div>
+    <span class="fn">when</span>: always                  <span class="cmt"># conserver même si le job échoue</span>
+    <span class="fn">untracked</span>: <span class="kw">false</span>             <span class="cmt"># inclure les fichiers non-git</span></code></pre></div>
 
 <div class="subsection-title">Cache — accélérer les jobs (node_modules, pip…)</div>
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">install</span>:
+<div class="code-block"><div class="code-header"><span>YAML — Cache</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">install</span>:
   <span class="fn">script</span>: npm ci
   <span class="fn">cache</span>:
     <span class="fn">key</span>:
-      <span class="fn">files</span>:                       <span class="cmt"># clé basée sur le hash du fichier</span>
+      <span class="fn">files</span>:                       <span class="cmt"># clé basée sur le hash du fichier lock</span>
         - package-lock.json
     <span class="fn">paths</span>:
       - node_modules/
       - .npm/
     <span class="fn">policy</span>: pull-push             <span class="cmt"># pull | push | pull-push (défaut)</span>
 
-<span class="cmt"># Cache partagé entre branches (key fixe)</span>
+<span class="cmt"># Job qui ne fait que lire le cache (pas d'écriture)</span>
 <span class="fn">test</span>:
   <span class="fn">cache</span>:
     <span class="fn">key</span>: <span class="str">"$CI_COMMIT_REF_SLUG-node"</span>
     <span class="fn">paths</span>: [node_modules/]
-    <span class="fn">policy</span>: pull                  <span class="cmt"># ne pas re-pousser le cache</span>
+    <span class="fn">policy</span>: pull                  <span class="cmt"># plus rapide : ne re-pousse pas</span>
 
-<span class="cmt"># Différence artifacts vs cache :
-# artifacts = entre jobs du même pipeline (garanti)
-# cache = entre pipelines (best-effort, peut être absent)</span></code></pre></div>
+<span class="cmt"># Cache Python pip</span>
+<span class="fn">test-python</span>:
+  <span class="fn">image</span>: python:<span class="num">3.12</span>
+  <span class="fn">cache</span>:
+    <span class="fn">key</span>:
+      <span class="fn">files</span>: [requirements.txt]
+    <span class="fn">paths</span>: [.pip-cache/]
+  <span class="fn">variables</span>:
+    <span class="fn">PIP_CACHE_DIR</span>: <span class="str">"$CI_PROJECT_DIR/.pip-cache"</span>
+  <span class="fn">script</span>:
+    - pip install -r requirements.txt
+    - pytest</code></pre></div>
+
+<div class="table-wrap"><table>
+<thead><tr><th>Critère</th><th>Artifacts</th><th>Cache</th></tr></thead>
+<tbody>
+<tr><td>Portée</td><td>Jobs du même pipeline</td><td>Entre pipelines (même branche/runner)</td></tr>
+<tr><td>Fiabilité</td><td>Garanti disponible</td><td>Best-effort (peut ne pas exister)</td></tr>
+<tr><td>Stockage</td><td>Serveur GitLab</td><td>Runner local (ou S3 configurable)</td></tr>
+<tr><td>Visible dans UI</td><td>Oui, téléchargeable</td><td>Non</td></tr>
+<tr><td>Usage typique</td><td>dist/, rapports de tests, binaires</td><td>node_modules/, .pip-cache/, .m2/</td></tr>
+</tbody>
+</table></div>
 </div>
 
 <!-- ══════════ 7 ══════════ -->
 <div class="section" id="s7">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500)">7</span><h2 class="section-title">Runners</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Cibler un runner par tag</span>
+<p style="color:var(--text2);margin-bottom:14px">Un <strong style="color:var(--text)">Runner</strong> est un agent (programme) installé sur une machine qui reçoit les jobs de GitLab et les exécute. GitLab.com propose des runners partagés gratuits. Vous pouvez aussi enregistrer vos propres runners.</p>
+
+<!-- SVG: Runner architecture -->
+<div class="diagram-wrap">
+<svg class="diagram-svg" viewBox="0 0 720 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture GitLab Runner">
+  <defs>
+    <marker id="arr5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#64748b"/></marker>
+    <marker id="arr5r" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#fc6d26"/></marker>
+  </defs>
+  <rect width="720" height="170" rx="12" style="fill:var(--bg3);stroke:var(--border);stroke-width:1"/>
+  <text x="360" y="20" text-anchor="middle" style="fill:var(--text3);font-size:10px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">ARCHITECTURE RUNNER</text>
+
+  <!-- GitLab Server -->
+  <rect x="20" y="35" width="140" height="100" rx="8" style="fill:rgba(252,109,38,0.08);stroke:#fc6d26;stroke-width:1.5"/>
+  <text x="90" y="58" text-anchor="middle" style="font-size:24px">🦊</text>
+  <text x="90" y="80" text-anchor="middle" style="fill:#fc6d26;font-size:11px;font-weight:700;font-family:Outfit,sans-serif">GitLab Server</text>
+  <text x="90" y="96" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">gitlab.com</text>
+  <text x="90" y="112" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">ou self-hosted</text>
+
+  <!-- Arrow: register (once) -->
+  <line x1="162" y1="70" x2="210" y2="70" style="stroke:#fbbf24;stroke-width:1.5;stroke-dasharray:4,3" marker-end="url(#arr5)"/>
+  <text x="186" y="64" text-anchor="middle" style="fill:#fbbf24;font-size:8px;font-family:Outfit,sans-serif">register (1x)</text>
+  <!-- Arrow: job assigned -->
+  <line x1="210" y1="90" x2="162" y2="90" style="stroke:#fc6d26;stroke-width:1.5" marker-end="url(#arr5r)"/>
+  <text x="186" y="105" text-anchor="middle" style="fill:#fc6d26;font-size:8px;font-family:Outfit,sans-serif">job assigné</text>
+
+  <!-- Runner -->
+  <rect x="212" y="35" width="160" height="100" rx="8" style="fill:rgba(103,232,249,0.06);stroke:#67e8f9;stroke-width:1.5"/>
+  <text x="292" y="58" text-anchor="middle" style="font-size:24px">⚙️</text>
+  <text x="292" y="80" text-anchor="middle" style="fill:#67e8f9;font-size:11px;font-weight:700;font-family:Outfit,sans-serif">GitLab Runner</text>
+  <text x="292" y="96" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">process qui poll GitLab</text>
+  <text x="292" y="110" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">tags: docker, linux…</text>
+
+  <!-- Arrow to executors -->
+  <line x1="374" y1="85" x2="406" y2="85" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr5)"/>
+  <text x="390" y="79" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">exécute via</text>
+
+  <!-- Executors -->
+  <rect x="408" y="30" width="290" height="115" rx="8" style="fill:rgba(26,31,54,0.8);stroke:var(--border);stroke-width:1"/>
+  <text x="553" y="48" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">EXECUTOR (type d'exécution)</text>
+
+  <rect x="418" y="55" width="80" height="36" rx="5" style="fill:rgba(8,145,178,0.15);stroke:#67e8f9;stroke-width:1"/>
+  <text x="458" y="70" text-anchor="middle" style="fill:#67e8f9;font-size:10px;font-weight:600;font-family:Outfit,sans-serif">🐳 Docker</text>
+  <text x="458" y="84" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">conteneur isolé</text>
+
+  <rect x="508" y="55" width="80" height="36" rx="5" style="fill:rgba(124,58,237,0.15);stroke:#a78bfa;stroke-width:1"/>
+  <text x="548" y="70" text-anchor="middle" style="fill:#a78bfa;font-size:10px;font-weight:600;font-family:Outfit,sans-serif">☸ K8s</text>
+  <text x="548" y="84" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">pod éphémère</text>
+
+  <rect x="598" y="55" width="90" height="36" rx="5" style="fill:rgba(5,150,105,0.15);stroke:#34d399;stroke-width:1"/>
+  <text x="643" y="70" text-anchor="middle" style="fill:#34d399;font-size:10px;font-weight:600;font-family:Outfit,sans-serif">💻 Shell</text>
+  <text x="643" y="84" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">machine hôte</text>
+
+  <text x="553" y="118" text-anchor="middle" style="fill:#fbbf24;font-size:9px;font-family:Outfit,sans-serif">⭐ Docker recommandé : isolation + reproductibilité</text>
+</svg>
+</div>
+
+<div class="subsection-title">Types d'exécuteur (executor)</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Executor</th><th>Description</th><th>Recommandé pour</th></tr></thead>
+<tbody>
+<tr><td>docker</td><td>Chaque job dans un conteneur Docker isolé (image: dans le YAML)</td><td>La plupart des projets ✅</td></tr>
+<tr><td>shell</td><td>Exécute directement sur le serveur hôte (pas de conteneur)</td><td>Legacy, accès hardware spécifique</td></tr>
+<tr><td>kubernetes</td><td>Crée un Pod K8s éphémère par job</td><td>Infra cloud native</td></tr>
+<tr><td>docker+machine</td><td>Auto-scale via Docker Machine</td><td>Pipelines à fort volume</td></tr>
+<tr><td>virtualbox / parallels</td><td>VMs isolées</td><td>Tests iOS / cross-platform</td></tr>
+</tbody>
+</table></div>
+
+<div class="code-block"><div class="code-header"><span>BASH — Installer et enregistrer un runner</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># ── Installation sur Ubuntu/Debian ────────────────────────────</span>
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+sudo apt install gitlab-runner
+
+<span class="cmt"># ── Enregistrement interactif (pose des questions) ────────────</span>
+sudo gitlab-runner register
+
+<span class="cmt"># ── Enregistrement non-interactif (scripts CI) ────────────────</span>
+sudo gitlab-runner register \
+  --non-interactive \
+  --url <span class="str">"https://gitlab.com/"</span> \
+  --registration-token <span class="str">"$RUNNER_TOKEN"</span> \
+  --executor <span class="str">"docker"</span> \
+  --docker-image <span class="str">"alpine:latest"</span> \
+  --description <span class="str">"mon-runner-docker"</span> \
+  --tag-list <span class="str">"docker,linux"</span> \
+  --docker-privileged    <span class="cmt"># nécessaire pour Docker-in-Docker</span>
+
+<span class="cmt"># ── Vérifier que le runner tourne ────────────────────────────</span>
+sudo gitlab-runner status
+sudo gitlab-runner list</code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Cibler un runner par tags</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Job sur runner avec tag "docker"</span>
 <span class="fn">build-docker</span>:
   <span class="fn">tags</span>:
     - docker
     - linux
 
-<span class="cmt"># Cibler un runner par tag (opérateur OU)</span>
+<span class="cmt"># Job sur runner K8s</span>
 <span class="fn">deploy-k8s</span>:
   <span class="fn">tags</span>:
     - kubernetes
 
-<span class="cmt"># Runner shell (pas de conteneur)</span>
-<span class="fn">legacy-build</span>:
+<span class="cmt"># Job sur runner Windows</span>
+<span class="fn">build-windows</span>:
   <span class="fn">tags</span>:
-    - shell
+    - windows
   <span class="fn">script</span>:
-    - make build</code></pre></div>
+    - msbuild solution.sln
 
-<div class="subsection-title">Types d'exécuteur (executor)</div>
-<div class="table-wrap"><table>
-<thead><tr><th>Executor</th><th>Description</th></tr></thead>
-<tbody>
-<tr><td>shell</td><td>Exécute directement sur le serveur hôte</td></tr>
-<tr><td>docker</td><td>Chaque job dans un conteneur Docker isolé</td></tr>
-<tr><td>docker+machine</td><td>Auto-scale via Docker Machine (cloud)</td></tr>
-<tr><td>kubernetes</td><td>Pods Kubernetes éphémères par job</td></tr>
-<tr><td>virtualbox / parallels</td><td>VMs isolées (rare)</td></tr>
-</tbody>
-</table></div>
+<span class="cmt"># ⚠ Si aucun runner ne correspond aux tags → job bloqué "stuck"</span></code></pre></div>
 
-<div class="code-block"><div class="code-header"><span>BASH — Enregistrer un runner</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Installation du runner</span>
-curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
-sudo apt install gitlab-runner
-
-<span class="cmt"># Enregistrement interactif</span>
-sudo gitlab-runner register
-
-<span class="cmt"># Enregistrement non-interactif</span>
-sudo gitlab-runner register \
-  --non-interactive \
-  --url "https://gitlab.com/" \
-  --registration-token "$RUNNER_TOKEN" \
-  --executor "docker" \
-  --docker-image "alpine:latest" \
-  --description "mon-runner" \
-  --tag-list "docker,linux"</code></pre></div>
+<div class="info-box tip">
+  <strong>🆓 Runners GitLab.com</strong> — Sur GitLab.com, des runners partagés sont disponibles gratuitement (400 min/mois sur le plan Free, illimité sur Premium). Pas besoin d'installer quoi que ce soit pour commencer.
+</div>
 </div>
 
 <!-- ══════════ 8 ══════════ -->
 <div class="section" id="s8">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">8</span><h2 class="section-title">Services (Docker, BDD)</h2></div>
 
-<p style="color:var(--text2);margin-bottom:14px">Les <code>services</code> lancent des conteneurs accessibles via leur alias hostname.</p>
+<p style="color:var(--text2);margin-bottom:14px">Les <code style="color:var(--accent)">services</code> lancent des <strong style="color:var(--text)">conteneurs annexes</strong> accessibles depuis votre job via leur alias hostname. Parfait pour les tests d'intégration avec une vraie base de données.</p>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">tests-integration</span>:
-  <span class="fn">image</span>: node:20-alpine
+<div class="info-box info">
+  <strong>🌐 Comment ça fonctionne</strong> — GitLab démarre le conteneur du service <em>en même temps</em> que le job. Le service est accessible via son <code>alias</code> (ou le nom de l'image par défaut). Les deux partagent le même réseau Docker.
+</div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Services BDD pour tests d'intégration</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">tests-integration</span>:
+  <span class="fn">image</span>: node:<span class="num">20</span>-alpine
   <span class="fn">services</span>:
-    - <span class="fn">name</span>: postgres:16-alpine
+    - <span class="fn">name</span>: postgres:<span class="num">16</span>-alpine
       <span class="fn">alias</span>: db                  <span class="cmt"># accès via hostname "db"</span>
-    - <span class="fn">name</span>: redis:7-alpine
+    - <span class="fn">name</span>: redis:<span class="num">7</span>-alpine
       <span class="fn">alias</span>: redis
+    - <span class="fn">name</span>: elasticsearch:<span class="num">8.11.0</span>
+      <span class="fn">alias</span>: elastic
+      <span class="fn">variables</span>:
+        <span class="fn">discovery.type</span>: single-node
   <span class="fn">variables</span>:
     <span class="fn">POSTGRES_DB</span>: testdb
     <span class="fn">POSTGRES_USER</span>: ci
     <span class="fn">POSTGRES_PASSWORD</span>: ci
     <span class="fn">DATABASE_URL</span>: <span class="str">"postgresql://ci:ci@db:5432/testdb"</span>
-  <span class="fn">script</span>:
+    <span class="fn">REDIS_URL</span>: <span class="str">"redis://redis:6379"</span>
+  <span class="fn">before_script</span>:
     - npm ci
-    - npm run db:migrate
-    - npm run test:integration
-
-<span class="cmt"># Build d'image Docker (Docker-in-Docker)</span>
-<span class="fn">build-image</span>:
-  <span class="fn">image</span>: docker:24
-  <span class="fn">services</span>:
-    - docker:24-dind              <span class="cmt"># Docker-in-Docker</span>
-  <span class="fn">variables</span>:
-    <span class="fn">DOCKER_TLS_CERTDIR</span>: <span class="str">"/certs"</span>
+    - npx wait-on tcp:db:5432  <span class="cmt"># attendre que postgres soit prêt</span>
   <span class="fn">script</span>:
+    - npm run db:migrate
+    - npm run test:integration</code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Docker-in-Docker (build d'image)</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Docker-in-Docker : exécuter Docker depuis un job Docker</span>
+<span class="fn">build-image</span>:
+  <span class="fn">image</span>: docker:<span class="num">26</span>
+  <span class="fn">services</span>:
+    - docker:<span class="num">26</span>-dind              <span class="cmt"># Docker daemon dans un conteneur</span>
+  <span class="fn">variables</span>:
+    <span class="fn">DOCKER_TLS_CERTDIR</span>: <span class="str">"/certs"</span>  <span class="cmt"># TLS activé (recommandé)</span>
+  <span class="fn">before_script</span>:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  <span class="fn">script</span>:
     - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA</code></pre></div>
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    <span class="cmt"># Taguer aussi "latest" sur main</span>
+    - |
+      if [ "$CI_COMMIT_BRANCH" = "$CI_DEFAULT_BRANCH" ]; then
+        docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest
+        docker push $CI_REGISTRY_IMAGE:latest
+      fi</code></pre></div>
+
+<div class="table-wrap"><table>
+<thead><tr><th>Service</th><th>Image</th><th>Alias conseillé</th><th>Variable clé</th></tr></thead>
+<tbody>
+<tr><td>PostgreSQL</td><td>postgres:16-alpine</td><td>db</td><td>POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD</td></tr>
+<tr><td>MySQL</td><td>mysql:8.0</td><td>mysql</td><td>MYSQL_DATABASE, MYSQL_ROOT_PASSWORD</td></tr>
+<tr><td>MongoDB</td><td>mongo:7</td><td>mongo</td><td>MONGO_INITDB_DATABASE</td></tr>
+<tr><td>Redis</td><td>redis:7-alpine</td><td>redis</td><td>—</td></tr>
+<tr><td>Elasticsearch</td><td>elasticsearch:8.11.0</td><td>elastic</td><td>discovery.type=single-node</td></tr>
+<tr><td>RabbitMQ</td><td>rabbitmq:3-management</td><td>rabbitmq</td><td>RABBITMQ_DEFAULT_USER/PASS</td></tr>
+</tbody>
+</table></div>
 </div>
 
 <!-- ══════════ 9 ══════════ -->
 <div class="section" id="s9">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">9</span><h2 class="section-title">Environments & Deploy</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">deploy-staging</span>:
+<p style="color:var(--text2);margin-bottom:14px">Les <strong style="color:var(--text)">environments</strong> tracent vos déploiements dans GitLab (Operate → Environments). Chaque deploy est enregistré avec son SHA, sa date et son auteur. Vous pouvez déclencher un <em>rollback</em> depuis l'UI.</p>
+
+<!-- SVG: Environment gates -->
+<div class="diagram-wrap">
+<svg class="diagram-svg" viewBox="0 0 720 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline de déploiement avec gates d'environnements">
+  <defs>
+    <marker id="arr6" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#64748b"/></marker>
+    <marker id="arr6g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" style="fill:#34d399"/></marker>
+  </defs>
+  <rect width="720" height="150" rx="12" style="fill:var(--bg3);stroke:var(--border);stroke-width:1"/>
+  <text x="360" y="20" text-anchor="middle" style="fill:var(--text3);font-size:10px;font-weight:600;letter-spacing:1px;font-family:Outfit,sans-serif">PROGRESSION DES ENVIRONNEMENTS</text>
+
+  <!-- Code -->
+  <rect x="16" y="45" width="80" height="60" rx="7" style="fill:rgba(252,109,38,0.1);stroke:#fc6d26;stroke-width:1.5"/>
+  <text x="56" y="68" text-anchor="middle" style="font-size:20px">💻</text>
+  <text x="56" y="87" text-anchor="middle" style="fill:#fc6d26;font-size:10px;font-weight:700;font-family:Outfit,sans-serif">Code</text>
+  <text x="56" y="100" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">git push</text>
+
+  <line x1="98" y1="75" x2="118" y2="75" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr6)"/>
+
+  <!-- Dev -->
+  <rect x="120" y="45" width="120" height="60" rx="7" style="fill:rgba(103,232,249,0.08);stroke:#67e8f9;stroke-width:1.5"/>
+  <text x="180" y="65" text-anchor="middle" style="fill:#67e8f9;font-size:10px;font-weight:700;font-family:Outfit,sans-serif">🖥 Development</text>
+  <text x="180" y="80" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">when: on_success</text>
+  <text x="180" y="95" text-anchor="middle" style="fill:#34d399;font-size:8px;font-family:Outfit,sans-serif">✅ automatique</text>
+  <text x="180" y="107" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">dev.example.com</text>
+
+  <line x1="242" y1="75" x2="265" y2="75" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr6)"/>
+
+  <!-- Review Gate -->
+  <rect x="267" y="60" width="30" height="30" rx="15" style="fill:rgba(251,191,36,0.2);stroke:#fbbf24;stroke-width:1.5"/>
+  <text x="282" y="79" text-anchor="middle" style="fill:#fbbf24;font-size:14px">👁</text>
+  <text x="282" y="100" text-anchor="middle" style="fill:#fbbf24;font-size:7.5px;font-family:Outfit,sans-serif">review</text>
+
+  <line x1="299" y1="75" x2="318" y2="75" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr6)"/>
+
+  <!-- Staging -->
+  <rect x="320" y="45" width="130" height="60" rx="7" style="fill:rgba(251,191,36,0.08);stroke:#fbbf24;stroke-width:1.5"/>
+  <text x="385" y="65" text-anchor="middle" style="fill:#fbbf24;font-size:10px;font-weight:700;font-family:Outfit,sans-serif">🧪 Staging</text>
+  <text x="385" y="80" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">when: on_success</text>
+  <text x="385" y="95" text-anchor="middle" style="fill:#34d399;font-size:8px;font-family:Outfit,sans-serif">✅ automatique</text>
+  <text x="385" y="107" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">staging.example.com</text>
+
+  <line x1="452" y1="75" x2="472" y2="75" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr6)"/>
+
+  <!-- Manual Gate -->
+  <rect x="474" y="60" width="30" height="30" rx="15" style="fill:rgba(244,114,182,0.2);stroke:#f472b6;stroke-width:1.5"/>
+  <text x="489" y="79" text-anchor="middle" style="fill:#f472b6;font-size:14px">🔐</text>
+  <text x="489" y="100" text-anchor="middle" style="fill:#f472b6;font-size:7.5px;font-family:Outfit,sans-serif">approbation</text>
+
+  <line x1="506" y1="75" x2="525" y2="75" style="stroke:#64748b;stroke-width:1.5" marker-end="url(#arr6)"/>
+
+  <!-- Production -->
+  <rect x="527" y="45" width="130" height="60" rx="7" style="fill:rgba(5,150,105,0.08);stroke:#34d399;stroke-width:1.5"/>
+  <text x="592" y="65" text-anchor="middle" style="fill:#34d399;font-size:10px;font-weight:700;font-family:Outfit,sans-serif">🚀 Production</text>
+  <text x="592" y="80" text-anchor="middle" style="fill:var(--text3);font-size:9px;font-family:Outfit,sans-serif">when: manual</text>
+  <text x="592" y="95" text-anchor="middle" style="fill:#fbbf24;font-size:8px;font-family:Outfit,sans-serif">🖱 clic humain requis</text>
+  <text x="592" y="107" text-anchor="middle" style="fill:var(--text3);font-size:8px;font-family:Outfit,sans-serif">example.com</text>
+
+  <!-- Rollback arrow -->
+  <path d="M 657 110 Q 657 130 420 130 Q 183 130 56 110" style="fill:none;stroke:#f472b6;stroke-width:1;stroke-dasharray:3,3" marker-end="url(#arr6)"/>
+  <text x="360" y="143" text-anchor="middle" style="fill:#f472b6;font-size:8px;font-family:Outfit,sans-serif">↩ rollback possible depuis GitLab UI (Operate → Environments)</text>
+</svg>
+</div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Environments complet</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">deploy-staging</span>:
   <span class="fn">stage</span>: deploy
   <span class="fn">script</span>:
     - ./deploy.sh $CI_ENVIRONMENT_URL
   <span class="fn">environment</span>:
     <span class="fn">name</span>: staging
     <span class="fn">url</span>: <span class="str">https://staging.example.com</span>
-    <span class="fn">on_stop</span>: stop-staging         <span class="cmt"># job à appeler pour arrêter l'env</span>
+    <span class="fn">on_stop</span>: stop-staging         <span class="cmt"># job à appeler pour supprimer l'env</span>
+    <span class="fn">deployment_tier</span>: staging
 
 <span class="fn">stop-staging</span>:
   <span class="fn">stage</span>: deploy
@@ -505,7 +1214,7 @@ sudo gitlab-runner register \
     <span class="fn">action</span>: stop               <span class="cmt"># stop | start | prepare | verify | access</span>
   <span class="fn">when</span>: manual
 
-<span class="cmt"># Environnement dynamique par branche (Review Apps)</span>
+<span class="cmt"># ── Review Apps : environnement dynamique par MR ─────────────</span>
 <span class="fn">deploy-review</span>:
   <span class="fn">stage</span>: deploy
   <span class="fn">script</span>:
@@ -514,10 +1223,22 @@ sudo gitlab-runner register \
     <span class="fn">name</span>: <span class="str">review/$CI_COMMIT_REF_SLUG</span>
     <span class="fn">url</span>: <span class="str">https://$CI_COMMIT_REF_SLUG.review.example.com</span>
     <span class="fn">on_stop</span>: stop-review
-    <span class="fn">auto_stop_in</span>: <span class="str">1 week</span>
+    <span class="fn">auto_stop_in</span>: <span class="str">1 week</span>        <span class="cmt"># suppression automatique</span>
   <span class="fn">rules</span>:
     - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
 
+<span class="fn">stop-review</span>:
+  <span class="fn">stage</span>: deploy
+  <span class="fn">script</span>: ./teardown.sh $CI_COMMIT_REF_SLUG
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: <span class="str">review/$CI_COMMIT_REF_SLUG</span>
+    <span class="fn">action</span>: stop
+  <span class="fn">when</span>: manual
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
+      <span class="fn">when</span>: manual
+
+<span class="cmt"># ── Production : déclenchement sur tag uniquement ─────────────</span>
 <span class="fn">deploy-prod</span>:
   <span class="fn">stage</span>: deploy
   <span class="fn">script</span>:
@@ -525,7 +1246,7 @@ sudo gitlab-runner register \
   <span class="fn">environment</span>:
     <span class="fn">name</span>: production
     <span class="fn">url</span>: <span class="str">https://example.com</span>
-    <span class="fn">deployment_tier</span>: production  <span class="cmt"># development | staging | production | …</span>
+    <span class="fn">deployment_tier</span>: production
   <span class="fn">rules</span>:
     - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_TAG =~ /^v\d+/'</span>
       <span class="fn">when</span>: manual</code></pre></div>
@@ -535,106 +1256,127 @@ sudo gitlab-runner register \
 <div class="section" id="s10">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#67e8f9)">10</span><h2 class="section-title">Extends & Anchors YAML</h2></div>
 
-<div class="subsection-title">extends — héritage de jobs</div>
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Job de base (préfixe . = caché, non exécuté)</span>
+<p style="color:var(--text2);margin-bottom:14px">Pour éviter la duplication dans le YAML. <code style="color:var(--accent)">extends</code> est la méthode GitLab recommandée, les <strong style="color:var(--text)">YAML anchors</strong> (&amp;, *) sont une alternative native YAML.</p>
+
+<div class="subsection-title">extends — héritage de jobs (recommandé)</div>
+<div class="code-block"><div class="code-header"><span>YAML — extends</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Job de base — préfixe . = caché (non exécuté directement)</span>
 <span class="fn">.base-node</span>:
-  <span class="fn">image</span>: node:20-alpine
+  <span class="fn">image</span>: node:<span class="num">20</span>-alpine
   <span class="fn">before_script</span>:
     - npm ci --cache .npm
   <span class="fn">cache</span>:
     <span class="fn">key</span>: <span class="str">"$CI_COMMIT_REF_SLUG"</span>
     <span class="fn">paths</span>: [.npm/]
 
+<span class="cmt"># .rules-mr-only — conditions réutilisables</span>
+<span class="fn">.rules-mr-only</span>:
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
+
 <span class="fn">build</span>:
-  <span class="fn">extends</span>: .base-node          <span class="cmt"># hérite de .base-node</span>
+  <span class="fn">extends</span>: .base-node        <span class="cmt"># hérite image, before_script, cache</span>
   <span class="fn">stage</span>: build
-  <span class="fn">script</span>: npm run build
+  <span class="fn">script</span>: npm run build      <span class="cmt"># seule différence</span>
 
 <span class="fn">test</span>:
   <span class="fn">extends</span>: .base-node
   <span class="fn">stage</span>: test
   <span class="fn">script</span>: npm test
 
-<span class="cmt"># extends multiple (liste)</span>
+<span class="cmt"># extends multiple (héritage de plusieurs sources)</span>
 <span class="fn">lint</span>:
   <span class="fn">extends</span>:
     - .base-node
-    - .rules-mr-only</code></pre></div>
+    - .rules-mr-only           <span class="cmt"># applique aussi les rules</span>
+  <span class="fn">script</span>: npm run lint</code></pre></div>
 
-<div class="subsection-title">Anchors YAML — réutilisation native YAML</div>
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Définir un ancre</span>
+<div class="subsection-title">Anchors YAML — alternative native</div>
+<div class="code-block"><div class="code-header"><span>YAML — Anchors &amp; alias</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Définir un ancre &amp;</span>
 <span class="fn">.before_npm</span>: <span class="op">&amp;before_npm</span>
   - npm ci
-  - echo "Dépendances installées"
+  - echo "Dépendances prêtes"
 
-<span class="cmt"># Réutiliser l'ancre</span>
+<span class="cmt"># Réutiliser avec *</span>
 <span class="fn">build</span>:
   <span class="fn">before_script</span>: <span class="op">*before_npm</span>
   <span class="fn">script</span>: npm run build
 
-<span class="cmt"># Merge de maps avec <<</span>
+<span class="cmt"># Merge de maps avec &lt;&lt;:</span>
 <span class="fn">.common</span>: <span class="op">&amp;common</span>
-  <span class="fn">image</span>: node:20
+  <span class="fn">image</span>: node:<span class="num">20</span>
   <span class="fn">tags</span>: [docker]
+  <span class="fn">retry</span>: <span class="num">2</span>
 
 <span class="fn">my-job</span>:
-  <span class="op">&lt;&lt;: *common</span>              <span class="cmt"># merge les clés de .common</span>
-  <span class="fn">script</span>: echo "hello"
+  <span class="op">&lt;&lt;: *common</span>               <span class="cmt"># fusionne les clés de .common</span>
+  <span class="fn">script</span>: echo "hello"</code></pre></div>
 
-<span class="cmt"># Nota : extends est préférable aux anchors YAML
-# car extends fusionne récursivement (anchors non)</span></code></pre></div>
+<div class="info-box tip">
+  <strong>💡 extends vs anchors</strong> — Préférez <code>extends</code> : il fusionne récursivement les clés imbriquées, les anchors YAML non. <code>extends</code> est aussi plus lisible dans l'interface GitLab (onglet "Full config").
+</div>
 </div>
 
 <!-- ══════════ 11 ══════════ -->
 <div class="section" id="s11">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">11</span><h2 class="section-title">Include & Templates</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Inclure des fichiers YAML depuis différentes sources</span>
-<span class="tp">include</span>:
-  <span class="cmt"># Fichier local au repo</span>
+<p style="color:var(--text2);margin-bottom:14px"><code style="color:var(--accent)">include</code> permet de découper votre CI en plusieurs fichiers et de réutiliser des templates officiels GitLab ou d'équipe.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML — Include : toutes les sources</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">include</span>:
+  <span class="cmt"># Fichier local dans ce repo</span>
   - <span class="fn">local</span>: <span class="str">".gitlab/ci/build.yml"</span>
+  - <span class="fn">local</span>: <span class="str">".gitlab/ci/deploy.yml"</span>
 
-  <span class="cmt"># Template officiel GitLab</span>
-  - <span class="fn">template</span>: <span class="str">Auto-DevOps.gitlab-ci.yml</span>
+  <span class="cmt"># Template officiel GitLab (hébergé sur gitlab.com)</span>
   - <span class="fn">template</span>: <span class="str">Jobs/SAST.gitlab-ci.yml</span>
+  - <span class="fn">template</span>: <span class="str">Workflows/MergeRequest-Pipelines.gitlab-ci.yml</span>
 
-  <span class="cmt"># Depuis un autre projet GitLab</span>
+  <span class="cmt"># Depuis un autre projet GitLab (templates d'équipe)</span>
   - <span class="fn">project</span>: <span class="str">my-group/ci-templates</span>
     <span class="fn">ref</span>: <span class="str">main</span>
-    <span class="fn">file</span>: <span class="str">templates/docker.yml</span>
+    <span class="fn">file</span>:
+      - <span class="str">templates/docker.yml</span>
+      - <span class="str">templates/notify.yml</span>
 
-  <span class="cmt"># URL externe</span>
-  - <span class="fn">remote</span>: <span class="str">https://example.com/ci/template.yml</span>
+  <span class="cmt"># URL externe (HTTPS)</span>
+  - <span class="fn">remote</span>: <span class="str">https://example.com/ci/shared-template.yml</span>
 
-<span class="cmt"># Surcharger un job inclus</span>
+<span class="cmt"># Surcharger un job venant d'un template inclus</span>
 <span class="fn">SAST</span>:
   <span class="fn">variables</span>:
-    <span class="fn">SAST_EXCLUDED_PATHS</span>: <span class="str">"spec,test,tests,tmp"</span>
+    <span class="fn">SAST_EXCLUDED_PATHS</span>: <span class="str">"spec,test,tests,tmp,node_modules"</span>
   <span class="fn">rules</span>:
     - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE != "schedule"</span></code></pre></div>
 
-<div class="subsection-title">Templates officiels utiles</div>
+<div class="subsection-title">Templates officiels les plus utiles</div>
 <div class="table-wrap"><table>
 <thead><tr><th>Template</th><th>Contenu</th></tr></thead>
 <tbody>
-<tr><td>Jobs/SAST.gitlab-ci.yml</td><td>Analyse statique de sécurité (code)</td></tr>
-<tr><td>Jobs/Secret-Detection.gitlab-ci.yml</td><td>Détection de secrets dans le code</td></tr>
-<tr><td>Jobs/Container-Scanning.gitlab-ci.yml</td><td>Scan des images Docker</td></tr>
-<tr><td>Jobs/Dependency-Scanning.gitlab-ci.yml</td><td>Vulnérabilités dans les dépendances</td></tr>
+<tr><td>Jobs/SAST.gitlab-ci.yml</td><td>Analyse statique de sécurité du code source</td></tr>
+<tr><td>Jobs/Secret-Detection.gitlab-ci.yml</td><td>Détection de secrets (tokens, clés) dans le code</td></tr>
+<tr><td>Jobs/Container-Scanning.gitlab-ci.yml</td><td>Scan des vulnérabilités dans les images Docker</td></tr>
+<tr><td>Jobs/Dependency-Scanning.gitlab-ci.yml</td><td>Vulnérabilités dans les dépendances (npm, pip…)</td></tr>
 <tr><td>Jobs/DAST.gitlab-ci.yml</td><td>Scan dynamique de l'application déployée</td></tr>
-<tr><td>Workflows/MergeRequest-Pipelines.yml</td><td>Configure les pipelines MR</td></tr>
+<tr><td>Workflows/MergeRequest-Pipelines.yml</td><td>Configure les pipelines pour les MR</td></tr>
+<tr><td>Auto-DevOps.gitlab-ci.yml</td><td>Pipeline complet clés en main (build, test, deploy K8s)</td></tr>
 </tbody>
 </table></div>
+
+<div class="info-box tip">
+  <strong>📁 Organiser son CI</strong> — Pour les gros projets, créez un dossier <code>.gitlab/ci/</code> avec un fichier par domaine : <code>build.yml</code>, <code>test.yml</code>, <code>deploy.yml</code>, <code>security.yml</code>. Puis <code>include</code>-les depuis <code>.gitlab-ci.yml</code>.
+</div>
 </div>
 
 <!-- ══════════ 12 ══════════ -->
 <div class="section" id="s12">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)">12</span><h2 class="section-title">Parallel matrix</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Lancer N copies identiques d'un job</span>
+<p style="color:var(--text2);margin-bottom:14px"><code style="color:var(--accent)">parallel</code> duplique un job. <code style="color:var(--accent)">parallel: matrix</code> crée une combinatoire de variables — idéal pour tester sur plusieurs versions ou déployer en multi-régions.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML — Parallel & Matrix</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># N copies identiques d'un job (utile pour fragmenter une suite de tests)</span>
 <span class="fn">rspec</span>:
   <span class="fn">script</span>: bundle exec rspec
-  <span class="fn">parallel</span>: <span class="num">5</span>                   <span class="cmt"># 5 jobs identiques en parallèle</span>
+  <span class="fn">parallel</span>: <span class="num">5</span>                   <span class="cmt"># 5 jobs identiques → $CI_NODE_INDEX (1..5)</span>
 
 <span class="cmt"># Matrix — combinatoire de variables</span>
 <span class="fn">test-matrix</span>:
@@ -648,20 +1390,24 @@ sudo gitlab-runner register \
         <span class="fn">VERSION</span>: [<span class="str">"1.0"</span>, <span class="str">"1.1"</span>]
   <span class="cmt"># → 5 jobs : node:18, node:20, node:22, bun:1.0, bun:1.1</span>
 
-<span class="cmt"># Matrix pour déploiement multi-régions</span>
+<span class="cmt"># Matrix pour déploiement multi-régions × multi-envs</span>
 <span class="fn">deploy</span>:
   <span class="fn">script</span>:
     - ./deploy.sh --region $REGION --env $ENV
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: <span class="str">"$ENV/$REGION"</span>
   <span class="fn">parallel</span>:
     <span class="fn">matrix</span>:
-      - <span class="fn">REGION</span>: [eu-west-1, us-east-1]
+      - <span class="fn">REGION</span>: [eu-west-1, us-east-1, ap-southeast-1]
         <span class="fn">ENV</span>: [staging, production]
-  <span class="cmt"># → 4 jobs (2 régions × 2 envs)</span></code></pre></div>
+  <span class="cmt"># → 6 jobs (3 régions × 2 envs)</span></code></pre></div>
 </div>
 
 <!-- ══════════ 13 ══════════ -->
 <div class="section" id="s13">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500)">13</span><h2 class="section-title">Pipelines parent / enfant</h2></div>
+
+<p style="color:var(--text2);margin-bottom:14px">Pour les <strong style="color:var(--text)">monorepos</strong> ou projets complexes : le pipeline parent orchestre des sous-pipelines enfants, déclenchés selon les fichiers modifiés.</p>
 
 <div class="code-block"><div class="code-header"><span>YAML — Pipeline parent</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># .gitlab-ci.yml (pipeline parent)</span>
 <span class="tp">stages</span>:
@@ -671,18 +1417,18 @@ sudo gitlab-runner register \
   <span class="fn">stage</span>: triggers
   <span class="fn">trigger</span>:
     <span class="fn">include</span>: frontend/.gitlab-ci.yml  <span class="cmt"># pipeline enfant local</span>
-    <span class="fn">strategy</span>: depend                  <span class="cmt"># parent attend l'enfant</span>
+    <span class="fn">strategy</span>: depend                  <span class="cmt"># parent attend la fin de l'enfant</span>
   <span class="fn">rules</span>:
-    - <span class="fn">changes</span>: [frontend/**/*]
+    - <span class="fn">changes</span>: [frontend/**/*]        <span class="cmt"># déclenché seulement si frontend modifié</span>
 
 <span class="fn">trigger-api</span>:
   <span class="fn">trigger</span>:
-    <span class="fn">project</span>: <span class="str">my-group/api-service</span>   <span class="cmt"># pipeline dans un autre repo</span>
+    <span class="fn">project</span>: <span class="str">my-group/api-service</span>   <span class="cmt"># pipeline dans un AUTRE repo</span>
     <span class="fn">branch</span>: <span class="str">main</span>
   <span class="fn">rules</span>:
     - <span class="fn">changes</span>: [api/**/*]</code></pre></div>
 
-<div class="code-block"><div class="code-header"><span>YAML — Pipeline dynamique (généré)</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Job qui génère un fichier YAML dynamiquement</span>
+<div class="code-block"><div class="code-header"><span>YAML — Pipeline dynamique (généré à la volée)</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Job qui génère un fichier YAML dynamiquement (Python, bash, etc.)</span>
 <span class="fn">generate-pipeline</span>:
   <span class="fn">script</span>:
     - python3 scripts/gen_pipeline.py > generated-pipeline.yml
@@ -702,19 +1448,22 @@ sudo gitlab-runner register \
 <div class="section" id="s14">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">14</span><h2 class="section-title">Security scans (SAST, DAST…)</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Activer tous les scanners de sécurité GitLab</span>
+<p style="color:var(--text2);margin-bottom:14px">GitLab embarque des scanners de sécurité accessibles via des <strong style="color:var(--text)">templates officiels</strong>. Les résultats s'affichent directement dans les MR.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML — Activer les scanners de sécurité</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Inclure les scanners souhaités</span>
 <span class="tp">include</span>:
   - <span class="fn">template</span>: <span class="str">Jobs/SAST.gitlab-ci.yml</span>
   - <span class="fn">template</span>: <span class="str">Jobs/Secret-Detection.gitlab-ci.yml</span>
   - <span class="fn">template</span>: <span class="str">Jobs/Dependency-Scanning.gitlab-ci.yml</span>
   - <span class="fn">template</span>: <span class="str">Jobs/Container-Scanning.gitlab-ci.yml</span>
 
-<span class="cmt"># Configurer SAST</span>
+<span class="cmt"># Personnaliser SAST (exclure des dossiers)</span>
 <span class="fn">semgrep-sast</span>:
   <span class="fn">variables</span>:
     <span class="fn">SAST_EXCLUDED_PATHS</span>: <span class="str">"spec,test,tests,tmp,node_modules"</span>
+    <span class="fn">SAST_EXCLUDED_ANALYZERS</span>: <span class="str">"bandit,flawfinder"</span>
 
-<span class="cmt"># DAST — scan de l'appli déployée</span>
+<span class="cmt"># DAST — scanner l'appli déployée (nécessite un env accessible)</span>
 <span class="tp">include</span>:
   - <span class="fn">template</span>: <span class="str">DAST.gitlab-ci.yml</span>
 
@@ -722,61 +1471,408 @@ sudo gitlab-runner register \
   <span class="fn">variables</span>:
     <span class="fn">DAST_WEBSITE</span>: <span class="str">https://staging.example.com</span>
     <span class="fn">DAST_FULL_SCAN_ENABLED</span>: <span class="str">"true"</span>
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</span>
 
-<span class="cmt"># Scan d'image Docker</span>
+<span class="cmt"># Container scanning — analyser une image Docker</span>
 <span class="fn">container_scanning</span>:
   <span class="fn">variables</span>:
     <span class="fn">CS_IMAGE</span>: <span class="str">$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA</span></code></pre></div>
 
-<div class="subsection-title">Rapport de vulnérabilités</div>
-<p style="color:var(--text2);margin-bottom:14px">Les résultats apparaissent automatiquement dans l'onglet <strong>Security</strong> de la MR et dans le tableau de bord <strong>Security &gt; Vulnerability Report</strong> du projet.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Scanner</th><th>Ce qu'il cherche</th><th>Plan requis</th></tr></thead>
+<tbody>
+<tr><td>SAST</td><td>Vulnérabilités dans le code source (injection, XSS…)</td><td>Free (résultats basiques)</td></tr>
+<tr><td>Secret Detection</td><td>Clés API, tokens, mots de passe dans le code</td><td>Free</td></tr>
+<tr><td>Dependency Scanning</td><td>CVE dans les dépendances npm, pip, maven…</td><td>Ultimate complet</td></tr>
+<tr><td>Container Scanning</td><td>CVE dans les layers de l'image Docker</td><td>Ultimate complet</td></tr>
+<tr><td>DAST</td><td>Vulnérabilités sur l'appli en cours d'exécution</td><td>Ultimate complet</td></tr>
+<tr><td>License Scanning</td><td>Licences des dépendances (GPL, MIT…)</td><td>Ultimate</td></tr>
+</tbody>
+</table></div>
+
+<div class="info-box info">
+  <strong>📊 Résultats</strong> — Visibles dans votre MR (onglet Security) et dans <strong>Secure → Vulnerability Report</strong> du projet. GitLab bloque la MR si des vulnérabilités critiques sont détectées (configurable).
+</div>
 </div>
 
 <!-- ══════════ 15 ══════════ -->
 <div class="section" id="s15">
 <div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">15</span><h2 class="section-title">Bonnes pratiques</h2></div>
 
-<div class="code-block"><div class="code-header"><span>YAML — Workflow recommandé</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Limiter les pipelines inutiles</span>
+<div class="code-block"><div class="code-header"><span>YAML — Workflow recommandé (évite doublons push+MR)</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">workflow</span>:
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</span>
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_TAG</span>
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "schedule"</span>
+    - <span class="fn">when</span>: never                  <span class="cmt"># tous les autres cas ignorés</span>
+
+<span class="cmt"># Optimisations de performance</span>
+<span class="fn">.slim-defaults</span>:
+  <span class="fn">image</span>: alpine:<span class="num">3.19</span>           <span class="cmt"># préférer :alpine ou :slim</span>
+  <span class="fn">variables</span>:
+    <span class="fn">GIT_DEPTH</span>: <span class="str">"1"</span>             <span class="cmt"># shallow clone</span>
+    <span class="fn">FF_USE_FASTZIP</span>: <span class="str">"true"</span>     <span class="cmt"># compression artifacts plus rapide</span>
+    <span class="fn">TRANSFER_METER_FREQUENCY</span>: <span class="str">"5s"</span></code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>Check-list CI/CD</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="str">✅ À FAIRE</span>
+<span class="cmt">// Utiliser rules: plutôt que only:/except: (déprécié)</span>
+<span class="cmt">// Versionner les images Docker (node:20.11 > node:latest)</span>
+<span class="cmt">// Séparer build / test / deploy en stages distincts</span>
+<span class="cmt">// Utiliser needs: pour paralléliser et accélérer le pipeline</span>
+<span class="cmt">// Stocker les secrets dans CI/CD Variables (masked + protected)</span>
+<span class="cmt">// Factoriser avec .hidden-jobs + extends:</span>
+<span class="cmt">// Activer Secret Detection au minimum (gratuit)</span>
+<span class="cmt">// Fixer expire_in sur les artifacts non essentiels</span>
+<span class="cmt">// Utiliser GIT_DEPTH: "1" si historique git non nécessaire</span>
+<span class="cmt">// Valider le YAML avec CI Lint avant de pusher</span>
+<span class="cmt">// Utiliser workflow: rules pour éviter les pipelines en double</span>
+
+<span class="op">❌ À ÉVITER</span>
+<span class="cmt">// Stocker des secrets en clair dans le YAML ou le code</span>
+<span class="cmt">// image: latest (non reproductible, peut casser)</span>
+<span class="cmt">// allow_failure: true sur des jobs critiques (sécurité, tests)</span>
+<span class="cmt">// Scripts inline trop longs — extraire dans des fichiers .sh</span>
+<span class="cmt">// Un seul job monolithique qui fait tout (illisible, lent)</span>
+<span class="cmt">// Cache avec policy: pull-push dans des jobs parallèles (conflits)</span>
+<span class="cmt">// Ignorer les rapports Security dans les MR</span>
+<span class="cmt">// Laisser des tokens/credentials dans les variables non-masked</span></code></pre></div>
+</div>
+
+<!-- ══════════ 16 ══════════ -->
+<div class="section" id="s16">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500)">16</span><h2 class="section-title">Exemple complet — Application Node.js + Docker</h2></div>
+
+<p style="color:var(--text2);margin-bottom:16px">Un pipeline réel et complet pour une application Node.js/Express déployée avec Docker. Copiez-collez et adaptez les variables à votre projet.</p>
+
+<div class="example-pipeline">
+  <div style="font-size:.8rem;color:var(--text3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Flux du pipeline</div>
+  <div class="pipeline-stages">
+    <span class="ps-stage" style="color:#67e8f9;border-color:#67e8f9">install</span>
+    <span class="ps-arrow">→</span>
+    <span class="ps-stage" style="color:#c084fc;border-color:#c084fc">quality</span>
+    <span class="ps-arrow">→</span>
+    <span class="ps-stage" style="color:#fbbf24;border-color:#fbbf24">build</span>
+    <span class="ps-arrow">→</span>
+    <span class="ps-stage" style="color:#f472b6;border-color:#f472b6">docker</span>
+    <span class="ps-arrow">→</span>
+    <span class="ps-stage" style="color:#ffa500;border-color:#ffa500">deploy-staging</span>
+    <span class="ps-arrow">→</span>
+    <span class="ps-stage" style="color:#34d399;border-color:#34d399">deploy-prod 🖱</span>
+  </div>
+</div>
+
+<div class="code-block"><div class="code-header"><span>.gitlab-ci.yml — Pipeline complet Node.js + Docker</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># ═══════════════════════════════════════════════════════════════
+# Pipeline complet : install → quality → build → docker → deploy
+# Adapté pour : Node.js 20, Docker, déploiement SSH/Kubernetes
+# ═══════════════════════════════════════════════════════════════</span>
+
+<span class="cmt"># Évite les pipelines en double (push + MR)</span>
 <span class="tp">workflow</span>:
   <span class="fn">rules</span>:
     - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
     - <span class="fn">if</span>: <span class="str">$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</span>
     - <span class="fn">if</span>: <span class="str">$CI_COMMIT_TAG</span>
-    - <span class="fn">when</span>: never                  <span class="cmt"># évite les pipelines en double MR+push</span>
+    - <span class="fn">when</span>: never
 
-<span class="cmt"># Valider le YAML localement</span>
-<span class="cmt"># → GitLab UI : CI/CD > Pipelines > CI Lint</span>
-<span class="cmt"># → CLI : gitlab-runner exec docker &lt;job-name&gt;</span>
+<span class="tp">stages</span>:
+  - install
+  - quality
+  - build
+  - docker
+  - deploy-staging
+  - deploy-prod
 
-<span class="cmt"># Réduire la taille des images</span>
-<span class="fn">.slim-defaults</span>:
-  <span class="fn">image</span>: alpine:3.19           <span class="cmt"># préférer :alpine ou :slim</span>
+<span class="tp">variables</span>:
+  <span class="fn">NODE_VERSION</span>: <span class="str">"20"</span>
+  <span class="fn">IMAGE_TAG</span>: <span class="str">"$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"</span>
+  <span class="fn">IMAGE_LATEST</span>: <span class="str">"$CI_REGISTRY_IMAGE:latest"</span>
+
+<span class="cmt"># ── Template de base partagé ──────────────────────────────────</span>
+<span class="fn">.node-base</span>:
+  <span class="fn">image</span>: node:<span class="str">$NODE_VERSION</span>-alpine
+  <span class="fn">cache</span>:
+    <span class="fn">key</span>:
+      <span class="fn">files</span>: [package-lock.json]
+    <span class="fn">paths</span>: [node_modules/, .npm/]
+    <span class="fn">policy</span>: pull
+
+<span class="cmt"># ── STAGE : install ───────────────────────────────────────────</span>
+<span class="fn">install-dependencies</span>:
+  <span class="fn">extends</span>: .node-base
+  <span class="fn">stage</span>: install
+  <span class="fn">cache</span>:
+    <span class="fn">key</span>:
+      <span class="fn">files</span>: [package-lock.json]
+    <span class="fn">paths</span>: [node_modules/, .npm/]
+    <span class="fn">policy</span>: pull-push            <span class="cmt"># ce job écrit le cache</span>
+  <span class="fn">script</span>:
+    - npm ci --cache .npm --prefer-offline
+
+<span class="cmt"># ── STAGE : quality (parallèle) ───────────────────────────────</span>
+<span class="fn">lint</span>:
+  <span class="fn">extends</span>: .node-base
+  <span class="fn">stage</span>: quality
+  <span class="fn">needs</span>: [install-dependencies]
+  <span class="fn">script</span>:
+    - npm run lint
+  <span class="fn">allow_failure</span>: <span class="kw">false</span>
+
+<span class="fn">unit-tests</span>:
+  <span class="fn">extends</span>: .node-base
+  <span class="fn">stage</span>: quality
+  <span class="fn">needs</span>: [install-dependencies]
+  <span class="fn">script</span>:
+    - npm test -- --coverage --ci
+  <span class="fn">coverage</span>: <span class="str">'/Statements\s*:\s*(\d+\.?\d*)%/'</span>
+  <span class="fn">artifacts</span>:
+    <span class="fn">when</span>: always
+    <span class="fn">reports</span>:
+      <span class="fn">junit</span>: junit.xml
+      <span class="fn">coverage_report</span>:
+        <span class="fn">coverage_format</span>: cobertura
+        <span class="fn">path</span>: coverage/cobertura.xml
+    <span class="fn">paths</span>: [coverage/]
+    <span class="fn">expire_in</span>: <span class="str">30 days</span>
+
+<span class="fn">security-audit</span>:
+  <span class="fn">extends</span>: .node-base
+  <span class="fn">stage</span>: quality
+  <span class="fn">needs</span>: [install-dependencies]
+  <span class="fn">script</span>:
+    - npm audit --audit-level=high
+  <span class="fn">allow_failure</span>: <span class="kw">true</span>            <span class="cmt"># ne bloque pas si vulnerabilité modérée</span>
+
+<span class="cmt"># ── STAGE : build ─────────────────────────────────────────────</span>
+<span class="fn">build-app</span>:
+  <span class="fn">extends</span>: .node-base
+  <span class="fn">stage</span>: build
+  <span class="fn">needs</span>: [lint, unit-tests]
+  <span class="fn">script</span>:
+    - npm run build
+  <span class="fn">artifacts</span>:
+    <span class="fn">paths</span>: [dist/]
+    <span class="fn">expire_in</span>: <span class="str">1 week</span>
+
+<span class="cmt"># ── STAGE : docker ────────────────────────────────────────────</span>
+<span class="fn">build-image</span>:
+  <span class="fn">stage</span>: docker
+  <span class="fn">image</span>: docker:<span class="num">26</span>
+  <span class="fn">services</span>:
+    - docker:<span class="num">26</span>-dind
   <span class="fn">variables</span>:
-    <span class="fn">GIT_DEPTH</span>: <span class="str">"1"</span>             <span class="cmt"># shallow clone</span>
-    <span class="fn">FF_USE_FASTZIP</span>: <span class="str">"true"</span>     <span class="cmt"># compression artifacts plus rapide</span></code></pre></div>
+    <span class="fn">DOCKER_TLS_CERTDIR</span>: <span class="str">"/certs"</span>
+  <span class="fn">needs</span>:
+    - <span class="fn">job</span>: build-app
+      <span class="fn">artifacts</span>: <span class="kw">true</span>
+  <span class="fn">before_script</span>:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  <span class="fn">script</span>:
+    - docker build --build-arg NODE_ENV=production -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+    - |
+      if [ "$CI_COMMIT_BRANCH" = "$CI_DEFAULT_BRANCH" ]; then
+        docker tag $IMAGE_TAG $IMAGE_LATEST
+        docker push $IMAGE_LATEST
+      fi
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</span>
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_TAG</span>
 
-<div class="code-block"><div class="code-header"><span>Check-list</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">✅ À faire</span>
-<span class="cmt">// Utiliser rules: plutôt que only:/except: (déprécié)</span>
-<span class="cmt">// Versionner les images Docker (node:20.11 > node:latest)</span>
-<span class="cmt">// Séparer build / test / deploy en stages distincts</span>
-<span class="cmt">// Utiliser needs: pour paralléliser et accélérer</span>
-<span class="cmt">// Stocker secrets dans CI/CD Variables (masked + protected)</span>
-<span class="cmt">// Factoriser avec .hidden-jobs + extends:</span>
-<span class="cmt">// Activer les security templates (SAST, Secret Detection)</span>
-<span class="cmt">// Fixer expire_in sur les artifacts non essentiels</span>
-<span class="cmt">// Utiliser GIT_DEPTH: "1" pour les jobs qui n'ont pas besoin d'historique</span>
-<span class="cmt">// workflow: rules pour éviter les doublons pipeline push+MR</span>
+<span class="cmt"># ── STAGE : deploy-staging ────────────────────────────────────</span>
+<span class="fn">deploy-to-staging</span>:
+  <span class="fn">stage</span>: deploy-staging
+  <span class="fn">image</span>: alpine:<span class="num">3.19</span>
+  <span class="fn">needs</span>: [build-image]
+  <span class="fn">before_script</span>:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -      <span class="cmt"># clé SSH définie dans CI/CD Variables</span>
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - ssh-keyscan $STAGING_HOST >> ~/.ssh/known_hosts
+  <span class="fn">script</span>:
+    - ssh deploy@$STAGING_HOST "docker pull $IMAGE_TAG && docker-compose up -d"
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: staging
+    <span class="fn">url</span>: <span class="str">https://staging.example.com</span>
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</span>
 
-<span class="cmt">❌ À éviter</span>
-<span class="cmt">// Stocker des secrets en clair dans le YAML</span>
-<span class="cmt">// image: latest (non reproductible)</span>
-<span class="cmt">// allow_failure: true sur des jobs critiques</span>
-<span class="cmt">// Scripts trop longs inline — extraire dans des fichiers .sh</span>
-<span class="cmt">// Un seul job monolithique qui fait tout</span>
-<span class="cmt">// Cache avec policy: pull-push dans des jobs parallèles (conflits)</span>
-<span class="cmt">// Ignorer les rapports Security dans les MR</span></code></pre></div>
+<span class="cmt"># ── STAGE : deploy-prod (manuel, sur tag uniquement) ──────────</span>
+<span class="fn">deploy-to-production</span>:
+  <span class="fn">stage</span>: deploy-prod
+  <span class="fn">image</span>: alpine:<span class="num">3.19</span>
+  <span class="fn">needs</span>: [deploy-to-staging]
+  <span class="fn">before_script</span>:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - ssh-keyscan $PROD_HOST >> ~/.ssh/known_hosts
+  <span class="fn">script</span>:
+    - ssh deploy@$PROD_HOST "docker pull $IMAGE_TAG && docker-compose up -d"
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: production
+    <span class="fn">url</span>: <span class="str">https://example.com</span>
+    <span class="fn">deployment_tier</span>: production
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'</span>
+      <span class="fn">when</span>: manual</code></pre></div>
 
-<p style="text-align:center;color:var(--text3);font-size:.85rem;margin-top:40px;padding:20px 0;border-top:1px solid var(--border)">GitLab CI/CD Cheatsheet — GitLab 17.x — 2026</p>
+<div class="subsection-title">Dockerfile correspondant</div>
+<div class="code-block"><div class="code-header"><span>Dockerfile — Multi-stage optimisé</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Étape 1 : build</span>
+<span class="kw">FROM</span> <span class="str">node:20-alpine AS builder</span>
+<span class="kw">WORKDIR</span> /app
+<span class="kw">COPY</span> package*.json ./
+<span class="kw">RUN</span> npm ci --only=production
+<span class="kw">COPY</span> dist/ ./dist/
+
+<span class="cmt"># Étape 2 : image finale (légère)</span>
+<span class="kw">FROM</span> <span class="str">node:20-alpine</span>
+<span class="kw">WORKDIR</span> /app
+<span class="kw">RUN</span> addgroup -S appgroup && adduser -S appuser -G appgroup
+<span class="kw">COPY</span> --from=builder /app .
+<span class="kw">USER</span> appuser
+<span class="kw">EXPOSE</span> <span class="num">3000</span>
+<span class="kw">CMD</span> [<span class="str">"node"</span>, <span class="str">"dist/index.js"</span>]</code></pre></div>
+
+<div class="subsection-title">Variables CI/CD à configurer dans GitLab UI</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Variable</th><th>Type</th><th>Valeur</th></tr></thead>
+<tbody>
+<tr><td>SSH_PRIVATE_KEY</td><td>File / Masked</td><td>Clé SSH privée du compte deploy</td></tr>
+<tr><td>STAGING_HOST</td><td>Variable</td><td>IP ou hostname du serveur staging</td></tr>
+<tr><td>PROD_HOST</td><td>Variable / Protected</td><td>IP ou hostname du serveur prod</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ══════════ 17 ══════════ -->
+<div class="section" id="s17">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">17</span><h2 class="section-title">Troubleshooting — Résoudre les problèmes courants</h2></div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🟡 Job bloqué en "pending" ou "stuck" indéfiniment</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>Aucun runner disponible ne correspond aux tags du job. Ou tous les runners sont occupés / hors ligne.</div>
+    <div class="trouble-fix"><strong>Solution</strong>Vérifiez Settings → CI/CD → Runners. Assurez-vous qu'un runner actif a les tags correspondants. Si aucun tag dans le job, n'importe quel runner shared peut l'exécuter. Vérifiez que le runner n'est pas "paused".</div>
+  </div>
+</div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🔴 ERROR: Job failed — exit code 1</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>Une commande dans le script a retourné un code non-zéro. En bash, toute commande qui échoue arrête le job.</div>
+    <div class="trouble-fix"><strong>Solution</strong>Cliquez sur le job → regardez les logs. La commande en rouge indique le problème. Ajoutez <code>set -x</code> en début de script pour voir chaque commande exécutée. Temporairement : <code>command || true</code> pour ignorer une erreur.</div>
+  </div>
+</div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🔴 Could not find artifact from job</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>Le job qui produit l'artifact a échoué (ou n'a pas été exécuté), ou le chemin dans <code>artifacts.paths</code> est incorrect.</div>
+    <div class="trouble-fix"><strong>Solution</strong>Vérifiez que le job source a bien réussi. Vérifiez le chemin : il doit être relatif au répertoire de travail. Ajoutez <code>when: always</code> pour conserver les artifacts même en cas d'échec.</div>
+  </div>
+</div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🟡 Cache non restauré / ignoré</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>La clé de cache a changé (ex: nouveau package-lock.json). Ou le runner ne dispose pas de cache préexistant (premier run, runner différent).</div>
+    <div class="trouble-fix"><strong>Solution</strong>Le cache est best-effort, pas une garantie. Si la clé change, le cache repart de zéro — c'est normal. Pour diagnostiquer : activez <code>CI_DEBUG_TRACE: "true"</code> (attention : affiche tous les secrets).</div>
+  </div>
+</div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🔴 Rules : le job n'est jamais dans le pipeline</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>Aucune règle ne correspond. Ou la syntaxe de la condition est incorrecte (guillemets manquants, espace dans l'opérateur).</div>
+    <div class="trouble-fix"><strong>Solution</strong>Testez dans CI Lint (CI/CD → Pipelines → CI Lint). Ajoutez temporairement <code>- when: on_success</code> à la fin des rules pour voir si le job apparaît. Vérifiez la valeur réelle de la variable avec <code>- echo "$CI_PIPELINE_SOURCE"</code>.</div>
+  </div>
+</div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🔴 Docker: Cannot connect to the Docker daemon</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>Docker-in-Docker n'est pas correctement configuré. Le service <code>docker:dind</code> n'est pas démarré ou l'executor n'est pas en mode privileged.</div>
+    <div class="trouble-fix"><strong>Solution</strong>Vérifiez : (1) service <code>docker:XX-dind</code> bien déclaré, (2) variable <code>DOCKER_TLS_CERTDIR: "/certs"</code>, (3) runner enregistré avec <code>--docker-privileged</code>. Alternative : utiliser <code>kaniko</code> (sans DinD).</div>
+  </div>
+</div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🔴 Permission denied (publickey) — déploiement SSH</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>La clé SSH n'est pas chargée correctement, ou la clé publique n'est pas dans <code>~/.ssh/authorized_keys</code> du serveur cible.</div>
+    <div class="trouble-fix"><strong>Solution</strong>Vérifiez : (1) <code>ssh-add -l</code> dans le job liste la clé, (2) la variable CI contient bien la clé privée complète (avec <code>-----BEGIN/END-----</code>), (3) <code>ssh-keyscan</code> est fait avant le premier <code>ssh</code>, (4) permissions : <code>chmod 700 ~/.ssh</code>.</div>
+  </div>
+</div>
+
+<div class="trouble-item">
+  <div class="trouble-header">🟡 YAML invalide — pipeline ne se déclenche pas</div>
+  <div class="trouble-body">
+    <div class="trouble-cause"><strong>Cause</strong>Erreur d'indentation, tabulations au lieu d'espaces, guillemets non fermés, ou clé inconnue.</div>
+    <div class="trouble-fix"><strong>Solution</strong>Utilisez <strong>CI/CD → Pipelines → CI Lint</strong> dans GitLab avant chaque push. Ou validez localement avec <code>yamllint .gitlab-ci.yml</code>. Les tabulations sont interdites en YAML — utilisez toujours des espaces.</div>
+  </div>
+</div>
+
+<div class="code-block"><div class="code-header"><span>BASH — Outils de diagnostic</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Activer le mode debug (affiche toutes les commandes + variables)</span>
+<span class="cmt"># ⚠️ Expose les secrets masqués dans les logs !</span>
+<span class="fn">my-job</span>:
+  <span class="fn">variables</span>:
+    <span class="fn">CI_DEBUG_TRACE</span>: <span class="str">"true"</span>      <span class="cmt"># ou: CI_DEBUG_SERVICES pour les services</span>
+  <span class="fn">script</span>:
+    - set -x                   <span class="cmt"># trace bash (moins intrusif)</span>
+    - env | sort               <span class="cmt"># affiche toutes les variables d'env</span>
+    - whoami && pwd            <span class="cmt"># vérifier l'utilisateur et le répertoire</span>
+
+<span class="cmt"># Valider le YAML localement (installer gitlab-ci-local)</span>
+npm install -g gitlab-ci-local
+gitlab-ci-local --job mon-job  <span class="cmt"># exécute un job en local</span>
+
+<span class="cmt"># Valider via l'API GitLab (sans push)</span>
+curl --header <span class="str">"PRIVATE-TOKEN: $GITLAB_TOKEN"</span> \
+     --form <span class="str">"content=@.gitlab-ci.yml"</span> \
+     https://gitlab.com/api/v4/ci/lint</code></pre></div>
+</div>
+
+<!-- ══════════ 18 ══════════ -->
+<div class="section" id="s18">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)">18</span><h2 class="section-title">Glossaire CI/CD</h2></div>
+
+<div class="gloss-grid">
+  <div class="gloss-item"><div class="gloss-term">Artifact</div><div class="gloss-def">Fichier(s) produit(s) par un job et conservé sur GitLab. Partageable entre jobs du même pipeline. Téléchargeable depuis l'UI.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Cache</div><div class="gloss-def">Répertoire conservé entre les exécutions de pipelines pour accélérer les jobs (node_modules, pip cache…). Best-effort, pas garanti.</div></div>
+  <div class="gloss-item"><div class="gloss-term">CI (Intégration Continue)</div><div class="gloss-def">Pratique consistant à intégrer, compiler et tester automatiquement le code à chaque commit pour détecter les régressions rapidement.</div></div>
+  <div class="gloss-item"><div class="gloss-term">CD (Livraison Continue)</div><div class="gloss-def">Le code est toujours dans un état deployable. Chaque merge en branche principale produit un artefact prêt à être mis en production.</div></div>
+  <div class="gloss-item"><div class="gloss-term">CD (Déploiement Continu)</div><div class="gloss-def">Variante plus avancée : chaque commit validé est déployé automatiquement en production, sans intervention humaine.</div></div>
+  <div class="gloss-item"><div class="gloss-term">DAG (Directed Acyclic Graph)</div><div class="gloss-def">Pipeline en graphe : avec <code>needs:</code>, un job démarre dès que ses dépendances directes sont terminées, sans attendre tout le stage.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Environment</div><div class="gloss-def">Représentation d'un environnement de déploiement (staging, production). GitLab trace l'historique des déploiements et permet le rollback.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Executor</div><div class="gloss-def">Mode d'exécution du runner : docker (conteneur isolé), shell (machine hôte), kubernetes (pod éphémère). Docker est recommandé.</div></div>
+  <div class="gloss-item"><div class="gloss-term">extends</div><div class="gloss-def">Mot-clé GitLab CI pour hériter les propriétés d'un job de base (commençant par <code>.</code>). Fusion récursive des clés.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Hidden job (.nom)</div><div class="gloss-def">Job dont le nom commence par <code>.</code>. Non exécuté directement, utilisé comme template pour <code>extends</code>.</div></div>
+  <div class="gloss-item"><div class="gloss-term">include</div><div class="gloss-def">Directive pour importer d'autres fichiers YAML (locaux, templates officiels, projets externes) dans votre pipeline.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Job</div><div class="gloss-def">Unité d'exécution atomique du pipeline. Contient un <code>script</code>, un <code>stage</code>, et éventuellement des <code>rules</code>, <code>artifacts</code>, <code>cache</code>.</div></div>
+  <div class="gloss-item"><div class="gloss-term">MR Pipeline</div><div class="gloss-def">Pipeline déclenché par une Merge Request. Source : <code>merge_request_event</code>. Permet de valider le code avant de merger.</div></div>
+  <div class="gloss-item"><div class="gloss-term">needs</div><div class="gloss-def">Déclare les dépendances directes d'un job, permettant l'exécution en DAG plutôt qu'en séquence stricte par stages.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Pipeline</div><div class="gloss-def">Ensemble des stages et jobs déclenchés par un événement (push, MR, tag, schedule). Visible dans CI/CD → Pipelines.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Registry</div><div class="gloss-def">Dépôt d'images Docker intégré à GitLab (<code>registry.gitlab.com</code>). Accessible avec <code>CI_REGISTRY_USER/PASSWORD</code>.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Review App</div><div class="gloss-def">Environnement dynamique créé automatiquement pour chaque MR. Permet de tester visuellement les changements avant merger.</div></div>
+  <div class="gloss-item"><div class="gloss-term">rules</div><div class="gloss-def">Remplace <code>only/except</code>. Conditions évaluées dans l'ordre pour décider si un job est inclus dans le pipeline et avec quel comportement.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Runner</div><div class="gloss-def">Agent installé sur une machine qui récupère et exécute les jobs GitLab. Peut être partagé (GitLab.com) ou dédié (self-hosted).</div></div>
+  <div class="gloss-item"><div class="gloss-term">SAST</div><div class="gloss-def">Static Application Security Testing. Analyse le code source à la recherche de vulnérabilités connues sans l'exécuter.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Schedule</div><div class="gloss-def">Pipeline planifié (type cron). Configuré dans CI/CD → Schedules. Source : <code>schedule</code>. Utile pour backups, rapports nocturnes.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Service</div><div class="gloss-def">Conteneur Docker lancé en parallèle du job (postgres, redis…). Accessible via son alias hostname depuis le script du job.</div></div>
+  <div class="gloss-item"><div class="gloss-term">Stage</div><div class="gloss-def">Groupe logique de jobs. Les jobs d'un même stage s'exécutent en parallèle. Les stages s'enchaînent séquentiellement.</div></div>
+  <div class="gloss-item"><div class="gloss-term">trigger</div><div class="gloss-def">Déclenche un pipeline enfant (local ou dans un autre projet). Avec <code>strategy: depend</code>, le parent attend la fin de l'enfant.</div></div>
+  <div class="gloss-item"><div class="gloss-term">variables (prédéfinies)</div><div class="gloss-def">Variables injectées automatiquement par GitLab : <code>CI_COMMIT_SHA</code>, <code>CI_COMMIT_BRANCH</code>, <code>CI_REGISTRY</code>, etc. Toujours disponibles.</div></div>
+  <div class="gloss-item"><div class="gloss-term">when</div><div class="gloss-def">Condition d'exécution d'un job : <code>on_success</code>, <code>on_failure</code>, <code>always</code>, <code>manual</code>, <code>delayed</code>, <code>never</code>.</div></div>
+  <div class="gloss-item"><div class="gloss-term">workflow</div><div class="gloss-def">Contrôle global de création du pipeline (pas d'un job individuel). Évite les pipelines en double push+MR.</div></div>
+</div>
+
+<p style="text-align:center;color:var(--text3);font-size:.85rem;margin-top:48px;padding:24px 0;border-top:1px solid var(--border)">GitLab CI/CD Cheatsheet — GitLab 17.x — 18 sections — 2026</p>
+</div>
+
 </main>
 </div>
 
