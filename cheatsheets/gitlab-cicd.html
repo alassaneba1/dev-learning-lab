@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitLab CI/CD — Cheatsheet Complet</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c0f1a'/><text x='3' y='23' font-family='monospace' font-weight='900' font-size='17' fill='%23fc6d26'>DL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f1a;--bg2:#131729;--bg3:#1a1f36;--bg-code:#0d1117;--surface:#1e2340;--border:#2a3050;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#fc6d26;--accent2:#ffa500;--accent3:#34d399;--accent4:#fbbf24;--accent5:#f472b6;--keyword:#c084fc;--func:#67e8f9;--str:#86efac;--num:#fcd34d;--cmt:#6b7280;--op:#f9a8d4;--type:#fc6d26;--glow:rgba(252,109,38,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);--radius:12px;--mark-bg:rgba(250,204,21,0.25);--mark-text:#fde047;--scrollbar-track:#131729;--scrollbar-thumb:#2a3050}
+[data-theme="light"]{--bg:#f8fafc;--bg2:#f1f5f9;--bg3:#e2e8f0;--bg-code:#fefefe;--surface:#fff;--border:#d1d5db;--text:#1e293b;--text2:#475569;--text3:#94a3b8;--accent:#e24329;--accent2:#fc6d26;--accent3:#059669;--accent4:#ca8a04;--accent5:#db2777;--keyword:#7c3aed;--func:#0891b2;--str:#16a34a;--num:#ca8a04;--cmt:#9ca3af;--op:#be185d;--type:#e24329;--glow:rgba(226,67,41,0.04);--shadow:0 4px 24px rgba(0,0,0,0.06);--mark-bg:rgba(250,204,21,0.35);--mark-text:#92400e;--scrollbar-track:#f1f5f9;--scrollbar-thumb:#cbd5e1}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px;font-size:16px}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .35s,color .35s}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--scrollbar-track)}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:4px}
+::selection{background:var(--accent);color:#fff}
+mark{background:var(--mark-bg);color:var(--mark-text);border-radius:2px;padding:0 2px}
+.header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:12px 24px;display:flex;align-items:center;gap:16px;transition:background .35s,border-color .35s}
+.header-title{font-weight:800;font-size:1.25rem;letter-spacing:-.5px;white-space:nowrap;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-tag{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent3);border:1px solid var(--accent3);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.search-box{flex:1;max-width:420px;position:relative;margin-left:auto}
+.search-box input{width:100%;padding:8px 14px 8px 38px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(252,109,38,.15)}
+.search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
+.search-count{font-size:.75rem;color:var(--text3);position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none}
+.btn-theme{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .2s;flex-shrink:0}
+.btn-theme:hover{border-color:var(--accent);color:var(--accent)}
+.btn-back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;flex-shrink:0;transition:all .2s}
+.btn-back:hover{border-color:var(--accent);color:var(--accent);background:var(--bg3)}
+.layout{display:flex;max-width:1400px;margin:0 auto}
+.sidebar{width:270px;position:sticky;top:65px;height:calc(100vh - 65px);overflow-y:auto;padding:20px 16px;border-right:1px solid var(--border);flex-shrink:0;transition:border-color .35s}
+.sidebar::-webkit-scrollbar{width:4px}
+.nav-group-title{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin:18px 0 6px}.nav-group-title:first-child{margin-top:0}
+.nav-link{display:block;font-size:.82rem;color:var(--text2);text-decoration:none;padding:5px 10px;border-radius:6px;transition:all .15s;line-height:1.4}
+.nav-link:hover{background:var(--glow);color:var(--accent)}.nav-link.active{background:var(--glow);color:var(--accent);font-weight:600}
+.main{flex:1;min-width:0;padding:32px 40px 80px}
+.section{margin-bottom:48px;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.section-num{font-size:.7rem;font-weight:800;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.5px}
+.subsection-title{font-size:1rem;font-weight:600;color:var(--accent2);margin:24px 0 10px;display:flex;align-items:center;gap:8px}
+.subsection-title::before{content:"▸";color:var(--accent2);font-size:.9rem}
+.code-block{position:relative;background:var(--bg-code);border:1px solid var(--border);border-radius:var(--radius);margin:10px 0 16px;overflow:hidden;transition:border-color .35s,background .35s}
+.code-block:hover{border-color:var(--accent)}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.btn-copy{background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;padding:2px 10px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:.7rem;transition:all .2s}
+.btn-copy:hover{border-color:var(--accent);color:var(--accent)}.btn-copy.copied{border-color:var(--accent3);color:var(--accent3)}
+.code-block pre{padding:14px 18px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7;tab-size:2}
+.code-block code{font-family:inherit}
+.kw{color:var(--keyword);font-weight:600}.fn{color:var(--func)}.str{color:var(--str)}.num{color:var(--num)}.cmt{color:var(--cmt);font-style:italic}.op{color:var(--op)}.tp{color:var(--type);font-weight:600}
+.table-wrap{overflow-x:auto;margin:10px 0 16px;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead th{background:var(--surface);color:var(--accent);font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
+tbody td{padding:8px 14px;border-bottom:1px solid var(--border);vertical-align:top;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text)}
+tbody tr:nth-child(even){background:var(--glow)}tbody tr:hover{background:rgba(252,109,38,.06)}
+td:first-child{font-weight:600;color:var(--accent2);font-family:'Outfit',sans-serif}
+.back-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(252,109,38,.4);opacity:0;transform:translateY(20px);transition:all .3s;z-index:50}
+.back-top.visible{opacity:1;transform:translateY(0)}.back-top:hover{transform:scale(1.1)}
+@media(max-width:900px){.sidebar{display:none}.main{padding:24px 16px 60px}.header{padding:10px 14px;gap:10px}.header-title{font-size:1rem}.header-tag{display:none}}
+@media print{.header,.sidebar,.back-top,.btn-copy,.code-header{display:none!important}.layout{display:block}.main{padding:0}.code-block{break-inside:avoid;border:1px solid #ccc}body{background:#fff;color:#000;font-size:10pt}}
+</style>
+</head>
+<body>
+
+<header class="header" id="top">
+  <a href="../index.html" class="btn-back" title="Accueil" aria-label="Retour à l'accueil">←</a>
+  <span class="header-title">GitLab CI/CD Cheatsheet</span>
+  <span class="header-tag">GitLab 17.x</span>
+  <div class="search-box"><span class="icon">🔍</span><input type="text" id="search" placeholder="Rechercher (Ctrl+K)" autocomplete="off"><span class="search-count" id="searchCount"></span></div>
+  <button class="btn-menu" id="btnMenu" aria-label="Sections">☰</button>
+  <button class="btn-theme" id="themeToggle" title="Thème">🌙</button>
+</header>
+
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="nav-group-title">Fondamentaux</div>
+  <a class="nav-link" href="#s1">1. Structure .gitlab-ci.yml</a>
+  <a class="nav-link" href="#s2">2. Stages & Jobs</a>
+  <a class="nav-link" href="#s3">3. Variables</a>
+
+  <div class="nav-group-title">Contrôle du pipeline</div>
+  <a class="nav-link" href="#s4">4. Rules & conditions</a>
+  <a class="nav-link" href="#s5">5. Needs & DAG</a>
+  <a class="nav-link" href="#s6">6. Artifacts & Cache</a>
+
+  <div class="nav-group-title">Runners & Services</div>
+  <a class="nav-link" href="#s7">7. Runners</a>
+  <a class="nav-link" href="#s8">8. Services (Docker, BDD)</a>
+  <a class="nav-link" href="#s9">9. Environments & Deploy</a>
+
+  <div class="nav-group-title">Réutilisabilité</div>
+  <a class="nav-link" href="#s10">10. Extends & Anchors YAML</a>
+  <a class="nav-link" href="#s11">11. Include & Templates</a>
+  <a class="nav-link" href="#s12">12. Parallel matrix</a>
+
+  <div class="nav-group-title">Avancé</div>
+  <a class="nav-link" href="#s13">13. Pipelines parent/enfant</a>
+  <a class="nav-link" href="#s14">14. Security scans (SAST…)</a>
+  <a class="nav-link" href="#s15">15. Bonnes pratiques</a>
+</nav>
+
+<main class="main" id="content">
+
+<!-- ══════════ 1 ══════════ -->
+<div class="section" id="s1">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500)">1</span><h2 class="section-title">Structure .gitlab-ci.yml</h2></div>
+
+<p style="color:var(--text2);margin-bottom:14px">Fichier YAML placé à la racine du repo. GitLab le lit à chaque push.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Ordre d'exécution global des stages</span>
+<span class="tp">stages</span>:
+  - build
+  - test
+  - deploy
+
+<span class="cmt"># Variables globales (disponibles dans tous les jobs)</span>
+<span class="tp">variables</span>:
+  <span class="fn">APP_NAME</span>: <span class="str">"my-app"</span>
+  <span class="fn">DOCKER_IMAGE</span>: <span class="str">"$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"</span>
+
+<span class="cmt"># Image Docker par défaut pour tous les jobs</span>
+<span class="tp">default</span>:
+  <span class="fn">image</span>: <span class="str">node:20-alpine</span>
+  <span class="fn">before_script</span>:
+    - npm ci --cache .npm
+
+<span class="cmt"># Un job minimal</span>
+<span class="fn">build-app</span>:
+  <span class="fn">stage</span>: build
+  <span class="fn">script</span>:
+    - npm run build
+  <span class="fn">artifacts</span>:
+    <span class="fn">paths</span>:
+      - dist/</code></pre></div>
+
+<div class="subsection-title">Variables prédéfinies clés</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Variable</th><th>Valeur</th></tr></thead>
+<tbody>
+<tr><td>CI_COMMIT_SHA</td><td>Hash complet du commit</td></tr>
+<tr><td>CI_COMMIT_SHORT_SHA</td><td>8 premiers caractères du hash</td></tr>
+<tr><td>CI_COMMIT_BRANCH</td><td>Nom de la branche</td></tr>
+<tr><td>CI_COMMIT_TAG</td><td>Tag git (si pipeline déclenché par tag)</td></tr>
+<tr><td>CI_PIPELINE_ID</td><td>ID unique du pipeline</td></tr>
+<tr><td>CI_JOB_NAME</td><td>Nom du job en cours</td></tr>
+<tr><td>CI_REGISTRY</td><td>URL du registry Docker GitLab</td></tr>
+<tr><td>CI_REGISTRY_IMAGE</td><td>Image de base du projet</td></tr>
+<tr><td>CI_REGISTRY_USER / PASSWORD</td><td>Credentials registry CI</td></tr>
+<tr><td>CI_PROJECT_DIR</td><td>Répertoire de travail du runner</td></tr>
+<tr><td>CI_ENVIRONMENT_NAME</td><td>Nom de l'environnement déployé</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ══════════ 2 ══════════ -->
+<div class="section" id="s2">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">2</span><h2 class="section-title">Stages & Jobs</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">stages</span>:
+  - build
+  - test
+  - release
+  - deploy
+
+<span class="cmt"># Job complet avec toutes les options courantes</span>
+<span class="fn">unit-tests</span>:
+  <span class="fn">stage</span>: test
+  <span class="fn">image</span>: node:20-alpine       <span class="cmt"># surcharge l'image default</span>
+  <span class="fn">tags</span>:                        <span class="cmt"># cibler un runner spécifique</span>
+    - docker
+  <span class="fn">allow_failure</span>: <span class="kw">false</span>         <span class="cmt"># true = job rouge mais pipeline continue</span>
+  <span class="fn">timeout</span>: <span class="str">10 minutes</span>
+  <span class="fn">retry</span>:
+    <span class="fn">max</span>: <span class="num">2</span>
+    <span class="fn">when</span>:
+      - runner_system_failure
+      - stuck_or_timeout_failure
+  <span class="fn">before_script</span>:
+    - npm ci
+  <span class="fn">script</span>:
+    - npm test -- --coverage
+  <span class="fn">after_script</span>:
+    - echo "Tests terminés"
+  <span class="fn">coverage</span>: <span class="str">'/Lines\s*:\s*(\d+\.?\d*)%/'</span>  <span class="cmt"># regex extraction coverage</span>
+
+<span class="cmt"># Job déclenché manuellement</span>
+<span class="fn">deploy-prod</span>:
+  <span class="fn">stage</span>: deploy
+  <span class="fn">script</span>:
+    - ./deploy.sh
+  <span class="fn">when</span>: manual           <span class="cmt"># on_success | on_failure | always | manual | delayed</span>
+  <span class="fn">start_in</span>: <span class="str">"1 hour"</span>    <span class="cmt"># uniquement pour when: delayed</span></code></pre></div>
+
+<div class="subsection-title">Valeurs de `when`</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Valeur</th><th>Comportement</th></tr></thead>
+<tbody>
+<tr><td>on_success</td><td>Défaut — s'exécute si tous les jobs précédents réussissent</td></tr>
+<tr><td>on_failure</td><td>S'exécute uniquement si un job précédent échoue</td></tr>
+<tr><td>always</td><td>S'exécute quoi qu'il arrive (utile pour nettoyage)</td></tr>
+<tr><td>manual</td><td>Nécessite un clic humain dans l'UI GitLab</td></tr>
+<tr><td>delayed</td><td>Attend un délai configuré via start_in</td></tr>
+<tr><td>never</td><td>Ne s'exécute jamais (utile avec rules pour désactiver)</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ══════════ 3 ══════════ -->
+<div class="section" id="s3">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">3</span><h2 class="section-title">Variables</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Variables globales</span>
+<span class="tp">variables</span>:
+  <span class="fn">ENV</span>: <span class="str">"production"</span>
+  <span class="fn">PORT</span>: <span class="str">"3000"</span>                 <span class="cmt"># toujours une string en YAML</span>
+  <span class="fn">URL</span>: <span class="str">"https://$CI_PROJECT_NAME.example.com"</span>  <span class="cmt"># interpolation</span>
+
+<span class="cmt"># Variable locale à un job (surcharge la globale)</span>
+<span class="fn">my-job</span>:
+  <span class="fn">variables</span>:
+    <span class="fn">ENV</span>: <span class="str">"staging"</span>
+    <span class="fn">GIT_STRATEGY</span>: <span class="str">none</span>      <span class="cmt"># fetch | clone | none</span>
+    <span class="fn">GIT_DEPTH</span>: <span class="str">"10"</span>          <span class="cmt"># shallow clone pour accélérer</span>
+  <span class="fn">script</span>:
+    - echo $ENV              <span class="cmt"># → staging</span>
+    - echo ${ENV:-default}   <span class="cmt"># valeur par défaut bash</span>
+
+<span class="cmt"># Secrets — à définir dans GitLab UI (Settings > CI/CD > Variables)</span>
+<span class="cmt"># Type "Masked" = caché dans les logs</span>
+<span class="cmt"># Type "Protected" = uniquement sur branches protégées</span>
+<span class="fn">deploy</span>:
+  <span class="fn">script</span>:
+    - echo $DB_PASSWORD      <span class="cmt"># variable masquée définie dans l'UI</span>
+    - curl -H "Token: $API_KEY" https://api.example.com</code></pre></div>
+
+<div class="subsection-title">Priorité des variables (haute → basse)</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Source</th><th>Scope</th></tr></thead>
+<tbody>
+<tr><td>Trigger variables</td><td>Variables passées au déclenchement via API</td></tr>
+<tr><td>Variables UI projet (protected)</td><td>Branches/tags protégés uniquement</td></tr>
+<tr><td>Variables UI projet</td><td>Tous les pipelines du projet</td></tr>
+<tr><td>Variables UI groupe</td><td>Tous les projets du groupe</td></tr>
+<tr><td>Variables .gitlab-ci.yml (job)</td><td>Job courant</td></tr>
+<tr><td>Variables .gitlab-ci.yml (global)</td><td>Tous les jobs</td></tr>
+<tr><td>Variables prédéfinies CI</td><td>CI_*, GITLAB_*, etc.</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ══════════ 4 ══════════ -->
+<div class="section" id="s4">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#67e8f9)">4</span><h2 class="section-title">Rules & conditions</h2></div>
+
+<p style="color:var(--text2);margin-bottom:14px"><code>rules</code> remplace <code>only/except</code> (déprécié). Plus flexible et lisible.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">deploy-staging</span>:
+  <span class="fn">script</span>: ./deploy.sh staging
+  <span class="fn">rules</span>:
+    <span class="cmt"># Si branche develop → exécute automatiquement</span>
+    - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_BRANCH == "develop"'</span>
+      <span class="fn">when</span>: on_success
+    <span class="cmt"># Si MR vers main → exécute manuellement</span>
+    - <span class="fn">if</span>: <span class="str">'$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'</span>
+      <span class="fn">when</span>: manual
+    <span class="cmt"># Si fichier modifié</span>
+    - <span class="fn">changes</span>:
+        - src/**/*
+        - package.json
+    <span class="cmt"># Sinon, ne pas exécuter</span>
+    - <span class="fn">when</span>: never
+
+<span class="fn">release</span>:
+  <span class="fn">script</span>: ./release.sh
+  <span class="fn">rules</span>:
+    <span class="cmt"># Uniquement sur les tags semver</span>
+    - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'</span>
+
+<span class="cmt"># Variables injectées selon la règle</span>
+<span class="fn">build</span>:
+  <span class="fn">script</span>: npm run build
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_BRANCH == "main"'</span>
+      <span class="fn">variables</span>:
+        <span class="fn">BUILD_ENV</span>: <span class="str">production</span>
+    - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_BRANCH'</span>
+      <span class="fn">variables</span>:
+        <span class="fn">BUILD_ENV</span>: <span class="str">staging</span></code></pre></div>
+
+<div class="subsection-title">Conditions `if` courantes</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Condition</th><th>Cas d'usage</th></tr></thead>
+<tbody>
+<tr><td>$CI_COMMIT_BRANCH == "main"</td><td>Uniquement sur main</td></tr>
+<tr><td>$CI_COMMIT_BRANCH =~ /^feature/</td><td>Toutes les branches feature/*</td></tr>
+<tr><td>$CI_COMMIT_TAG</td><td>Si un tag est poussé</td></tr>
+<tr><td>$CI_PIPELINE_SOURCE == "merge_request_event"</td><td>Pipeline MR uniquement</td></tr>
+<tr><td>$CI_PIPELINE_SOURCE == "schedule"</td><td>Pipeline planifié (cron)</td></tr>
+<tr><td>$CI_PIPELINE_SOURCE == "web"</td><td>Déclenché depuis l'UI</td></tr>
+<tr><td>$MY_VAR == null</td><td>Variable non définie</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ══════════ 5 ══════════ -->
+<div class="section" id="s5">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">5</span><h2 class="section-title">Needs & DAG</h2></div>
+
+<p style="color:var(--text2);margin-bottom:14px"><code>needs</code> permet un pipeline en graphe orienté acyclique (DAG) — les jobs ne se bloquent plus par stage.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="tp">stages</span>:
+  - build
+  - test
+  - deploy
+
+<span class="fn">build-frontend</span>:
+  <span class="fn">stage</span>: build
+  <span class="fn">script</span>: npm run build:frontend
+
+<span class="fn">build-backend</span>:
+  <span class="fn">stage</span>: build
+  <span class="fn">script</span>: npm run build:backend
+
+<span class="cmt"># Ne attend que build-frontend, pas build-backend</span>
+<span class="fn">test-frontend</span>:
+  <span class="fn">stage</span>: test
+  <span class="fn">needs</span>:
+    - <span class="fn">job</span>: build-frontend
+      <span class="fn">artifacts</span>: <span class="kw">true</span>       <span class="cmt"># télécharge les artifacts du job parent</span>
+  <span class="fn">script</span>: npm run test:frontend
+
+<span class="cmt"># Ne attend que build-backend</span>
+<span class="fn">test-backend</span>:
+  <span class="fn">stage</span>: test
+  <span class="fn">needs</span>: [build-backend]
+  <span class="fn">script</span>: npm run test:backend
+
+<span class="cmt"># Attend les deux jobs de test</span>
+<span class="fn">deploy-staging</span>:
+  <span class="fn">stage</span>: deploy
+  <span class="fn">needs</span>: [test-frontend, test-backend]
+  <span class="fn">script</span>: ./deploy.sh
+
+<span class="cmt"># needs: [] = démarre immédiatement (ignore les stages)</span>
+<span class="fn">notify-start</span>:
+  <span class="fn">stage</span>: test
+  <span class="fn">needs</span>: []
+  <span class="fn">script</span>: curl -X POST $SLACK_WEBHOOK -d '{"text":"Pipeline démarré"}'</code></pre></div>
+</div>
+
+<!-- ══════════ 6 ══════════ -->
+<div class="section" id="s6">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)">6</span><h2 class="section-title">Artifacts & Cache</h2></div>
+
+<div class="subsection-title">Artifacts — partager des fichiers entre jobs</div>
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">build</span>:
+  <span class="fn">script</span>: npm run build
+  <span class="fn">artifacts</span>:
+    <span class="fn">paths</span>:
+      - dist/
+      - coverage/
+    <span class="fn">exclude</span>:
+      - dist/**/*.map              <span class="cmt"># exclure les sourcemaps</span>
+    <span class="fn">reports</span>:
+      <span class="fn">junit</span>: test-results.xml     <span class="cmt"># rapport visible dans l'UI MR</span>
+      <span class="fn">coverage_report</span>:
+        <span class="fn">coverage_format</span>: cobertura
+        <span class="fn">path</span>: coverage/cobertura.xml
+    <span class="fn">expire_in</span>: <span class="str">1 week</span>            <span class="cmt"># 30 mins | 1 day | 1 week | never</span>
+    <span class="fn">when</span>: always                  <span class="cmt"># conserver même si le job échoue</span></code></pre></div>
+
+<div class="subsection-title">Cache — accélérer les jobs (node_modules, pip…)</div>
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">install</span>:
+  <span class="fn">script</span>: npm ci
+  <span class="fn">cache</span>:
+    <span class="fn">key</span>:
+      <span class="fn">files</span>:                       <span class="cmt"># clé basée sur le hash du fichier</span>
+        - package-lock.json
+    <span class="fn">paths</span>:
+      - node_modules/
+      - .npm/
+    <span class="fn">policy</span>: pull-push             <span class="cmt"># pull | push | pull-push (défaut)</span>
+
+<span class="cmt"># Cache partagé entre branches (key fixe)</span>
+<span class="fn">test</span>:
+  <span class="fn">cache</span>:
+    <span class="fn">key</span>: <span class="str">"$CI_COMMIT_REF_SLUG-node"</span>
+    <span class="fn">paths</span>: [node_modules/]
+    <span class="fn">policy</span>: pull                  <span class="cmt"># ne pas re-pousser le cache</span>
+
+<span class="cmt"># Différence artifacts vs cache :
+# artifacts = entre jobs du même pipeline (garanti)
+# cache = entre pipelines (best-effort, peut être absent)</span></code></pre></div>
+</div>
+
+<!-- ══════════ 7 ══════════ -->
+<div class="section" id="s7">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500)">7</span><h2 class="section-title">Runners</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Cibler un runner par tag</span>
+<span class="fn">build-docker</span>:
+  <span class="fn">tags</span>:
+    - docker
+    - linux
+
+<span class="cmt"># Cibler un runner par tag (opérateur OU)</span>
+<span class="fn">deploy-k8s</span>:
+  <span class="fn">tags</span>:
+    - kubernetes
+
+<span class="cmt"># Runner shell (pas de conteneur)</span>
+<span class="fn">legacy-build</span>:
+  <span class="fn">tags</span>:
+    - shell
+  <span class="fn">script</span>:
+    - make build</code></pre></div>
+
+<div class="subsection-title">Types d'exécuteur (executor)</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Executor</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>shell</td><td>Exécute directement sur le serveur hôte</td></tr>
+<tr><td>docker</td><td>Chaque job dans un conteneur Docker isolé</td></tr>
+<tr><td>docker+machine</td><td>Auto-scale via Docker Machine (cloud)</td></tr>
+<tr><td>kubernetes</td><td>Pods Kubernetes éphémères par job</td></tr>
+<tr><td>virtualbox / parallels</td><td>VMs isolées (rare)</td></tr>
+</tbody>
+</table></div>
+
+<div class="code-block"><div class="code-header"><span>BASH — Enregistrer un runner</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Installation du runner</span>
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+sudo apt install gitlab-runner
+
+<span class="cmt"># Enregistrement interactif</span>
+sudo gitlab-runner register
+
+<span class="cmt"># Enregistrement non-interactif</span>
+sudo gitlab-runner register \
+  --non-interactive \
+  --url "https://gitlab.com/" \
+  --registration-token "$RUNNER_TOKEN" \
+  --executor "docker" \
+  --docker-image "alpine:latest" \
+  --description "mon-runner" \
+  --tag-list "docker,linux"</code></pre></div>
+</div>
+
+<!-- ══════════ 8 ══════════ -->
+<div class="section" id="s8">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">8</span><h2 class="section-title">Services (Docker, BDD)</h2></div>
+
+<p style="color:var(--text2);margin-bottom:14px">Les <code>services</code> lancent des conteneurs accessibles via leur alias hostname.</p>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">tests-integration</span>:
+  <span class="fn">image</span>: node:20-alpine
+  <span class="fn">services</span>:
+    - <span class="fn">name</span>: postgres:16-alpine
+      <span class="fn">alias</span>: db                  <span class="cmt"># accès via hostname "db"</span>
+    - <span class="fn">name</span>: redis:7-alpine
+      <span class="fn">alias</span>: redis
+  <span class="fn">variables</span>:
+    <span class="fn">POSTGRES_DB</span>: testdb
+    <span class="fn">POSTGRES_USER</span>: ci
+    <span class="fn">POSTGRES_PASSWORD</span>: ci
+    <span class="fn">DATABASE_URL</span>: <span class="str">"postgresql://ci:ci@db:5432/testdb"</span>
+  <span class="fn">script</span>:
+    - npm ci
+    - npm run db:migrate
+    - npm run test:integration
+
+<span class="cmt"># Build d'image Docker (Docker-in-Docker)</span>
+<span class="fn">build-image</span>:
+  <span class="fn">image</span>: docker:24
+  <span class="fn">services</span>:
+    - docker:24-dind              <span class="cmt"># Docker-in-Docker</span>
+  <span class="fn">variables</span>:
+    <span class="fn">DOCKER_TLS_CERTDIR</span>: <span class="str">"/certs"</span>
+  <span class="fn">script</span>:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA</code></pre></div>
+</div>
+
+<!-- ══════════ 9 ══════════ -->
+<div class="section" id="s9">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">9</span><h2 class="section-title">Environments & Deploy</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="fn">deploy-staging</span>:
+  <span class="fn">stage</span>: deploy
+  <span class="fn">script</span>:
+    - ./deploy.sh $CI_ENVIRONMENT_URL
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: staging
+    <span class="fn">url</span>: <span class="str">https://staging.example.com</span>
+    <span class="fn">on_stop</span>: stop-staging         <span class="cmt"># job à appeler pour arrêter l'env</span>
+
+<span class="fn">stop-staging</span>:
+  <span class="fn">stage</span>: deploy
+  <span class="fn">script</span>:
+    - ./teardown.sh staging
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: staging
+    <span class="fn">action</span>: stop               <span class="cmt"># stop | start | prepare | verify | access</span>
+  <span class="fn">when</span>: manual
+
+<span class="cmt"># Environnement dynamique par branche (Review Apps)</span>
+<span class="fn">deploy-review</span>:
+  <span class="fn">stage</span>: deploy
+  <span class="fn">script</span>:
+    - ./deploy-review.sh $CI_COMMIT_REF_SLUG
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: <span class="str">review/$CI_COMMIT_REF_SLUG</span>
+    <span class="fn">url</span>: <span class="str">https://$CI_COMMIT_REF_SLUG.review.example.com</span>
+    <span class="fn">on_stop</span>: stop-review
+    <span class="fn">auto_stop_in</span>: <span class="str">1 week</span>
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
+
+<span class="fn">deploy-prod</span>:
+  <span class="fn">stage</span>: deploy
+  <span class="fn">script</span>:
+    - ./deploy.sh production
+  <span class="fn">environment</span>:
+    <span class="fn">name</span>: production
+    <span class="fn">url</span>: <span class="str">https://example.com</span>
+    <span class="fn">deployment_tier</span>: production  <span class="cmt"># development | staging | production | …</span>
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">'$CI_COMMIT_TAG =~ /^v\d+/'</span>
+      <span class="fn">when</span>: manual</code></pre></div>
+</div>
+
+<!-- ══════════ 10 ══════════ -->
+<div class="section" id="s10">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#0891b2,#67e8f9)">10</span><h2 class="section-title">Extends & Anchors YAML</h2></div>
+
+<div class="subsection-title">extends — héritage de jobs</div>
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Job de base (préfixe . = caché, non exécuté)</span>
+<span class="fn">.base-node</span>:
+  <span class="fn">image</span>: node:20-alpine
+  <span class="fn">before_script</span>:
+    - npm ci --cache .npm
+  <span class="fn">cache</span>:
+    <span class="fn">key</span>: <span class="str">"$CI_COMMIT_REF_SLUG"</span>
+    <span class="fn">paths</span>: [.npm/]
+
+<span class="fn">build</span>:
+  <span class="fn">extends</span>: .base-node          <span class="cmt"># hérite de .base-node</span>
+  <span class="fn">stage</span>: build
+  <span class="fn">script</span>: npm run build
+
+<span class="fn">test</span>:
+  <span class="fn">extends</span>: .base-node
+  <span class="fn">stage</span>: test
+  <span class="fn">script</span>: npm test
+
+<span class="cmt"># extends multiple (liste)</span>
+<span class="fn">lint</span>:
+  <span class="fn">extends</span>:
+    - .base-node
+    - .rules-mr-only</code></pre></div>
+
+<div class="subsection-title">Anchors YAML — réutilisation native YAML</div>
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Définir un ancre</span>
+<span class="fn">.before_npm</span>: <span class="op">&amp;before_npm</span>
+  - npm ci
+  - echo "Dépendances installées"
+
+<span class="cmt"># Réutiliser l'ancre</span>
+<span class="fn">build</span>:
+  <span class="fn">before_script</span>: <span class="op">*before_npm</span>
+  <span class="fn">script</span>: npm run build
+
+<span class="cmt"># Merge de maps avec <<</span>
+<span class="fn">.common</span>: <span class="op">&amp;common</span>
+  <span class="fn">image</span>: node:20
+  <span class="fn">tags</span>: [docker]
+
+<span class="fn">my-job</span>:
+  <span class="op">&lt;&lt;: *common</span>              <span class="cmt"># merge les clés de .common</span>
+  <span class="fn">script</span>: echo "hello"
+
+<span class="cmt"># Nota : extends est préférable aux anchors YAML
+# car extends fusionne récursivement (anchors non)</span></code></pre></div>
+</div>
+
+<!-- ══════════ 11 ══════════ -->
+<div class="section" id="s11">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#db2777,#f472b6)">11</span><h2 class="section-title">Include & Templates</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Inclure des fichiers YAML depuis différentes sources</span>
+<span class="tp">include</span>:
+  <span class="cmt"># Fichier local au repo</span>
+  - <span class="fn">local</span>: <span class="str">".gitlab/ci/build.yml"</span>
+
+  <span class="cmt"># Template officiel GitLab</span>
+  - <span class="fn">template</span>: <span class="str">Auto-DevOps.gitlab-ci.yml</span>
+  - <span class="fn">template</span>: <span class="str">Jobs/SAST.gitlab-ci.yml</span>
+
+  <span class="cmt"># Depuis un autre projet GitLab</span>
+  - <span class="fn">project</span>: <span class="str">my-group/ci-templates</span>
+    <span class="fn">ref</span>: <span class="str">main</span>
+    <span class="fn">file</span>: <span class="str">templates/docker.yml</span>
+
+  <span class="cmt"># URL externe</span>
+  - <span class="fn">remote</span>: <span class="str">https://example.com/ci/template.yml</span>
+
+<span class="cmt"># Surcharger un job inclus</span>
+<span class="fn">SAST</span>:
+  <span class="fn">variables</span>:
+    <span class="fn">SAST_EXCLUDED_PATHS</span>: <span class="str">"spec,test,tests,tmp"</span>
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE != "schedule"</span></code></pre></div>
+
+<div class="subsection-title">Templates officiels utiles</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Template</th><th>Contenu</th></tr></thead>
+<tbody>
+<tr><td>Jobs/SAST.gitlab-ci.yml</td><td>Analyse statique de sécurité (code)</td></tr>
+<tr><td>Jobs/Secret-Detection.gitlab-ci.yml</td><td>Détection de secrets dans le code</td></tr>
+<tr><td>Jobs/Container-Scanning.gitlab-ci.yml</td><td>Scan des images Docker</td></tr>
+<tr><td>Jobs/Dependency-Scanning.gitlab-ci.yml</td><td>Vulnérabilités dans les dépendances</td></tr>
+<tr><td>Jobs/DAST.gitlab-ci.yml</td><td>Scan dynamique de l'application déployée</td></tr>
+<tr><td>Workflows/MergeRequest-Pipelines.yml</td><td>Configure les pipelines MR</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ══════════ 12 ══════════ -->
+<div class="section" id="s12">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)">12</span><h2 class="section-title">Parallel matrix</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Lancer N copies identiques d'un job</span>
+<span class="fn">rspec</span>:
+  <span class="fn">script</span>: bundle exec rspec
+  <span class="fn">parallel</span>: <span class="num">5</span>                   <span class="cmt"># 5 jobs identiques en parallèle</span>
+
+<span class="cmt"># Matrix — combinatoire de variables</span>
+<span class="fn">test-matrix</span>:
+  <span class="fn">image</span>: <span class="str">"$RUNTIME:$VERSION"</span>
+  <span class="fn">script</span>: npm test
+  <span class="fn">parallel</span>:
+    <span class="fn">matrix</span>:
+      - <span class="fn">RUNTIME</span>: node
+        <span class="fn">VERSION</span>: [<span class="str">"18"</span>, <span class="str">"20"</span>, <span class="str">"22"</span>]
+      - <span class="fn">RUNTIME</span>: bun
+        <span class="fn">VERSION</span>: [<span class="str">"1.0"</span>, <span class="str">"1.1"</span>]
+  <span class="cmt"># → 5 jobs : node:18, node:20, node:22, bun:1.0, bun:1.1</span>
+
+<span class="cmt"># Matrix pour déploiement multi-régions</span>
+<span class="fn">deploy</span>:
+  <span class="fn">script</span>:
+    - ./deploy.sh --region $REGION --env $ENV
+  <span class="fn">parallel</span>:
+    <span class="fn">matrix</span>:
+      - <span class="fn">REGION</span>: [eu-west-1, us-east-1]
+        <span class="fn">ENV</span>: [staging, production]
+  <span class="cmt"># → 4 jobs (2 régions × 2 envs)</span></code></pre></div>
+</div>
+
+<!-- ══════════ 13 ══════════ -->
+<div class="section" id="s13">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#fc6d26,#ffa500)">13</span><h2 class="section-title">Pipelines parent / enfant</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Pipeline parent</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># .gitlab-ci.yml (pipeline parent)</span>
+<span class="tp">stages</span>:
+  - triggers
+
+<span class="fn">trigger-frontend</span>:
+  <span class="fn">stage</span>: triggers
+  <span class="fn">trigger</span>:
+    <span class="fn">include</span>: frontend/.gitlab-ci.yml  <span class="cmt"># pipeline enfant local</span>
+    <span class="fn">strategy</span>: depend                  <span class="cmt"># parent attend l'enfant</span>
+  <span class="fn">rules</span>:
+    - <span class="fn">changes</span>: [frontend/**/*]
+
+<span class="fn">trigger-api</span>:
+  <span class="fn">trigger</span>:
+    <span class="fn">project</span>: <span class="str">my-group/api-service</span>   <span class="cmt"># pipeline dans un autre repo</span>
+    <span class="fn">branch</span>: <span class="str">main</span>
+  <span class="fn">rules</span>:
+    - <span class="fn">changes</span>: [api/**/*]</code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Pipeline dynamique (généré)</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Job qui génère un fichier YAML dynamiquement</span>
+<span class="fn">generate-pipeline</span>:
+  <span class="fn">script</span>:
+    - python3 scripts/gen_pipeline.py > generated-pipeline.yml
+  <span class="fn">artifacts</span>:
+    <span class="fn">paths</span>: [generated-pipeline.yml]
+
+<span class="fn">run-generated</span>:
+  <span class="fn">trigger</span>:
+    <span class="fn">include</span>:
+      - <span class="fn">artifact</span>: generated-pipeline.yml
+        <span class="fn">job</span>: generate-pipeline
+    <span class="fn">strategy</span>: depend
+  <span class="fn">needs</span>: [generate-pipeline]</code></pre></div>
+</div>
+
+<!-- ══════════ 14 ══════════ -->
+<div class="section" id="s14">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">14</span><h2 class="section-title">Security scans (SAST, DAST…)</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Activer tous les scanners de sécurité GitLab</span>
+<span class="tp">include</span>:
+  - <span class="fn">template</span>: <span class="str">Jobs/SAST.gitlab-ci.yml</span>
+  - <span class="fn">template</span>: <span class="str">Jobs/Secret-Detection.gitlab-ci.yml</span>
+  - <span class="fn">template</span>: <span class="str">Jobs/Dependency-Scanning.gitlab-ci.yml</span>
+  - <span class="fn">template</span>: <span class="str">Jobs/Container-Scanning.gitlab-ci.yml</span>
+
+<span class="cmt"># Configurer SAST</span>
+<span class="fn">semgrep-sast</span>:
+  <span class="fn">variables</span>:
+    <span class="fn">SAST_EXCLUDED_PATHS</span>: <span class="str">"spec,test,tests,tmp,node_modules"</span>
+
+<span class="cmt"># DAST — scan de l'appli déployée</span>
+<span class="tp">include</span>:
+  - <span class="fn">template</span>: <span class="str">DAST.gitlab-ci.yml</span>
+
+<span class="fn">dast</span>:
+  <span class="fn">variables</span>:
+    <span class="fn">DAST_WEBSITE</span>: <span class="str">https://staging.example.com</span>
+    <span class="fn">DAST_FULL_SCAN_ENABLED</span>: <span class="str">"true"</span>
+
+<span class="cmt"># Scan d'image Docker</span>
+<span class="fn">container_scanning</span>:
+  <span class="fn">variables</span>:
+    <span class="fn">CS_IMAGE</span>: <span class="str">$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA</span></code></pre></div>
+
+<div class="subsection-title">Rapport de vulnérabilités</div>
+<p style="color:var(--text2);margin-bottom:14px">Les résultats apparaissent automatiquement dans l'onglet <strong>Security</strong> de la MR et dans le tableau de bord <strong>Security &gt; Vulnerability Report</strong> du projet.</p>
+</div>
+
+<!-- ══════════ 15 ══════════ -->
+<div class="section" id="s15">
+<div class="section-header"><span class="section-num" style="background:linear-gradient(135deg,#059669,#34d399)">15</span><h2 class="section-title">Bonnes pratiques</h2></div>
+
+<div class="code-block"><div class="code-header"><span>YAML — Workflow recommandé</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt"># Limiter les pipelines inutiles</span>
+<span class="tp">workflow</span>:
+  <span class="fn">rules</span>:
+    - <span class="fn">if</span>: <span class="str">$CI_PIPELINE_SOURCE == "merge_request_event"</span>
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH</span>
+    - <span class="fn">if</span>: <span class="str">$CI_COMMIT_TAG</span>
+    - <span class="fn">when</span>: never                  <span class="cmt"># évite les pipelines en double MR+push</span>
+
+<span class="cmt"># Valider le YAML localement</span>
+<span class="cmt"># → GitLab UI : CI/CD > Pipelines > CI Lint</span>
+<span class="cmt"># → CLI : gitlab-runner exec docker &lt;job-name&gt;</span>
+
+<span class="cmt"># Réduire la taille des images</span>
+<span class="fn">.slim-defaults</span>:
+  <span class="fn">image</span>: alpine:3.19           <span class="cmt"># préférer :alpine ou :slim</span>
+  <span class="fn">variables</span>:
+    <span class="fn">GIT_DEPTH</span>: <span class="str">"1"</span>             <span class="cmt"># shallow clone</span>
+    <span class="fn">FF_USE_FASTZIP</span>: <span class="str">"true"</span>     <span class="cmt"># compression artifacts plus rapide</span></code></pre></div>
+
+<div class="code-block"><div class="code-header"><span>Check-list</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div><pre><code><span class="cmt">✅ À faire</span>
+<span class="cmt">// Utiliser rules: plutôt que only:/except: (déprécié)</span>
+<span class="cmt">// Versionner les images Docker (node:20.11 > node:latest)</span>
+<span class="cmt">// Séparer build / test / deploy en stages distincts</span>
+<span class="cmt">// Utiliser needs: pour paralléliser et accélérer</span>
+<span class="cmt">// Stocker secrets dans CI/CD Variables (masked + protected)</span>
+<span class="cmt">// Factoriser avec .hidden-jobs + extends:</span>
+<span class="cmt">// Activer les security templates (SAST, Secret Detection)</span>
+<span class="cmt">// Fixer expire_in sur les artifacts non essentiels</span>
+<span class="cmt">// Utiliser GIT_DEPTH: "1" pour les jobs qui n'ont pas besoin d'historique</span>
+<span class="cmt">// workflow: rules pour éviter les doublons pipeline push+MR</span>
+
+<span class="cmt">❌ À éviter</span>
+<span class="cmt">// Stocker des secrets en clair dans le YAML</span>
+<span class="cmt">// image: latest (non reproductible)</span>
+<span class="cmt">// allow_failure: true sur des jobs critiques</span>
+<span class="cmt">// Scripts trop longs inline — extraire dans des fichiers .sh</span>
+<span class="cmt">// Un seul job monolithique qui fait tout</span>
+<span class="cmt">// Cache avec policy: pull-push dans des jobs parallèles (conflits)</span>
+<span class="cmt">// Ignorer les rapports Security dans les MR</span></code></pre></div>
+
+<p style="text-align:center;color:var(--text3);font-size:.85rem;margin-top:40px;padding:20px 0;border-top:1px solid var(--border)">GitLab CI/CD Cheatsheet — GitLab 17.x — 2026</p>
+</main>
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0})">↑</button>
+
+<script>
+const toggle=document.getElementById('themeToggle'),html=document.documentElement;let dark=localStorage.getItem('theme')!=='light';if(!dark){html.setAttribute('data-theme','light');toggle.textContent='☀️'}toggle.addEventListener('click',()=>{dark=!dark;html.setAttribute('data-theme',dark?'':'light');toggle.textContent=dark?'🌙':'☀️';localStorage.setItem('theme',dark?'dark':'light')});
+function copyCode(btn){const pre=btn.closest('.code-block').querySelector('pre');const text=pre.textContent;const ok=()=>{btn.textContent='✓ Copié';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copier';btn.classList.remove('copied')},1500)};if(navigator.clipboard){navigator.clipboard.writeText(text).then(ok).catch(()=>{const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);ok()})}else{const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);ok()}}
+const backTop=document.getElementById('backTop');window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400)});
+const sections=document.querySelectorAll('.section'),navLinks=document.querySelectorAll('.nav-link');
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(l=>l.classList.remove('active'));const link=document.querySelector(`.nav-link[href="#${entry.target.id}"]`);if(link)link.classList.add('active')}})},{rootMargin:'-80px 0px -70% 0px',threshold:0});
+sections.forEach(s=>observer.observe(s));
+const searchInput=document.getElementById('search'),searchCount=document.getElementById('searchCount'),content=document.getElementById('content');
+function clearHighlights(){content.querySelectorAll('mark.search-hl').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize()})}
+function highlightText(node,term){let count=0;if(node.nodeType===3){const idx=node.textContent.toLowerCase().indexOf(term);if(idx>=0){const span=document.createElement('mark');span.className='search-hl';const after=node.splitText(idx);after.splitText(term.length);span.textContent=after.textContent;after.parentNode.replaceChild(span,after);return 1}}else if(node.nodeType===1&&!['SCRIPT','STYLE','MARK'].includes(node.tagName)){for(const child of Array.from(node.childNodes))count+=highlightText(child,term)}return count}
+let searchTimeout;searchInput.addEventListener('input',()=>{clearTimeout(searchTimeout);searchTimeout=setTimeout(()=>{clearHighlights();const term=searchInput.value.trim().toLowerCase();if(term.length<2){searchCount.textContent='';sections.forEach(s=>s.style.display='');return}let total=0;sections.forEach(s=>{const match=s.textContent.toLowerCase().includes(term);s.style.display=match?'':'none';if(match)total+=highlightText(s,term)});searchCount.textContent=total>0?`${total} résultat${total>1?'s':''}`:'Aucun';const first=content.querySelector('mark.search-hl');if(first)first.scrollIntoView({behavior:'smooth',block:'center'})},200)});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();searchInput.focus();searchInput.select()}if(e.key==='Escape'){searchInput.value='';searchInput.dispatchEvent(new Event('input'));searchInput.blur()}});
+</script>
+
+<div id="readingProgress"></div>
+<style>
+#readingProgress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .1s linear;pointer-events:none}
+.anchor-link{opacity:0;margin-left:8px;color:var(--text3);text-decoration:none;font-size:.8em;font-weight:400;transition:opacity .15s;vertical-align:middle}
+.section-title:hover .anchor-link,.subsection-title:hover .anchor-link{opacity:1}
+</style>
+<script>
+const prog=document.getElementById('readingProgress');
+window.addEventListener('scroll',()=>{const s=document.documentElement;prog.style.width=((s.scrollTop||document.body.scrollTop)/(s.scrollHeight-s.clientHeight)*100)+'%'},{passive:true});
+document.querySelectorAll('.section-title,.subsection-title').forEach(el=>{
+  const section=el.closest('[id]');if(!section)return;
+  const a=document.createElement('a');a.href='#'+section.id;a.className='anchor-link';a.textContent='#';a.title='Copier le lien';
+  el.appendChild(a);
+});
+</script>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<style>
+.btn-menu{display:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:all .2s}
+.btn-menu:hover{border-color:var(--accent);color:var(--accent)}
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.drawer-overlay.open{display:block}
+@media(max-width:900px){
+  .btn-menu{display:flex}
+  .sidebar{display:block!important;position:fixed;top:0;left:-290px;width:270px;height:100vh;z-index:160;background:var(--bg);border-right:1px solid var(--border);padding:20px 16px;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px rgba(0,0,0,.4)}
+  .sidebar.open{left:0}
+  .main{padding:24px 16px 80px}
+  .back-top{bottom:16px;right:16px;width:40px;height:40px}
+}
+@media(max-width:540px){
+  .search-box{display:none}
+  .btn-menu{margin-left:auto}
+  .header-tag{display:none}
+}
+@media(max-width:380px){
+  .header-title{font-size:.95rem}
+  .btn-back,.btn-menu,.btn-theme{width:32px;height:32px;font-size:.9rem}
+  .code-block pre{font-size:.72rem}
+}
+</style>
+<script>
+(function(){
+  const btnMenu=document.getElementById('btnMenu');
+  const overlay=document.getElementById('drawerOverlay');
+  const sidebar=document.getElementById('sidebar');
+  if(!btnMenu||!sidebar)return;
+  const close=()=>{sidebar.classList.remove('open');overlay.classList.remove('open')};
+  btnMenu.addEventListener('click',()=>{const o=sidebar.classList.toggle('open');overlay.classList.toggle('open',o)});
+  overlay.addEventListener('click',close);
+  sidebar.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',close));
+})();
+</script>
+</body>
+</html>
