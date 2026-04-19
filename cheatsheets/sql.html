@@ -1573,22 +1573,35 @@ calculer_ttc(), archiver_commandes(), get_client_by_id()</code></pre></div>
 // ── Theme toggle ──
 const toggle = document.getElementById('themeToggle');
 const html = document.documentElement;
-let dark = true;
+let dark = localStorage.getItem('theme') !== 'light';
+if (!dark) { html.setAttribute('data-theme', 'light'); toggle.textContent = '☀️'; }
 toggle.addEventListener('click', () => {
   dark = !dark;
   html.setAttribute('data-theme', dark ? '' : 'light');
   toggle.textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
 });
 
 // ── Copy code ──
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
   const text = pre.textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  const ok = () => {
     btn.textContent = '✓ Copié';
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 1500);
-  });
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(ok).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); ok();
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); ok();
+  }
 }
 
 // ── Back to top ──
@@ -1714,6 +1727,7 @@ document.querySelectorAll('.section-title,.subsection-title').forEach(el=>{
   .sidebar{display:block!important;position:fixed;top:0;left:-290px;width:270px;height:100vh;z-index:160;background:var(--bg);border-right:1px solid var(--border);padding:20px 16px;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px rgba(0,0,0,.4)}
   .sidebar.open{left:0}
   .main{padding:24px 16px 80px}
+  .back-top{bottom:16px;right:16px;width:40px;height:40px}
 }
 @media(max-width:540px){
   .search-box{display:none}
@@ -1723,6 +1737,7 @@ document.querySelectorAll('.section-title,.subsection-title').forEach(el=>{
 @media(max-width:380px){
   .header-title{font-size:.95rem}
   .btn-back,.btn-menu,.btn-theme{width:32px;height:32px;font-size:.9rem}
+  .code-block pre{font-size:.72rem}
 }
 </style>
 <script>
