@@ -190,19 +190,136 @@ body {
   flex-shrink: 0;
 }
 
-/* SECTION */
+/* SECTION WRAPPER */
 .section {
   max-width: 960px;
   margin: 0 auto;
   padding: 0 24px 80px;
 }
-.section-title {
+
+/* CATEGORY FILTER NAV */
+.cat-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.cat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text2);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.cat-btn:hover {
+  border-color: var(--cat-color, var(--accent));
+  color: var(--cat-color, var(--accent));
+  background: var(--bg3);
+}
+.cat-btn.active {
+  background: var(--cat-color, var(--accent));
+  border-color: var(--cat-color, var(--accent));
+  color: #fff;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cat-color, var(--accent)) 20%, transparent);
+}
+.cat-btn .cat-emoji { font-size: 0.9rem; line-height: 1; }
+.cat-count {
   font-size: 0.68rem;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  line-height: 1.6;
+}
+.cat-btn:not(.active) .cat-count {
+  background: var(--bg3);
   color: var(--text3);
+}
+
+/* DOMAIN SECTIONS */
+.domain-section {
+  margin-bottom: 56px;
+  transition: opacity 0.2s;
+}
+.domain-section.hidden {
+  display: none;
+}
+.domain-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
   margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.domain-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 48px;
+  height: 2px;
+  background: var(--domain-color, var(--accent));
+  border-radius: 2px;
+}
+.domain-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--domain-color, var(--accent)) 12%, transparent);
+}
+.domain-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--domain-color, var(--accent));
+}
+.domain-desc {
+  font-size: 0.8rem;
+  color: var(--text3);
+  margin-left: 4px;
+}
+.domain-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.domain-available {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--domain-color, var(--accent));
+  background: color-mix(in srgb, var(--domain-color, var(--accent)) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--domain-color, var(--accent)) 30%, transparent);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.domain-total {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text3);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
 }
 
 /* GRID */
@@ -258,33 +375,6 @@ a.card:hover {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* DIVIDER */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 48px 0 20px;
-}
-.divider-line { flex: 1; height: 1px; background: var(--border); }
-.divider-label {
-  font-size: 0.68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--text3);
-  white-space: nowrap;
-}
-.divider-count {
-  font-size: 0.65rem;
-  font-weight: 600;
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--text3);
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 2px 8px;
-}
-
 /* COMING SOON */
 .card.soon { opacity: 0.45; pointer-events: none; }
 .badge-soon {
@@ -319,6 +409,9 @@ footer a:hover { text-decoration: underline; }
   .grid { grid-template-columns: 1fr; }
   .header { padding: 10px 16px; gap: 10px; }
   .header-tag { display: none; }
+  .cat-nav { gap: 6px; }
+  .cat-btn { padding: 7px 13px; font-size: 0.78rem; }
+  .domain-desc { display: none; }
 }
 @media (max-width: 400px) {
   .header-title { font-size: 1rem; }
@@ -346,7 +439,8 @@ footer a:hover { text-decoration: underline; }
   <h1>Learn by Reference</h1>
   <p>Des cheatsheets interactives pour maîtriser les technos essentielles — sans installation, directement dans le navigateur.</p>
   <div class="stats">
-    <div class="stat"><span class="stat-dot"></span>5 cheatsheets disponibles</div>
+    <div class="stat"><span class="stat-dot"></span>6 cheatsheets disponibles</div>
+    <div class="stat"><span class="stat-dot"></span>4 domaines</div>
     <div class="stat"><span class="stat-dot"></span>Dark &amp; Light mode</div>
     <div class="stat"><span class="stat-dot"></span>Aucun serveur requis</div>
   </div>
@@ -354,198 +448,275 @@ footer a:hover { text-decoration: underline; }
 
 <main class="section">
 
-  <div class="section-title">Disponible maintenant</div>
-  <div class="grid">
+  <!-- ── FILTER NAV ── -->
+  <nav class="cat-nav" aria-label="Filtrer par domaine">
+    <button class="cat-btn active" data-cat="all" style="--cat-color:#60a5fa">
+      <span>Tout</span>
+      <span class="cat-count">13</span>
+    </button>
+    <button class="cat-btn" data-cat="db" style="--cat-color:#60a5fa">
+      <span class="cat-emoji">🗄️</span>
+      <span>Base de données</span>
+      <span class="cat-count">2</span>
+    </button>
+    <button class="cat-btn" data-cat="frontend" style="--cat-color:#f472b6">
+      <span class="cat-emoji">🌐</span>
+      <span>Frontend</span>
+      <span class="cat-count">4</span>
+    </button>
+    <button class="cat-btn" data-cat="backend" style="--cat-color:#34d399">
+      <span class="cat-emoji">⚙️</span>
+      <span>Backend</span>
+      <span class="cat-count">3</span>
+    </button>
+    <button class="cat-btn" data-cat="devops" style="--cat-color:#a78bfa">
+      <span class="cat-emoji">🚀</span>
+      <span>DevOps &amp; Infra</span>
+      <span class="cat-count">4</span>
+    </button>
+  </nav>
 
-    <a href="cheatsheets/sql.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 6v4c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 10v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 14v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/></svg></div>
-        <span class="card-name">SQL</span>
+  <!-- ══ BASE DE DONNÉES ══ -->
+  <div class="domain-section" id="section-db" data-section="db">
+    <div class="domain-header" style="--domain-color:#60a5fa">
+      <div class="domain-icon">🗄️</div>
+      <span class="domain-name">Base de données</span>
+      <span class="domain-desc">Requêtes, modélisation, optimisation</span>
+      <div class="domain-meta">
+        <span class="domain-available">2 disponibles</span>
+        <span class="domain-total">2 / 2</span>
       </div>
-      <div class="card-desc">SELECT, JOIN, GROUP BY, sous-requêtes, fonctions fenêtre, index et bien plus.</div>
-      <div class="card-tags">
-        <span class="tag">DDL</span>
-        <span class="tag">DML</span>
-        <span class="tag">Window Fn</span>
-        <span class="tag">Index</span>
-      </div>
-    </a>
+    </div>
+    <div class="grid">
 
-    <a href="cheatsheets/javascript.html" class="card" style="--card-accent:#fbbf24; --card-icon-bg:rgba(251,191,36,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
-        <span class="card-name">JavaScript</span>
-      </div>
-      <div class="card-desc">ES6+, closures, async/await, DOM, modules et patterns courants.</div>
-      <div class="card-tags">
-        <span class="tag">ES2024</span>
-        <span class="tag">Async</span>
-        <span class="tag">DOM</span>
-      </div>
-    </a>
+      <a href="cheatsheets/sql.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 6v4c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 10v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 14v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/></svg></div>
+          <span class="card-name">SQL</span>
+        </div>
+        <div class="card-desc">SELECT, JOIN, GROUP BY, sous-requêtes, fonctions fenêtre, index et bien plus.</div>
+        <div class="card-tags">
+          <span class="tag">DDL</span>
+          <span class="tag">DML</span>
+          <span class="tag">Window Fn</span>
+          <span class="tag">Index</span>
+        </div>
+      </a>
 
-    <a href="cheatsheets/typescript.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
-        <span class="card-name">TypeScript</span>
-      </div>
-      <div class="card-desc">Types, interfaces, generics, utility types, décorateurs et config.</div>
-      <div class="card-tags">
-        <span class="tag">Types</span>
-        <span class="tag">Generics</span>
-        <span class="tag">Config</span>
-      </div>
-    </a>
+      <a href="cheatsheets/oracle-plsql.html" class="card" style="--card-accent:#e11d48; --card-icon-bg:rgba(225,29,72,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" alt="Oracle PL/SQL"></div>
+          <span class="card-name">Oracle PL/SQL</span>
+        </div>
+        <div class="card-desc">Blocs PL/SQL, curseurs, exceptions, packages, triggers et optimisation Oracle.</div>
+        <div class="card-tags">
+          <span class="tag">PL/SQL</span>
+          <span class="tag">Triggers</span>
+          <span class="tag">Oracle 23ai</span>
+        </div>
+      </a>
 
-    <a href="cheatsheets/oracle-plsql.html" class="card" style="--card-accent:#e11d48; --card-icon-bg:rgba(225,29,72,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" alt="Oracle PL/SQL"></div>
-        <span class="card-name">Oracle PL/SQL</span>
-      </div>
-      <div class="card-desc">Blocs PL/SQL, curseurs, exceptions, packages, triggers et optimisation Oracle.</div>
-      <div class="card-tags">
-        <span class="tag">PL/SQL</span>
-        <span class="tag">Triggers</span>
-        <span class="tag">Oracle 23ai</span>
-      </div>
-    </a>
-
-    <a href="cheatsheets/gitlab-cicd.html" class="card" style="--card-accent:#fc6d26; --card-icon-bg:rgba(252,109,38,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" alt="GitLab CI/CD"></div>
-        <span class="card-name">GitLab CI/CD</span>
-      </div>
-      <div class="card-desc">Pipelines, stages, rules, artifacts, cache, runners, security scans et bonnes pratiques.</div>
-      <div class="card-tags">
-        <span class="tag">Pipelines</span>
-        <span class="tag">DAG</span>
-        <span class="tag">GitLab 17.x</span>
-      </div>
-    </a>
-
-    <a href="cheatsheets/docker.html" class="card" style="--card-accent:#2496ed; --card-icon-bg:rgba(36,150,237,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"></div>
-        <span class="card-name">Docker</span>
-      </div>
-      <div class="card-desc">Images, containers, Dockerfile, volumes, réseaux, Compose et sécurité.</div>
-      <div class="card-tags">
-        <span class="tag">Images</span>
-        <span class="tag">Compose</span>
-        <span class="tag">Docker 26.x</span>
-      </div>
-    </a>
-
+    </div>
   </div>
 
-  <div class="divider">
-    <div class="divider-line"></div>
-    <span class="divider-label">Bientôt disponible</span>
-    <span class="divider-count">6 à venir</span>
-    <div class="divider-line"></div>
+  <!-- ══ FRONTEND ══ -->
+  <div class="domain-section" id="section-frontend" data-section="frontend">
+    <div class="domain-header" style="--domain-color:#f472b6">
+      <div class="domain-icon">🌐</div>
+      <span class="domain-name">Frontend</span>
+      <span class="domain-desc">Langages, frameworks &amp; UI</span>
+      <div class="domain-meta">
+        <span class="domain-available">2 disponibles</span>
+        <span class="domain-total">2 / 4</span>
+      </div>
+    </div>
+    <div class="grid">
+
+      <a href="cheatsheets/javascript.html" class="card" style="--card-accent:#fbbf24; --card-icon-bg:rgba(251,191,36,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
+          <span class="card-name">JavaScript</span>
+        </div>
+        <div class="card-desc">ES6+, closures, async/await, DOM, modules et patterns courants.</div>
+        <div class="card-tags">
+          <span class="tag">ES2024</span>
+          <span class="tag">Async</span>
+          <span class="tag">DOM</span>
+        </div>
+      </a>
+
+      <a href="cheatsheets/typescript.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
+          <span class="card-name">TypeScript</span>
+        </div>
+        <div class="card-desc">Types, interfaces, generics, utility types, décorateurs et config.</div>
+        <div class="card-tags">
+          <span class="tag">Types</span>
+          <span class="tag">Generics</span>
+          <span class="tag">Config</span>
+        </div>
+      </a>
+
+      <div class="card soon" style="--card-icon-bg:rgba(56,189,248,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS"></div>
+          <span class="card-name">CSS / Tailwind</span>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <div class="card-desc">Flexbox, Grid, animations, variables CSS et classes utilitaires Tailwind.</div>
+        <div class="card-tags">
+          <span class="tag">Flexbox</span>
+          <span class="tag">Grid</span>
+          <span class="tag">Tailwind</span>
+        </div>
+      </div>
+
+      <div class="card soon" style="--card-icon-bg:rgba(96,165,250,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"></div>
+          <span class="card-name">React</span>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <div class="card-desc">Hooks, composants, contexte, performance et patterns courants.</div>
+        <div class="card-tags">
+          <span class="tag">Hooks</span>
+          <span class="tag">Context</span>
+          <span class="tag">Perf</span>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <div class="grid">
 
-    <div class="card soon" style="--card-icon-bg:rgba(244,114,182,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java"></div>
-        <span class="card-name">Java</span>
-        <span class="badge-soon">Soon</span>
-      </div>
-      <div class="card-desc">OOP, collections, streams, lambda, concurrence et Spring basics.</div>
-      <div class="card-tags">
-        <span class="tag">OOP</span>
-        <span class="tag">Streams</span>
-        <span class="tag">Spring</span>
+  <!-- ══ BACKEND ══ -->
+  <div class="domain-section" id="section-backend" data-section="backend">
+    <div class="domain-header" style="--domain-color:#34d399">
+      <div class="domain-icon">⚙️</div>
+      <span class="domain-name">Backend</span>
+      <span class="domain-desc">Langages serveur &amp; runtimes</span>
+      <div class="domain-meta">
+        <span class="domain-available" style="color:var(--text3); background:var(--bg3); border-color:var(--border);">Bientôt</span>
+        <span class="domain-total">0 / 3</span>
       </div>
     </div>
+    <div class="grid">
 
-    <div class="card soon" style="--card-icon-bg:rgba(56,189,248,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS"></div>
-        <span class="card-name">CSS / Tailwind</span>
-        <span class="badge-soon">Soon</span>
+      <div class="card soon" style="--card-icon-bg:rgba(244,114,182,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java"></div>
+          <span class="card-name">Java</span>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <div class="card-desc">OOP, collections, streams, lambda, concurrence et Spring basics.</div>
+        <div class="card-tags">
+          <span class="tag">OOP</span>
+          <span class="tag">Streams</span>
+          <span class="tag">Spring</span>
+        </div>
       </div>
-      <div class="card-desc">Flexbox, Grid, animations, variables CSS et classes utilitaires Tailwind.</div>
-      <div class="card-tags">
-        <span class="tag">Flexbox</span>
-        <span class="tag">Grid</span>
-        <span class="tag">Tailwind</span>
+
+      <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python"></div>
+          <span class="card-name">Python</span>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <div class="card-desc">Syntaxe, listes, dicts, compréhensions, classes, librairies standard.</div>
+        <div class="card-tags">
+          <span class="tag">OOP</span>
+          <span class="tag">List Comp</span>
+          <span class="tag">stdlib</span>
+        </div>
       </div>
+
+      <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
+          <span class="card-name">Node.js</span>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <div class="card-desc">Modules, fs, http, streams, npm, Express et gestion des erreurs.</div>
+        <div class="card-tags">
+          <span class="tag">Modules</span>
+          <span class="tag">Streams</span>
+          <span class="tag">Express</span>
+        </div>
+      </div>
+
     </div>
-
-    <div class="card soon" style="--card-icon-bg:rgba(251,146,60,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git"></div>
-        <span class="card-name">Git</span>
-        <span class="badge-soon">Soon</span>
-      </div>
-      <div class="card-desc">Commits, branches, rebase, stash, remotes et workflows courants.</div>
-      <div class="card-tags">
-        <span class="tag">Branching</span>
-        <span class="tag">Rebase</span>
-        <span class="tag">CI/CD</span>
-      </div>
-    </div>
-
-    <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python"></div>
-        <span class="card-name">Python</span>
-        <span class="badge-soon">Soon</span>
-      </div>
-      <div class="card-desc">Syntaxe, listes, dicts, compréhensions, classes, librairies standard.</div>
-      <div class="card-tags">
-        <span class="tag">OOP</span>
-        <span class="tag">List Comp</span>
-        <span class="tag">stdlib</span>
-      </div>
-    </div>
-
-    <div class="card soon" style="--card-icon-bg:rgba(96,165,250,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"></div>
-        <span class="card-name">React</span>
-        <span class="badge-soon">Soon</span>
-      </div>
-      <div class="card-desc">Hooks, composants, contexte, performance et patterns courants.</div>
-      <div class="card-tags">
-        <span class="tag">Hooks</span>
-        <span class="tag">Context</span>
-        <span class="tag">Perf</span>
-      </div>
-    </div>
-
-
-    <div class="card soon" style="--card-icon-bg:rgba(251,191,36,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux"></div>
-        <span class="card-name">Linux / Bash</span>
-        <span class="badge-soon">Soon</span>
-      </div>
-      <div class="card-desc">Commandes essentielles, scripts, permissions, pipes et cron.</div>
-      <div class="card-tags">
-        <span class="tag">Shell</span>
-        <span class="tag">Scripts</span>
-        <span class="tag">Cron</span>
-      </div>
-    </div>
-
-    <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
-      <div class="card-header">
-        <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
-        <span class="card-name">Node.js</span>
-        <span class="badge-soon">Soon</span>
-      </div>
-      <div class="card-desc">Modules, fs, http, streams, npm, Express et gestion des erreurs.</div>
-      <div class="card-tags">
-        <span class="tag">Modules</span>
-        <span class="tag">Streams</span>
-        <span class="tag">Express</span>
-      </div>
-    </div>
-
   </div>
+
+  <!-- ══ DEVOPS & INFRA ══ -->
+  <div class="domain-section" id="section-devops" data-section="devops">
+    <div class="domain-header" style="--domain-color:#a78bfa">
+      <div class="domain-icon">🚀</div>
+      <span class="domain-name">DevOps &amp; Infrastructure</span>
+      <span class="domain-desc">CI/CD, containers, systèmes</span>
+      <div class="domain-meta">
+        <span class="domain-available">2 disponibles</span>
+        <span class="domain-total">2 / 4</span>
+      </div>
+    </div>
+    <div class="grid">
+
+      <a href="cheatsheets/gitlab-cicd.html" class="card" style="--card-accent:#fc6d26; --card-icon-bg:rgba(252,109,38,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" alt="GitLab CI/CD"></div>
+          <span class="card-name">GitLab CI/CD</span>
+        </div>
+        <div class="card-desc">Pipelines, stages, rules, artifacts, cache, runners, security scans et bonnes pratiques.</div>
+        <div class="card-tags">
+          <span class="tag">Pipelines</span>
+          <span class="tag">DAG</span>
+          <span class="tag">GitLab 17.x</span>
+        </div>
+      </a>
+
+      <a href="cheatsheets/docker.html" class="card" style="--card-accent:#2496ed; --card-icon-bg:rgba(36,150,237,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"></div>
+          <span class="card-name">Docker</span>
+        </div>
+        <div class="card-desc">Images, containers, Dockerfile, volumes, réseaux, Compose et sécurité.</div>
+        <div class="card-tags">
+          <span class="tag">Images</span>
+          <span class="tag">Compose</span>
+          <span class="tag">Docker 26.x</span>
+        </div>
+      </a>
+
+      <div class="card soon" style="--card-icon-bg:rgba(251,146,60,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git"></div>
+          <span class="card-name">Git</span>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <div class="card-desc">Commits, branches, rebase, stash, remotes et workflows courants.</div>
+        <div class="card-tags">
+          <span class="tag">Branching</span>
+          <span class="tag">Rebase</span>
+          <span class="tag">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="card soon" style="--card-icon-bg:rgba(251,191,36,0.12);">
+        <div class="card-header">
+          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux"></div>
+          <span class="card-name">Linux / Bash</span>
+          <span class="badge-soon">Soon</span>
+        </div>
+        <div class="card-desc">Commandes essentielles, scripts, permissions, pipes et cron.</div>
+        <div class="card-tags">
+          <span class="tag">Shell</span>
+          <span class="tag">Scripts</span>
+          <span class="tag">Cron</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </main>
 
 <footer>
@@ -555,6 +726,7 @@ footer a:hover { text-decoration: underline; }
 </footer>
 
 <script>
+  /* ── Theme toggle ── */
   const btn = document.getElementById('btnTheme');
   const root = document.documentElement;
 
@@ -574,6 +746,25 @@ footer a:hover { text-decoration: underline; }
       btn.textContent = '☀️';
       localStorage.setItem('theme', 'light');
     }
+  });
+
+  /* ── Category filter ── */
+  const catBtns = document.querySelectorAll('.cat-btn');
+  const sections = document.querySelectorAll('.domain-section');
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      sections.forEach(sec => {
+        if (cat === 'all' || sec.dataset.section === cat) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    });
   });
 </script>
 </body>
