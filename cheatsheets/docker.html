@@ -278,16 +278,16 @@ td:first-child{font-weight:600;color:var(--accent2);font-family:'JetBrains Mono'
   <div class="code-block">
     <div class="code-header"><span>Terminal</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Lancer un serveur web Nginx en 1 commande</span>
-docker run -d -p 8080:80 --name mon-nginx nginx
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">-p</span> <span class="num">8080</span>:<span class="num">80</span> <span class="op">--name</span> <span class="tp">mon-nginx</span> <span class="str">nginx</span>
 
 <span class="cmt"># Ouvrir http://localhost:8080 dans votre navigateur → page Nginx !</span>
 
 <span class="cmt"># Voir les containers en cours</span>
-docker ps
+<span class="kw">docker</span> <span class="fn">ps</span>
 
 <span class="cmt"># Arrêter et supprimer</span>
-docker stop mon-nginx
-docker rm mon-nginx</code></pre>
+<span class="kw">docker</span> <span class="fn">stop</span> <span class="tp">mon-nginx</span>
+<span class="kw">docker</span> <span class="fn">rm</span> <span class="tp">mon-nginx</span></code></pre>
   </div>
 
   <div class="steps">
@@ -337,13 +337,13 @@ docker rm mon-nginx</code></pre>
   <div class="code-block">
     <div class="code-header"><span>Terminal</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Construire l'image (. = répertoire courant)</span>
-docker build -t mon-app:1.0 .
+<span class="kw">docker</span> <span class="fn">build</span> <span class="op">-t</span> <span class="str">mon-app:1.0</span> .
 
 <span class="cmt"># Lancer le container depuis l'image</span>
-docker run -d -p 3000:3000 --name mon-app mon-app:1.0
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">-p</span> <span class="num">3000</span>:<span class="num">3000</span> <span class="op">--name</span> <span class="tp">mon-app</span> <span class="str">mon-app:1.0</span>
 
 <span class="cmt"># Voir les logs</span>
-docker logs -f mon-app</code></pre>
+<span class="kw">docker</span> <span class="fn">logs</span> <span class="op">-f</span> <span class="tp">mon-app</span></code></pre>
   </div>
 
   <div class="steps">
@@ -488,22 +488,22 @@ README.md</code></pre>
   <div class="code-block">
     <div class="code-header"><span>Commandes de build avancées</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Build avec BuildKit (plus rapide, activé par défaut depuis Docker 23)</span>
-docker build -t monapp:1.0 .
+<span class="kw">docker</span> <span class="fn">build</span> <span class="op">-t</span> <span class="str">monapp:1.0</span> .
 
 <span class="cmt"># Build avec cache désactivé (forcer la reconstruction complète)</span>
-docker build --no-cache -t monapp:1.0 .
+<span class="kw">docker</span> <span class="fn">build</span> <span class="op">--no-cache</span> <span class="op">-t</span> <span class="str">monapp:1.0</span> .
 
 <span class="cmt"># Build depuis un Dockerfile non standard</span>
-docker build -f docker/Dockerfile.prod -t monapp:prod .
+<span class="kw">docker</span> <span class="fn">build</span> <span class="op">-f</span> <span class="str">docker/Dockerfile.prod</span> <span class="op">-t</span> <span class="str">monapp:prod</span> .
 
 <span class="cmt"># Build avec build arguments (variables passées au build)</span>
-docker build --build-arg NODE_ENV=production -t monapp:prod .
+<span class="kw">docker</span> <span class="fn">build</span> <span class="op">--build-arg</span> <span class="fn">NODE_ENV</span>=<span class="str">production</span> <span class="op">-t</span> <span class="str">monapp:prod</span> .
 
 <span class="cmt"># Build multi-platform (ex: x86 + ARM pour Apple Silicon)</span>
-docker buildx build --platform linux/amd64,linux/arm64 -t monapp:1.0 --push .
+<span class="kw">docker</span> <span class="fn">buildx</span> <span class="fn">build</span> <span class="op">--platform</span> <span class="str">linux/amd64,linux/arm64</span> <span class="op">-t</span> <span class="str">monapp:1.0</span> <span class="op">--push</span> .
 
 <span class="cmt"># Inspecter la taille de chaque layer</span>
-docker history --no-trunc monapp:1.0</code></pre>
+<span class="kw">docker</span> <span class="fn">history</span> <span class="op">--no-trunc</span> <span class="str">monapp:1.0</span></code></pre>
   </div>
 
   <div class="info-box info">
@@ -542,33 +542,33 @@ docker history --no-trunc monapp:1.0</code></pre>
 
   <div class="code-block">
     <div class="code-header"><span>Options docker run — référence complète</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
-    <pre><code>docker run \
-  -d \                          <span class="cmt"># mode détaché (background)</span>
-  --name mon-container \        <span class="cmt"># nom du container</span>
-  -p 8080:80 \                  <span class="cmt"># port hôte:port container</span>
-  -p 443:443 \                  <span class="cmt"># plusieurs ports possible</span>
-  -v mon-volume:/data \         <span class="cmt"># volume nommé</span>
-  -v $(pwd)/config:/app/config \<span class="cmt"># bind mount (chemin hôte:container)</span>
-  -e DATABASE_URL=postgres://…\ <span class="cmt"># variable d'environnement</span>
-  --env-file .env \             <span class="cmt"># charger un fichier .env</span>
-  --network mon-reseau \        <span class="cmt"># réseau Docker</span>
-  --restart unless-stopped \    <span class="cmt"># politique de redémarrage</span>
-  --memory 512m \               <span class="cmt"># limite RAM</span>
-  --cpus 1.5 \                  <span class="cmt"># limite CPU</span>
-  --rm \                        <span class="cmt"># supprimer le container à l'arrêt</span>
-  --user 1001:1001 \            <span class="cmt"># utilisateur non-root</span>
-  --read-only \                 <span class="cmt"># filesystem en lecture seule</span>
-  monimage:tag                  <span class="cmt"># image à utiliser</span>
+    <pre><code><span class="kw">docker</span> <span class="fn">run</span> \
+  <span class="op">-d</span> \                          <span class="cmt"># mode détaché (background)</span>
+  <span class="op">--name</span> <span class="tp">mon-container</span> \        <span class="cmt"># nom du container</span>
+  <span class="op">-p</span> <span class="num">8080</span>:<span class="num">80</span> \                  <span class="cmt"># port hôte:port container</span>
+  <span class="op">-p</span> <span class="num">443</span>:<span class="num">443</span> \                  <span class="cmt"># plusieurs ports possible</span>
+  <span class="op">-v</span> <span class="str">mon-volume:/data</span> \         <span class="cmt"># volume nommé</span>
+  <span class="op">-v</span> <span class="str">$(pwd)/config:/app/config</span> \<span class="cmt"># bind mount (chemin hôte:container)</span>
+  <span class="op">-e</span> <span class="fn">DATABASE_URL</span>=<span class="str">postgres://…</span>\ <span class="cmt"># variable d'environnement</span>
+  <span class="op">--env-file</span> <span class="str">.env</span> \             <span class="cmt"># charger un fichier .env</span>
+  <span class="op">--network</span> <span class="str">mon-reseau</span> \        <span class="cmt"># réseau Docker</span>
+  <span class="op">--restart</span> <span class="str">unless-stopped</span> \    <span class="cmt"># politique de redémarrage</span>
+  <span class="op">--memory</span> <span class="str">512m</span> \               <span class="cmt"># limite RAM</span>
+  <span class="op">--cpus</span> <span class="num">1.5</span> \                  <span class="cmt"># limite CPU</span>
+  <span class="op">--rm</span> \                        <span class="cmt"># supprimer le container à l'arrêt</span>
+  <span class="op">--user</span> <span class="num">1001</span>:<span class="num">1001</span> \            <span class="cmt"># utilisateur non-root</span>
+  <span class="op">--read-only</span> \                 <span class="cmt"># filesystem en lecture seule</span>
+  <span class="str">monimage:tag</span>                  <span class="cmt"># image à utiliser</span>
 
 <span class="cmt"># Entrer dans un container en cours</span>
-docker exec -it mon-container bash
-docker exec -it mon-container sh   <span class="cmt"># si bash absent (alpine)</span>
+<span class="kw">docker</span> <span class="fn">exec</span> <span class="op">-it</span> <span class="tp">mon-container</span> <span class="fn">bash</span>
+<span class="kw">docker</span> <span class="fn">exec</span> <span class="op">-it</span> <span class="tp">mon-container</span> <span class="fn">sh</span>   <span class="cmt"># si bash absent (alpine)</span>
 
 <span class="cmt"># Container interactif jetable</span>
-docker run --rm -it ubuntu:22.04 bash
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">--rm</span> <span class="op">-it</span> <span class="str">ubuntu:22.04</span> <span class="fn">bash</span>
 
 <span class="cmt"># Suivre les logs en live</span>
-docker logs -f --tail 100 mon-container</code></pre>
+<span class="kw">docker</span> <span class="fn">logs</span> <span class="op">-f</span> <span class="op">--tail</span> <span class="num">100</span> <span class="tp">mon-container</span></code></pre>
   </div>
 
   <div class="info-box warn">
@@ -766,13 +766,13 @@ docker logs -f --tail 100 mon-container</code></pre>
   <div class="code-block">
     <div class="code-header"><span>Cibler un stage spécifique</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Builder jusqu'au stage "production" uniquement</span>
-docker build --target production -t monapp:prod .
+<span class="kw">docker</span> <span class="fn">build</span> <span class="op">--target</span> <span class="str">production</span> <span class="op">-t</span> <span class="str">monapp:prod</span> .
 
 <span class="cmt"># Builder jusqu'au stage "test" (utile en CI)</span>
-docker build --target test -t monapp:test .
+<span class="kw">docker</span> <span class="fn">build</span> <span class="op">--target</span> <span class="str">test</span> <span class="op">-t</span> <span class="str">monapp:test</span> .
 
 <span class="cmt"># Le stage "test" peut être lancé pour valider</span>
-docker run --rm monapp:test</code></pre>
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">--rm</span> <span class="str">monapp:test</span></code></pre>
   </div>
 </section>
 
@@ -824,19 +824,19 @@ docker run --rm monapp:test</code></pre>
   <div class="code-block">
     <div class="code-header"><span>docker-entrypoint.sh + Dockerfile</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt">#!/bin/sh   # docker-entrypoint.sh</span>
-set -e
+<span class="kw">set</span> -e
 
 <span class="cmt"># Attendre que la base de données soit prête</span>
-until nc -z ${DB_HOST:-db} ${DB_PORT:-5432}; do
-  echo "Waiting for PostgreSQL..."
-  sleep 2
-done
+<span class="kw">until</span> nc -z <span class="op">${</span><span class="fn">DB_HOST</span><span class="op">:-</span>db<span class="op">}</span> <span class="op">${</span><span class="fn">DB_PORT</span><span class="op">:-</span><span class="num">5432</span><span class="op">}</span>; <span class="kw">do</span>
+  <span class="fn">echo</span> <span class="str">"Waiting for PostgreSQL..."</span>
+  <span class="fn">sleep</span> <span class="num">2</span>
+<span class="kw">done</span>
 
 <span class="cmt"># Lancer les migrations</span>
-node dist/migrate.js
+<span class="fn">node</span> dist/migrate.js
 
 <span class="cmt"># Lancer l'application avec les arguments passés à docker run</span>
-exec "$@"</code></pre>
+<span class="kw">exec</span> <span class="str">"$@"</span></code></pre>
   </div>
   <div class="code-block">
     <div class="code-header"><span>Dockerfile — utiliser le script</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
@@ -899,33 +899,33 @@ exec "$@"</code></pre>
   <div class="code-block">
     <div class="code-header"><span>Gestion des volumes</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># ─── Volumes nommés ──────────────────────────────────</span>
-docker volume create mon-volume
-docker volume ls
-docker volume inspect mon-volume
-docker volume rm mon-volume
-docker volume prune         <span class="cmt"># supprimer volumes non utilisés</span>
+<span class="kw">docker</span> <span class="fn">volume</span> <span class="fn">create</span> <span class="tp">mon-volume</span>
+<span class="kw">docker</span> <span class="fn">volume</span> <span class="fn">ls</span>
+<span class="kw">docker</span> <span class="fn">volume</span> <span class="fn">inspect</span> <span class="tp">mon-volume</span>
+<span class="kw">docker</span> <span class="fn">volume</span> <span class="fn">rm</span> <span class="tp">mon-volume</span>
+<span class="kw">docker</span> <span class="fn">volume</span> <span class="fn">prune</span>         <span class="cmt"># supprimer volumes non utilisés</span>
 
 <span class="cmt"># Monter un volume dans un container</span>
-docker run -d -v mon-volume:/data postgres:16-alpine
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">-v</span> <span class="str">mon-volume:/data</span> <span class="str">postgres:16-alpine</span>
 
 <span class="cmt"># ─── Bind mount (développement) ──────────────────────</span>
 <span class="cmt"># Code source monté en live → hot reload</span>
-docker run -d \
-  -v $(pwd)/src:/app/src \
-  -v $(pwd)/public:/app/public \
-  -p 3000:3000 monapp:dev
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> \
+  <span class="op">-v</span> <span class="str">$(pwd)/src:/app/src</span> \
+  <span class="op">-v</span> <span class="str">$(pwd)/public:/app/public</span> \
+  <span class="op">-p</span> <span class="num">3000</span>:<span class="num">3000</span> <span class="str">monapp:dev</span>
 
 <span class="cmt"># ─── Partager un volume entre containers ─────────────</span>
-docker run -d --name db -v pgdata:/var/lib/postgresql/data postgres:16
-docker run -d --name app -v pgdata:/backups:ro backup-tool
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">--name</span> <span class="tp">db</span> <span class="op">-v</span> <span class="str">pgdata:/var/lib/postgresql/data</span> <span class="str">postgres:16</span>
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">--name</span> <span class="tp">app</span> <span class="op">-v</span> <span class="str">pgdata:/backups:ro</span> <span class="str">backup-tool</span>
 
 <span class="cmt"># ─── Sauvegarder / restaurer un volume ───────────────</span>
 <span class="cmt"># Backup</span>
-docker run --rm -v mon-volume:/data -v $(pwd):/backup alpine \
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">--rm</span> <span class="op">-v</span> <span class="str">mon-volume:/data</span> <span class="op">-v</span> <span class="str">$(pwd):/backup</span> <span class="str">alpine</span> \
   tar czf /backup/mon-volume.tar.gz -C /data .
 
 <span class="cmt"># Restore</span>
-docker run --rm -v mon-volume:/data -v $(pwd):/backup alpine \
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">--rm</span> <span class="op">-v</span> <span class="str">mon-volume:/data</span> <span class="op">-v</span> <span class="str">$(pwd):/backup</span> <span class="str">alpine</span> \
   tar xzf /backup/mon-volume.tar.gz -C /data</code></pre>
   </div>
 
@@ -959,27 +959,27 @@ docker run --rm -v mon-volume:/data -v $(pwd):/backup alpine \
   <div class="code-block">
     <div class="code-header"><span>Gestion des réseaux</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Créer un réseau bridge personnalisé</span>
-docker network create mon-reseau
-docker network create --driver bridge --subnet 172.20.0.0/16 mon-reseau
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">create</span> <span class="tp">mon-reseau</span>
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">create</span> <span class="op">--driver</span> <span class="str">bridge</span> <span class="op">--subnet</span> <span class="str">172.20.0.0/16</span> <span class="tp">mon-reseau</span>
 
 <span class="cmt"># Lister les réseaux</span>
-docker network ls
-docker network inspect mon-reseau
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">ls</span>
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">inspect</span> <span class="tp">mon-reseau</span>
 
 <span class="cmt"># Connecter des containers au même réseau</span>
-docker run -d --name db --network mon-reseau postgres:16-alpine
-docker run -d --name app --network mon-reseau -p 3000:3000 monapp
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">--name</span> <span class="tp">db</span> <span class="op">--network</span> <span class="str">mon-reseau</span> <span class="str">postgres:16-alpine</span>
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">--name</span> <span class="tp">app</span> <span class="op">--network</span> <span class="str">mon-reseau</span> <span class="op">-p</span> <span class="num">3000</span>:<span class="num">3000</span> <span class="str">monapp</span>
 
 <span class="cmt"># Depuis "app", accéder à "db" par son nom (DNS automatique)</span>
 <span class="cmt"># DATABASE_URL=postgres://user:pass@db:5432/mydb  ← "db" résolu automatiquement !</span>
 
 <span class="cmt"># Connecter un container existant à un réseau</span>
-docker network connect mon-reseau mon-container
-docker network disconnect mon-reseau mon-container
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">connect</span> <span class="tp">mon-reseau</span> <span class="tp">mon-container</span>
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">disconnect</span> <span class="tp">mon-reseau</span> <span class="tp">mon-container</span>
 
 <span class="cmt"># Supprimer un réseau</span>
-docker network rm mon-reseau
-docker network prune   <span class="cmt"># supprimer réseaux non utilisés</span></code></pre>
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">rm</span> <span class="tp">mon-reseau</span>
+<span class="kw">docker</span> <span class="fn">network</span> <span class="fn">prune</span>   <span class="cmt"># supprimer réseaux non utilisés</span></code></pre>
   </div>
 
   <div class="info-box tip">
@@ -1006,79 +1006,79 @@ docker network prune   <span class="cmt"># supprimer réseaux non utilisés</spa
   <div class="code-block">
     <div class="code-header"><span>docker-compose.yml — Application Node.js + PostgreSQL + Redis</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Version de la syntaxe Compose</span>
-version: <span class="str">'3.9'</span>
+<span class="kw">version</span>: <span class="str">'3.9'</span>
 
-services:
+<span class="tp">services</span>:
   <span class="cmt"># ─── Application Node.js ─────────────────────────</span>
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: production          <span class="cmt"># stage multi-stage</span>
-    image: monapp:latest
-    container_name: monapp
-    restart: unless-stopped
-    ports:
+  <span class="fn">app</span>:
+    <span class="kw">build</span>:
+      <span class="kw">context</span>: .
+      <span class="kw">dockerfile</span>: <span class="str">Dockerfile</span>
+      <span class="kw">target</span>: <span class="str">production</span>          <span class="cmt"># stage multi-stage</span>
+    <span class="kw">image</span>: <span class="str">monapp:latest</span>
+    <span class="kw">container_name</span>: <span class="str">monapp</span>
+    <span class="kw">restart</span>: <span class="str">unless-stopped</span>
+    <span class="kw">ports</span>:
       - <span class="str">"3000:3000"</span>
-    environment:
-      NODE_ENV: production
-      DATABASE_URL: postgres://user:password@db:5432/mydb
-      REDIS_URL: redis://cache:6379
-    env_file:
-      - .env                      <span class="cmt"># variables depuis fichier</span>
-    depends_on:
-      db:
-        condition: service_healthy <span class="cmt"># attendre que db soit healthy</span>
-      cache:
-        condition: service_started
-    networks:
-      - backend
-    volumes:
-      - ./uploads:/app/uploads
-    healthcheck:
-      test: [<span class="str">"CMD"</span>, <span class="str">"wget"</span>, <span class="str">"-qO-"</span>, <span class="str">"http://localhost:3000/health"</span>]
-      interval: 30s
-      timeout: 5s
-      retries: 3
+    <span class="kw">environment</span>:
+      <span class="fn">NODE_ENV</span>: <span class="str">production</span>
+      <span class="fn">DATABASE_URL</span>: <span class="str">postgres://user:password@db:5432/mydb</span>
+      <span class="fn">REDIS_URL</span>: <span class="str">redis://cache:6379</span>
+    <span class="kw">env_file</span>:
+      - <span class="str">.env</span>                      <span class="cmt"># variables depuis fichier</span>
+    <span class="kw">depends_on</span>:
+      <span class="fn">db</span>:
+        <span class="kw">condition</span>: <span class="str">service_healthy</span> <span class="cmt"># attendre que db soit healthy</span>
+      <span class="fn">cache</span>:
+        <span class="kw">condition</span>: <span class="str">service_started</span>
+    <span class="kw">networks</span>:
+      - <span class="str">backend</span>
+    <span class="kw">volumes</span>:
+      - <span class="str">./uploads:/app/uploads</span>
+    <span class="kw">healthcheck</span>:
+      <span class="kw">test</span>: [<span class="str">"CMD"</span>, <span class="str">"wget"</span>, <span class="str">"-qO-"</span>, <span class="str">"http://localhost:3000/health"</span>]
+      <span class="kw">interval</span>: <span class="str">30s</span>
+      <span class="kw">timeout</span>: <span class="str">5s</span>
+      <span class="kw">retries</span>: <span class="num">3</span>
 
   <span class="cmt"># ─── Base de données PostgreSQL ───────────────────</span>
-  db:
-    image: postgres:16-alpine
-    container_name: postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - backend
-    healthcheck:
-      test: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U user -d mydb"</span>]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  <span class="fn">db</span>:
+    <span class="kw">image</span>: <span class="str">postgres:16-alpine</span>
+    <span class="kw">container_name</span>: <span class="str">postgres</span>
+    <span class="kw">restart</span>: <span class="str">unless-stopped</span>
+    <span class="kw">environment</span>:
+      <span class="fn">POSTGRES_USER</span>: <span class="str">user</span>
+      <span class="fn">POSTGRES_PASSWORD</span>: <span class="str">password</span>
+      <span class="fn">POSTGRES_DB</span>: <span class="str">mydb</span>
+    <span class="kw">volumes</span>:
+      - <span class="str">pgdata:/var/lib/postgresql/data</span>
+      - <span class="str">./db/init.sql:/docker-entrypoint-initdb.d/init.sql</span>
+    <span class="kw">networks</span>:
+      - <span class="str">backend</span>
+    <span class="kw">healthcheck</span>:
+      <span class="kw">test</span>: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U user -d mydb"</span>]
+      <span class="kw">interval</span>: <span class="str">10s</span>
+      <span class="kw">timeout</span>: <span class="str">5s</span>
+      <span class="kw">retries</span>: <span class="num">5</span>
 
   <span class="cmt"># ─── Cache Redis ──────────────────────────────────</span>
-  cache:
-    image: redis:7-alpine
-    container_name: redis
-    restart: unless-stopped
-    command: redis-server --appendonly yes --maxmemory 256mb
-    volumes:
-      - redisdata:/data
-    networks:
-      - backend
+  <span class="fn">cache</span>:
+    <span class="kw">image</span>: <span class="str">redis:7-alpine</span>
+    <span class="kw">container_name</span>: <span class="str">redis</span>
+    <span class="kw">restart</span>: <span class="str">unless-stopped</span>
+    <span class="kw">command</span>: <span class="str">redis-server --appendonly yes --maxmemory 256mb</span>
+    <span class="kw">volumes</span>:
+      - <span class="str">redisdata:/data</span>
+    <span class="kw">networks</span>:
+      - <span class="str">backend</span>
 
-networks:
-  backend:
-    driver: bridge
+<span class="tp">networks</span>:
+  <span class="fn">backend</span>:
+    <span class="kw">driver</span>: <span class="str">bridge</span>
 
-volumes:
-  pgdata:
-  redisdata:</code></pre>
+<span class="tp">volumes</span>:
+  <span class="fn">pgdata</span>:
+  <span class="fn">redisdata</span>:</code></pre>
   </div>
 
   <div class="table-wrap">
@@ -1123,55 +1123,55 @@ volumes:
 <span class="cmt"># docker-compose.prod.yml     ← production (spécifié manuellement)</span>
 
 <span class="cmt"># Développement (override automatique)</span>
-docker compose up
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">up</span>
 
 <span class="cmt"># Production</span>
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="op">-f</span> <span class="str">docker-compose.yml</span> <span class="op">-f</span> <span class="str">docker-compose.prod.yml</span> <span class="fn">up</span> <span class="op">-d</span>
 
 <span class="cmt"># CI/CD</span>
-docker compose -f docker-compose.yml -f docker-compose.ci.yml up --build --exit-code-from tests</code></pre>
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="op">-f</span> <span class="str">docker-compose.yml</span> <span class="op">-f</span> <span class="str">docker-compose.ci.yml</span> <span class="fn">up</span> <span class="op">--build</span> <span class="op">--exit-code-from</span> <span class="str">tests</span></code></pre>
   </div>
 
   <div class="code-block">
     <div class="code-header"><span>docker-compose.override.yml (développement)</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
-    <pre><code>version: <span class="str">'3.9'</span>
-services:
-  app:
-    build:
-      target: development        <span class="cmt"># stage dev du multi-stage</span>
-    volumes:
-      - .:/app                   <span class="cmt"># bind mount pour hot reload</span>
-      - /app/node_modules        <span class="cmt"># exclure node_modules du bind</span>
-    environment:
-      NODE_ENV: development
-      DEBUG: <span class="str">"app:*"</span>
-    ports:
+    <pre><code><span class="kw">version</span>: <span class="str">'3.9'</span>
+<span class="tp">services</span>:
+  <span class="fn">app</span>:
+    <span class="kw">build</span>:
+      <span class="kw">target</span>: <span class="str">development</span>        <span class="cmt"># stage dev du multi-stage</span>
+    <span class="kw">volumes</span>:
+      - <span class="str">.:/app</span>                   <span class="cmt"># bind mount pour hot reload</span>
+      - <span class="str">/app/node_modules</span>        <span class="cmt"># exclure node_modules du bind</span>
+    <span class="kw">environment</span>:
+      <span class="fn">NODE_ENV</span>: <span class="str">development</span>
+      <span class="fn">DEBUG</span>: <span class="str">"app:*"</span>
+    <span class="kw">ports</span>:
       - <span class="str">"9229:9229"</span>               <span class="cmt"># port debug Node.js</span>
-    command: npm run dev         <span class="cmt"># surcharger CMD du Dockerfile</span>
+    <span class="kw">command</span>: <span class="str">npm run dev</span>         <span class="cmt"># surcharger CMD du Dockerfile</span>
 
-  db:
-    ports:
+  <span class="fn">db</span>:
+    <span class="kw">ports</span>:
       - <span class="str">"5432:5432"</span>               <span class="cmt"># exposer PG en dev seulement</span></code></pre>
   </div>
 
   <div class="subsection-title">Profiles — services optionnels</div>
   <div class="code-block">
     <div class="code-header"><span>docker-compose.yml — profiles</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
-    <pre><code>services:
-  app:
-    image: monapp
+    <pre><code><span class="tp">services</span>:
+  <span class="fn">app</span>:
+    <span class="kw">image</span>: <span class="str">monapp</span>
     <span class="cmt"># pas de profile = toujours démarré</span>
 
-  adminer:
-    image: adminer
-    profiles: [<span class="str">"tools"</span>]           <span class="cmt"># démarré uniquement si profil activé</span>
-    ports:
+  <span class="fn">adminer</span>:
+    <span class="kw">image</span>: <span class="str">adminer</span>
+    <span class="kw">profiles</span>: [<span class="str">"tools"</span>]           <span class="cmt"># démarré uniquement si profil activé</span>
+    <span class="kw">ports</span>:
       - <span class="str">"8080:8080"</span>
 
-  mailhog:
-    image: mailhog/mailhog
-    profiles: [<span class="str">"tools"</span>, <span class="str">"dev"</span>]
-    ports:
+  <span class="fn">mailhog</span>:
+    <span class="kw">image</span>: <span class="str">mailhog/mailhog</span>
+    <span class="kw">profiles</span>: [<span class="str">"tools"</span>, <span class="str">"dev"</span>]
+    <span class="kw">ports</span>:
       - <span class="str">"1025:1025"</span>
       - <span class="str">"8025:8025"</span>
 
@@ -1184,29 +1184,29 @@ services:
   <div class="code-block">
     <div class="code-header"><span>Réutilisation YAML avec x-</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Définir des blocs réutilisables</span>
-x-common-env: &amp;common-env
-  NODE_ENV: production
-  TZ: Europe/Paris
-  LOG_LEVEL: info
+<span class="fn">x-common-env</span>: &amp;common-env
+  <span class="fn">NODE_ENV</span>: <span class="str">production</span>
+  <span class="fn">TZ</span>: <span class="str">Europe/Paris</span>
+  <span class="fn">LOG_LEVEL</span>: <span class="str">info</span>
 
-x-common-labels: &amp;common-labels
-  labels:
-    app: monapp
-    env: production
+<span class="fn">x-common-labels</span>: &amp;common-labels
+  <span class="kw">labels</span>:
+    <span class="fn">app</span>: <span class="str">monapp</span>
+    <span class="fn">env</span>: <span class="str">production</span>
 
-services:
-  api:
-    image: monapp-api
-    environment:
+<span class="tp">services</span>:
+  <span class="fn">api</span>:
+    <span class="kw">image</span>: <span class="str">monapp-api</span>
+    <span class="kw">environment</span>:
       &lt;&lt;: *common-env
-      PORT: <span class="num">3001</span>
+      <span class="fn">PORT</span>: <span class="num">3001</span>
     &lt;&lt;: *common-labels
 
-  worker:
-    image: monapp-worker
-    environment:
+  <span class="fn">worker</span>:
+    <span class="kw">image</span>: <span class="str">monapp-worker</span>
+    <span class="kw">environment</span>:
       &lt;&lt;: *common-env
-      WORKER_CONCURRENCY: <span class="num">4</span>
+      <span class="fn">WORKER_CONCURRENCY</span>: <span class="num">4</span>
     &lt;&lt;: *common-labels</code></pre>
   </div>
 
@@ -1214,21 +1214,21 @@ services:
   <div class="code-block">
     <div class="code-header"><span>Scaling</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Scaler un service à 3 instances</span>
-docker compose up -d --scale worker=3
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">up</span> <span class="op">-d</span> <span class="op">--scale</span> <span class="fn">worker</span>=<span class="num">3</span>
 
 <span class="cmt"># Dans le compose, déclarer le deploy (pour Swarm aussi)</span>
-services:
-  worker:
-    image: monapp-worker
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-        max_attempts: 3
-      resources:
-        limits:
-          cpus: <span class="str">'0.5'</span>
-          memory: 256M</code></pre>
+<span class="tp">services</span>:
+  <span class="fn">worker</span>:
+    <span class="kw">image</span>: <span class="str">monapp-worker</span>
+    <span class="kw">deploy</span>:
+      <span class="kw">replicas</span>: <span class="num">3</span>
+      <span class="kw">restart_policy</span>:
+        <span class="kw">condition</span>: <span class="str">on-failure</span>
+        <span class="kw">max_attempts</span>: <span class="num">3</span>
+      <span class="kw">resources</span>:
+        <span class="kw">limits</span>:
+          <span class="fn">cpus</span>: <span class="str">'0.5'</span>
+          <span class="fn">memory</span>: <span class="str">256M</span></code></pre>
   </div>
 </section>
 
@@ -1259,47 +1259,47 @@ services:
   <div class="code-block">
     <div class="code-header"><span>Workflow complet push / pull</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># ─── Docker Hub ──────────────────────────────────────</span>
-docker login                              <span class="cmt"># login interactif</span>
-docker login -u $USER -p $TOKEN           <span class="cmt"># login non-interactif (CI)</span>
+<span class="kw">docker</span> <span class="fn">login</span>                              <span class="cmt"># login interactif</span>
+<span class="kw">docker</span> <span class="fn">login</span> <span class="op">-u</span> <span class="fn">$USER</span> <span class="op">-p</span> <span class="fn">$TOKEN</span>           <span class="cmt"># login non-interactif (CI)</span>
 
-docker tag monapp:1.0 monuser/monapp:1.0
-docker push monuser/monapp:1.0
-docker pull monuser/monapp:1.0
+<span class="kw">docker</span> <span class="fn">tag</span> <span class="str">monapp:1.0</span> <span class="str">monuser/monapp:1.0</span>
+<span class="kw">docker</span> <span class="fn">push</span> <span class="str">monuser/monapp:1.0</span>
+<span class="kw">docker</span> <span class="fn">pull</span> <span class="str">monuser/monapp:1.0</span>
 
 <span class="cmt"># ─── GitHub Container Registry ───────────────────────</span>
-echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin
-docker tag monapp:1.0 ghcr.io/monorg/monapp:1.0
-docker push ghcr.io/monorg/monapp:1.0
+<span class="fn">echo</span> <span class="fn">$GITHUB_TOKEN</span> | <span class="kw">docker</span> <span class="fn">login</span> <span class="str">ghcr.io</span> <span class="op">-u</span> <span class="fn">$GITHUB_USER</span> <span class="op">--password-stdin</span>
+<span class="kw">docker</span> <span class="fn">tag</span> <span class="str">monapp:1.0</span> <span class="str">ghcr.io/monorg/monapp:1.0</span>
+<span class="kw">docker</span> <span class="fn">push</span> <span class="str">ghcr.io/monorg/monapp:1.0</span>
 
 <span class="cmt"># ─── AWS ECR ─────────────────────────────────────────</span>
-aws ecr get-login-password --region eu-west-1 | \
-  docker login --username AWS --password-stdin 123456789.dkr.ecr.eu-west-1.amazonaws.com
-docker tag monapp:1.0 123456789.dkr.ecr.eu-west-1.amazonaws.com/monapp:1.0
-docker push 123456789.dkr.ecr.eu-west-1.amazonaws.com/monapp:1.0
+aws ecr <span class="fn">get-login-password</span> <span class="op">--region</span> <span class="str">eu-west-1</span> | \
+  <span class="kw">docker</span> <span class="fn">login</span> <span class="op">--username</span> <span class="str">AWS</span> <span class="op">--password-stdin</span> <span class="str">123456789.dkr.ecr.eu-west-1.amazonaws.com</span>
+<span class="kw">docker</span> <span class="fn">tag</span> <span class="str">monapp:1.0</span> <span class="str">123456789.dkr.ecr.eu-west-1.amazonaws.com/monapp:1.0</span>
+<span class="kw">docker</span> <span class="fn">push</span> <span class="str">123456789.dkr.ecr.eu-west-1.amazonaws.com/monapp:1.0</span>
 
 <span class="cmt"># ─── Registry privé local (développement/CI) ─────────</span>
-docker run -d -p 5000:5000 --name registry registry:2
-docker tag monapp:1.0 localhost:5000/monapp:1.0
-docker push localhost:5000/monapp:1.0
-docker pull localhost:5000/monapp:1.0</code></pre>
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">-d</span> <span class="op">-p</span> <span class="num">5000</span>:<span class="num">5000</span> <span class="op">--name</span> <span class="tp">registry</span> <span class="str">registry:2</span>
+<span class="kw">docker</span> <span class="fn">tag</span> <span class="str">monapp:1.0</span> <span class="str">localhost:5000/monapp:1.0</span>
+<span class="kw">docker</span> <span class="fn">push</span> <span class="str">localhost:5000/monapp:1.0</span>
+<span class="kw">docker</span> <span class="fn">pull</span> <span class="str">localhost:5000/monapp:1.0</span></code></pre>
   </div>
 
   <div class="subsection-title">Bonnes pratiques de tagging</div>
   <div class="code-block">
     <div class="code-header"><span>Stratégie de tags</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># ✅ Tags recommandés par build</span>
-IMAGE=ghcr.io/monorg/monapp
-COMMIT=$(git rev-parse --short HEAD)
-VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "dev")
+<span class="fn">IMAGE</span>=<span class="str">ghcr.io/monorg/monapp</span>
+<span class="fn">COMMIT</span>=$(git rev-parse --short HEAD)
+<span class="fn">VERSION</span>=$(git describe --tags --abbrev=0 2>/dev/null || <span class="fn">echo</span> <span class="str">"dev"</span>)
 
-docker build \
-  -t $IMAGE:$VERSION \      <span class="cmt"># ex: v1.2.3</span>
-  -t $IMAGE:$COMMIT \       <span class="cmt"># ex: a1b2c3d (traçabilité)</span>
-  -t $IMAGE:latest \        <span class="cmt"># toujours pointer vers le dernier</span>
+<span class="kw">docker</span> <span class="fn">build</span> \
+  <span class="op">-t</span> <span class="fn">$IMAGE</span>:<span class="fn">$VERSION</span> \      <span class="cmt"># ex: v1.2.3</span>
+  <span class="op">-t</span> <span class="fn">$IMAGE</span>:<span class="fn">$COMMIT</span> \       <span class="cmt"># ex: a1b2c3d (traçabilité)</span>
+  <span class="op">-t</span> <span class="fn">$IMAGE</span>:<span class="str">latest</span> \        <span class="cmt"># toujours pointer vers le dernier</span>
   .
 
 <span class="cmt"># ✅ Immutable tags en production : utiliser le sha256 digest</span>
-docker pull monapp@sha256:abc123def456...
+<span class="kw">docker</span> <span class="fn">pull</span> monapp@sha256:<span class="str">abc123def456...</span>
 <span class="cmt"># Garantit qu'on lance exactement cette image, même si le tag change</span></code></pre>
   </div>
 </section>
@@ -1330,29 +1330,29 @@ docker pull monapp@sha256:abc123def456...
 
   <div class="code-block">
     <div class="code-header"><span>Secrets dans Docker Compose</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
-    <pre><code>version: <span class="str">'3.9'</span>
-services:
-  app:
-    image: monapp
-    secrets:
-      - db_password
-      - api_key
-    environment:
+    <pre><code><span class="kw">version</span>: <span class="str">'3.9'</span>
+<span class="tp">services</span>:
+  <span class="fn">app</span>:
+    <span class="kw">image</span>: <span class="str">monapp</span>
+    <span class="kw">secrets</span>:
+      - <span class="str">db_password</span>
+      - <span class="str">api_key</span>
+    <span class="kw">environment</span>:
       <span class="cmt"># L'app lit /run/secrets/db_password au runtime</span>
-      DB_PASSWORD_FILE: /run/secrets/db_password
+      <span class="fn">DB_PASSWORD_FILE</span>: <span class="str">/run/secrets/db_password</span>
 
-  db:
-    image: postgres:16-alpine
-    secrets:
-      - db_password
-    environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+  <span class="fn">db</span>:
+    <span class="kw">image</span>: <span class="str">postgres:16-alpine</span>
+    <span class="kw">secrets</span>:
+      - <span class="str">db_password</span>
+    <span class="kw">environment</span>:
+      <span class="fn">POSTGRES_PASSWORD_FILE</span>: <span class="str">/run/secrets/db_password</span>
 
-secrets:
-  db_password:
-    file: ./secrets/db_password.txt   <span class="cmt"># fichier local (dev)</span>
-  api_key:
-    external: true                     <span class="cmt"># secret Swarm externe (prod)</span></code></pre>
+<span class="tp">secrets</span>:
+  <span class="fn">db_password</span>:
+    <span class="kw">file</span>: <span class="str">./secrets/db_password.txt</span>   <span class="cmt"># fichier local (dev)</span>
+  <span class="fn">api_key</span>:
+    <span class="kw">external</span>: <span class="kw">true</span>                     <span class="cmt"># secret Swarm externe (prod)</span></code></pre>
   </div>
 
   <div class="code-block">
@@ -1389,27 +1389,27 @@ secrets:
   <div class="code-block">
     <div class="code-header"><span>Limites de ressources</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Limites via docker run</span>
-docker run \
-  --memory 512m \          <span class="cmt"># max RAM (aussi: 1g, 256m)</span>
-  --memory-swap 512m \     <span class="cmt"># =memory → désactive le swap</span>
-  --cpus 1.5 \             <span class="cmt"># max 1.5 cores</span>
-  --cpu-shares 512 \       <span class="cmt"># priorité relative (défaut 1024)</span>
-  monapp
+<span class="kw">docker</span> <span class="fn">run</span> \
+  <span class="op">--memory</span> <span class="str">512m</span> \          <span class="cmt"># max RAM (aussi: 1g, 256m)</span>
+  <span class="op">--memory-swap</span> <span class="str">512m</span> \     <span class="cmt"># =memory → désactive le swap</span>
+  <span class="op">--cpus</span> <span class="num">1.5</span> \             <span class="cmt"># max 1.5 cores</span>
+  <span class="op">--cpu-shares</span> <span class="num">512</span> \       <span class="cmt"># priorité relative (défaut 1024)</span>
+  <span class="str">monapp</span>
 
 <span class="cmt"># Vérifier en live</span>
-docker stats monapp
+<span class="kw">docker</span> <span class="fn">stats</span> <span class="tp">monapp</span>
 
 <span class="cmt"># Dans Compose</span>
-services:
-  app:
-    deploy:
-      resources:
-        limits:
-          cpus: <span class="str">'1.0'</span>
-          memory: 512M
-        reservations:
-          cpus: <span class="str">'0.25'</span>
-          memory: 128M</code></pre>
+<span class="tp">services</span>:
+  <span class="fn">app</span>:
+    <span class="kw">deploy</span>:
+      <span class="kw">resources</span>:
+        <span class="kw">limits</span>:
+          <span class="fn">cpus</span>: <span class="str">'1.0'</span>
+          <span class="fn">memory</span>: <span class="str">512M</span>
+        <span class="kw">reservations</span>:
+          <span class="fn">cpus</span>: <span class="str">'0.25'</span>
+          <span class="fn">memory</span>: <span class="str">128M</span></code></pre>
   </div>
 
   <div class="subsection-title">Checklist sécurité</div>
@@ -1433,38 +1433,38 @@ services:
 
   <div class="code-block">
     <div class="code-header"><span>Container hardened — exemple production</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
-    <pre><code>docker run \
-  --name monapp \
-  --user 1001:1001 \
-  --read-only \
-  --tmpfs /tmp:rw,noexec,nosuid,size=64m \
-  --cap-drop ALL \
-  --cap-add NET_BIND_SERVICE \
-  --security-opt no-new-privileges \
-  --security-opt seccomp=/etc/docker/seccomp.json \
-  --pids-limit 200 \
-  --memory 512m \
-  --memory-swap 512m \
-  --cpus 1.0 \
-  --network mon-reseau \
-  --restart unless-stopped \
-  -p 3000:3000 \
-  monapp:1.0</code></pre>
+    <pre><code><span class="kw">docker</span> <span class="fn">run</span> \
+  <span class="op">--name</span> <span class="tp">monapp</span> \
+  <span class="op">--user</span> <span class="num">1001</span>:<span class="num">1001</span> \
+  <span class="op">--read-only</span> \
+  <span class="op">--tmpfs</span> <span class="str">/tmp:rw,noexec,nosuid,size=64m</span> \
+  <span class="op">--cap-drop</span> <span class="str">ALL</span> \
+  <span class="op">--cap-add</span> <span class="str">NET_BIND_SERVICE</span> \
+  <span class="op">--security-opt</span> <span class="str">no-new-privileges</span> \
+  <span class="op">--security-opt</span> <span class="str">seccomp=/etc/docker/seccomp.json</span> \
+  <span class="op">--pids-limit</span> <span class="num">200</span> \
+  <span class="op">--memory</span> <span class="str">512m</span> \
+  <span class="op">--memory-swap</span> <span class="str">512m</span> \
+  <span class="op">--cpus</span> <span class="num">1.0</span> \
+  <span class="op">--network</span> <span class="str">mon-reseau</span> \
+  <span class="op">--restart</span> <span class="str">unless-stopped</span> \
+  <span class="op">-p</span> <span class="num">3000</span>:<span class="num">3000</span> \
+  <span class="str">monapp:1.0</span></code></pre>
   </div>
 
   <div class="code-block">
     <div class="code-header"><span>Scanner une image avec Trivy</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Installer Trivy (scanner de vulnérabilités open-source)</span>
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-  aquasec/trivy:latest image monapp:1.0
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">--rm</span> <span class="op">-v</span> <span class="str">/var/run/docker.sock:/var/run/docker.sock</span> \
+  <span class="str">aquasec/trivy:latest</span> image <span class="str">monapp:1.0</span>
 
 <span class="cmt"># Rapport en JSON</span>
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-  aquasec/trivy:latest image --format json monapp:1.0 > rapport.json
+<span class="kw">docker</span> <span class="fn">run</span> <span class="op">--rm</span> <span class="op">-v</span> <span class="str">/var/run/docker.sock:/var/run/docker.sock</span> \
+  <span class="str">aquasec/trivy:latest</span> image <span class="op">--format</span> <span class="str">json</span> <span class="str">monapp:1.0</span> &gt; rapport.json
 
 <span class="cmt"># Docker Scout (intégré dans Docker Desktop)</span>
-docker scout cves monapp:1.0
-docker scout recommendations monapp:1.0</code></pre>
+<span class="kw">docker</span> <span class="fn">scout</span> <span class="fn">cves</span> <span class="str">monapp:1.0</span>
+<span class="kw">docker</span> <span class="fn">scout</span> <span class="fn">recommendations</span> <span class="str">monapp:1.0</span></code></pre>
   </div>
 </section>
 
@@ -1550,123 +1550,123 @@ docker scout recommendations monapp:1.0</code></pre>
 
   <div class="code-block">
     <div class="code-header"><span>docker-compose.yml — base</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
-    <pre><code>version: <span class="str">'3.9'</span>
+    <pre><code><span class="kw">version</span>: <span class="str">'3.9'</span>
 
-services:
-  nginx:
-    image: nginx:1.25-alpine
-    ports:
+<span class="tp">services</span>:
+  <span class="fn">nginx</span>:
+    <span class="kw">image</span>: <span class="str">nginx:1.25-alpine</span>
+    <span class="kw">ports</span>:
       - <span class="str">"80:80"</span>
       - <span class="str">"443:443"</span>
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
-      - static_files:/app/public:ro
-    depends_on:
-      app:
-        condition: service_healthy
-    networks:
-      - frontend
-    restart: unless-stopped
+    <span class="kw">volumes</span>:
+      - <span class="str">./nginx/nginx.conf:/etc/nginx/nginx.conf:ro</span>
+      - <span class="str">./nginx/ssl:/etc/nginx/ssl:ro</span>
+      - <span class="str">static_files:/app/public:ro</span>
+    <span class="kw">depends_on</span>:
+      <span class="fn">app</span>:
+        <span class="kw">condition</span>: <span class="str">service_healthy</span>
+    <span class="kw">networks</span>:
+      - <span class="str">frontend</span>
+    <span class="kw">restart</span>: <span class="str">unless-stopped</span>
 
-  app:
-    build:
-      context: .
-      target: production
-    env_file: .env
-    environment:
-      DATABASE_URL: postgres://${DB_USER}:${DB_PASS}@db:5432/${DB_NAME}
-      REDIS_URL: redis://cache:6379
-    depends_on:
-      db:
-        condition: service_healthy
-      cache:
-        condition: service_started
-    networks:
-      - frontend
-      - backend
-    restart: unless-stopped
-    volumes:
-      - static_files:/app/public
+  <span class="fn">app</span>:
+    <span class="kw">build</span>:
+      <span class="kw">context</span>: .
+      <span class="kw">target</span>: <span class="str">production</span>
+    <span class="kw">env_file</span>: <span class="str">.env</span>
+    <span class="kw">environment</span>:
+      <span class="fn">DATABASE_URL</span>: <span class="str">postgres://${DB_USER}:${DB_PASS}@db:5432/${DB_NAME}</span>
+      <span class="fn">REDIS_URL</span>: <span class="str">redis://cache:6379</span>
+    <span class="kw">depends_on</span>:
+      <span class="fn">db</span>:
+        <span class="kw">condition</span>: <span class="str">service_healthy</span>
+      <span class="fn">cache</span>:
+        <span class="kw">condition</span>: <span class="str">service_started</span>
+    <span class="kw">networks</span>:
+      - <span class="str">frontend</span>
+      - <span class="str">backend</span>
+    <span class="kw">restart</span>: <span class="str">unless-stopped</span>
+    <span class="kw">volumes</span>:
+      - <span class="str">static_files:/app/public</span>
 
-  db:
-    image: postgres:16-alpine
-    env_file: .env
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_DB: ${DB_NAME}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
-    networks:
-      - backend
-    restart: unless-stopped
-    healthcheck:
-      test: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U ${DB_USER} -d ${DB_NAME}"</span>]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  <span class="fn">db</span>:
+    <span class="kw">image</span>: <span class="str">postgres:16-alpine</span>
+    <span class="kw">env_file</span>: <span class="str">.env</span>
+    <span class="kw">environment</span>:
+      <span class="fn">POSTGRES_USER</span>: <span class="op">${</span><span class="fn">DB_USER</span><span class="op">}</span>
+      <span class="fn">POSTGRES_PASSWORD</span>: <span class="op">${</span><span class="fn">DB_PASS</span><span class="op">}</span>
+      <span class="fn">POSTGRES_DB</span>: <span class="op">${</span><span class="fn">DB_NAME</span><span class="op">}</span>
+    <span class="kw">volumes</span>:
+      - <span class="str">pgdata:/var/lib/postgresql/data</span>
+      - <span class="str">./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro</span>
+    <span class="kw">networks</span>:
+      - <span class="str">backend</span>
+    <span class="kw">restart</span>: <span class="str">unless-stopped</span>
+    <span class="kw">healthcheck</span>:
+      <span class="kw">test</span>: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U ${DB_USER} -d ${DB_NAME}"</span>]
+      <span class="kw">interval</span>: <span class="str">10s</span>
+      <span class="kw">timeout</span>: <span class="str">5s</span>
+      <span class="kw">retries</span>: <span class="num">5</span>
 
-  cache:
-    image: redis:7-alpine
-    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
-    volumes:
-      - redisdata:/data
-    networks:
-      - backend
-    restart: unless-stopped
+  <span class="fn">cache</span>:
+    <span class="kw">image</span>: <span class="str">redis:7-alpine</span>
+    <span class="kw">command</span>: <span class="str">redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru</span>
+    <span class="kw">volumes</span>:
+      - <span class="str">redisdata:/data</span>
+    <span class="kw">networks</span>:
+      - <span class="str">backend</span>
+    <span class="kw">restart</span>: <span class="str">unless-stopped</span>
 
-networks:
-  frontend:
-    driver: bridge
-  backend:
-    driver: bridge
-    internal: true    <span class="cmt"># réseau interne, pas d'accès internet direct</span>
+<span class="tp">networks</span>:
+  <span class="fn">frontend</span>:
+    <span class="kw">driver</span>: <span class="str">bridge</span>
+  <span class="fn">backend</span>:
+    <span class="kw">driver</span>: <span class="str">bridge</span>
+    <span class="kw">internal</span>: <span class="kw">true</span>    <span class="cmt"># réseau interne, pas d'accès internet direct</span>
 
-volumes:
-  pgdata:
-  redisdata:
-  static_files:</code></pre>
+<span class="tp">volumes</span>:
+  <span class="fn">pgdata</span>:
+  <span class="fn">redisdata</span>:
+  <span class="fn">static_files</span>:</code></pre>
   </div>
 
   <div class="code-block">
     <div class="code-header"><span>nginx/nginx.conf</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
-    <pre><code>events { worker_connections 1024; }
+    <pre><code><span class="kw">events</span> { <span class="fn">worker_connections</span> <span class="num">1024</span>; }
 
-http {
-  upstream api {
-    server app:3000;          <span class="cmt"># résolution DNS Compose</span>
-    keepalive 32;
+<span class="kw">http</span> {
+  <span class="fn">upstream</span> <span class="tp">api</span> {
+    <span class="fn">server</span> <span class="str">app:3000</span>;          <span class="cmt"># résolution DNS Compose</span>
+    <span class="fn">keepalive</span> <span class="num">32</span>;
   }
 
   <span class="cmt"># Redirect HTTP → HTTPS</span>
-  server {
-    listen 80;
-    return 301 https://$host$request_uri;
+  <span class="kw">server</span> {
+    <span class="fn">listen</span> <span class="num">80</span>;
+    <span class="fn">return</span> <span class="num">301</span> <span class="str">https://$host$request_uri</span>;
   }
 
-  server {
-    listen 443 ssl http2;
-    ssl_certificate     /etc/nginx/ssl/cert.pem;
-    ssl_certificate_key /etc/nginx/ssl/key.pem;
-    ssl_protocols       TLSv1.2 TLSv1.3;
+  <span class="kw">server</span> {
+    <span class="fn">listen</span> <span class="num">443</span> ssl http2;
+    <span class="fn">ssl_certificate</span>     <span class="str">/etc/nginx/ssl/cert.pem</span>;
+    <span class="fn">ssl_certificate_key</span> <span class="str">/etc/nginx/ssl/key.pem</span>;
+    <span class="fn">ssl_protocols</span>       <span class="str">TLSv1.2 TLSv1.3</span>;
 
     <span class="cmt"># API proxy</span>
-    location /api/ {
-      proxy_pass         http://api;
-      proxy_set_header   Host $host;
-      proxy_set_header   X-Real-IP $remote_addr;
-      proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header   X-Forwarded-Proto $scheme;
+    <span class="kw">location</span> <span class="str">/api/</span> {
+      <span class="fn">proxy_pass</span>         <span class="str">http://api</span>;
+      <span class="fn">proxy_set_header</span>   Host <span class="op">$host</span>;
+      <span class="fn">proxy_set_header</span>   X-Real-IP <span class="op">$remote_addr</span>;
+      <span class="fn">proxy_set_header</span>   X-Forwarded-For <span class="op">$proxy_add_x_forwarded_for</span>;
+      <span class="fn">proxy_set_header</span>   X-Forwarded-Proto <span class="op">$scheme</span>;
     }
 
     <span class="cmt"># Fichiers statiques</span>
-    location / {
-      root  /app/public;
-      try_files $uri $uri/ /index.html;
-      gzip on;
-      expires 1d;
+    <span class="kw">location</span> <span class="str">/</span> {
+      <span class="fn">root</span>  <span class="str">/app/public</span>;
+      <span class="fn">try_files</span> <span class="op">$uri $uri/</span> <span class="str">/index.html</span>;
+      <span class="fn">gzip</span> <span class="kw">on</span>;
+      <span class="fn">expires</span> <span class="str">1d</span>;
     }
   }
 }</code></pre>
@@ -1675,38 +1675,38 @@ http {
   <div class="code-block">
     <div class="code-header"><span>.env.example</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Base de données</span>
-DB_USER=monapp
-DB_PASS=changeme
-DB_NAME=monapp_db
+<span class="fn">DB_USER</span>=<span class="str">monapp</span>
+<span class="fn">DB_PASS</span>=<span class="str">changeme</span>
+<span class="fn">DB_NAME</span>=<span class="str">monapp_db</span>
 
 <span class="cmt"># Application</span>
-NODE_ENV=production
-JWT_SECRET=changeme_secret_32chars_minimum
-SESSION_SECRET=changeme_session_secret
+<span class="fn">NODE_ENV</span>=<span class="str">production</span>
+<span class="fn">JWT_SECRET</span>=<span class="str">changeme_secret_32chars_minimum</span>
+<span class="fn">SESSION_SECRET</span>=<span class="str">changeme_session_secret</span>
 
 <span class="cmt"># Redis</span>
-REDIS_TTL=3600</code></pre>
+<span class="fn">REDIS_TTL</span>=<span class="num">3600</span></code></pre>
   </div>
 
   <div class="code-block">
     <div class="code-header"><span>Commandes de déploiement</span><button class="btn-copy" onclick="copyCode(this)">Copier</button></div>
     <pre><code><span class="cmt"># Premier déploiement</span>
-cp .env.example .env   <span class="cmt"># adapter les valeurs !</span>
-docker compose up -d --build
+<span class="fn">cp</span> .env.example .env   <span class="cmt"># adapter les valeurs !</span>
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">up</span> <span class="op">-d</span> <span class="op">--build</span>
 
 <span class="cmt"># Mise à jour sans downtime</span>
-docker compose pull app
-docker compose up -d --no-deps --build app
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">pull</span> <span class="tp">app</span>
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">up</span> <span class="op">-d</span> <span class="op">--no-deps</span> <span class="op">--build</span> <span class="tp">app</span>
 
 <span class="cmt"># Voir l'état de la stack</span>
-docker compose ps
-docker compose logs -f --tail 50
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">ps</span>
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">logs</span> <span class="op">-f</span> <span class="op">--tail</span> <span class="num">50</span>
 
 <span class="cmt"># Backup base de données</span>
-docker compose exec db pg_dump -U $DB_USER $DB_NAME > backup-$(date +%Y%m%d).sql
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">exec</span> <span class="tp">db</span> pg_dump <span class="op">-U</span> <span class="fn">$DB_USER</span> <span class="fn">$DB_NAME</span> &gt; backup-$(date +%Y%m%d).sql
 
 <span class="cmt"># Restaurer</span>
-docker compose exec -T db psql -U $DB_USER $DB_NAME < backup.sql</code></pre>
+<span class="kw">docker</span> <span class="fn">compose</span> <span class="fn">exec</span> <span class="op">-T</span> <span class="tp">db</span> psql <span class="op">-U</span> <span class="fn">$DB_USER</span> <span class="fn">$DB_NAME</span> &lt; backup.sql</code></pre>
   </div>
 </section>
 
