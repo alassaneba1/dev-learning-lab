@@ -1,1105 +1,2575 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dev Learning Lab — Cheatsheets</title>
-<meta name="description" content="Interactive cheatsheets for SQL, JavaScript, TypeScript and more — standalone HTML, no install needed.">
-<meta property="og:title" content="Dev Learning Lab — Cheatsheets">
-<meta property="og:description" content="Interactive cheatsheets for SQL, JavaScript, TypeScript and more — standalone HTML, no install needed.">
-<meta property="og:url" content="https://alassaneba1.github.io/dev-learning-lab">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Dev Learning Lab — Cheatsheets">
-<meta name="twitter:description" content="Interactive cheatsheets for SQL, JavaScript, TypeScript and more.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c0f1a'/><text x='3' y='23' font-family='monospace' font-weight='900' font-size='17' fill='%2360a5fa'>DL</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0c0f1a;
-  --bg2: #131729;
-  --bg3: #1a1f36;
-  --surface: #1e2340;
-  --border: #2a3050;
-  --text: #e2e8f0;
-  --text2: #94a3b8;
-  --text3: #64748b;
-  --accent: #60a5fa;
-  --accent2: #a78bfa;
-  --accent3: #34d399;
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
-  --radius: 12px;
-  --scrollbar-track: #131729;
-  --scrollbar-thumb: #2a3050;
-}
-[data-theme="light"] {
-  --bg: #f8fafc;
-  --bg2: #f1f5f9;
-  --bg3: #e2e8f0;
-  --surface: #ffffff;
-  --border: #d1d5db;
-  --text: #1e293b;
-  --text2: #475569;
-  --text3: #94a3b8;
-  --accent: #2563eb;
-  --accent2: #7c3aed;
-  --accent3: #059669;
-  --shadow: 0 4px 24px rgba(0,0,0,0.06);
-  --scrollbar-track: #f1f5f9;
-  --scrollbar-thumb: #cbd5e1;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  min-height: 100vh;
-  transition: background 0.35s, color 0.35s;
-}
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; font-src https://fonts.gstatic.com https://fonts.googleapis.com; img-src https://cdn.jsdelivr.net data: https://*.githubusercontent.com https://devicons.github.io; style-src https://fonts.googleapis.com 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+    <title>Dev Learning Lab — Cheatsheets</title>
+    <meta
+      name="description"
+      content="Interactive cheatsheets for SQL, JavaScript, TypeScript and more — standalone HTML, no install needed."
+    />
+    <meta property="og:title" content="Dev Learning Lab — Cheatsheets" />
+    <meta
+      property="og:description"
+      content="Interactive cheatsheets for SQL, JavaScript, TypeScript and more — standalone HTML, no install needed."
+    />
+    <meta
+      property="og:url"
+      content="https://alassaneba1.github.io/dev-learning-lab"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dev Learning Lab — Cheatsheets" />
+    <meta
+      name="twitter:description"
+      content="Interactive cheatsheets for SQL, JavaScript, TypeScript and more."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230c0f1a'/><text x='3' y='23' font-family='monospace' font-weight='900' font-size='17' fill='%2360a5fa'>DL</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c0f1a;
+        --bg2: #131729;
+        --bg3: #1a1f36;
+        --surface: #1e2340;
+        --border: #2a3050;
+        --text: #e2e8f0;
+        --text2: #94a3b8;
+        --text3: #64748b;
+        --accent: #60a5fa;
+        --accent2: #a78bfa;
+        --accent3: #34d399;
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        --radius: 12px;
+        --scrollbar-track: #131729;
+        --scrollbar-thumb: #2a3050;
+      }
+      [data-theme="light"] {
+        --bg: #f8fafc;
+        --bg2: #f1f5f9;
+        --bg3: #e2e8f0;
+        --surface: #ffffff;
+        --border: #d1d5db;
+        --text: #1e293b;
+        --text2: #475569;
+        --text3: #94a3b8;
+        --accent: #2563eb;
+        --accent2: #7c3aed;
+        --accent3: #059669;
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        --scrollbar-track: #f1f5f9;
+        --scrollbar-thumb: #cbd5e1;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+      body {
+        font-family: "Outfit", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        min-height: 100vh;
+        transition:
+          background 0.35s,
+          color 0.35s;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb);
+        border-radius: 4px;
+      }
 
-/* HEADER */
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 12px 24px;
-  display: flex; align-items: center; gap: 16px;
-  transition: background 0.35s, border-color 0.35s;
-}
-.header-title {
-  font-weight: 800; font-size: 1.25rem; letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.header-tag {
-  font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
-  color: var(--accent3); border: 1px solid var(--accent3); border-radius: 999px; padding: 2px 10px;
-}
-.header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.btn-icon {
-  width: 38px; height: 38px; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--bg2); color: var(--text2);
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 1.05rem; transition: background 0.2s, border-color 0.2s, color 0.2s;
-  flex-shrink: 0; text-decoration: none;
-}
-.btn-icon:hover { background: var(--bg3); border-color: var(--accent); color: var(--accent); }
+      /* HEADER */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition:
+          background 0.35s,
+          border-color 0.35s;
+      }
+      .header-title {
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .header-tag {
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--accent3);
+        border: 1px solid var(--accent3);
+        border-radius: 999px;
+        padding: 2px 10px;
+      }
+      .header-actions {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--bg2);
+        color: var(--text2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.05rem;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+        flex-shrink: 0;
+        text-decoration: none;
+      }
+      .btn-icon:hover {
+        background: var(--bg3);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
 
-/* HERO */
-.hero { text-align: center; padding: 80px 24px 48px; }
-.hero-label {
-  display: inline-block; font-size: 0.7rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 2px;
-  color: var(--accent3); border: 1px solid var(--accent3);
-  border-radius: 999px; padding: 4px 14px; margin-bottom: 24px;
-}
-.hero h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800;
-  letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;
-  background: linear-gradient(270deg, var(--accent), var(--accent2), #f472b6, var(--accent));
-  background-size: 300% 300%;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  animation: gradientShift 6s ease infinite;
-}
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.hero p { color: var(--text2); font-size: 1.05rem; max-width: 520px; margin: 0 auto 32px; }
-.stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
-.stat { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text3); }
-.stat-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); flex-shrink: 0; }
+      /* HERO */
+      .hero {
+        text-align: center;
+        padding: 80px 24px 48px;
+      }
+      .hero-label {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent3);
+        border: 1px solid var(--accent3);
+        border-radius: 999px;
+        padding: 4px 14px;
+        margin-bottom: 24px;
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -1px;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        background: linear-gradient(
+          270deg,
+          var(--accent),
+          var(--accent2),
+          #f472b6,
+          var(--accent)
+        );
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 6s ease infinite;
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      .hero p {
+        color: var(--text2);
+        font-size: 1.05rem;
+        max-width: 520px;
+        margin: 0 auto 32px;
+      }
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: var(--text3);
+      }
+      .stat-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent3);
+        flex-shrink: 0;
+      }
 
-/* SECTION */
-.section { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
+      /* SECTION */
+      .section {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 24px 80px;
+      }
 
-/* CATEGORY FILTER NAV */
-.cat-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; }
-.cat-btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 8px 16px; border-radius: 999px;
-  border: 1px solid var(--border); background: var(--bg2); color: var(--text2);
-  font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 500;
-  cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
-  white-space: nowrap;
-}
-.cat-btn:hover { border-color: var(--cat-color, var(--accent)); color: var(--cat-color, var(--accent)); background: var(--bg3); }
-.cat-btn.active {
-  background: var(--cat-color, var(--accent)); border-color: var(--cat-color, var(--accent)); color: #fff;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cat-color, var(--accent)) 20%, transparent);
-}
-.cat-btn .cat-emoji { font-size: 0.85rem; line-height: 1; }
-.cat-count {
-  font-size: 0.65rem; font-family: 'JetBrains Mono', monospace; font-weight: 600;
-  padding: 1px 7px; border-radius: 999px;
-  background: rgba(255,255,255,0.18); line-height: 1.6;
-}
-.cat-btn:not(.active) .cat-count { background: var(--bg3); color: var(--text3); }
+      /* CATEGORY FILTER NAV */
+      .cat-nav {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 48px;
+      }
+      .cat-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--bg2);
+        color: var(--text2);
+        font-family: "Outfit", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s,
+          box-shadow 0.2s;
+        white-space: nowrap;
+      }
+      .cat-btn:hover {
+        border-color: var(--cat-color, var(--accent));
+        color: var(--cat-color, var(--accent));
+        background: var(--bg3);
+      }
+      .cat-btn.active {
+        background: var(--cat-color, var(--accent));
+        border-color: var(--cat-color, var(--accent));
+        color: #fff;
+        box-shadow: 0 0 0 3px
+          color-mix(in srgb, var(--cat-color, var(--accent)) 20%, transparent);
+      }
+      .cat-btn .cat-emoji {
+        font-size: 0.85rem;
+        line-height: 1;
+      }
+      .cat-count {
+        font-size: 0.65rem;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        padding: 1px 7px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+        line-height: 1.6;
+      }
+      .cat-btn:not(.active) .cat-count {
+        background: var(--bg3);
+        color: var(--text3);
+      }
 
-/* DOMAIN SECTIONS */
-.domain-section { margin-bottom: 56px; }
-.domain-section.hidden { display: none; }
-.domain-header {
-  display: flex; align-items: center; gap: 12px;
-  padding-bottom: 16px; margin-bottom: 20px;
-  border-bottom: 1px solid var(--border); position: relative;
-}
-.domain-header::after {
-  content: ''; position: absolute; bottom: -1px; left: 0;
-  width: 48px; height: 2px;
-  background: var(--domain-color, var(--accent)); border-radius: 2px;
-}
-.domain-icon {
-  width: 34px; height: 34px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center; font-size: 1rem;
-  flex-shrink: 0;
-  background: color-mix(in srgb, var(--domain-color, var(--accent)) 12%, transparent);
-}
-.domain-name {
-  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px;
-  color: var(--domain-color, var(--accent));
-}
-.domain-desc { font-size: 0.8rem; color: var(--text3); margin-left: 4px; }
-.domain-meta { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-.domain-available {
-  font-size: 0.65rem; font-family: 'JetBrains Mono', monospace; font-weight: 600;
-  color: var(--domain-color, var(--accent));
-  background: color-mix(in srgb, var(--domain-color, var(--accent)) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--domain-color, var(--accent)) 30%, transparent);
-  border-radius: 999px; padding: 2px 10px;
-}
-.domain-total {
-  font-size: 0.65rem; font-family: 'JetBrains Mono', monospace;
-  color: var(--text3); background: var(--bg3);
-  border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px;
-}
+      /* DOMAIN SECTIONS */
+      .domain-section {
+        margin-bottom: 56px;
+      }
+      .domain-section.hidden {
+        display: none;
+      }
+      .domain-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 16px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+      }
+      .domain-header::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 48px;
+        height: 2px;
+        background: var(--domain-color, var(--accent));
+        border-radius: 2px;
+      }
+      .domain-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        flex-shrink: 0;
+        background: color-mix(
+          in srgb,
+          var(--domain-color, var(--accent)) 12%,
+          transparent
+        );
+      }
+      .domain-name {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--domain-color, var(--accent));
+      }
+      .domain-desc {
+        font-size: 0.8rem;
+        color: var(--text3);
+        margin-left: 4px;
+      }
+      .domain-meta {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .domain-available {
+        font-size: 0.65rem;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        color: var(--domain-color, var(--accent));
+        background: color-mix(
+          in srgb,
+          var(--domain-color, var(--accent)) 10%,
+          transparent
+        );
+        border: 1px solid
+          color-mix(
+            in srgb,
+            var(--domain-color, var(--accent)) 30%,
+            transparent
+          );
+        border-radius: 999px;
+        padding: 2px 10px;
+      }
+      .domain-total {
+        font-size: 0.65rem;
+        font-family: "JetBrains Mono", monospace;
+        color: var(--text3);
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 2px 10px;
+      }
 
-/* GRID */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 16px; }
+      /* GRID */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+        gap: 16px;
+      }
 
-/* CARD */
-.card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 24px; text-decoration: none; color: inherit;
-  display: flex; flex-direction: column; gap: 12px;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-}
-a.card:hover {
-  border-color: var(--card-accent, var(--accent));
-  box-shadow: 0 0 0 1px var(--card-accent, var(--accent)), var(--shadow);
-  transform: translateY(-2px);
-}
-.card-header { display: flex; align-items: center; gap: 12px; }
-.card-icon {
-  width: 44px; height: 44px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem; flex-shrink: 0;
-  background: var(--card-icon-bg, rgba(96,165,250,0.12));
-}
-.card-icon img { width: 26px; height: 26px; object-fit: contain; }
-.card-icon svg { width: 26px; height: 26px; }
-.card-name { font-size: 1.05rem; font-weight: 700; }
-.card-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.5; }
-.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
-.tag {
-  font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
-  padding: 3px 9px; border-radius: 999px;
-  border: 1px solid var(--border); color: var(--text3);
-  font-family: 'JetBrains Mono', monospace;
-}
-.card.soon { opacity: 0.45; pointer-events: none; }
-.badge-soon {
-  font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-  background: var(--bg3); color: var(--text3);
-  border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; margin-left: auto;
-}
+      /* CARD */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s,
+          transform 0.2s;
+      }
+      a.card:hover {
+        border-color: var(--card-accent, var(--accent));
+        box-shadow:
+          0 0 0 1px var(--card-accent, var(--accent)),
+          var(--shadow);
+        transform: translateY(-2px);
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+        background: var(--card-icon-bg, rgba(96, 165, 250, 0.12));
+      }
+      .card-icon img {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+      }
+      .card-icon svg {
+        width: 26px;
+        height: 26px;
+      }
+      .card-name {
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+      .card-desc {
+        font-size: 0.88rem;
+        color: var(--text2);
+        line-height: 1.5;
+      }
+      .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: auto;
+        padding-top: 4px;
+      }
+      .tag {
+        font-size: 0.62rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+      }
+      .card.soon {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+      .badge-soon {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: var(--bg3);
+        color: var(--text3);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 2px 8px;
+        margin-left: auto;
+      }
 
-/* FOOTER */
-footer { border-top: 1px solid var(--border); padding: 40px 24px 32px; margin-top: 16px; }
-.footer-inner {
-  max-width: 960px; margin: 0 auto;
-  display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
-}
-.footer-brand { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 180px; }
-.footer-logo-wrap {
-  width: 38px; height: 38px; border-radius: 9px;
-  background: var(--bg3); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.footer-brand-name {
-  font-size: 0.92rem; font-weight: 700;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  line-height: 1.2;
-}
-.footer-brand-sub { font-size: 0.72rem; color: var(--text3); margin-top: 3px; }
-.footer-nav { display: flex; align-items: center; gap: 4px; }
-.footer-nav-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 14px; border-radius: 8px;
-  font-size: 0.8rem; font-weight: 500; color: var(--text2);
-  text-decoration: none; transition: background 0.2s, color 0.2s;
-}
-.footer-nav-link:hover { background: var(--bg3); color: var(--text); }
-.footer-nav-link svg { flex-shrink: 0; opacity: 0.7; }
-.footer-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
-.footer-right { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-.footer-badge {
-  font-size: 0.62rem; font-weight: 600; font-family: 'JetBrains Mono', monospace;
-  text-transform: uppercase; letter-spacing: 1px;
-  color: var(--text3); border: 1px solid var(--border);
-  border-radius: 6px; padding: 3px 8px; background: var(--bg2);
-}
-.footer-copy { font-size: 0.72rem; color: var(--text3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 40px 24px 32px;
+        margin-top: 16px;
+      }
+      .footer-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+        min-width: 180px;
+      }
+      .footer-logo-wrap {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .footer-brand-name {
+        font-size: 0.92rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+      }
+      .footer-brand-sub {
+        font-size: 0.72rem;
+        color: var(--text3);
+        margin-top: 3px;
+      }
+      .footer-nav {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .footer-nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text2);
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .footer-nav-link:hover {
+        background: var(--bg3);
+        color: var(--text);
+      }
+      .footer-nav-link svg {
+        flex-shrink: 0;
+        opacity: 0.7;
+      }
+      .footer-sep {
+        width: 1px;
+        height: 20px;
+        background: var(--border);
+        margin: 0 4px;
+      }
+      .footer-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: auto;
+      }
+      .footer-badge {
+        font-size: 0.62rem;
+        font-weight: 600;
+        font-family: "JetBrains Mono", monospace;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text3);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 3px 8px;
+        background: var(--bg2);
+      }
+      .footer-copy {
+        font-size: 0.72rem;
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+        white-space: nowrap;
+      }
 
-@media (max-width: 640px) {
-  .hero { padding: 48px 16px 32px; }
-  .hero p { font-size: .95rem; }
-  .stats { gap: 12px; flex-direction: column; align-items: center; }
-  .section { padding: 0 16px 60px; }
-  .grid { grid-template-columns: 1fr; }
-  .header { padding: 10px 16px; gap: 10px; }
-  .header-tag { display: none; }
-  .cat-nav { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 6px; scrollbar-width: none; }
-  .cat-nav::-webkit-scrollbar { display: none; }
-  .cat-btn { flex-shrink: 0; padding: 7px 13px; font-size: 0.78rem; }
-  .domain-desc { display: none; }
-  .footer-inner { gap: 20px; }
-  .footer-right { margin-left: 0; }
-  .footer-sep { display: none; }
-  .footer-nav-link span { display: none; }
-  .footer-nav-link { padding: 7px 10px; }
-}
-@media (max-width: 400px) {
-  .header-title { font-size: 1rem; }
-  .hero h1 { font-size: 1.8rem; }
-  .btn-icon { width: 32px; height: 32px; font-size: .95rem; }
-  .card { padding: 18px; }
-}
-</style>
-</head>
-<body>
-
-<header class="header">
-  <span class="header-title">Dev Learning Lab</span>
-  <span class="header-tag">Cheatsheets</span>
-  <div class="header-actions">
-    <a href="https://github.com/alassaneba1/dev-learning-lab" target="_blank" rel="noopener" class="btn-icon" title="GitHub" aria-label="GitHub">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-    </a>
-    <button class="btn-icon" id="btnTheme" title="Toggle theme" aria-label="Toggle theme">🌙</button>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="hero-label">Open Source · Gratuit</div>
-  <h1>Learn by Reference</h1>
-  <p>Des cheatsheets interactives pour maîtriser les technos essentielles — sans installation, directement dans le navigateur.</p>
-  <div class="stats">
-    <div class="stat"><span class="stat-dot"></span>6 cheatsheets disponibles</div>
-    <div class="stat"><span class="stat-dot"></span>8 domaines IT</div>
-    <div class="stat"><span class="stat-dot"></span>56 technos planifiées</div>
-    <div class="stat"><span class="stat-dot"></span>Dark &amp; Light mode</div>
-  </div>
-</section>
-
-<main class="section">
-
-  <!-- ── FILTER NAV ── -->
-  <nav class="cat-nav" aria-label="Filtrer par domaine">
-    <button class="cat-btn active" data-cat="all" style="--cat-color:#60a5fa">
-      <span>Tout</span><span class="cat-count">56</span>
-    </button>
-    <button class="cat-btn" data-cat="db" style="--cat-color:#60a5fa">
-      <span class="cat-emoji">🗄️</span><span>Base de données</span><span class="cat-count">8</span>
-    </button>
-    <button class="cat-btn" data-cat="frontend" style="--cat-color:#f472b6">
-      <span class="cat-emoji">🌐</span><span>Frontend</span><span class="cat-count">8</span>
-    </button>
-    <button class="cat-btn" data-cat="backend" style="--cat-color:#34d399">
-      <span class="cat-emoji">⚙️</span><span>Backend</span><span class="cat-count">7</span>
-    </button>
-    <button class="cat-btn" data-cat="devops" style="--cat-color:#a78bfa">
-      <span class="cat-emoji">🚀</span><span>DevOps &amp; CI/CD</span><span class="cat-count">12</span>
-    </button>
-    <button class="cat-btn" data-cat="cloud" style="--cat-color:#38bdf8">
-      <span class="cat-emoji">☁️</span><span>Cloud</span><span class="cat-count">5</span>
-    </button>
-    <button class="cat-btn" data-cat="data" style="--cat-color:#fb923c">
-      <span class="cat-emoji">📊</span><span>Data &amp; IA</span><span class="cat-count">6</span>
-    </button>
-    <button class="cat-btn" data-cat="security" style="--cat-color:#f87171">
-      <span class="cat-emoji">🔒</span><span>Sécurité</span><span class="cat-count">5</span>
-    </button>
-    <button class="cat-btn" data-cat="testing" style="--cat-color:#4ade80">
-      <span class="cat-emoji">🧪</span><span>Tests &amp; Qualité</span><span class="cat-count">5</span>
-    </button>
-  </nav>
-
-  <!-- ══ BASE DE DONNÉES ══ -->
-  <div class="domain-section" id="section-db" data-section="db">
-    <div class="domain-header" style="--domain-color:#60a5fa">
-      <div class="domain-icon">🗄️</div>
-      <span class="domain-name">Base de données</span>
-      <span class="domain-desc">Requêtes, modélisation, optimisation</span>
-      <div class="domain-meta">
-        <span class="domain-available">2 disponibles</span>
-        <span class="domain-total">2 / 8</span>
+      @media (max-width: 640px) {
+        .hero {
+          padding: 48px 16px 32px;
+        }
+        .hero p {
+          font-size: 0.95rem;
+        }
+        .stats {
+          gap: 12px;
+          flex-direction: column;
+          align-items: center;
+        }
+        .section {
+          padding: 0 16px 60px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .header {
+          padding: 10px 16px;
+          gap: 10px;
+        }
+        .header-tag {
+          display: none;
+        }
+        .cat-nav {
+          overflow-x: auto;
+          flex-wrap: nowrap;
+          padding-bottom: 6px;
+          scrollbar-width: none;
+        }
+        .cat-nav::-webkit-scrollbar {
+          display: none;
+        }
+        .cat-btn {
+          flex-shrink: 0;
+          padding: 7px 13px;
+          font-size: 0.78rem;
+        }
+        .domain-desc {
+          display: none;
+        }
+        .footer-inner {
+          gap: 20px;
+        }
+        .footer-right {
+          margin-left: 0;
+        }
+        .footer-sep {
+          display: none;
+        }
+        .footer-nav-link span {
+          display: none;
+        }
+        .footer-nav-link {
+          padding: 7px 10px;
+        }
+      }
+      @media (max-width: 400px) {
+        .header-title {
+          font-size: 1rem;
+        }
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+        .btn-icon {
+          width: 32px;
+          height: 32px;
+          font-size: 0.95rem;
+        }
+        .card {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <span class="header-title">Dev Learning Lab</span>
+      <span class="header-tag">Cheatsheets</span>
+      <div class="header-actions">
+        <a
+          href="https://github.com/alassaneba1/dev-learning-lab"
+          target="_blank"
+          rel="noopener"
+          class="btn-icon"
+          title="GitHub"
+          aria-label="GitHub"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+            />
+          </svg>
+        </a>
+        <button
+          class="btn-icon"
+          id="btnTheme"
+          title="Toggle theme"
+          aria-label="Toggle theme"
+        >
+          🌙
+        </button>
       </div>
-    </div>
-    <div class="grid">
+    </header>
 
-      <a href="cheatsheets/sql.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 6v4c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 10v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/><path d="M4 14v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4" stroke="#60a5fa" stroke-width="1.8"/></svg></div>
-          <span class="card-name">SQL</span>
+    <section class="hero">
+      <div class="hero-label">Open Source · Gratuit</div>
+      <h1>Learn by Reference</h1>
+      <p>
+        Des cheatsheets interactives pour maîtriser les technos essentielles —
+        sans installation, directement dans le navigateur.
+      </p>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-dot"></span>6 cheatsheets disponibles
         </div>
-        <div class="card-desc">SELECT, JOIN, GROUP BY, sous-requêtes, fonctions fenêtre, index et bien plus.</div>
-        <div class="card-tags"><span class="tag">DDL</span><span class="tag">DML</span><span class="tag">Window Fn</span><span class="tag">Index</span></div>
-      </a>
+        <div class="stat"><span class="stat-dot"></span>8 domaines IT</div>
+        <div class="stat">
+          <span class="stat-dot"></span>56 technos planifiées
+        </div>
+        <div class="stat">
+          <span class="stat-dot"></span>Dark &amp; Light mode
+        </div>
+      </div>
+    </section>
 
-      <a href="cheatsheets/oracle-plsql.html" class="card" style="--card-accent:#e11d48; --card-icon-bg:rgba(225,29,72,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" alt="Oracle PL/SQL"></div>
-          <span class="card-name">Oracle PL/SQL</span>
-        </div>
-        <div class="card-desc">Blocs PL/SQL, curseurs, exceptions, packages, triggers et optimisation Oracle.</div>
-        <div class="card-tags"><span class="tag">PL/SQL</span><span class="tag">Triggers</span><span class="tag">Oracle 23ai</span></div>
-      </a>
+    <main class="section">
+      <!-- ── FILTER NAV ── -->
+      <nav class="cat-nav" aria-label="Filtrer par domaine">
+        <button
+          class="cat-btn active"
+          data-cat="all"
+          style="--cat-color: #60a5fa"
+        >
+          <span>Tout</span><span class="cat-count">56</span>
+        </button>
+        <button class="cat-btn" data-cat="db" style="--cat-color: #60a5fa">
+          <span class="cat-emoji">🗄️</span><span>Base de données</span
+          ><span class="cat-count">8</span>
+        </button>
+        <button
+          class="cat-btn"
+          data-cat="frontend"
+          style="--cat-color: #f472b6"
+        >
+          <span class="cat-emoji">🌐</span><span>Frontend</span
+          ><span class="cat-count">8</span>
+        </button>
+        <button class="cat-btn" data-cat="backend" style="--cat-color: #34d399">
+          <span class="cat-emoji">⚙️</span><span>Backend</span
+          ><span class="cat-count">7</span>
+        </button>
+        <button class="cat-btn" data-cat="devops" style="--cat-color: #a78bfa">
+          <span class="cat-emoji">🚀</span><span>DevOps &amp; CI/CD</span
+          ><span class="cat-count">12</span>
+        </button>
+        <button class="cat-btn" data-cat="cloud" style="--cat-color: #38bdf8">
+          <span class="cat-emoji">☁️</span><span>Cloud</span
+          ><span class="cat-count">5</span>
+        </button>
+        <button class="cat-btn" data-cat="data" style="--cat-color: #fb923c">
+          <span class="cat-emoji">📊</span><span>Data &amp; IA</span
+          ><span class="cat-count">6</span>
+        </button>
+        <button
+          class="cat-btn"
+          data-cat="security"
+          style="--cat-color: #f87171"
+        >
+          <span class="cat-emoji">🔒</span><span>Sécurité</span
+          ><span class="cat-count">5</span>
+        </button>
+        <button class="cat-btn" data-cat="testing" style="--cat-color: #4ade80">
+          <span class="cat-emoji">🧪</span><span>Tests &amp; Qualité</span
+          ><span class="cat-count">5</span>
+        </button>
+      </nav>
 
-      <div class="card soon" style="--card-icon-bg:rgba(51,103,145,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"></div>
-          <span class="card-name">PostgreSQL</span><span class="badge-soon">Soon</span>
+      <!-- ══ BASE DE DONNÉES ══ -->
+      <div class="domain-section" id="section-db" data-section="db">
+        <div class="domain-header" style="--domain-color: #60a5fa">
+          <div class="domain-icon">🗄️</div>
+          <span class="domain-name">Base de données</span>
+          <span class="domain-desc">Requêtes, modélisation, optimisation</span>
+          <div class="domain-meta">
+            <span class="domain-available">2 disponibles</span>
+            <span class="domain-total">2 / 8</span>
+          </div>
         </div>
-        <div class="card-desc">JSON/JSONB, extensions, full-text search, partitionnement et optimisation avancée.</div>
-        <div class="card-tags"><span class="tag">JSONB</span><span class="tag">Full-Text</span><span class="tag">PG 16</span></div>
+        <div class="grid">
+          <a
+            href="cheatsheets/sql.html"
+            class="card"
+            style="
+              --card-accent: #60a5fa;
+              --card-icon-bg: rgba(96, 165, 250, 0.12);
+            "
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                  <ellipse
+                    cx="12"
+                    cy="6"
+                    rx="8"
+                    ry="3"
+                    stroke="#60a5fa"
+                    stroke-width="1.8"
+                  />
+                  <path
+                    d="M4 6v4c0 1.657 3.582 3 8 3s8-1.343 8-3V6"
+                    stroke="#60a5fa"
+                    stroke-width="1.8"
+                  />
+                  <path
+                    d="M4 10v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4"
+                    stroke="#60a5fa"
+                    stroke-width="1.8"
+                  />
+                  <path
+                    d="M4 14v4c0 1.657 3.582 3 8 3s8-1.343 8-3v-4"
+                    stroke="#60a5fa"
+                    stroke-width="1.8"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">SQL</span>
+            </div>
+            <div class="card-desc">
+              SELECT, JOIN, GROUP BY, sous-requêtes, fonctions fenêtre, index et
+              bien plus.
+            </div>
+            <div class="card-tags">
+              <span class="tag">DDL</span><span class="tag">DML</span
+              ><span class="tag">Window Fn</span><span class="tag">Index</span>
+            </div>
+          </a>
+
+          <a
+            href="cheatsheets/oracle-plsql.html"
+            class="card"
+            style="
+              --card-accent: #e11d48;
+              --card-icon-bg: rgba(225, 29, 72, 0.12);
+            "
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg"
+                  alt="Oracle PL/SQL"
+                />
+              </div>
+              <span class="card-name">Oracle PL/SQL</span>
+            </div>
+            <div class="card-desc">
+              Blocs PL/SQL, curseurs, exceptions, packages, triggers et
+              optimisation Oracle.
+            </div>
+            <div class="card-tags">
+              <span class="tag">PL/SQL</span><span class="tag">Triggers</span
+              ><span class="tag">Oracle 23ai</span>
+            </div>
+          </a>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(51, 103, 145, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+                  alt="PostgreSQL"
+                />
+              </div>
+              <span class="card-name">PostgreSQL</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              JSON/JSONB, extensions, full-text search, partitionnement et
+              optimisation avancée.
+            </div>
+            <div class="card-tags">
+              <span class="tag">JSONB</span><span class="tag">Full-Text</span
+              ><span class="tag">PG 16</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(71, 162, 72, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+                  alt="MongoDB"
+                />
+              </div>
+              <span class="card-name">MongoDB</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              CRUD, agrégations, indexes, Atlas Search et modélisation de
+              données NoSQL.
+            </div>
+            <div class="card-tags">
+              <span class="tag">NoSQL</span><span class="tag">Aggregation</span
+              ><span class="tag">Atlas</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(220, 56, 45, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
+                  alt="Redis"
+                />
+              </div>
+              <span class="card-name">Redis</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Structures de données, TTL, pub/sub, pipelines, Lua scripts et cas
+              d'usage cache.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Cache</span><span class="tag">Pub/Sub</span
+              ><span class="tag">Streams</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(0, 117, 143, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                  alt="MySQL"
+                />
+              </div>
+              <span class="card-name">MySQL / MariaDB</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Moteurs InnoDB, réplication, partitions, procédures stockées et
+              tuning de performances.
+            </div>
+            <div class="card-tags">
+              <span class="tag">InnoDB</span><span class="tag">Réplication</span
+              ><span class="tag">MySQL 8</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(0, 115, 200, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/elasticsearch/elasticsearch-original.svg"
+                  alt="Elasticsearch"
+                />
+              </div>
+              <span class="card-name">Elasticsearch</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Indexation, mapping, requêtes DSL, agrégations et gestion de
+              cluster ELK.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Search</span><span class="tag">DSL</span
+              ><span class="tag">Kibana</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(30, 195, 255, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachecassandra/apachecassandra-original.svg"
+                  alt="Cassandra"
+                />
+              </div>
+              <span class="card-name">Cassandra</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Modèle wide-column, CQL, partitioning, réplication
+              multi-datacenter et patterns NoSQL.
+            </div>
+            <div class="card-tags">
+              <span class="tag">CQL</span><span class="tag">Wide-Column</span
+              ><span class="tag">Distributed</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card soon" style="--card-icon-bg:rgba(71,162,72,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB"></div>
-          <span class="card-name">MongoDB</span><span class="badge-soon">Soon</span>
+      <!-- ══ FRONTEND ══ -->
+      <div class="domain-section" id="section-frontend" data-section="frontend">
+        <div class="domain-header" style="--domain-color: #f472b6">
+          <div class="domain-icon">🌐</div>
+          <span class="domain-name">Frontend</span>
+          <span class="domain-desc">Langages, frameworks &amp; UI</span>
+          <div class="domain-meta">
+            <span class="domain-available">2 disponibles</span>
+            <span class="domain-total">2 / 8</span>
+          </div>
         </div>
-        <div class="card-desc">CRUD, agrégations, indexes, Atlas Search et modélisation de données NoSQL.</div>
-        <div class="card-tags"><span class="tag">NoSQL</span><span class="tag">Aggregation</span><span class="tag">Atlas</span></div>
+        <div class="grid">
+          <a
+            href="cheatsheets/javascript.html"
+            class="card"
+            style="
+              --card-accent: #fbbf24;
+              --card-icon-bg: rgba(251, 191, 36, 0.12);
+            "
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                  alt="JavaScript"
+                />
+              </div>
+              <span class="card-name">JavaScript</span>
+            </div>
+            <div class="card-desc">
+              ES6+, closures, async/await, DOM, modules et patterns courants.
+            </div>
+            <div class="card-tags">
+              <span class="tag">ES2024</span><span class="tag">Async</span
+              ><span class="tag">DOM</span>
+            </div>
+          </a>
+
+          <a
+            href="cheatsheets/typescript.html"
+            class="card"
+            style="
+              --card-accent: #60a5fa;
+              --card-icon-bg: rgba(96, 165, 250, 0.12);
+            "
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+                  alt="TypeScript"
+                />
+              </div>
+              <span class="card-name">TypeScript</span>
+            </div>
+            <div class="card-desc">
+              Types, interfaces, generics, utility types, décorateurs et config.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Types</span><span class="tag">Generics</span
+              ><span class="tag">Config</span>
+            </div>
+          </a>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(56, 189, 248, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                  alt="Tailwind CSS"
+                />
+              </div>
+              <span class="card-name">CSS / Tailwind</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Flexbox, Grid, animations, variables CSS et classes utilitaires
+              Tailwind.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Flexbox</span><span class="tag">Grid</span
+              ><span class="tag">Tailwind v4</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(96, 165, 250, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                  alt="React"
+                />
+              </div>
+              <span class="card-name">React</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Hooks, composants, contexte, performance et patterns courants.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Hooks</span><span class="tag">Context</span
+              ><span class="tag">React 19</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(66, 184, 131, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg"
+                  alt="Vue.js"
+                />
+              </div>
+              <span class="card-name">Vue.js</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Composition API, réactivité, directives, Pinia, Vue Router et
+              bonnes pratiques Vue 3.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Vue 3</span><span class="tag">Pinia</span
+              ><span class="tag">Composition</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(226, 232, 240, 0.08)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+                  alt="Next.js"
+                />
+              </div>
+              <span class="card-name">Next.js</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              App Router, Server Components, SSR/SSG, API Routes, middleware et
+              déploiement Vercel.
+            </div>
+            <div class="card-tags">
+              <span class="tag">App Router</span><span class="tag">RSC</span
+              ><span class="tag">Next 15</span>
+            </div>
+          </div>
+
+          <div class="card soon" style="--card-icon-bg: rgba(221, 0, 49, 0.1)">
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg"
+                  alt="Angular"
+                />
+              </div>
+              <span class="card-name">Angular</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Composants, services, DI, RxJS, NgRx, routing et formulaires
+              réactifs.
+            </div>
+            <div class="card-tags">
+              <span class="tag">RxJS</span><span class="tag">NgRx</span
+              ><span class="tag">Angular 17</span>
+            </div>
+          </div>
+
+          <div class="card soon" style="--card-icon-bg: rgba(255, 62, 0, 0.1)">
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg"
+                  alt="Svelte"
+                />
+              </div>
+              <span class="card-name">Svelte</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Réactivité déclarative, stores, transitions, SvelteKit et rendu
+              côté serveur.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Stores</span><span class="tag">SvelteKit</span
+              ><span class="tag">Svelte 5</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card soon" style="--card-icon-bg:rgba(220,56,45,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg" alt="Redis"></div>
-          <span class="card-name">Redis</span><span class="badge-soon">Soon</span>
+      <!-- ══ BACKEND ══ -->
+      <div class="domain-section" id="section-backend" data-section="backend">
+        <div class="domain-header" style="--domain-color: #34d399">
+          <div class="domain-icon">⚙️</div>
+          <span class="domain-name">Backend</span>
+          <span class="domain-desc">Langages serveur &amp; runtimes</span>
+          <div class="domain-meta">
+            <span
+              class="domain-available"
+              style="
+                color: var(--text3);
+                background: var(--bg3);
+                border-color: var(--border);
+              "
+              >Bientôt</span
+            >
+            <span class="domain-total">0 / 7</span>
+          </div>
         </div>
-        <div class="card-desc">Structures de données, TTL, pub/sub, pipelines, Lua scripts et cas d'usage cache.</div>
-        <div class="card-tags"><span class="tag">Cache</span><span class="tag">Pub/Sub</span><span class="tag">Streams</span></div>
+        <div class="grid">
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(244, 114, 182, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+                  alt="Java"
+                />
+              </div>
+              <span class="card-name">Java</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              OOP, collections, streams, lambda, concurrence et Spring basics.
+            </div>
+            <div class="card-tags">
+              <span class="tag">OOP</span><span class="tag">Streams</span
+              ><span class="tag">Java 21</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(52, 211, 153, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                  alt="Python"
+                />
+              </div>
+              <span class="card-name">Python</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Syntaxe, listes, dicts, compréhensions, classes, librairies
+              standard.
+            </div>
+            <div class="card-tags">
+              <span class="tag">OOP</span><span class="tag">List Comp</span
+              ><span class="tag">Python 3.12</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(52, 211, 153, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+                  alt="Node.js"
+                />
+              </div>
+              <span class="card-name">Node.js</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Modules, fs, http, streams, npm, Express et gestion des erreurs.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Modules</span><span class="tag">Streams</span
+              ><span class="tag">Express</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(0, 173, 216, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg"
+                  alt="Go"
+                />
+              </div>
+              <span class="card-name">Go</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Goroutines, channels, interfaces, gestion d'erreurs, HTTP natif et
+              patterns Go idiomatiques.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Goroutines</span
+              ><span class="tag">Channels</span><span class="tag">Go 1.22</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(104, 33, 122, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"
+                  alt="C#"
+                />
+              </div>
+              <span class="card-name">C# / .NET</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              LINQ, async/await, dependency injection, Entity Framework et
+              patterns ASP.NET Core.
+            </div>
+            <div class="card-tags">
+              <span class="tag">LINQ</span><span class="tag">ASP.NET</span
+              ><span class="tag">.NET 8</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(183, 65, 14, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg"
+                  alt="Rust"
+                />
+              </div>
+              <span class="card-name">Rust</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Ownership, borrowing, lifetimes, traits, async Tokio et gestion
+              mémoire sans GC.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Ownership</span><span class="tag">Traits</span
+              ><span class="tag">Tokio</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(119, 123, 180, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg"
+                  alt="PHP"
+                />
+              </div>
+              <span class="card-name">PHP</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Syntaxe moderne, OOP, Composer, Laravel basics, namespaces et
+              gestion des erreurs.
+            </div>
+            <div class="card-tags">
+              <span class="tag">OOP</span><span class="tag">Laravel</span
+              ><span class="tag">PHP 8.3</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card soon" style="--card-icon-bg:rgba(0,117,143,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL"></div>
-          <span class="card-name">MySQL / MariaDB</span><span class="badge-soon">Soon</span>
+      <!-- ══ DEVOPS & CI/CD ══ -->
+      <div class="domain-section" id="section-devops" data-section="devops">
+        <div class="domain-header" style="--domain-color: #a78bfa">
+          <div class="domain-icon">🚀</div>
+          <span class="domain-name">DevOps &amp; CI/CD</span>
+          <span class="domain-desc"
+            >Pipelines, containers, config &amp; monitoring</span
+          >
+          <div class="domain-meta">
+            <span class="domain-available">2 disponibles</span>
+            <span class="domain-total">2 / 12</span>
+          </div>
         </div>
-        <div class="card-desc">Moteurs InnoDB, réplication, partitions, procédures stockées et tuning de performances.</div>
-        <div class="card-tags"><span class="tag">InnoDB</span><span class="tag">Réplication</span><span class="tag">MySQL 8</span></div>
+        <div class="grid">
+          <a
+            href="cheatsheets/gitlab-cicd.html"
+            class="card"
+            style="
+              --card-accent: #fc6d26;
+              --card-icon-bg: rgba(252, 109, 38, 0.12);
+            "
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg"
+                  alt="GitLab CI/CD"
+                />
+              </div>
+              <span class="card-name">GitLab CI/CD</span>
+            </div>
+            <div class="card-desc">
+              Pipelines, stages, rules, artifacts, cache, runners, security
+              scans et bonnes pratiques.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Pipelines</span><span class="tag">DAG</span
+              ><span class="tag">GitLab 17.x</span>
+            </div>
+          </a>
+
+          <a
+            href="cheatsheets/docker.html"
+            class="card"
+            style="
+              --card-accent: #2496ed;
+              --card-icon-bg: rgba(36, 150, 237, 0.12);
+            "
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+                  alt="Docker"
+                />
+              </div>
+              <span class="card-name">Docker</span>
+            </div>
+            <div class="card-desc">
+              Images, containers, Dockerfile, volumes, réseaux, Compose et
+              sécurité.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Images</span><span class="tag">Compose</span
+              ><span class="tag">Docker 26.x</span>
+            </div>
+          </a>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(251, 146, 60, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                  alt="Git"
+                />
+              </div>
+              <span class="card-name">Git</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Commits, branches, rebase, stash, remotes et workflows courants.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Branching</span><span class="tag">Rebase</span
+              ><span class="tag">GitFlow</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(251, 191, 36, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
+                  alt="Linux"
+                />
+              </div>
+              <span class="card-name">Linux / Bash</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Commandes essentielles, scripts, permissions, pipes et cron.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Shell</span><span class="tag">Scripts</span
+              ><span class="tag">Cron</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(50, 108, 229, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg"
+                  alt="Kubernetes"
+                />
+              </div>
+              <span class="card-name">Kubernetes</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Pods, Deployments, Services, ConfigMaps, Ingress, RBAC et gestion
+              de cluster.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Pods</span><span class="tag">Helm</span
+              ><span class="tag">K8s 1.30</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(123, 66, 188, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg"
+                  alt="Terraform"
+                />
+              </div>
+              <span class="card-name">Terraform</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Resources, variables, modules, state, providers AWS/GCP/Azure et
+              bonnes pratiques IaC.
+            </div>
+            <div class="card-tags">
+              <span class="tag">IaC</span><span class="tag">Modules</span
+              ><span class="tag">HCL</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(32, 136, 255, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg"
+                  alt="GitHub Actions"
+                />
+              </div>
+              <span class="card-name">GitHub Actions</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Workflows, jobs, steps, secrets, matrix builds, reusable workflows
+              et marketplace.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Workflows</span><span class="tag">Matrix</span
+              ><span class="tag">OIDC</span>
+            </div>
+          </div>
+
+          <div class="card soon" style="--card-icon-bg: rgba(238, 0, 0, 0.1)">
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg"
+                  alt="Ansible"
+                />
+              </div>
+              <span class="card-name">Ansible</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Playbooks, inventaires, rôles, modules, vault et automatisation de
+              configuration.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Playbooks</span><span class="tag">Roles</span
+              ><span class="tag">Idempotent</span>
+            </div>
+          </div>
+
+          <div class="card soon" style="--card-icon-bg: rgba(0, 150, 57, 0.12)">
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nginx/nginx-original.svg"
+                  alt="Nginx"
+                />
+              </div>
+              <span class="card-name">Nginx</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Virtual hosts, reverse proxy, load balancing, SSL/TLS, cache et
+              optimisation.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Reverse Proxy</span><span class="tag">SSL</span
+              ><span class="tag">LB</span>
+            </div>
+          </div>
+
+          <div class="card soon" style="--card-icon-bg: rgba(52, 52, 52, 0.2)">
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg"
+                  alt="Jenkins"
+                />
+              </div>
+              <span class="card-name">Jenkins</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Pipelines déclaratifs, stages, shared libraries, plugins et
+              intégration avec Docker/K8s.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Declarative</span><span class="tag">Groovy</span
+              ><span class="tag">Plugins</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(14, 116, 181, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg"
+                  alt="Helm"
+                />
+              </div>
+              <span class="card-name">Helm</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Charts, templates, values, hooks, repositories et gestion des
+              releases Kubernetes.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Charts</span><span class="tag">Templates</span
+              ><span class="tag">Releases</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(229, 110, 0, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg"
+                  alt="Prometheus / Grafana"
+                />
+              </div>
+              <span class="card-name">Prometheus / Grafana</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Métriques, PromQL, alerting, dashboards Grafana et observabilité
+              des infrastructures.
+            </div>
+            <div class="card-tags">
+              <span class="tag">PromQL</span><span class="tag">Alerting</span
+              ><span class="tag">Dashboards</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card soon" style="--card-icon-bg:rgba(0,115,200,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/elasticsearch/elasticsearch-original.svg" alt="Elasticsearch"></div>
-          <span class="card-name">Elasticsearch</span><span class="badge-soon">Soon</span>
+      <!-- ══ CLOUD ══ -->
+      <div class="domain-section" id="section-cloud" data-section="cloud">
+        <div class="domain-header" style="--domain-color: #38bdf8">
+          <div class="domain-icon">☁️</div>
+          <span class="domain-name">Cloud</span>
+          <span class="domain-desc">Providers, IaC &amp; services managés</span>
+          <div class="domain-meta">
+            <span
+              class="domain-available"
+              style="
+                color: var(--text3);
+                background: var(--bg3);
+                border-color: var(--border);
+              "
+              >Bientôt</span
+            >
+            <span class="domain-total">0 / 5</span>
+          </div>
         </div>
-        <div class="card-desc">Indexation, mapping, requêtes DSL, agrégations et gestion de cluster ELK.</div>
-        <div class="card-tags"><span class="tag">Search</span><span class="tag">DSL</span><span class="tag">Kibana</span></div>
+        <div class="grid">
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(255, 153, 0, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg"
+                  alt="AWS"
+                />
+              </div>
+              <span class="card-name">AWS</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              EC2, S3, RDS, Lambda, IAM, VPC, EKS, CLI et bonnes pratiques
+              Well-Architected.
+            </div>
+            <div class="card-tags">
+              <span class="tag">EC2</span><span class="tag">Lambda</span
+              ><span class="tag">IAM</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(66, 133, 244, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg"
+                  alt="Google Cloud"
+                />
+              </div>
+              <span class="card-name">Google Cloud</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Compute Engine, Cloud Run, GKE, BigQuery, Cloud Storage et gcloud
+              CLI.
+            </div>
+            <div class="card-tags">
+              <span class="tag">GKE</span><span class="tag">BigQuery</span
+              ><span class="tag">Cloud Run</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(0, 120, 212, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg"
+                  alt="Microsoft Azure"
+                />
+              </div>
+              <span class="card-name">Microsoft Azure</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              VMs, Azure Functions, AKS, Blob Storage, Azure DevOps et ARM/Bicep
+              templates.
+            </div>
+            <div class="card-tags">
+              <span class="tag">AKS</span><span class="tag">Functions</span
+              ><span class="tag">Bicep</span>
+            </div>
+          </div>
+
+          <div class="card soon" style="--card-icon-bg: rgba(255, 153, 0, 0.1)">
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    width="40"
+                    height="40"
+                    rx="8"
+                    fill="rgba(255,153,0,0.15)"
+                  />
+                  <text
+                    x="5"
+                    y="27"
+                    font-family="monospace"
+                    font-weight="900"
+                    font-size="13"
+                    fill="#FF9900"
+                  >
+                    CDK
+                  </text>
+                </svg>
+              </div>
+              <span class="card-name">AWS CDK</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Stacks, Constructs L1/L2/L3, déploiement TypeScript/Python et
+              patterns CDK.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Constructs</span><span class="tag">Stacks</span
+              ><span class="tag">IaC</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(130, 76, 229, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pulumi/pulumi-original.svg"
+                  alt="Pulumi"
+                />
+              </div>
+              <span class="card-name">Pulumi</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Infrastructure as Code en TypeScript/Python/Go, stacks, config,
+              secrets et providers.
+            </div>
+            <div class="card-tags">
+              <span class="tag">IaC</span><span class="tag">Multi-Cloud</span
+              ><span class="tag">Stacks</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card soon" style="--card-icon-bg:rgba(30,195,255,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachecassandra/apachecassandra-original.svg" alt="Cassandra"></div>
-          <span class="card-name">Cassandra</span><span class="badge-soon">Soon</span>
+      <!-- ══ DATA & IA ══ -->
+      <div class="domain-section" id="section-data" data-section="data">
+        <div class="domain-header" style="--domain-color: #fb923c">
+          <div class="domain-icon">📊</div>
+          <span class="domain-name">Data &amp; IA</span>
+          <span class="domain-desc"
+            >Traitement, pipelines &amp; intelligence artificielle</span
+          >
+          <div class="domain-meta">
+            <span
+              class="domain-available"
+              style="
+                color: var(--text3);
+                background: var(--bg3);
+                border-color: var(--border);
+              "
+              >Bientôt</span
+            >
+            <span class="domain-total">0 / 6</span>
+          </div>
         </div>
-        <div class="card-desc">Modèle wide-column, CQL, partitioning, réplication multi-datacenter et patterns NoSQL.</div>
-        <div class="card-tags"><span class="tag">CQL</span><span class="tag">Wide-Column</span><span class="tag">Distributed</span></div>
+        <div class="grid">
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(21, 114, 182, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
+                  alt="Pandas"
+                />
+              </div>
+              <span class="card-name">Pandas</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              DataFrames, Series, groupby, merge, pivot, time series et
+              manipulation de données Python.
+            </div>
+            <div class="card-tags">
+              <span class="tag">DataFrame</span><span class="tag">Groupby</span
+              ><span class="tag">Pandas 2</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(229, 103, 23, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachespark/apachespark-original.svg"
+                  alt="Apache Spark"
+                />
+              </div>
+              <span class="card-name">Apache Spark</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              RDD, DataFrames Spark, Spark SQL, Streaming, PySpark et
+              optimisation de jobs.
+            </div>
+            <div class="card-tags">
+              <span class="tag">PySpark</span><span class="tag">Spark SQL</span
+              ><span class="tag">Streaming</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(255, 100, 0, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    width="40"
+                    height="40"
+                    rx="8"
+                    fill="rgba(255,100,0,0.15)"
+                  />
+                  <text
+                    x="8"
+                    y="26"
+                    font-family="monospace"
+                    font-weight="900"
+                    font-size="14"
+                    fill="#FF6400"
+                  >
+                    dbt
+                  </text>
+                </svg>
+              </div>
+              <span class="card-name">dbt</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Modèles SQL, tests, documentation, sources, macros Jinja et
+              orchestration analytique.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Modèles</span><span class="tag">Tests</span
+              ><span class="tag">ELT</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(0, 168, 136, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg"
+                  alt="Apache Airflow"
+                />
+              </div>
+              <span class="card-name">Apache Airflow</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              DAGs, operators, hooks, XCom, scheduling, sensors et bonnes
+              pratiques de pipelines data.
+            </div>
+            <div class="card-tags">
+              <span class="tag">DAGs</span><span class="tag">Operators</span
+              ><span class="tag">Scheduling</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(16, 163, 127, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    width="40"
+                    height="40"
+                    rx="8"
+                    fill="rgba(16,163,127,0.15)"
+                  />
+                  <circle
+                    cx="20"
+                    cy="15"
+                    r="6"
+                    stroke="#10a37f"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <path
+                    d="M8 32 Q14 22 20 26 Q26 22 32 32"
+                    stroke="#10a37f"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">OpenAI / LangChain</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              API OpenAI, embeddings, RAG, agents LangChain, chaînes, mémoire et
+              vector stores.
+            </div>
+            <div class="card-tags">
+              <span class="tag">LLM</span><span class="tag">RAG</span
+              ><span class="tag">Agents</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(242, 129, 35, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
+                  alt="Jupyter"
+                />
+              </div>
+              <span class="card-name">Jupyter</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Notebooks, magic commands, widgets, visualisations, JupyterLab et
+              bonnes pratiques.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Notebooks</span><span class="tag">Magic</span
+              ><span class="tag">Widgets</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- ══ FRONTEND ══ -->
-  <div class="domain-section" id="section-frontend" data-section="frontend">
-    <div class="domain-header" style="--domain-color:#f472b6">
-      <div class="domain-icon">🌐</div>
-      <span class="domain-name">Frontend</span>
-      <span class="domain-desc">Langages, frameworks &amp; UI</span>
-      <div class="domain-meta">
-        <span class="domain-available">2 disponibles</span>
-        <span class="domain-total">2 / 8</span>
-      </div>
-    </div>
-    <div class="grid">
-
-      <a href="cheatsheets/javascript.html" class="card" style="--card-accent:#fbbf24; --card-icon-bg:rgba(251,191,36,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
-          <span class="card-name">JavaScript</span>
+      <!-- ══ SÉCURITÉ ══ -->
+      <div class="domain-section" id="section-security" data-section="security">
+        <div class="domain-header" style="--domain-color: #f87171">
+          <div class="domain-icon">🔒</div>
+          <span class="domain-name">Sécurité</span>
+          <span class="domain-desc"
+            >Auth, vulnérabilités, secrets &amp; protocoles</span
+          >
+          <div class="domain-meta">
+            <span
+              class="domain-available"
+              style="
+                color: var(--text3);
+                background: var(--bg3);
+                border-color: var(--border);
+              "
+              >Bientôt</span
+            >
+            <span class="domain-total">0 / 5</span>
+          </div>
         </div>
-        <div class="card-desc">ES6+, closures, async/await, DOM, modules et patterns courants.</div>
-        <div class="card-tags"><span class="tag">ES2024</span><span class="tag">Async</span><span class="tag">DOM</span></div>
-      </a>
+        <div class="grid">
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(248, 113, 113, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <path
+                    d="M20 4 L34 10 L34 22 C34 30 20 38 20 38 C20 38 6 30 6 22 L6 10 Z"
+                    stroke="#f87171"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <text
+                    x="10"
+                    y="26"
+                    font-family="monospace"
+                    font-weight="900"
+                    font-size="10"
+                    fill="#f87171"
+                  >
+                    TOP
+                  </text>
+                </svg>
+              </div>
+              <span class="card-name">OWASP Top 10</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Injection, XSS, SSRF, IDOR, mauvaises configs, exploits courants
+              et contre-mesures.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Injection</span><span class="tag">XSS</span
+              ><span class="tag">OWASP 2021</span>
+            </div>
+          </div>
 
-      <a href="cheatsheets/typescript.html" class="card" style="--card-accent:#60a5fa; --card-icon-bg:rgba(96,165,250,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
-          <span class="card-name">TypeScript</span>
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(248, 113, 113, 0.1)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    width="40"
+                    height="40"
+                    rx="8"
+                    fill="rgba(248,113,113,0.1)"
+                  />
+                  <rect
+                    x="10"
+                    y="18"
+                    width="20"
+                    height="14"
+                    rx="3"
+                    stroke="#f87171"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <path
+                    d="M14 18 L14 13 A6 6 0 0 1 26 13 L26 18"
+                    stroke="#f87171"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">OAuth2 / OIDC</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Authorization Code Flow, PKCE, scopes, tokens, introspection et
+              OpenID Connect.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Auth Code</span><span class="tag">PKCE</span
+              ><span class="tag">Scopes</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(248, 113, 113, 0.1)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    width="40"
+                    height="40"
+                    rx="8"
+                    fill="rgba(248,113,113,0.1)"
+                  />
+                  <text
+                    x="5"
+                    y="26"
+                    font-family="monospace"
+                    font-weight="900"
+                    font-size="14"
+                    fill="#f87171"
+                  >
+                    JWT
+                  </text>
+                </svg>
+              </div>
+              <span class="card-name">JWT</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Structure header/payload/signature, algorithmes RS256/HS256,
+              claims, refresh tokens.
+            </div>
+            <div class="card-tags">
+              <span class="tag">RS256</span><span class="tag">Claims</span
+              ><span class="tag">Refresh</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(255, 207, 0, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vault/vault-original.svg"
+                  alt="HashiCorp Vault"
+                />
+              </div>
+              <span class="card-name">HashiCorp Vault</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Secrets engines, dynamic credentials, policies, PKI, audit et
+              intégration Kubernetes.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Secrets</span><span class="tag">PKI</span
+              ><span class="tag">Policies</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(248, 113, 113, 0.1)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    width="40"
+                    height="40"
+                    rx="8"
+                    fill="rgba(248,113,113,0.1)"
+                  />
+                  <path
+                    d="M8 20 L16 28 L32 12"
+                    stroke="#f87171"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="14"
+                    stroke="#f87171"
+                    stroke-width="1.5"
+                    fill="none"
+                    stroke-dasharray="4 2"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">SSL / TLS</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Handshake TLS 1.3, certificats X.509, HSTS, MTLS, Let's Encrypt et
+              configuration serveur.
+            </div>
+            <div class="card-tags">
+              <span class="tag">TLS 1.3</span><span class="tag">mTLS</span
+              ><span class="tag">X.509</span>
+            </div>
+          </div>
         </div>
-        <div class="card-desc">Types, interfaces, generics, utility types, décorateurs et config.</div>
-        <div class="card-tags"><span class="tag">Types</span><span class="tag">Generics</span><span class="tag">Config</span></div>
-      </a>
-
-      <div class="card soon" style="--card-icon-bg:rgba(56,189,248,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS"></div>
-          <span class="card-name">CSS / Tailwind</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Flexbox, Grid, animations, variables CSS et classes utilitaires Tailwind.</div>
-        <div class="card-tags"><span class="tag">Flexbox</span><span class="tag">Grid</span><span class="tag">Tailwind v4</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(96,165,250,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"></div>
-          <span class="card-name">React</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Hooks, composants, contexte, performance et patterns courants.</div>
-        <div class="card-tags"><span class="tag">Hooks</span><span class="tag">Context</span><span class="tag">React 19</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(66,184,131,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" alt="Vue.js"></div>
-          <span class="card-name">Vue.js</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Composition API, réactivité, directives, Pinia, Vue Router et bonnes pratiques Vue 3.</div>
-        <div class="card-tags"><span class="tag">Vue 3</span><span class="tag">Pinia</span><span class="tag">Composition</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(226,232,240,0.08);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js"></div>
-          <span class="card-name">Next.js</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">App Router, Server Components, SSR/SSG, API Routes, middleware et déploiement Vercel.</div>
-        <div class="card-tags"><span class="tag">App Router</span><span class="tag">RSC</span><span class="tag">Next 15</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(221,0,49,0.1);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg" alt="Angular"></div>
-          <span class="card-name">Angular</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Composants, services, DI, RxJS, NgRx, routing et formulaires réactifs.</div>
-        <div class="card-tags"><span class="tag">RxJS</span><span class="tag">NgRx</span><span class="tag">Angular 17</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(255,62,0,0.1);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg" alt="Svelte"></div>
-          <span class="card-name">Svelte</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Réactivité déclarative, stores, transitions, SvelteKit et rendu côté serveur.</div>
-        <div class="card-tags"><span class="tag">Stores</span><span class="tag">SvelteKit</span><span class="tag">Svelte 5</span></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══ BACKEND ══ -->
-  <div class="domain-section" id="section-backend" data-section="backend">
-    <div class="domain-header" style="--domain-color:#34d399">
-      <div class="domain-icon">⚙️</div>
-      <span class="domain-name">Backend</span>
-      <span class="domain-desc">Langages serveur &amp; runtimes</span>
-      <div class="domain-meta">
-        <span class="domain-available" style="color:var(--text3); background:var(--bg3); border-color:var(--border);">Bientôt</span>
-        <span class="domain-total">0 / 7</span>
-      </div>
-    </div>
-    <div class="grid">
-
-      <div class="card soon" style="--card-icon-bg:rgba(244,114,182,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java"></div>
-          <span class="card-name">Java</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">OOP, collections, streams, lambda, concurrence et Spring basics.</div>
-        <div class="card-tags"><span class="tag">OOP</span><span class="tag">Streams</span><span class="tag">Java 21</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python"></div>
-          <span class="card-name">Python</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Syntaxe, listes, dicts, compréhensions, classes, librairies standard.</div>
-        <div class="card-tags"><span class="tag">OOP</span><span class="tag">List Comp</span><span class="tag">Python 3.12</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(52,211,153,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
-          <span class="card-name">Node.js</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Modules, fs, http, streams, npm, Express et gestion des erreurs.</div>
-        <div class="card-tags"><span class="tag">Modules</span><span class="tag">Streams</span><span class="tag">Express</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(0,173,216,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" alt="Go"></div>
-          <span class="card-name">Go</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Goroutines, channels, interfaces, gestion d'erreurs, HTTP natif et patterns Go idiomatiques.</div>
-        <div class="card-tags"><span class="tag">Goroutines</span><span class="tag">Channels</span><span class="tag">Go 1.22</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(104,33,122,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" alt="C#"></div>
-          <span class="card-name">C# / .NET</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">LINQ, async/await, dependency injection, Entity Framework et patterns ASP.NET Core.</div>
-        <div class="card-tags"><span class="tag">LINQ</span><span class="tag">ASP.NET</span><span class="tag">.NET 8</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(183,65,14,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" alt="Rust"></div>
-          <span class="card-name">Rust</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Ownership, borrowing, lifetimes, traits, async Tokio et gestion mémoire sans GC.</div>
-        <div class="card-tags"><span class="tag">Ownership</span><span class="tag">Traits</span><span class="tag">Tokio</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(119,123,180,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP"></div>
-          <span class="card-name">PHP</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Syntaxe moderne, OOP, Composer, Laravel basics, namespaces et gestion des erreurs.</div>
-        <div class="card-tags"><span class="tag">OOP</span><span class="tag">Laravel</span><span class="tag">PHP 8.3</span></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══ DEVOPS & CI/CD ══ -->
-  <div class="domain-section" id="section-devops" data-section="devops">
-    <div class="domain-header" style="--domain-color:#a78bfa">
-      <div class="domain-icon">🚀</div>
-      <span class="domain-name">DevOps &amp; CI/CD</span>
-      <span class="domain-desc">Pipelines, containers, config &amp; monitoring</span>
-      <div class="domain-meta">
-        <span class="domain-available">2 disponibles</span>
-        <span class="domain-total">2 / 12</span>
-      </div>
-    </div>
-    <div class="grid">
-
-      <a href="cheatsheets/gitlab-cicd.html" class="card" style="--card-accent:#fc6d26; --card-icon-bg:rgba(252,109,38,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" alt="GitLab CI/CD"></div>
-          <span class="card-name">GitLab CI/CD</span>
-        </div>
-        <div class="card-desc">Pipelines, stages, rules, artifacts, cache, runners, security scans et bonnes pratiques.</div>
-        <div class="card-tags"><span class="tag">Pipelines</span><span class="tag">DAG</span><span class="tag">GitLab 17.x</span></div>
-      </a>
-
-      <a href="cheatsheets/docker.html" class="card" style="--card-accent:#2496ed; --card-icon-bg:rgba(36,150,237,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"></div>
-          <span class="card-name">Docker</span>
-        </div>
-        <div class="card-desc">Images, containers, Dockerfile, volumes, réseaux, Compose et sécurité.</div>
-        <div class="card-tags"><span class="tag">Images</span><span class="tag">Compose</span><span class="tag">Docker 26.x</span></div>
-      </a>
-
-      <div class="card soon" style="--card-icon-bg:rgba(251,146,60,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git"></div>
-          <span class="card-name">Git</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Commits, branches, rebase, stash, remotes et workflows courants.</div>
-        <div class="card-tags"><span class="tag">Branching</span><span class="tag">Rebase</span><span class="tag">GitFlow</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(251,191,36,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux"></div>
-          <span class="card-name">Linux / Bash</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Commandes essentielles, scripts, permissions, pipes et cron.</div>
-        <div class="card-tags"><span class="tag">Shell</span><span class="tag">Scripts</span><span class="tag">Cron</span></div>
       </div>
 
-      <div class="card soon" style="--card-icon-bg:rgba(50,108,229,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes"></div>
-          <span class="card-name">Kubernetes</span><span class="badge-soon">Soon</span>
+      <!-- ══ TESTS & QUALITÉ ══ -->
+      <div class="domain-section" id="section-testing" data-section="testing">
+        <div class="domain-header" style="--domain-color: #4ade80">
+          <div class="domain-icon">🧪</div>
+          <span class="domain-name">Tests &amp; Qualité</span>
+          <span class="domain-desc"
+            >Unit, E2E, API testing &amp; code quality</span
+          >
+          <div class="domain-meta">
+            <span
+              class="domain-available"
+              style="
+                color: var(--text3);
+                background: var(--bg3);
+                border-color: var(--border);
+              "
+              >Bientôt</span
+            >
+            <span class="domain-total">0 / 5</span>
+          </div>
         </div>
-        <div class="card-desc">Pods, Deployments, Services, ConfigMaps, Ingress, RBAC et gestion de cluster.</div>
-        <div class="card-tags"><span class="tag">Pods</span><span class="tag">Helm</span><span class="tag">K8s 1.30</span></div>
-      </div>
+        <div class="grid">
+          <div class="card soon" style="--card-icon-bg: rgba(195, 0, 65, 0.12)">
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jest/jest-plain.svg"
+                  alt="Jest"
+                />
+              </div>
+              <span class="card-name">Jest / Vitest</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Tests unitaires JS/TS, mocks, spies, matchers, coverage et
+              configuration Vitest.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Unit</span><span class="tag">Mocks</span
+              ><span class="tag">Coverage</span>
+            </div>
+          </div>
 
-      <div class="card soon" style="--card-icon-bg:rgba(123,66,188,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" alt="Terraform"></div>
-          <span class="card-name">Terraform</span><span class="badge-soon">Soon</span>
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(0, 189, 165, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    width="40"
+                    height="40"
+                    rx="8"
+                    fill="rgba(0,189,165,0.15)"
+                  />
+                  <circle
+                    cx="14"
+                    cy="20"
+                    r="6"
+                    stroke="#00BDA5"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <circle
+                    cx="26"
+                    cy="20"
+                    r="6"
+                    stroke="#00BDA5"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <path d="M20 16 L20 24" stroke="#00BDA5" stroke-width="1.5" />
+                </svg>
+              </div>
+              <span class="card-name">Playwright</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Tests E2E multi-navigateurs, locators, fixtures, screenshots, API
+              testing et CI integration.
+            </div>
+            <div class="card-tags">
+              <span class="tag">E2E</span><span class="tag">Multi-Browser</span
+              ><span class="tag">Fixtures</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(6, 182, 212, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg"
+                  alt="pytest"
+                />
+              </div>
+              <span class="card-name">pytest</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Fixtures, parametrize, marks, mocking avec unittest.mock, plugins
+              et coverage Python.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Fixtures</span
+              ><span class="tag">Parametrize</span
+              ><span class="tag">Plugins</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(255, 108, 0, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
+                  alt="Postman"
+                />
+              </div>
+              <span class="card-name">Postman / Bruno</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Collections, environnements, tests scripts, Newman CLI, mocks et
+              documentation API.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Collections</span
+              ><span class="tag">Scripts</span><span class="tag">Newman</span>
+            </div>
+          </div>
+
+          <div
+            class="card soon"
+            style="--card-icon-bg: rgba(84, 145, 195, 0.12)"
+          >
+            <div class="card-header">
+              <div class="card-icon">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sonarqube/sonarqube-original.svg"
+                  alt="SonarQube"
+                />
+              </div>
+              <span class="card-name">SonarQube</span
+              ><span class="badge-soon">Soon</span>
+            </div>
+            <div class="card-desc">
+              Analyse statique, code smells, bugs, vulnérabilités, quality gates
+              et intégration CI/CD.
+            </div>
+            <div class="card-tags">
+              <span class="tag">SAST</span><span class="tag">Quality Gate</span
+              ><span class="tag">Coverage</span>
+            </div>
+          </div>
         </div>
-        <div class="card-desc">Resources, variables, modules, state, providers AWS/GCP/Azure et bonnes pratiques IaC.</div>
-        <div class="card-tags"><span class="tag">IaC</span><span class="tag">Modules</span><span class="tag">HCL</span></div>
       </div>
+    </main>
 
-      <div class="card soon" style="--card-icon-bg:rgba(32,136,255,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg" alt="GitHub Actions"></div>
-          <span class="card-name">GitHub Actions</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Workflows, jobs, steps, secrets, matrix builds, reusable workflows et marketplace.</div>
-        <div class="card-tags"><span class="tag">Workflows</span><span class="tag">Matrix</span><span class="tag">OIDC</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(238,0,0,0.1);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg" alt="Ansible"></div>
-          <span class="card-name">Ansible</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Playbooks, inventaires, rôles, modules, vault et automatisation de configuration.</div>
-        <div class="card-tags"><span class="tag">Playbooks</span><span class="tag">Roles</span><span class="tag">Idempotent</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(0,150,57,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nginx/nginx-original.svg" alt="Nginx"></div>
-          <span class="card-name">Nginx</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Virtual hosts, reverse proxy, load balancing, SSL/TLS, cache et optimisation.</div>
-        <div class="card-tags"><span class="tag">Reverse Proxy</span><span class="tag">SSL</span><span class="tag">LB</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(52,52,52,0.2);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" alt="Jenkins"></div>
-          <span class="card-name">Jenkins</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Pipelines déclaratifs, stages, shared libraries, plugins et intégration avec Docker/K8s.</div>
-        <div class="card-tags"><span class="tag">Declarative</span><span class="tag">Groovy</span><span class="tag">Plugins</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(14,116,181,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/helm/helm-original.svg" alt="Helm"></div>
-          <span class="card-name">Helm</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Charts, templates, values, hooks, repositories et gestion des releases Kubernetes.</div>
-        <div class="card-tags"><span class="tag">Charts</span><span class="tag">Templates</span><span class="tag">Releases</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(229,110,0,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prometheus/prometheus-original.svg" alt="Prometheus / Grafana"></div>
-          <span class="card-name">Prometheus / Grafana</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Métriques, PromQL, alerting, dashboards Grafana et observabilité des infrastructures.</div>
-        <div class="card-tags"><span class="tag">PromQL</span><span class="tag">Alerting</span><span class="tag">Dashboards</span></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══ CLOUD ══ -->
-  <div class="domain-section" id="section-cloud" data-section="cloud">
-    <div class="domain-header" style="--domain-color:#38bdf8">
-      <div class="domain-icon">☁️</div>
-      <span class="domain-name">Cloud</span>
-      <span class="domain-desc">Providers, IaC &amp; services managés</span>
-      <div class="domain-meta">
-        <span class="domain-available" style="color:var(--text3); background:var(--bg3); border-color:var(--border);">Bientôt</span>
-        <span class="domain-total">0 / 5</span>
-      </div>
-    </div>
-    <div class="grid">
-
-      <div class="card soon" style="--card-icon-bg:rgba(255,153,0,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS"></div>
-          <span class="card-name">AWS</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">EC2, S3, RDS, Lambda, IAM, VPC, EKS, CLI et bonnes pratiques Well-Architected.</div>
-        <div class="card-tags"><span class="tag">EC2</span><span class="tag">Lambda</span><span class="tag">IAM</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(66,133,244,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud"></div>
-          <span class="card-name">Google Cloud</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Compute Engine, Cloud Run, GKE, BigQuery, Cloud Storage et gcloud CLI.</div>
-        <div class="card-tags"><span class="tag">GKE</span><span class="tag">BigQuery</span><span class="tag">Cloud Run</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(0,120,212,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Microsoft Azure"></div>
-          <span class="card-name">Microsoft Azure</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">VMs, Azure Functions, AKS, Blob Storage, Azure DevOps et ARM/Bicep templates.</div>
-        <div class="card-tags"><span class="tag">AKS</span><span class="tag">Functions</span><span class="tag">Bicep</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(255,153,0,0.10);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <rect width="40" height="40" rx="8" fill="rgba(255,153,0,0.15)"/>
-              <text x="5" y="27" font-family="monospace" font-weight="900" font-size="13" fill="#FF9900">CDK</text>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+              <text
+                x="2"
+                y="23"
+                font-family="monospace"
+                font-weight="900"
+                font-size="17"
+                fill="url(#fg)"
+              >
+                DL
+              </text>
+              <defs>
+                <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#60a5fa" />
+                  <stop offset="100%" stop-color="#a78bfa" />
+                </linearGradient>
+              </defs>
             </svg>
           </div>
-          <span class="card-name">AWS CDK</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Stacks, Constructs L1/L2/L3, déploiement TypeScript/Python et patterns CDK.</div>
-        <div class="card-tags"><span class="tag">Constructs</span><span class="tag">Stacks</span><span class="tag">IaC</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(130,76,229,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pulumi/pulumi-original.svg" alt="Pulumi"></div>
-          <span class="card-name">Pulumi</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Infrastructure as Code en TypeScript/Python/Go, stacks, config, secrets et providers.</div>
-        <div class="card-tags"><span class="tag">IaC</span><span class="tag">Multi-Cloud</span><span class="tag">Stacks</span></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══ DATA & IA ══ -->
-  <div class="domain-section" id="section-data" data-section="data">
-    <div class="domain-header" style="--domain-color:#fb923c">
-      <div class="domain-icon">📊</div>
-      <span class="domain-name">Data &amp; IA</span>
-      <span class="domain-desc">Traitement, pipelines &amp; intelligence artificielle</span>
-      <div class="domain-meta">
-        <span class="domain-available" style="color:var(--text3); background:var(--bg3); border-color:var(--border);">Bientôt</span>
-        <span class="domain-total">0 / 6</span>
-      </div>
-    </div>
-    <div class="grid">
-
-      <div class="card soon" style="--card-icon-bg:rgba(21,114,182,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas"></div>
-          <span class="card-name">Pandas</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">DataFrames, Series, groupby, merge, pivot, time series et manipulation de données Python.</div>
-        <div class="card-tags"><span class="tag">DataFrame</span><span class="tag">Groupby</span><span class="tag">Pandas 2</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(229,103,23,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachespark/apachespark-original.svg" alt="Apache Spark"></div>
-          <span class="card-name">Apache Spark</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">RDD, DataFrames Spark, Spark SQL, Streaming, PySpark et optimisation de jobs.</div>
-        <div class="card-tags"><span class="tag">PySpark</span><span class="tag">Spark SQL</span><span class="tag">Streaming</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(255,100,0,0.12);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <rect width="40" height="40" rx="8" fill="rgba(255,100,0,0.15)"/>
-              <text x="8" y="26" font-family="monospace" font-weight="900" font-size="14" fill="#FF6400">dbt</text>
-            </svg>
+          <div>
+            <div class="footer-brand-name">Dev Learning Lab</div>
+            <div class="footer-brand-sub">
+              Cheatsheets interactives open source
+            </div>
           </div>
-          <span class="card-name">dbt</span><span class="badge-soon">Soon</span>
         </div>
-        <div class="card-desc">Modèles SQL, tests, documentation, sources, macros Jinja et orchestration analytique.</div>
-        <div class="card-tags"><span class="tag">Modèles</span><span class="tag">Tests</span><span class="tag">ELT</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(0,168,136,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apacheairflow/apacheairflow-original.svg" alt="Apache Airflow"></div>
-          <span class="card-name">Apache Airflow</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">DAGs, operators, hooks, XCom, scheduling, sensors et bonnes pratiques de pipelines data.</div>
-        <div class="card-tags"><span class="tag">DAGs</span><span class="tag">Operators</span><span class="tag">Scheduling</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(16,163,127,0.12);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <rect width="40" height="40" rx="8" fill="rgba(16,163,127,0.15)"/>
-              <circle cx="20" cy="15" r="6" stroke="#10a37f" stroke-width="2" fill="none"/>
-              <path d="M8 32 Q14 22 20 26 Q26 22 32 32" stroke="#10a37f" stroke-width="2" fill="none"/>
+        <nav class="footer-nav">
+          <a
+            href="https://github.com/alassaneba1/dev-learning-lab"
+            target="_blank"
+            rel="noopener"
+            class="footer-nav-link"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+              />
             </svg>
-          </div>
-          <span class="card-name">OpenAI / LangChain</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">API OpenAI, embeddings, RAG, agents LangChain, chaînes, mémoire et vector stores.</div>
-        <div class="card-tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">Agents</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(242,129,35,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg" alt="Jupyter"></div>
-          <span class="card-name">Jupyter</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Notebooks, magic commands, widgets, visualisations, JupyterLab et bonnes pratiques.</div>
-        <div class="card-tags"><span class="tag">Notebooks</span><span class="tag">Magic</span><span class="tag">Widgets</span></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══ SÉCURITÉ ══ -->
-  <div class="domain-section" id="section-security" data-section="security">
-    <div class="domain-header" style="--domain-color:#f87171">
-      <div class="domain-icon">🔒</div>
-      <span class="domain-name">Sécurité</span>
-      <span class="domain-desc">Auth, vulnérabilités, secrets &amp; protocoles</span>
-      <div class="domain-meta">
-        <span class="domain-available" style="color:var(--text3); background:var(--bg3); border-color:var(--border);">Bientôt</span>
-        <span class="domain-total">0 / 5</span>
-      </div>
-    </div>
-    <div class="grid">
-
-      <div class="card soon" style="--card-icon-bg:rgba(248,113,113,0.12);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <path d="M20 4 L34 10 L34 22 C34 30 20 38 20 38 C20 38 6 30 6 22 L6 10 Z" stroke="#f87171" stroke-width="2" fill="none"/>
-              <text x="10" y="26" font-family="monospace" font-weight="900" font-size="10" fill="#f87171">TOP</text>
+            <span>GitHub</span>
+          </a>
+          <div class="footer-sep"></div>
+          <a
+            href="https://github.com/alassaneba1/dev-learning-lab/issues"
+            target="_blank"
+            rel="noopener"
+            class="footer-nav-link"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
-          </div>
-          <span class="card-name">OWASP Top 10</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Injection, XSS, SSRF, IDOR, mauvaises configs, exploits courants et contre-mesures.</div>
-        <div class="card-tags"><span class="tag">Injection</span><span class="tag">XSS</span><span class="tag">OWASP 2021</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(248,113,113,0.10);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <rect width="40" height="40" rx="8" fill="rgba(248,113,113,0.1)"/>
-              <rect x="10" y="18" width="20" height="14" rx="3" stroke="#f87171" stroke-width="2" fill="none"/>
-              <path d="M14 18 L14 13 A6 6 0 0 1 26 13 L26 18" stroke="#f87171" stroke-width="2" fill="none"/>
+            <span>Signaler un bug</span>
+          </a>
+          <div class="footer-sep"></div>
+          <a
+            href="https://github.com/alassaneba1/dev-learning-lab"
+            target="_blank"
+            rel="noopener"
+            class="footer-nav-link"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
             </svg>
-          </div>
-          <span class="card-name">OAuth2 / OIDC</span><span class="badge-soon">Soon</span>
+            <span>Contribuer</span>
+          </a>
+        </nav>
+        <div class="footer-right">
+          <span class="footer-badge">MIT License</span>
+          <span class="footer-copy">© 2025 Alassane BA</span>
         </div>
-        <div class="card-desc">Authorization Code Flow, PKCE, scopes, tokens, introspection et OpenID Connect.</div>
-        <div class="card-tags"><span class="tag">Auth Code</span><span class="tag">PKCE</span><span class="tag">Scopes</span></div>
       </div>
+    </footer>
 
-      <div class="card soon" style="--card-icon-bg:rgba(248,113,113,0.10);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <rect width="40" height="40" rx="8" fill="rgba(248,113,113,0.1)"/>
-              <text x="5" y="26" font-family="monospace" font-weight="900" font-size="14" fill="#f87171">JWT</text>
-            </svg>
-          </div>
-          <span class="card-name">JWT</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Structure header/payload/signature, algorithmes RS256/HS256, claims, refresh tokens.</div>
-        <div class="card-tags"><span class="tag">RS256</span><span class="tag">Claims</span><span class="tag">Refresh</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(255,207,0,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vault/vault-original.svg" alt="HashiCorp Vault"></div>
-          <span class="card-name">HashiCorp Vault</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Secrets engines, dynamic credentials, policies, PKI, audit et intégration Kubernetes.</div>
-        <div class="card-tags"><span class="tag">Secrets</span><span class="tag">PKI</span><span class="tag">Policies</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(248,113,113,0.10);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <rect width="40" height="40" rx="8" fill="rgba(248,113,113,0.1)"/>
-              <path d="M8 20 L16 28 L32 12" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="20" cy="20" r="14" stroke="#f87171" stroke-width="1.5" fill="none" stroke-dasharray="4 2"/>
-            </svg>
-          </div>
-          <span class="card-name">SSL / TLS</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Handshake TLS 1.3, certificats X.509, HSTS, MTLS, Let's Encrypt et configuration serveur.</div>
-        <div class="card-tags"><span class="tag">TLS 1.3</span><span class="tag">mTLS</span><span class="tag">X.509</span></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══ TESTS & QUALITÉ ══ -->
-  <div class="domain-section" id="section-testing" data-section="testing">
-    <div class="domain-header" style="--domain-color:#4ade80">
-      <div class="domain-icon">🧪</div>
-      <span class="domain-name">Tests &amp; Qualité</span>
-      <span class="domain-desc">Unit, E2E, API testing &amp; code quality</span>
-      <div class="domain-meta">
-        <span class="domain-available" style="color:var(--text3); background:var(--bg3); border-color:var(--border);">Bientôt</span>
-        <span class="domain-total">0 / 5</span>
-      </div>
-    </div>
-    <div class="grid">
-
-      <div class="card soon" style="--card-icon-bg:rgba(195,0,65,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jest/jest-plain.svg" alt="Jest"></div>
-          <span class="card-name">Jest / Vitest</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Tests unitaires JS/TS, mocks, spies, matchers, coverage et configuration Vitest.</div>
-        <div class="card-tags"><span class="tag">Unit</span><span class="tag">Mocks</span><span class="tag">Coverage</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(0,189,165,0.12);">
-        <div class="card-header">
-          <div class="card-icon">
-            <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-              <rect width="40" height="40" rx="8" fill="rgba(0,189,165,0.15)"/>
-              <circle cx="14" cy="20" r="6" stroke="#00BDA5" stroke-width="2" fill="none"/>
-              <circle cx="26" cy="20" r="6" stroke="#00BDA5" stroke-width="2" fill="none"/>
-              <path d="M20 16 L20 24" stroke="#00BDA5" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <span class="card-name">Playwright</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Tests E2E multi-navigateurs, locators, fixtures, screenshots, API testing et CI integration.</div>
-        <div class="card-tags"><span class="tag">E2E</span><span class="tag">Multi-Browser</span><span class="tag">Fixtures</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(6,182,212,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="pytest"></div>
-          <span class="card-name">pytest</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Fixtures, parametrize, marks, mocking avec unittest.mock, plugins et coverage Python.</div>
-        <div class="card-tags"><span class="tag">Fixtures</span><span class="tag">Parametrize</span><span class="tag">Plugins</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(255,108,0,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt="Postman"></div>
-          <span class="card-name">Postman / Bruno</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Collections, environnements, tests scripts, Newman CLI, mocks et documentation API.</div>
-        <div class="card-tags"><span class="tag">Collections</span><span class="tag">Scripts</span><span class="tag">Newman</span></div>
-      </div>
-
-      <div class="card soon" style="--card-icon-bg:rgba(84,145,195,0.12);">
-        <div class="card-header">
-          <div class="card-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sonarqube/sonarqube-original.svg" alt="SonarQube"></div>
-          <span class="card-name">SonarQube</span><span class="badge-soon">Soon</span>
-        </div>
-        <div class="card-desc">Analyse statique, code smells, bugs, vulnérabilités, quality gates et intégration CI/CD.</div>
-        <div class="card-tags"><span class="tag">SAST</span><span class="tag">Quality Gate</span><span class="tag">Coverage</span></div>
-      </div>
-
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo-wrap">
-        <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-          <text x="2" y="23" font-family="monospace" font-weight="900" font-size="17" fill="url(#fg)">DL</text>
-          <defs>
-            <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#60a5fa"/>
-              <stop offset="100%" stop-color="#a78bfa"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-      <div>
-        <div class="footer-brand-name">Dev Learning Lab</div>
-        <div class="footer-brand-sub">Cheatsheets interactives open source</div>
-      </div>
-    </div>
-    <nav class="footer-nav">
-      <a href="https://github.com/alassaneba1/dev-learning-lab" target="_blank" rel="noopener" class="footer-nav-link">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-        <span>GitHub</span>
-      </a>
-      <div class="footer-sep"></div>
-      <a href="https://github.com/alassaneba1/dev-learning-lab/issues" target="_blank" rel="noopener" class="footer-nav-link">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>Signaler un bug</span>
-      </a>
-      <div class="footer-sep"></div>
-      <a href="https://github.com/alassaneba1/dev-learning-lab" target="_blank" rel="noopener" class="footer-nav-link">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>Contribuer</span>
-      </a>
-    </nav>
-    <div class="footer-right">
-      <span class="footer-badge">MIT License</span>
-      <span class="footer-copy">© 2025 Alassane BA</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-  /* ── Theme toggle ── */
-  const btn = document.getElementById('btnTheme');
-  const root = document.documentElement;
-  if (localStorage.getItem('theme') === 'light') {
-    root.setAttribute('data-theme', 'light');
-    btn.textContent = '☀️';
-  }
-  btn.addEventListener('click', () => {
-    const isLight = root.getAttribute('data-theme') === 'light';
-    if (isLight) {
-      root.removeAttribute('data-theme');
-      btn.textContent = '🌙';
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.setAttribute('data-theme', 'light');
-      btn.textContent = '☀️';
-      localStorage.setItem('theme', 'light');
-    }
-  });
-
-  /* ── Category filter ── */
-  const catBtns = document.querySelectorAll('.cat-btn');
-  const sections = document.querySelectorAll('.domain-section');
-  catBtns.forEach(b => {
-    b.addEventListener('click', () => {
-      catBtns.forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      const cat = b.dataset.cat;
-      sections.forEach(sec => {
-        sec.classList.toggle('hidden', cat !== 'all' && sec.dataset.section !== cat);
+    <script>
+      /* ── Theme toggle ── */
+      const btn = document.getElementById("btnTheme");
+      const root = document.documentElement;
+      if (localStorage.getItem("theme") === "light") {
+        root.setAttribute("data-theme", "light");
+        btn.textContent = "☀️";
+      }
+      btn.addEventListener("click", () => {
+        const isLight = root.getAttribute("data-theme") === "light";
+        if (isLight) {
+          root.removeAttribute("data-theme");
+          btn.textContent = "🌙";
+          localStorage.setItem("theme", "dark");
+        } else {
+          root.setAttribute("data-theme", "light");
+          btn.textContent = "☀️";
+          localStorage.setItem("theme", "light");
+        }
       });
-    });
-  });
-</script>
-</body>
+
+      /* ── Category filter ── */
+      const catBtns = document.querySelectorAll(".cat-btn");
+      const sections = document.querySelectorAll(".domain-section");
+      catBtns.forEach((b) => {
+        b.addEventListener("click", () => {
+          catBtns.forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          const cat = b.dataset.cat;
+          sections.forEach((sec) => {
+            sec.classList.toggle(
+              "hidden",
+              cat !== "all" && sec.dataset.section !== cat,
+            );
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
