@@ -14,15 +14,29 @@
 
 ## Cheatsheets
 
+### Available
+
 |     | Technology                                | Topics                                                        |
 | --- | ----------------------------------------- | ------------------------------------------------------------- |
 | 🗄️  | [SQL](cheatsheets/sql.html)               | SELECT, JOIN, GROUP BY, subqueries, window functions, indexes |
 | 🟨  | [JavaScript](cheatsheets/javascript.html) | ES6+, closures, async/await, DOM, modules, patterns           |
-| 🔷  | [TypeScript](cheatsheets/typescript.html)   | Types, interfaces, generics, utility types, decorators        |
-| 🔴  | [Oracle PL/SQL](cheatsheets/oracle-plsql.html) | Blocks, cursors, exceptions, packages, triggers, Oracle 23ai  |
-| ☕  | Java                                        | _(coming soon)_                                               |
-| 🎨  | CSS / Tailwind                            | _(coming soon)_                                               |
-| 🌿  | Git                                       | _(coming soon)_                                               |
+| 🔷  | [TypeScript](cheatsheets/typescript.html) | Types, interfaces, generics, utility types, decorators        |
+| 🔴  | [Oracle PL/SQL](cheatsheets/oracle-plsql.html) | Blocks, cursors, exceptions, packages, triggers, Oracle 23ai |
+| 🦊  | [GitLab CI/CD](cheatsheets/gitlab-cicd.html) | Pipelines, jobs, stages, rules, artifacts, environments    |
+| 🐳  | [Docker](cheatsheets/docker.html)         | Images, containers, volumes, networks, Compose, Docker 26.x  |
+
+### Coming soon
+
+|     | Technology         |
+| --- | ------------------ |
+| ☕  | Java               |
+| 🐍  | Python             |
+| 🌿  | Git                |
+| 🎨  | CSS / Tailwind     |
+| ⚛️  | React              |
+| 🐘  | PostgreSQL         |
+| ☸️  | Kubernetes         |
+| 🔧  | Bash / Shell       |
 
 ---
 
